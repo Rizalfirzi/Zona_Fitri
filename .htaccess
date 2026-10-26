@@ -1,0 +1,33 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /
+
+    # Prevent direct access to includes folder
+    RewriteRule ^includes/ - [F,L]
+
+    # Serve existing files and directories directly
+    RewriteCond %{REQUEST_FILENAME} -f [OR]
+    RewriteCond %{REQUEST_FILENAME} -d
+    RewriteRule ^ - [L]
+
+    # Route /api/config
+    RewriteRule ^api/config/?$ api/config.php [QSA,L]
+
+    # Route /api/:brand/outlets
+    RewriteRule ^api/([^/]+)/outlets/?$ api/outlets.php?brand=$1 [QSA,L]
+
+    # Route /api/:brand/menu
+    RewriteRule ^api/([^/]+)/menu/?$ api/menu.php?brand=$1 [QSA,L]
+
+    # Route /api/orders
+    RewriteRule ^api/orders/?$ api/order.php [QSA,L]
+
+    # Route /api/track
+    RewriteRule ^api/track/?$ api/track.php [QSA,L]
+
+    # Route Brand pages (/kopikenangan, /tomoro, /fore) to index.php
+    RewriteRule ^(kopikenangan|tomoro|fore)/?$ index.php?brand=$1 [QSA,L]
+
+    # Route all other requests to index.php
+    RewriteRule ^ index.php [QSA,L]
+</IfModule>

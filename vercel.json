@@ -1,0 +1,49 @@
+{
+  "version": 2,
+  "functions": {
+    "api/*.php": {
+      "runtime": "vercel-php@0.7.2"
+    },
+    "index.php": {
+      "runtime": "vercel-php@0.7.2"
+    }
+  },
+  "routes": [
+    {
+      "src": "/assets/(.*)",
+      "dest": "/assets/$1"
+    },
+    {
+      "src": "/img/(.*)",
+      "dest": "/img/$1"
+    },
+    {
+      "src": "/api/config",
+      "dest": "/api/config.php"
+    },
+    {
+      "src": "/api/([a-zA-Z0-9_-]+)/outlets",
+      "dest": "/api/outlets.php?brand=$1"
+    },
+    {
+      "src": "/api/([a-zA-Z0-9_-]+)/menu",
+      "dest": "/api/menu.php?brand=$1"
+    },
+    {
+      "src": "/api/orders",
+      "dest": "/api/order.php"
+    },
+    {
+      "src": "/api/track",
+      "dest": "/api/track.php"
+    },
+    {
+      "src": "/(kopikenangan|tomoro|fore)",
+      "dest": "/index.php?brand=$1"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/index.php"
+    }
+  ]
+}
