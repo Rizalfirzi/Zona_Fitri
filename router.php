@@ -12,8 +12,8 @@ if ($uri !== '/' && file_exists($file) && !is_dir($file)) {
     return false;
 }
 
-// 1b. Fallback proxy for /img/menu/ images to upstream CDN if not downloaded locally
-if (preg_match('#^/img/menu/#', $uri)) {
+// 1b. Fallback proxy for /img/ assets to upstream CDN if not downloaded locally
+if (preg_match('#^/img/#', $uri)) {
     header("Location: https://ridstore.developerngantuk.my.id{$uri}", true, 302);
     exit;
 }

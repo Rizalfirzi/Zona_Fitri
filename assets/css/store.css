@@ -84,6 +84,27 @@ body.store-page .container { padding-bottom: 24px; }
 
 /* ── Grid produk 3 kolom sesuai request client (Page 1) ── */
 .menu { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; padding: 10px 10px 0; }
+.menu-empty {
+  grid-column: 1 / -1;
+  width: 100%;
+  padding: 24px 18px;
+  text-align: center;
+  color: var(--muted);
+  background: #fff;
+  border: 2px dashed var(--gold);
+  border-radius: var(--r-md);
+  box-sizing: border-box;
+  font-size: 13.5px;
+  line-height: 1.5;
+  margin: 6px 0;
+}
+.menu-empty b {
+  display: block;
+  color: var(--ink);
+  font-size: 15.5px;
+  font-weight: 800;
+  margin-bottom: 6px;
+}
 .menu-section { display: contents; }
 .section-head { display: none; }
 /* Kartu satuan (vertikal kompak 3 kolom) */

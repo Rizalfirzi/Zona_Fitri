@@ -621,7 +621,7 @@ async function loadMenu() {
 
   // Pas di awal / belum pilih outlet: list menu dikosongkan dengan petunjuk ramah
   if (!S.outlet) {
-    menuEl.innerHTML = '<div class="menu-empty"><span style="font-size:32px;display:block;margin-bottom:8px;">📍</span><b>Pilih outlet terlebih dahulu</b>Ketik nama kota atau gerai pada kotak pencarian di atas, atau klik tombol <b>Terdekat</b> untuk melihat menu dan harga outlet.</div>';
+    menuEl.innerHTML = '<div class="menu-empty" style="grid-column: 1 / -1; width: 100%;"><span style="font-size:32px;display:block;margin-bottom:8px;">📍</span><b>Pilih outlet terlebih dahulu</b>Ketik nama kota atau gerai pada kotak pencarian di atas, atau klik tombol <b>Terdekat</b> untuk melihat menu dan harga outlet.</div>';
     const catBar = $('#catBar');
     if (catBar) catBar.innerHTML = '';
     const menuSource = $('#menuSource');

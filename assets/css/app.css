@@ -139,8 +139,17 @@ button { font-family: inherit; }
 
 /* ── Teks pembantu ── */
 .eyebrow { font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--gold-dark); font-weight: 800; }
-.section-title { font-size: 21px; font-weight: 900; letter-spacing: -.3px; }
-.menu-empty { padding: 36px 20px; text-align: center; color: var(--muted); background: #fff; border: 2px dashed var(--gold); border-radius: var(--r-lg); }
+.menu-empty {
+  grid-column: 1 / -1;
+  width: 100%;
+  padding: 24px 20px;
+  text-align: center;
+  color: var(--muted);
+  background: #fff;
+  border: 2px dashed var(--gold);
+  border-radius: var(--r-lg);
+  box-sizing: border-box;
+}
 .menu-empty b { display: block; color: var(--ink); font-size: 16px; margin-bottom: 6px; }
 
 /* ── Banner tutup ── */
