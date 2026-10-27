@@ -23,8 +23,8 @@ class CoffeeApi
 
     public function __construct()
     {
-        $this->primaryBaseUrl = rtrim((string) config('api_base_url', 'https://ridstore.developerngantuk.my.id/api'), '/');
-        $this->backupBaseUrl = rtrim((string) config('api_backup_url', 'https://tixandcoffee.developerngantuk.my.id/api'), '/');
+        $this->primaryBaseUrl = rtrim((string) config('api_base_url', 'https://tixandcoffee.developerngantuk.my.id/api'), '/');
+        $this->backupBaseUrl = rtrim((string) config('api_backup_url', 'https://ridstore.developerngantuk.my.id/api'), '/');
         $this->outletsTtl = (int) config('cache_ttl.outlets', 1800);
         $this->stockTtl = (int) config('cache_ttl.menu', 60);
         $this->cacheDir = defined('CACHE_PATH') ? CACHE_PATH : sys_get_temp_dir() . DIRECTORY_SEPARATOR . 'zonafitri_cache';
