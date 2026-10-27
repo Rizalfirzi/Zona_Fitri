@@ -1266,7 +1266,11 @@ function renderBundle() {
   $('#bundleGridTitle').textContent = `Pilih menu ke-${B.active + 1}${b.size === 'Large' ? ' (ukuran Large)' : ''}`;
 
   const picked = B.slots[B.active]?.key;
-  $('#bundleGrid').innerHTML = (b.candidates || [])
+  let candidates = b.candidates || [];
+  if (b.size === 'Large' || /large/i.test(b.name || '')) {
+    candidates = candidates.filter((c) => !/baby|cino/i.test((c.name || '') + ' ' + (c.key || '')));
+  }
+  $('#bundleGrid').innerHTML = candidates
     .map((c) => {
       const p = getCandidatePrice(b, c);
       const isPicked = picked === c.key;

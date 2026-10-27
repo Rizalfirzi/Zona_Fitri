@@ -474,7 +474,10 @@ class CoffeeApi
                 $largeOut = $outletPrice + 6000;
             }
 
-            if ($brand === 'kopken' && !$isFood && ($largeOut >= 25000 && $largeOut <= 27000)) {
+            // Client revision: Exclude Babyccino as it does not have Large size
+            $isNotLargeEligible = (bool) preg_match('/baby|cino/i', ($item['name'] ?? '') . ' ' . $key);
+
+            if ($brand === 'kopken' && !$isFood && !$isNotLargeEligible && ($largeOut >= 25000 && $largeOut <= 27000)) {
                 $largeOpt = $item['options'] ?? [];
                 $largeOpt['sizes'] = ['Large'];
                 $candidates19Drinks[] = [
@@ -485,7 +488,7 @@ class CoffeeApi
                     'isSoldOut' => $isSoldOut,
                     'outletPrice' => $outletPrice,
                     'largeOutletPrice' => $largeOut,
-                    'bundlePrice' => 15000, // 30.000 / 2 = 15.000 per cup (client revision: bundling 32k ubah ke 30k)
+                    'bundlePrice' => 16000, // 32.000 / 2 = 16.000 per cup (client revision: fix 32.000)
                     'premium' => 0,
                     'options' => $largeOpt,
                 ];
@@ -512,13 +515,13 @@ class CoffeeApi
             ];
 
             $bundlingLarge2 = [
-                'key' => 'zf-b-large2-30k',
-                'id' => 'zf-b-large2-30k',
-                'name' => 'Bundling Large 2 (Rp30.000)',
+                'key' => 'zf-b-large2-32k',
+                'id' => 'zf-b-large2-32k',
+                'name' => 'Bundling Large 2 (Rp32.000)',
                 'category' => 'Promo Bundling',
                 'desc' => 'Pilih 2 cup Large dari menu varian Large 25.000–27.000 (Kenangan Mantan, Sparen, dll. Khusus minuman)',
                 'img' => '/img/bundling-2-cup-large.png',
-                'price' => 30000,
+                'price' => 32000,
                 'normalPrice' => 52000,
                 'isBundle' => true,
                 'slots' => 2,
@@ -537,7 +540,7 @@ class CoffeeApi
                 'id' => 'bundle-promo-bundling',
                 'name' => 'Promo Bundling',
                 'kind' => 'bundle',
-                'items' => ['zf-b-3-35k', 'zf-b-large2-30k'],
+                'items' => ['zf-b-3-35k', 'zf-b-large2-32k'],
             ];
             $cats = array_values(array_filter($cats, fn($c) => ($c['kind'] ?? '') !== 'bundle'));
             array_unshift($cats, $bundleCat);
