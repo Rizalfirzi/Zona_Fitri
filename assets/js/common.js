@@ -110,12 +110,98 @@ export async function api(path, opts = {}) {
     /* non-JSON */
   }
   if (!res.ok) throw new Error(data?.error || `HTTP ${res.status}`);
+  if (data === null) throw new Error(`Respon bukan JSON valid: ${path}`);
   return data;
 }
 
+export const FALLBACK_CONFIG = {
+  storeName: 'Zona Fitri',
+  tagline: 'Jasa order Kopi Kenangan, Tomoro & Fore',
+  description: 'Pesan kopi favorit lebih hemat: pilih outlet, pilih menu, lalu kirim pesanan ke WhatsApp admin.',
+  accent: '#C11F2E',
+  orderPrefix: 'ZF',
+  channelUrl: 'https://whatsapp.com/channel/0029VbAzAXsI1rcbcchmmj2F',
+  admins: [{ name: 'Admin Zona Fitri', phone: '628973034455' }],
+  shop: { open: true, reason: '', hours: '07:00 - 22:00 WIB' },
+  waHeader: '── .✦ FORMAT ORDER ZONA FITRI✦.──',
+  waFooter: "> > Setelah Format ini dikirim, segera melakukan Payment melalui QRIS\n> Proses orderan Prioritas (5-20 Menit)\n> ISI FORMAT ? WAJIB FIX ORDER",
+  pickupTime: true,
+  home: {
+    stats: [
+      { value: '50% OFF', label: 'Diskon menu aplikasi' },
+      { value: 'Realtime', label: 'Stok & menu live' },
+      { value: 'Prioritas', label: 'Proses 5-20 menit' }
+    ]
+  },
+  csCategories: [
+    { id: 'order', label: 'Tanya Orderan', hint: 'Kirim kode pesanan' },
+    { id: 'menu', label: 'Tanya Menu / Outlet', hint: 'Ketersediaan menu' },
+    { id: 'payment', label: 'Pembayaran & QRIS', hint: 'Konfirmasi bukti transfer' },
+    { id: 'other', label: 'Lainnya', hint: 'Pertanyaan lain' }
+  ],
+  pricing: {
+    kopken: { largeUpsize: 5000, juwaraBeans: 2000, oatside: 2000, fee: 5000 },
+    tomoro: { fee: 5000 },
+    fore: { fee: 5000 }
+  },
+  brands: [
+    {
+      id: 'kopken',
+      name: 'Kopi Kenangan',
+      slug: 'kopikenangan',
+      short: 'Kopken',
+      theme: '#8B1E2B',
+      badge: '50% OFF',
+      fee: 5000,
+      logo: '/img/brand/kopken-logo.png',
+      heroBg: '/img/brand/kopken-hero.jpg',
+      bgMark: '/img/brand/mark-forest.png',
+      allowOrderWithoutOutlet: false
+    },
+    {
+      id: 'tomoro',
+      name: 'Tomoro Coffee',
+      slug: 'tomoro',
+      short: 'Tomoro',
+      theme: '#FF6B00',
+      badge: '50% OFF',
+      fee: 5000,
+      logo: '/img/brand/tomoro-logo.png',
+      heroBg: '/img/brand/tomoro-hero.jpg',
+      bgMark: '/img/brand/mark-cream.png',
+      allowOrderWithoutOutlet: false
+    },
+    {
+      id: 'fore',
+      name: 'Fore Coffee',
+      slug: 'fore',
+      short: 'Fore',
+      theme: '#1F5E3B',
+      badge: '50% OFF',
+      fee: 5000,
+      logo: '/img/brand/fore-logo.png',
+      heroBg: '/img/brand/fore-hero.jpg',
+      bgMark: '/img/brand/mark-forest.png',
+      allowOrderWithoutOutlet: false
+    }
+  ]
+};
+
 let configPromise;
-export function loadConfig() {
-  configPromise ||= api('/api/config');
+export async function loadConfig() {
+  if (configPromise) return configPromise;
+  configPromise = (async () => {
+    try {
+      const remote = await api('/api/config');
+      if (remote && Array.isArray(remote.brands) && remote.brands.length) {
+        return { ...FALLBACK_CONFIG, ...remote };
+      }
+      return FALLBACK_CONFIG;
+    } catch (err) {
+      console.warn('Gagal memuat /api/config, menggunakan fallback config:', err);
+      return FALLBACK_CONFIG;
+    }
+  })();
   return configPromise;
 }
 

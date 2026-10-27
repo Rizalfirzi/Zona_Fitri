@@ -24,7 +24,7 @@ try {
         'description' => config('store.description', 'Pesan kopi favorit lebih hemat: pilih outlet, pilih menu, lalu kirim pesanan ke WhatsApp admin.'),
         'accent' => config('store.accent', '#C11F2E'),
         'orderPrefix' => config('store.order_prefix', 'ZF'),
-        'channelUrl' => config('store.channel_url', 'https://whatsapp.com/channel/0029VbCL8m5L2ATulL6iQJ3d'),
+        'channelUrl' => config('store.channel_url', 'https://whatsapp.com/channel/0029VbAzAXsI1rcbcchmmj2F'),
         'admins' => config('store.admins', [
             ['name' => 'Admin Zona Fitri', 'phone' => '628973034455']
         ]),

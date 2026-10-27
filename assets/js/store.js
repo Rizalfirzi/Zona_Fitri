@@ -5,7 +5,7 @@ import {
 } from './common.js?v=3aeca02b99';
 import { buildWaMessage, cartTotals, formatRp, normalizePhone, optionText, orderCode, roundTo, waLink } from './shared/order.js?v=3aeca02b99';
 
-const SLUG_TO_BRAND = { kopikenangan: 'kopken', tomoro: 'tomoro', fore: 'fore' };
+const SLUG_TO_BRAND = { kopikenangan: 'kopken', kopken: 'kopken', tomoro: 'tomoro', fore: 'fore' };
 
 const BRAND_COPY = {
   kopken: { text: 'Kopi susu gula aren favorit, harga lebih hemat. Stok & harga langsung dari outlet pilihanmu.', perks: ['Stok live', 'Varian lengkap', 'Bundling hemat'] },
@@ -44,9 +44,15 @@ init().catch((err) => {
 
 async function init() {
   initTheme();
-  S.brandId = SLUG_TO_BRAND[location.pathname.replace(/^\/|\/$/g, '')] || 'kopken';
+  const pathSlug = location.pathname.replace(/^\/|\/$/g, '');
+  S.brandId = SLUG_TO_BRAND[pathSlug] || pathSlug || 'kopken';
   S.cfg = await loadConfig();
-  S.brand = S.cfg.brands.find((b) => b.id === S.brandId);
+  const brands = S.cfg?.brands || [];
+  S.brand = brands.find((b) => b.id === S.brandId || b.slug === pathSlug);
+  if (!S.brand && brands.length) {
+    S.brand = brands[0];
+    S.brandId = S.brand.id;
+  }
   if (!S.brand) {
     $('#menu').innerHTML = '<div class="menu-empty"><b>Brand tidak tersedia</b>Pilih brand lain dari beranda.<br><a class="btn btn-primary" href="/">Ke beranda</a></div>';
     return;
@@ -136,7 +142,7 @@ function wireStatic() {
       if (!inlineDropdown) return;
       const q = inlineInput ? inlineInput.value.trim() : '';
       let manualHtml = '';
-      if (S.brandId === 'tomoro' && q) {
+      if (q) {
         manualHtml = `<div class="od-item od-manual" data-manual="1" style="border-left:3px solid #8F1223;background:#FFF9F9;">
           <div class="od-head">
             <span class="od-name" style="color:#8F1223;">📍 Pakai “${esc(q)}”</span>
@@ -498,7 +504,7 @@ function renderOutletList(q, error) {
         <span class="oo-addr">${esc(o.address)}</span>${o.hours ? `<span class="oo-hours">Buka ${esc(o.hours)}</span>` : ''}</span></button>`,
   );
   // Brands without a reliable outlet source let the customer type the outlet name.
-  if (S.brandId === 'tomoro' && q) {
+  if (q) {
     rows.push(`<button class="outlet-opt outlet-manual" data-manual="1"><span class="oo-body"><span class="oo-name">Pakai “${esc(q)}”</span>
       <span class="oo-addr">Outlet tidak ada di daftar? Pakai nama yang kamu ketik.</span></span></button>`);
   }
@@ -819,7 +825,7 @@ function gridCard(item, i) {
     ? '<span class="badge badge-sold">Tidak tersedia</span>'
     : (item.tag ? `<span class="badge">${esc(item.tag)}</span>` : item.isBundle && item.badge ? `<span class="badge">${esc(item.badge)}</span>` : '');
 
-  return `<button class="gcard ${item.isSoldOut ? 'sold' : ''}" data-key="${esc(item.key)}">
+  return `<button class="gcard ${item.isBundle ? 'bundle-gcard' : ''} ${item.isSoldOut ? 'sold' : ''}" data-key="${esc(item.key)}">
     <div class="gcard-art">${art}${tagHtml}</div>
     <div class="gcard-body"><div class="gcard-name">${esc(item.name)}</div>${meta ? `<div class="gcard-meta">${esc(meta)}</div>` : ''}
       <div class="gcard-foot">${item.isBundle && (item.priceVaries || item.fromPrice > item.price)
@@ -977,10 +983,35 @@ const impactGroups = () => S.sheet.groups.filter((g) => g.impact && S.sheet.pric
 const comboKey = (sel) => impactGroups().map((g) => sel[g.id]).join('|');
 
 /** Price of the chosen variant, without add-ons. */
+function isLargeSelected(sel = S.sheet?.sel) {
+  if (!sel || !S.sheet?.groups) return false;
+  for (const g of S.sheet.groups) {
+    const valId = sel[g.id];
+    if (valId == null) continue;
+    const v = g.values?.find((x) => String(x.id) === String(valId));
+    const txt = (v?.text || String(valId)).toLowerCase();
+    if (txt.includes('large') || txt === 'l') return true;
+  }
+  return false;
+}
+
+/** Price of the chosen variant, without add-ons. */
 function unitPrice(sel = S.sheet.sel) {
   const { item, prices } = S.sheet;
-  if (prices) return prices[comboKey(sel)] ?? null;
-  if (sel.size === 'Large' && item.largePrice) return item.largePrice;
+  const isLarge = isLargeSelected(sel);
+  if (prices) {
+    const p = prices[comboKey(sel)];
+    if (p != null) {
+      if (isLarge && item.price && p <= item.price) {
+        return (item.largePrice || (item.price + 5000));
+      }
+      return p;
+    }
+  }
+  if (isLarge) {
+    if (item.largePrice) return item.largePrice;
+    return (item.price || 0) + 5000;
+  }
   return item.price;
 }
 
@@ -1071,7 +1102,12 @@ function setQty(n) {
 }
 
 function currentChoices(groups, sel) {
-  return groups.filter((g) => !isHidden(g, sel)).map((g) => ({ group: g.name, value: g.values.find((v) => v.id === sel[g.id])?.text || '' }));
+  return groups
+    .filter((g) => !isHidden(g, sel))
+    .map((g) => {
+      const v = g.values.find((x) => String(x.id) === String(sel[g.id]));
+      return { group: g.name, value: v ? v.text : (sel[g.id] || '') };
+    });
 }
 
 function pickedChoices() {
@@ -1082,8 +1118,12 @@ function pickedChoices() {
 
 function addItemToCart() {
   const sh = S.sheet;
-  const variant = unitPrice();
+  let variant = unitPrice();
   if (variant == null) return;
+  const isLarge = isLargeSelected(sh.sel);
+  if (isLarge && sh.item.price && variant <= sh.item.price) {
+    variant = sh.item.largePrice || (sh.item.price + 5000);
+  }
   const price = variant + addonTotal();
   const line = {
     uid: sh.editIndex != null ? S.cart[sh.editIndex].uid : uid(),

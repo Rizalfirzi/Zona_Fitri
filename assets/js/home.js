@@ -13,7 +13,7 @@ init().catch((err) => {
 async function init() {
   initTheme();
   const cfg = await loadConfig();
-  document.title = `${cfg.storeName} | Jasa Order Kopi`;
+  document.title = `${cfg?.storeName || 'Zona Fitri'} | Jasa Order Kopi`;
 
   $('#navBrand').innerHTML = logoHtml(cfg);
   $('#themeBtn').innerHTML = icons.sun + icons.moon;
@@ -28,7 +28,7 @@ async function init() {
   watchNavScroll();
 
   renderHero(cfg);
-  $('#perks').innerHTML = (cfg.home.stats || [])
+  $('#perks').innerHTML = (cfg?.home?.stats || [])
     .slice(0, 3)
     .map((s, i) => `<div class="perk"><span class="perk-ico">${PERK_ICONS[i] || icons.star}</span><b>${esc(s.value)}</b><span>${esc(s.label)}</span></div>`)
     .join('');
@@ -42,7 +42,7 @@ async function init() {
 
 // ── Cart bar (all brand carts) ──────────────────────────────────────────
 function renderCartBar(cfg) {
-  const carts = cfg.brands
+  const carts = (cfg?.brands || [])
     .map((b) => {
       const lines = store.get(`jo_cart_${b.id}`, []) || [];
       const outlet = store.get(`jo_outlet_${b.id}`, null);

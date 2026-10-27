@@ -232,6 +232,134 @@ class CoffeeApi
         // Apply Zona Fitri client pricing formulas and live-stock bundling
         $this->applyClientPricingAndBundling($menuData, $brand);
 
+        // Client request v2: Thai Tea harus ada di kategori Non-Kopi Kopi Kenangan
+        if ($brand === 'kopken' && isset($menuData['categories'])) {
+            foreach ($menuData['categories'] as &$cat) {
+                if (($cat['id'] ?? '') === 'item-non-kopi' || strtolower($cat['name'] ?? '') === 'non-kopi' || strtolower($cat['name'] ?? '') === 'non coffee') {
+                    if (!in_array('ogthaitea', $cat['items'], true)) {
+                        $bPos = array_search('bananachoco', $cat['items'], true);
+                        if ($bPos !== false) {
+                            array_splice($cat['items'], $bPos + 1, 0, 'ogthaitea');
+                        } else {
+                            $cat['items'][] = 'ogthaitea';
+                        }
+                    }
+                    if (!in_array('thaitealoaded', $cat['items'], true)) {
+                        $cat['items'][] = 'thaitealoaded';
+                    }
+                }
+            }
+            unset($cat);
+        }
+
+        // Client request v2: Sinkronisasi Tomoro (Siwalankerto & kategori Signature/Classic)
+        if ($brand === 'tomoro') {
+            $isSiwalankerto = stripos($outletCode, 'siwalankerto') !== false || stripos($outletCode, 'TOM-343') !== false;
+
+            if (isset($menuData['categories'])) {
+                foreach ($menuData['categories'] as &$cat) {
+                    if (($cat['id'] ?? '') === 'item-tomoro-signature' || strtolower($cat['name'] ?? '') === 'tomoro signature') {
+                        $desiredSignature = ['tomoroarenlatte', 'tomoroarenlatte1l', 'cheesecloudchocolate', 'tomorococonutlatte', 'tomorooatlatte', 'seasaltcloudcaramelmacchiato', 'cheesecloudlatte'];
+                        $newItems = [];
+                        foreach ($desiredSignature as $sigKey) {
+                            if (!in_array($sigKey, $newItems, true)) {
+                                $newItems[] = $sigKey;
+                            }
+                        }
+                        foreach ($cat['items'] as $orig) {
+                            if (!in_array($orig, $newItems, true)) $newItems[] = $orig;
+                        }
+                        $cat['items'] = $newItems;
+                    }
+                    if (($cat['id'] ?? '') === 'item-classic-coffee' || strtolower($cat['name'] ?? '') === 'classic coffee') {
+                        $desiredClassic = ['cafelatte', 'caffeamericano', 'kopisusuaren', 'brevelatte', 'caffemocca', 'cappuccino'];
+                        $newItems = [];
+                        foreach ($desiredClassic as $clsKey) {
+                            if (!in_array($clsKey, $newItems, true)) {
+                                $newItems[] = $clsKey;
+                            }
+                        }
+                        foreach ($cat['items'] as $orig) {
+                            if (!in_array($orig, $newItems, true)) $newItems[] = $orig;
+                        }
+                        $cat['items'] = $newItems;
+                    }
+                }
+                unset($cat);
+            }
+
+            if (isset($menuData['items'])) {
+                foreach ($menuData['items'] as &$it) {
+                    $k = $it['key'] ?? '';
+                    // Standard Tomoro Price Corrections across all outlets (Client request: harga asli salah dan lebih mahal)
+                    if ($k === 'caffeamericano') {
+                        $it['outletPrice'] = 18000;
+                        $it['normalPrice'] = 18000;
+                        $it['price'] = 14000; // 18k * 0.5 + 5k
+                    } elseif ($k === 'cafelatte') {
+                        $it['outletPrice'] = 24000;
+                        $it['normalPrice'] = 24000;
+                        $it['price'] = 17000; // 24k * 0.5 + 5k
+                    } elseif ($k === 'cappuccino') {
+                        $it['outletPrice'] = 24000;
+                        $it['normalPrice'] = 24000;
+                        $it['price'] = 17000;
+                    } elseif ($k === 'caffemocca') {
+                        $it['outletPrice'] = 24000;
+                        $it['normalPrice'] = 24000;
+                        $it['price'] = 17000;
+                    } elseif ($k === 'chocolate') {
+                        $it['outletPrice'] = 24000;
+                        $it['normalPrice'] = 24000;
+                        $it['price'] = 17000;
+                    } elseif ($k === 'cheesecloudchocolate') {
+                        $it['outletPrice'] = 26000;
+                        $it['normalPrice'] = 26000;
+                        $it['price'] = 18000; // 26k * 0.5 + 5k
+                        if ($isSiwalankerto) {
+                            $it['isSoldOut'] = true; // HABIS di Siwalankerto per live app
+                        }
+                    } elseif ($k === 'tomoroarenlatte') {
+                        if ($isSiwalankerto) {
+                            $it['outletPrice'] = 24000;
+                            $it['normalPrice'] = 24000;
+                            $it['price'] = 17000;
+                        }
+                    }
+                }
+                unset($it);
+
+                // Add 1L TOMORO Aren Latte if not present
+                $has1L = false;
+                foreach ($menuData['items'] as $it) {
+                    if (($it['key'] ?? '') === 'tomoroarenlatte1l') { $has1L = true; break; }
+                }
+                if (!$has1L) {
+                    $item1L = [
+                        'key' => 'tomoroarenlatte1l',
+                        'id' => 'tomoroarenlatte1l',
+                        'code' => '990001',
+                        'name' => '1L TOMORO Aren Latte',
+                        'category' => 'Tomoro Signature',
+                        'sourceCategory' => 'Tomoro Signature',
+                        'img' => 'https://images.unsplash.com/photo-1517701550927-30cf4ba1dba5?q=80&w=400&auto=format&fit=crop',
+                        'desc' => '1 Liter Master Arabica blend dengan paduan gula aren organik alami.',
+                        'outletPrice' => 90000,
+                        'normalPrice' => 90000,
+                        'price' => 50000,
+                        'isSoldOut' => false,
+                        'notCarried' => false,
+                        'isFood' => false,
+                        'isSpecial' => true,
+                        'options' => ['sizes' => ['1 Liter'], 'temps' => ['Ice'], 'ices' => ['Normal Ice'], 'sugars' => ['Normal Sugar', 'Less Sugar']],
+                        'tag' => '',
+                        'featured' => true,
+                    ];
+                    $menuData['items'][] = $item1L;
+                }
+            }
+        }
+
         $items = $menuData['items'] ?? [];
         $totalCount = count($items);
         $availableCount = 0;
@@ -340,8 +468,13 @@ class CoffeeApi
                 ];
             }
 
-            // Check if eligible for Kopken Bundling Large 2 (19k regular price, drink only)
-            if ($brand === 'kopken' && $outletPrice === 19000 && !$isFood) {
+            // Check if eligible for Kopken Bundling Large 2 (menu varian Large 25.000 - 27.000 sesuai revisi client v2)
+            $largeOut = (int) ($item['largeOutletPrice'] ?? 0);
+            if ($largeOut <= 0 && $outletPrice > 0) {
+                $largeOut = $outletPrice + 6000;
+            }
+
+            if ($brand === 'kopken' && !$isFood && ($largeOut >= 25000 && $largeOut <= 27000)) {
                 $largeOpt = $item['options'] ?? [];
                 $largeOpt['sizes'] = ['Large'];
                 $candidates19Drinks[] = [
@@ -351,8 +484,8 @@ class CoffeeApi
                     'category' => $item['category'] ?? 'Kopi',
                     'isSoldOut' => $isSoldOut,
                     'outletPrice' => $outletPrice,
-                    'largeOutletPrice' => $item['largeOutletPrice'] ?? 25000,
-                    'bundlePrice' => 16000, // 32.000 / 2 = 16.000 per cup
+                    'largeOutletPrice' => $largeOut,
+                    'bundlePrice' => 15000, // 30.000 / 2 = 15.000 per cup (client revision: bundling 32k ubah ke 30k)
                     'premium' => 0,
                     'options' => $largeOpt,
                 ];
@@ -365,10 +498,10 @@ class CoffeeApi
             $bundling3 = [
                 'key' => 'zf-b-3-35k',
                 'id' => 'zf-b-3-35k',
-                'name' => 'Bundling 3 (Rp35.000)',
+                'name' => 'Bundling 3 Cup Reguler (Rp35.000)',
                 'category' => 'Promo Bundling',
                 'desc' => 'Pilih 3 menu dari semua menu harga asli 17.000 & 19.000 (termasuk menu food)',
-                'img' => '/img/kopken-berdua-large.png',
+                'img' => '/img/bundling-3-cup-reguler.png',
                 'price' => 35000,
                 'normalPrice' => 54000,
                 'isBundle' => true,
@@ -379,14 +512,14 @@ class CoffeeApi
             ];
 
             $bundlingLarge2 = [
-                'key' => 'zf-b-large2-32k',
-                'id' => 'zf-b-large2-32k',
-                'name' => 'Bundling Large 2 (Rp32.000)',
+                'key' => 'zf-b-large2-30k',
+                'id' => 'zf-b-large2-30k',
+                'name' => 'Bundling Large 2 (Rp30.000)',
                 'category' => 'Promo Bundling',
-                'desc' => 'Pilih 2 cup Large dari menu harga reguler 19.000 (Kenangan Mantan, Spanish, Pistachio Aren, dll. Khusus minuman)',
-                'img' => '/img/kopken-berdua-large.png',
-                'price' => 32000,
-                'normalPrice' => 50000,
+                'desc' => 'Pilih 2 cup Large dari menu varian Large 25.000–27.000 (Kenangan Mantan, Sparen, dll. Khusus minuman)',
+                'img' => '/img/bundling-2-cup-large.png',
+                'price' => 30000,
+                'normalPrice' => 52000,
                 'isBundle' => true,
                 'slots' => 2,
                 'size' => 'Large',
@@ -404,7 +537,7 @@ class CoffeeApi
                 'id' => 'bundle-promo-bundling',
                 'name' => 'Promo Bundling',
                 'kind' => 'bundle',
-                'items' => ['zf-b-3-35k', 'zf-b-large2-32k'],
+                'items' => ['zf-b-3-35k', 'zf-b-large2-30k'],
             ];
             $cats = array_values(array_filter($cats, fn($c) => ($c['kind'] ?? '') !== 'bundle'));
             array_unshift($cats, $bundleCat);
@@ -471,14 +604,52 @@ class CoffeeApi
                 $largeCalc = $regularCalc + 5000;
             }
 
+            // Extract option IDs for specific modifier pricing (Client request v2: Juwara Beans +2k)
+            $largeIds = [];
+            $juwaraIds = [];
+            $oatsideIds = [];
+
+            foreach ($res['groups'] ?? [] as $g) {
+                foreach ($g['values'] ?? [] as $v) {
+                    $vid = (string) ($v['id'] ?? '');
+                    $vtxt = strtolower(trim((string) ($v['text'] ?? '')));
+                    if (strpos($vtxt, 'large') !== false) {
+                        $largeIds[] = $vid;
+                    }
+                    if (strpos($vtxt, 'juwara') !== false) {
+                        $juwaraIds[] = $vid;
+                    }
+                    if (strpos($vtxt, 'oatside') !== false || strpos($vtxt, 'oat') !== false) {
+                        $oatsideIds[] = $vid;
+                    }
+                }
+            }
+
             // Adjust variant prices
             foreach ($res['prices'] as $combo => &$p) {
-                // If combo has large price or higher price than base
-                if ($p > $basePrice || strpos(strtolower($combo), 'large') !== false) {
-                    $p = $largeCalc;
-                } else {
-                    $p = $regularCalc;
+                $comboParts = explode('|', (string) $combo);
+                $isLarge = false;
+                $isJuwara = false;
+                $isOatside = false;
+
+                foreach ($comboParts as $part) {
+                    if (in_array($part, $largeIds, true)) $isLarge = true;
+                    if (in_array($part, $juwaraIds, true)) $isJuwara = true;
+                    if (in_array($part, $oatsideIds, true)) $isOatside = true;
                 }
+
+                $finalPrice = $regularCalc;
+                if ($isLarge) {
+                    $finalPrice += 5000;
+                }
+                if ($isJuwara) {
+                    $finalPrice += 2000; // +2k ka yg ini (client request)
+                }
+                if ($isOatside) {
+                    $finalPrice += 2000; // Client request: Juwara Beans & Oatside ubah jadi 2.000
+                }
+
+                $p = $finalPrice;
             }
             unset($p);
 

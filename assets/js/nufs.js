@@ -71,7 +71,7 @@
       if (spSub) spSub.textContent = open ? 'pilih outlet & pesan sekarang' : (cfg.shop && cfg.shop.reason ? cfg.shop.reason : 'open besok lgi');
       var spWa = $('#spWa');
       if (spWa) {
-        var channelLink = (cfg.settings && cfg.settings.channelUrl) || cfg.channelUrl || 'https://whatsapp.com/channel/0029VbCL8m5L2ATulL6iQJ3d';
+        var channelLink = (cfg.settings && cfg.settings.channelUrl) || cfg.channelUrl || 'https://whatsapp.com/channel/0029VbAzAXsI1rcbcchmmj2F';
         spWa.href = channelLink;
       }
     }).catch(function () {});

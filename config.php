@@ -42,7 +42,7 @@ $config = [
         'accent' => '#C11F2E',
         'admin_phone' => '628973034455', // Nomor WhatsApp admin Zona Fitri (08973034455)
         'order_prefix' => 'ZF',
-        'channel_url' => 'https://whatsapp.com/channel/0029VbCL8m5L2ATulL6iQJ3d',
+        'channel_url' => 'https://whatsapp.com/channel/0029VbAzAXsI1rcbcchmmj2F',
 
         'admins' => [
             [
