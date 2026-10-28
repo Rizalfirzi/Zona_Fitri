@@ -226,6 +226,32 @@ class CoffeeApi
             if (empty($item['img'])) {
                 $item['img'] = $this->getDefaultItemImage($brand, $item['name'] ?? '');
             }
+
+            // Client revision: Hapus Jumbo di all menu
+            if (!empty($item['options']['sizes']) && is_array($item['options']['sizes'])) {
+                $item['options']['sizes'] = array_values(array_filter(
+                    $item['options']['sizes'],
+                    fn($sz) => stripos((string)$sz, 'jumbo') === false
+                ));
+            }
+            unset($item['jumboPrice'], $item['jumboNormal'], $item['jumboOutletPrice']);
+
+            // Client revision: Untuk Tomoro pilihan size Small only
+            if ($brand === 'tomoro') {
+                $isFood = !empty($item['isFood']) || (isset($item['category']) && strtolower($item['category']) === 'food');
+                $is1L = (bool) preg_match('/1\s*l|liter/i', ($item['name'] ?? '') . ' ' . ($item['key'] ?? ''));
+                if (!$isFood && !$is1L) {
+                    if (!isset($item['options']) || !is_array($item['options'])) {
+                        $item['options'] = [
+                            'temps' => ['Ice', 'Hot'],
+                            'ices' => ['Normal Ice', 'Less Ice', 'No Ice'],
+                            'sugars' => ['Normal Sugar', 'Less Sugar', 'No Sugar'],
+                        ];
+                    }
+                    $item['options']['sizes'] = ['Small'];
+                    unset($item['largePrice'], $item['largeNormal'], $item['largeOutletPrice']);
+                }
+            }
         }
         unset($item);
 
@@ -434,10 +460,8 @@ class CoffeeApi
                 } elseif ($brand === 'tomoro') {
                     // RUMUS TOMORO: HARGA ASLI - 50% + 5.000/cup
                     $calcPrice = (int) round(($outletPrice * 0.5) + 5000);
-                    if (!empty($item['largePrice']) || !empty($item['largeOutletPrice'])) {
-                        $largeOut = (int) ($item['largeOutletPrice'] ?? ($outletPrice + 5000));
-                        $largePrice = (int) round(($largeOut * 0.5) + 5000);
-                    }
+                    // Client revision: Tomoro size small only (no large price)
+                    $largePrice = null;
                 } elseif ($brand === 'fore') {
                     // RUMUS FORE: HARGA ASLI - 25% + 2.000/cup
                     $calcPrice = (int) round(($outletPrice * 0.75) + 2000);
@@ -450,7 +474,18 @@ class CoffeeApi
                 if ($largePrice !== null) {
                     $item['largePrice'] = $largePrice;
                     $item['largeNormal'] = $item['largeOutletPrice'] ?? ($outletPrice + 6000);
+                } else {
+                    unset($item['largePrice'], $item['largeNormal'], $item['largeOutletPrice']);
                 }
+
+                // Client revision: Hapus Jumbo di all menu
+                if (!empty($item['options']['sizes']) && is_array($item['options']['sizes'])) {
+                    $item['options']['sizes'] = array_values(array_filter(
+                        $item['options']['sizes'],
+                        fn($sz) => stripos((string)$sz, 'jumbo') === false
+                    ));
+                }
+                unset($item['jumboPrice'], $item['jumboNormal'], $item['jumboOutletPrice']);
             }
 
             // Check if eligible for Kopken Bundling 3 (17k & 19k original price, including food)
@@ -582,6 +617,106 @@ class CoffeeApi
         if (!$res) {
             $backupUrl = $this->backupBaseUrl . "/{$brand}/item";
             $res = $this->httpRequest($backupUrl, $params);
+        }
+
+        if ($res && !empty($res['groups']) && is_array($res['groups'])) {
+            // Client revision: Hapus Jumbo di all menu
+            $jumboIds = [];
+            foreach ($res['groups'] as &$g) {
+                if (!empty($g['values']) && is_array($g['values'])) {
+                    foreach ($g['values'] as $v) {
+                        $vtxt = strtolower(trim((string)($v['text'] ?? '')));
+                        $vid = (string)($v['id'] ?? '');
+                        if (str_contains($vtxt, 'jumbo') || str_contains(strtolower($vid), 'jumbo')) {
+                            $jumboIds[] = $vid;
+                        }
+                    }
+                    $g['values'] = array_values(array_filter(
+                        $g['values'],
+                        fn($v) => !in_array((string)($v['id'] ?? ''), $jumboIds, true)
+                    ));
+                    if (in_array((string)($g['default'] ?? ''), $jumboIds, true) && !empty($g['values'])) {
+                        $g['default'] = $g['values'][0]['id'] ?? '';
+                    }
+                }
+            }
+            unset($g);
+
+            // Filter out empty groups if any
+            $res['groups'] = array_values(array_filter($res['groups'], fn($g) => !empty($g['values'])));
+
+            // Clean prices, normals, and comboAddons referencing Jumbo
+            if (!empty($jumboIds)) {
+                if (!empty($res['prices']) && is_array($res['prices'])) {
+                    $cleanPrices = [];
+                    foreach ($res['prices'] as $combo => $price) {
+                        $parts = explode('|', (string)$combo);
+                        $hasJumbo = false;
+                        foreach ($parts as $pPart) {
+                            if (in_array($pPart, $jumboIds, true)) {
+                                $hasJumbo = true;
+                                break;
+                            }
+                        }
+                        if (!$hasJumbo) {
+                            $cleanPrices[$combo] = $price;
+                        }
+                    }
+                    $res['prices'] = $cleanPrices;
+                }
+
+                if (!empty($res['normals']) && is_array($res['normals'])) {
+                    $cleanNormals = [];
+                    foreach ($res['normals'] as $combo => $norm) {
+                        $parts = explode('|', (string)$combo);
+                        $hasJumbo = false;
+                        foreach ($parts as $pPart) {
+                            if (in_array($pPart, $jumboIds, true)) {
+                                $hasJumbo = true;
+                                break;
+                            }
+                        }
+                        if (!$hasJumbo) {
+                            $cleanNormals[$combo] = $norm;
+                        }
+                    }
+                    $res['normals'] = $cleanNormals;
+                }
+
+                if (!empty($res['comboAddons']) && is_array($res['comboAddons'])) {
+                    $cleanComboAddons = [];
+                    foreach ($res['comboAddons'] as $combo => $ca) {
+                        $parts = explode('|', (string)$combo);
+                        $hasJumbo = false;
+                        foreach ($parts as $pPart) {
+                            if (in_array($pPart, $jumboIds, true)) {
+                                $hasJumbo = true;
+                                break;
+                            }
+                        }
+                        if (!$hasJumbo) {
+                            $cleanComboAddons[$combo] = $ca;
+                        }
+                    }
+                    $res['comboAddons'] = $cleanComboAddons;
+                }
+            }
+
+            // Client revision: Untuk Tomoro pilihan size Small only
+            if ($brand === 'tomoro') {
+                $is1L = (bool) preg_match('/1\s*l|liter/i', $key . ' ' . $code);
+                if (!$is1L) {
+                    foreach ($res['groups'] as &$g) {
+                        $gName = strtolower(trim((string)($g['name'] ?? '')));
+                        $gId = strtolower(trim((string)($g['id'] ?? '')));
+                        if ($gName === 'size' || $gName === 'ukuran' || $gId === 'size' || $gId === 'ukuran') {
+                            $g['values'] = [['id' => 'Small', 'text' => 'Small']];
+                            $g['default'] = 'Small';
+                        }
+                    }
+                    unset($g);
+                }
+            }
         }
 
         if ($res && isset($res['prices']) && is_array($res['prices'])) {
@@ -1139,6 +1274,14 @@ class CoffeeApi
             'sugars' => ['Normal Sugar', 'Less Sugar', 'No Sugar'],
         ];
 
+        // Client revision: Untuk Tomoro pilihan size Small only
+        $tomoroOptions = [
+            'sizes' => ['Small'],
+            'temps' => ['Ice', 'Hot'],
+            'ices' => ['Normal Ice', 'Less Ice', 'No Ice'],
+            'sugars' => ['Normal Sugar', 'Less Sugar', 'No Sugar'],
+        ];
+
         $categories = [
             ['id' => 'item-kopi', 'name' => 'Kopi', 'kind' => 'item'],
             ['id' => 'item-non-kopi', 'name' => 'Non-Kopi', 'kind' => 'item'],
@@ -1240,13 +1383,12 @@ class CoffeeApi
                     'id' => 'tomoro-aren-latte',
                     'name' => 'Tomoro Aren Latte',
                     'category' => 'Kopi',
-                    'price' => 18000,
+                    'price' => 17000,
                     'normalPrice' => 22000,
-                    'largePrice' => 22000,
                     'isSoldOut' => false,
                     'img' => 'https://images.unsplash.com/photo-1517701550927-30cf4ba1dba5?q=80&w=400&auto=format&fit=crop',
                     'desc' => 'Master Arabica blend dengan paduan gula aren organik alami.',
-                    'options' => $defaultOptions,
+                    'options' => $tomoroOptions,
                     'featured' => true,
                 ],
                 [
@@ -1256,11 +1398,10 @@ class CoffeeApi
                     'category' => 'Kopi',
                     'price' => 24000,
                     'normalPrice' => 28000,
-                    'largePrice' => 28000,
                     'isSoldOut' => false,
                     'img' => 'https://images.unsplash.com/photo-1541167760496-1628856ab772?q=80&w=400&auto=format&fit=crop',
                     'desc' => 'Susu gandum premium dipadukan espresso Arabica seimbang.',
-                    'options' => $defaultOptions,
+                    'options' => $tomoroOptions,
                     'featured' => true,
                 ],
                 [
@@ -1270,11 +1411,10 @@ class CoffeeApi
                     'category' => 'Frappe & Blended',
                     'price' => 22000,
                     'normalPrice' => 26000,
-                    'largePrice' => 26000,
                     'isSoldOut' => false,
                     'img' => 'https://images.unsplash.com/photo-1536256263959-770b48d82b0a?q=80&w=400&auto=format&fit=crop',
                     'desc' => 'Matcha asli dengan foam creamy tebal yang menyegarkan.',
-                    'options' => $defaultOptions,
+                    'options' => $tomoroOptions,
                     'featured' => false,
                 ],
             ];

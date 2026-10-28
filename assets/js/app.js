@@ -540,8 +540,18 @@ if (outletSearchInput) {
 // Drink Customization Modal
 window.openCustomModal = (item) => {
   State.activeItemForModal = item;
+  const brand = State.currentBrand || 'kopken';
+  const isTomoro = brand === 'tomoro';
+  const is1L = /1\s*l|liter/i.test((item.name || '') + ' ' + (item.key || ''));
+
+  let defaultSizes = isTomoro && !is1L ? ['Small'] : ['Regular', 'Large'];
+  let availableSizes = (item.options?.sizes || defaultSizes).filter((s) => !/jumbo/i.test(s));
+  if (isTomoro && !is1L && !item.isFood) {
+    availableSizes = ['Small'];
+  }
+
   State.modalSelectedOptions = {
-    size: 'Regular',
+    size: availableSizes[0] || (isTomoro ? 'Small' : 'Regular'),
     temp: 'Ice',
     ice: 'Normal Ice',
     sugar: 'Normal Sugar',
@@ -561,7 +571,7 @@ window.openCustomModal = (item) => {
   if (noteEl) noteEl.value = '';
 
   // Render option chips
-  renderOptionChips('modalSizeChips', item.options?.sizes || ['Regular', 'Large'], 'size', updateModalPrice);
+  renderOptionChips('modalSizeChips', availableSizes, 'size', updateModalPrice);
   renderOptionChips('modalTempChips', item.options?.temps || ['Ice', 'Hot'], 'temp', updateModalPrice);
   renderOptionChips('modalIceChips', item.options?.ices || ['Normal Ice', 'Less Ice', 'No Ice'], 'ice');
   renderOptionChips('modalSugarChips', item.options?.sugars || ['Normal Sugar', 'Less Sugar', 'No Sugar'], 'sugar');
