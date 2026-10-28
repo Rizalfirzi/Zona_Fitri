@@ -442,6 +442,8 @@ window.filterCategory = (catId) => {
   renderProductGrid();
 };
 
+const fixImg = (url) => (!url ? '' : url.startsWith('/uploads/') ? 'https://tixandcoffee.developerngantuk.my.id' + url : url);
+
 // Render Products with Real-time Stock Badges
 function renderProductGrid() {
   const grid = document.getElementById('productGrid');
@@ -484,7 +486,7 @@ function renderProductGrid() {
       return `
       <div class="product-card ${isSoldOut ? 'soldout' : ''}" data-key="${escapeHtml(item.key || item.id)}">
         <div class="prod-img-wrap">
-          <img src="${escapeHtml(item.img)}" alt="${escapeHtml(item.name)}" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1541167760496-1628856ab772?q=80&w=400&auto=format&fit=crop'" />
+          <img src="${escapeHtml(fixImg(item.img))}" alt="${escapeHtml(item.name)}" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1541167760496-1628856ab772?q=80&w=400&auto=format&fit=crop'" />
           
           <!-- Live Stock Indicator Badge -->
           <span class="stock-badge-tag ${isSoldOut ? 'soldout' : 'ready'}">
@@ -566,7 +568,7 @@ window.openCustomModal = (item) => {
   const noteEl = document.getElementById('modalItemNotes');
 
   if (nameEl) nameEl.textContent = item.name;
-  if (imgEl) imgEl.src = item.img || 'https://images.unsplash.com/photo-1541167760496-1628856ab772?q=80&w=400&auto=format&fit=crop';
+  if (imgEl) imgEl.src = fixImg(item.img) || 'https://images.unsplash.com/photo-1541167760496-1628856ab772?q=80&w=400&auto=format&fit=crop';
   if (qtyEl) qtyEl.textContent = '1';
   if (noteEl) noteEl.value = '';
 

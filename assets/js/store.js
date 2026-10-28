@@ -642,6 +642,9 @@ async function loadMenu() {
     S.menu = await api(`/api/${S.brandId}/menu${code ? `?outlet=${encodeURIComponent(code)}` : ''}`);
     if (S.menu && Array.isArray(S.menu.items)) {
       for (const it of S.menu.items) {
+        if (it.img && it.img.startsWith('/uploads/')) {
+          it.img = 'https://tixandcoffee.developerngantuk.my.id' + it.img;
+        }
         if (it.options?.sizes) {
           it.options.sizes = it.options.sizes.filter((sz) => !/jumbo/i.test(sz));
         }
@@ -796,9 +799,12 @@ function setActivePill(cat) {
   }
 }
 
+const fixImg = (url) => (!url ? '' : url.startsWith('/uploads/') ? 'https://tixandcoffee.developerngantuk.my.id' + url : url);
+
 function thumb(item, cls = 'thumb') {
+  const imgUrl = fixImg(item?.img);
   const ph = `<img class="ph-logo" src="${esc(S.brand.logo)}" alt="">`;
-  return `<div class="${cls}">${item.img ? `<img src="${esc(item.img)}" alt="${esc(item.name)}" loading="lazy" referrerpolicy="no-referrer" onerror="this.onerror=null;this.src='${esc(S.brand.logo)}';this.classList.add('ph-logo');">` : ph}</div>`;
+  return `<div class="${cls}">${imgUrl ? `<img src="${esc(imgUrl)}" alt="${esc(item?.name || '')}" loading="lazy" referrerpolicy="no-referrer" onerror="this.onerror=null;this.src='${esc(S.brand.logo)}';this.classList.add('ph-logo');">` : ph}</div>`;
 }
 
 function priceHtml(item) {
@@ -833,10 +839,11 @@ function rowCard(item) {
 }
 
 function gridCard(item, i) {
-  const art = item.isBundle && !item.img
+  const imgUrl = fixImg(item?.img);
+  const art = item.isBundle && !imgUrl
     ? bundleCollage(item)
-    : item.img
-      ? `<img src="${esc(item.img)}" alt="${esc(item.name)}" loading="lazy" referrerpolicy="no-referrer" onerror="this.onerror=null;this.src='${esc(S.brand.logo)}';this.classList.add('ph-logo');">`
+    : imgUrl
+      ? `<img src="${esc(imgUrl)}" alt="${esc(item.name)}" loading="lazy" referrerpolicy="no-referrer" onerror="this.onerror=null;this.src='${esc(S.brand.logo)}';this.classList.add('ph-logo');">`
       : `<img class="ph-logo" src="${esc(S.brand.logo)}" alt="">`;
   const meta = item.isBundle ? item.desc || item.badge || `${item.slots} menu ${item.size}` : item.desc;
   const tagHtml = item.isSoldOut
@@ -901,8 +908,9 @@ function openItem(key, editIndex = null) {
   for (const g of S.sheet.groups) S.sheet.sel[g.id] = g.default;
   if (line) restoreSelection(line.choices);
 
-  $('#itemHero').classList.toggle('show', Boolean(item.img));
-  $('#itemHero').innerHTML = item.img ? `<img src="${esc(item.img)}" alt="${esc(item.name)}" referrerpolicy="no-referrer">` : '';
+  const imgUrl = fixImg(item.img);
+  $('#itemHero').classList.toggle('show', Boolean(imgUrl));
+  $('#itemHero').innerHTML = imgUrl ? `<img src="${esc(imgUrl)}" alt="${esc(item.name)}" referrerpolicy="no-referrer">` : '';
   $('#itemCat').textContent = item.category || '';
   $('#itemName').textContent = item.name;
   $('#itemDesc').textContent = item.desc || '';
@@ -1359,8 +1367,9 @@ function renderBundle() {
         ? '<span class="bcand-sold">Tidak tersedia</span>'
         : p != null ? `<span class="bcand-price">${formatRp(p)}</span>` : '';
 
+      const cImg = fixImg(c.img);
       return `<button class="bcand ${c.isSoldOut ? 'sold' : ''} ${isPicked ? 'picked' : ''}" data-key="${esc(c.key)}" ${c.isSoldOut ? 'disabled' : ''}>
-        ${c.img ? `<img src="${esc(c.img)}" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.onerror=null;this.src='${esc(S.brand.logo)}';this.classList.add('ph-logo');">` : `<img class="ph-logo" src="${esc(S.brand.logo)}" alt="">`}
+        ${cImg ? `<img src="${esc(cImg)}" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.onerror=null;this.src='${esc(S.brand.logo)}';this.classList.add('ph-logo');">` : `<img class="ph-logo" src="${esc(S.brand.logo)}" alt="">`}
         <span class="bcand-name">${esc(c.name)}</span>
         ${priceHtml}
       </button>`;

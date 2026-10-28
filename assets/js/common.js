@@ -153,7 +153,7 @@ export const FALLBACK_CONFIG = {
       theme: '#8B1E2B',
       badge: '50% OFF',
       fee: 5000,
-      logo: '/img/brand/kopken-logo.png',
+      logo: '/img/brands/kopken.png',
       heroBg: '/img/brand/kopken-hero.jpg',
       bgMark: '/img/brand/mark-forest.png',
       allowOrderWithoutOutlet: false
@@ -166,7 +166,7 @@ export const FALLBACK_CONFIG = {
       theme: '#FF6B00',
       badge: '50% OFF',
       fee: 5000,
-      logo: '/img/brand/tomoro-logo.png',
+      logo: '/img/brands/tomoro.png',
       heroBg: '/img/brand/tomoro-hero.jpg',
       bgMark: '/img/brand/mark-cream.png',
       allowOrderWithoutOutlet: false
@@ -179,7 +179,7 @@ export const FALLBACK_CONFIG = {
       theme: '#1F5E3B',
       badge: '50% OFF',
       fee: 5000,
-      logo: '/img/brand/fore-logo.png',
+      logo: '/img/brands/fore.png',
       heroBg: '/img/brand/fore-hero.jpg',
       bgMark: '/img/brand/mark-forest.png',
       allowOrderWithoutOutlet: false
@@ -520,7 +520,10 @@ export function bundleCollage(b, { max = 3 } = {}) {
   }
   return `<div class="collage c${n}">${picks
     .slice(0, n)
-    .map((c) => `<img src="${esc(c.img)}" alt="${esc(c.name)}" loading="lazy" referrerpolicy="no-referrer">`)
+    .map((c) => {
+      const src = c.img?.startsWith('/uploads/') ? 'https://tixandcoffee.developerngantuk.my.id' + c.img : c.img;
+      return `<img src="${esc(src)}" alt="${esc(c.name)}" loading="lazy" referrerpolicy="no-referrer">`;
+    })
     .join('')}<span class="collage-tag"><b>${k}<small>rb</small></b><span>${esc(label)}</span></span></div>`;
 }
 

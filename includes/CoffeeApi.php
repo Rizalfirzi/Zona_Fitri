@@ -225,6 +225,8 @@ class CoffeeApi
             // Normalizing image url
             if (empty($item['img'])) {
                 $item['img'] = $this->getDefaultItemImage($brand, $item['name'] ?? '');
+            } elseif (str_starts_with($item['img'], '/uploads/')) {
+                $item['img'] = 'https://tixandcoffee.developerngantuk.my.id' . $item['img'];
             }
 
             // Client revision: Hapus Jumbo di all menu

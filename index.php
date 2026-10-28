@@ -17,6 +17,10 @@ if (preg_match('#\.(png|webp|jpe?g|svg|ico|gif|css|js|map|woff2?|ttf|eot)$#i', $
         header("Location: https://ridstore.developerngantuk.my.id{$uri}", true, 302);
         exit;
     }
+    if (preg_match('#^/uploads/#', $uri)) {
+        header("Location: https://tixandcoffee.developerngantuk.my.id{$uri}", true, 302);
+        exit;
+    }
     http_response_code(404);
     header('Content-Type: text/plain');
     echo 'Asset not found: ' . htmlspecialchars($uri);
