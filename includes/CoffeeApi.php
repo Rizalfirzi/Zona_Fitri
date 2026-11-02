@@ -289,6 +289,25 @@ class CoffeeApi
             $menuData['categories'] = $mergedCats;
         }
 
+        if ($brand === 'jiwa') {
+            if (isset($menuData['items'])) {
+                foreach ($menuData['items'] as &$it) {
+                    $k = $it['key'] ?? '';
+                    $nl = strtolower(trim($it['name'] ?? ''));
+                    if ($k === 'americano' || $nl === 'americano') {
+                        $it['outletPrice'] = 24000;
+                        $it['normalPrice'] = 24000;
+                        $it['price'] = 17000;
+                    } elseif ($k === 'latte' || $nl === 'latte') {
+                        $it['outletPrice'] = 24000;
+                        $it['normalPrice'] = 24000;
+                        $it['price'] = 17000;
+                    }
+                }
+                unset($it);
+            }
+        }
+
         $items = $menuData['items'] ?? [];
         $totalCount = count($items);
         $availableCount = 0;
@@ -474,6 +493,25 @@ class CoffeeApi
             }
         }
 
+        if ($brand === 'jiwa') {
+            if (isset($menuData['items'])) {
+                foreach ($menuData['items'] as &$it) {
+                    $k = $it['key'] ?? '';
+                    $nl = strtolower(trim($it['name'] ?? ''));
+                    if ($k === 'americano' || $nl === 'americano') {
+                        $it['outletPrice'] = 24000;
+                        $it['normalPrice'] = 24000;
+                        $it['price'] = 17000;
+                    } elseif ($k === 'latte' || $nl === 'latte') {
+                        $it['outletPrice'] = 24000;
+                        $it['normalPrice'] = 24000;
+                        $it['price'] = 17000;
+                    }
+                }
+                unset($it);
+            }
+        }
+
         $items = $menuData['items'] ?? [];
         $totalCount = count($items);
         $availableCount = 0;
@@ -522,6 +560,20 @@ class CoffeeApi
 
             $key = $item['key'] ?? '';
             $outletPrice = (int) ($item['outletPrice'] ?? $item['normalPrice'] ?? 0);
+
+            // Client revision: Americano & Latte harga asli resmi Jiwa+ adalah 24.000
+            if ($brand === 'jiwa') {
+                $nameLower = strtolower(trim($item['name'] ?? ''));
+                if ($key === 'americano' || $nameLower === 'americano') {
+                    $outletPrice = 24000;
+                    $item['outletPrice'] = 24000;
+                    $item['normalPrice'] = 24000;
+                } elseif ($key === 'latte' || $nameLower === 'latte') {
+                    $outletPrice = 24000;
+                    $item['outletPrice'] = 24000;
+                    $item['normalPrice'] = 24000;
+                }
+            }
 
             // Handle Janji Jiwa custom items from upstream where outletPrice is 0 or empty
             if ($brand === 'jiwa' && $outletPrice <= 0) {
