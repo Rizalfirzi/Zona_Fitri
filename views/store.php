@@ -4,10 +4,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <meta name="theme-color" content="#F4EFE4" />
-  <meta name="description" content="Order Kopi Kenangan, Tomoro & Fore lebih hemat lewat Zona Fitri. Pilih outlet, pilih menu, kirim pesanan via WhatsApp." />
+  <meta name="description" content="Order Kopi Kenangan, Tomoro, Fore & Janji Jiwa lebih hemat lewat Zona Fitri. Pilih outlet, pilih menu, kirim pesanan via WhatsApp." />
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Zona Fitri — Jasa Order Kopi" />
-  <meta property="og:description" content="Kopi Kenangan, Tomoro & Fore lebih hemat. Pesan langsung via WhatsApp." />
+  <meta property="og:description" content="Kopi Kenangan, Tomoro, Fore & Janji Jiwa lebih hemat. Pesan langsung via WhatsApp." />
   <meta property="og:image" content="/img/brand/zonafitri-logo.png" />
   <meta name="twitter:card" content="summary_large_image" />
   <title>Order Kopi | Zona Fitri</title>

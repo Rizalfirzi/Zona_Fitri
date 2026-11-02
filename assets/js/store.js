@@ -5,12 +5,13 @@ import {
 } from './common.js?v=3aeca02b99';
 import { buildWaMessage, cartTotals, formatRp, normalizePhone, optionText, orderCode, roundTo, waLink } from './shared/order.js?v=3aeca02b99';
 
-const SLUG_TO_BRAND = { kopikenangan: 'kopken', kopken: 'kopken', tomoro: 'tomoro', fore: 'fore' };
+const SLUG_TO_BRAND = { kopikenangan: 'kopken', kopken: 'kopken', tomoro: 'tomoro', fore: 'fore', janjiw: 'jiwa', janjijiwa: 'jiwa', jiwa: 'jiwa' };
 
 const BRAND_COPY = {
   kopken: { text: 'Kopi susu gula aren favorit, harga lebih hemat. Stok & harga langsung dari outlet pilihanmu.', perks: ['Stok live', 'Varian lengkap', 'Bundling hemat'] },
   tomoro: { text: '100% Arabica, creamy & harum. Pesan lewat admin, kami yang orderkan buat kamu.', perks: ['Harga hemat', 'Order via WA'] },
   fore: { text: 'Kreasi kopi Nusantara dengan harga lebih hemat dari outlet. Stok mengikuti outlet pilihanmu.', perks: ['Stok live', 'Hemat 20%'] },
+  jiwa: { text: 'Kopi Dari Hati & toast nikmat, harga lebih hemat. Stok langsung dari outlet pilihanmu.', perks: ['Diskon 50%', 'Toast & Kopi', 'Order via WA'] },
 };
 
 const S = {

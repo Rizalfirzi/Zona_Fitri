@@ -116,7 +116,7 @@ export async function api(path, opts = {}) {
 
 export const FALLBACK_CONFIG = {
   storeName: 'Zona Fitri',
-  tagline: 'Jasa order Kopi Kenangan, Tomoro & Fore',
+  tagline: 'Jasa order Kopi Kenangan, Tomoro, Fore & Janji Jiwa',
   description: 'Pesan kopi favorit lebih hemat: pilih outlet, pilih menu, lalu kirim pesanan ke WhatsApp admin.',
   accent: '#C11F2E',
   orderPrefix: 'ZF',
@@ -142,7 +142,8 @@ export const FALLBACK_CONFIG = {
   pricing: {
     kopken: { largeUpsize: 5000, juwaraBeans: 2000, oatside: 2000, fee: 5000 },
     tomoro: { fee: 5000 },
-    fore: { fee: 5000 }
+    fore: { fee: 5000 },
+    jiwa: { percent: 50, maxDiscount: 20000, fee: 5000 }
   },
   brands: [
     {
@@ -153,7 +154,7 @@ export const FALLBACK_CONFIG = {
       theme: '#8B1E2B',
       badge: '50% OFF',
       fee: 5000,
-      logo: '/img/brand/kopken-logo.png',
+      logo: '/img/brands/kopken.png',
       heroBg: '/img/brand/kopken-hero.jpg',
       bgMark: '/img/brand/mark-forest.png',
       allowOrderWithoutOutlet: false
@@ -166,7 +167,7 @@ export const FALLBACK_CONFIG = {
       theme: '#FF6B00',
       badge: '50% OFF',
       fee: 5000,
-      logo: '/img/brand/tomoro-logo.png',
+      logo: '/img/brands/tomoro.png',
       heroBg: '/img/brand/tomoro-hero.jpg',
       bgMark: '/img/brand/mark-cream.png',
       allowOrderWithoutOutlet: false
@@ -179,8 +180,21 @@ export const FALLBACK_CONFIG = {
       theme: '#1F5E3B',
       badge: '50% OFF',
       fee: 5000,
-      logo: '/img/brand/fore-logo.png',
+      logo: '/img/brands/fore.png',
       heroBg: '/img/brand/fore-hero.jpg',
+      bgMark: '/img/brand/mark-forest.png',
+      allowOrderWithoutOutlet: false
+    },
+    {
+      id: 'jiwa',
+      name: 'Janji Jiwa',
+      slug: 'janjiw',
+      short: 'Janji Jiwa',
+      theme: '#C2410C',
+      badge: '50% OFF',
+      fee: 5000,
+      logo: '/img/brands/jiwa.png',
+      heroBg: '/img/brand/kopken-hero.jpg',
       bgMark: '/img/brand/mark-forest.png',
       allowOrderWithoutOutlet: false
     }

@@ -13,7 +13,7 @@ header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: GET, OPTIONS');
 header('Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With');
 
-if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+if (($_SERVER['REQUEST_METHOD'] ?? '') === 'OPTIONS') {
     exit(0);
 }
 
@@ -36,7 +36,7 @@ try {
 
     $outletCode = $_GET['outlet'] ?? $_GET['outletCode'] ?? '';
     if (empty($outletCode)) {
-        $outletCode = config("brands.{$brand}.default_outlet", 'LA.CODEFIN');
+        $outletCode = config("brands.{$brand}.defaultOutlet", config("brands.{$brand}.default_outlet", 'LA.CODEFIN'));
     }
 
     $forceRefresh = isset($_GET['refresh']) && in_array(strtolower((string)$_GET['refresh']), ['1', 'true', 'yes'], true);

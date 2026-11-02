@@ -25,8 +25,11 @@ export function computePrice(outletPrice, pricing = {}, options = {}) {
   if (base <= 0) return 0;
   const isLarge = Boolean(options.size === 'Large' || options.isLarge);
   const pct = pricing.percent == null ? 100 : Number(pricing.percent);
+  const maxDisc = pricing.maxDiscount != null ? Number(pricing.maxDiscount) : Infinity;
   const add = Number(pricing.add) || 0;
-  const regPrice = Math.round((base * pct) / 100 + add);
+  const rawDisc = (base * (100 - pct)) / 100;
+  const disc = Math.min(rawDisc, maxDisc);
+  const regPrice = Math.round(base - disc + add);
   if (isLarge) {
     const largeAdd = pricing.largeAdd != null ? Number(pricing.largeAdd) : 5000;
     return regPrice + largeAdd;

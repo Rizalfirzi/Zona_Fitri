@@ -57,6 +57,14 @@ const BrandThemes = {
     name: 'Fore Coffee',
     defaultOutlet: 'KOKAS',
   },
+  jiwa: {
+    primary: '#C2410C',
+    accent: '#EA580C',
+    light: '#FFF7ED',
+    rgb: '194, 65, 12',
+    name: 'Janji Jiwa',
+    defaultOutlet: '25',
+  },
 };
 
 // Format Rupiah Helper

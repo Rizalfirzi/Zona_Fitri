@@ -43,7 +43,7 @@
       "dest": "/api/track.php"
     },
     {
-      "src": "/(kopikenangan|tomoro|fore)",
+      "src": "/(kopikenangan|tomoro|fore|janjiw|janjijiwa|jiwa)",
       "dest": "/api/index.php?brand=$1"
     },
     {

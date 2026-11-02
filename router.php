@@ -12,7 +12,11 @@ if ($uri !== '/' && file_exists($file) && !is_dir($file)) {
     return false;
 }
 
-// 1b. Fallback proxy for /img/ assets to upstream CDN if not downloaded locally
+// 1b. Fallback proxy for /img/ & /uploads/ assets to upstream CDN if not downloaded locally
+if (preg_match('#^/uploads/#', $uri)) {
+    header("Location: https://tixandcoffee.developerngantuk.my.id{$uri}", true, 302);
+    exit;
+}
 if (preg_match('#^/img/#', $uri)) {
     header("Location: https://ridstore.developerngantuk.my.id{$uri}", true, 302);
     exit;
@@ -65,8 +69,8 @@ if ($uri === '/api/track') {
     exit;
 }
 
-// 7. Handle Brand Store Pages: /kopikenangan, /tomoro, /fore
-if (preg_match('#^/(kopikenangan|tomoro|fore)$#', $uri, $m)) {
+// 7. Handle Brand Store Pages: /kopikenangan, /tomoro, /fore, /janjiw
+if (preg_match('#^/(kopikenangan|tomoro|fore|janjiw|janjijiwa|jiwa)$#', $uri, $m)) {
     $_GET['brand'] = $m[1];
     require __DIR__ . '/index.php';
     exit;

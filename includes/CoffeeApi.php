@@ -49,7 +49,10 @@ class CoffeeApi
         if ($b === 'forecoffee' || $b === 'fore-coffee') {
             return 'fore';
         }
-        return in_array($b, ['kopken', 'tomoro', 'fore'], true) ? $b : 'kopken';
+        if ($b === 'janjijiwa' || $b === 'janji-jiwa' || $b === 'janjiw' || $b === 'jiwa' || $b === 'jj') {
+            return 'jiwa';
+        }
+        return in_array($b, ['kopken', 'tomoro', 'fore', 'jiwa'], true) ? $b : 'kopken';
     }
 
     /**
@@ -208,6 +211,84 @@ class CoffeeApi
      */
     protected function formatMenuStats(array $menuData, string $brand, string $outletCode): array
     {
+        // Client revision (Gambar kedua): Hapus menu food / snack di Tomoro Coffee
+        if ($brand === 'tomoro' && isset($menuData['items']) && is_array($menuData['items'])) {
+            $removedKeys = [];
+            $drinksOnly = [];
+            foreach ($menuData['items'] as $it) {
+                $itCat = strtolower(trim((string)($it['category'] ?? '')));
+                $itName = strtolower(trim((string)($it['name'] ?? '')));
+                $isFood = !empty($it['isFood'])
+                    || str_contains($itCat, 'food')
+                    || str_contains($itCat, 'pastry')
+                    || str_contains($itCat, 'snack')
+                    || str_contains($itCat, 'bakery')
+                    || str_contains($itCat, 'toast')
+                    || str_contains($itCat, 'bread');
+
+                if ($isFood) {
+                    if (!empty($it['key'])) $removedKeys[$it['key']] = true;
+                    if (!empty($it['id'])) $removedKeys[$it['id']] = true;
+                } else {
+                    $drinksOnly[] = $it;
+                }
+            }
+            $menuData['items'] = $drinksOnly;
+
+            // Remove food categories & prune category items
+            if (isset($menuData['categories']) && is_array($menuData['categories'])) {
+                $cleanCats = [];
+                foreach ($menuData['categories'] as $cat) {
+                    $catName = strtolower(trim((string)($cat['name'] ?? '')));
+                    $catId = strtolower(trim((string)($cat['id'] ?? '')));
+                    $isFoodCat = str_contains($catName, 'food')
+                        || str_contains($catName, 'pastry')
+                        || str_contains($catName, 'snack')
+                        || str_contains($catName, 'bakery')
+                        || str_contains($catId, 'food')
+                        || str_contains($catId, 'pastry')
+                        || str_contains($catId, 'snack');
+
+                    if ($isFoodCat) {
+                        continue;
+                    }
+
+                    if (!empty($cat['items']) && is_array($cat['items'])) {
+                        $cat['items'] = array_values(array_filter($cat['items'], function ($k) use ($removedKeys) {
+                            return !isset($removedKeys[$k]);
+                        }));
+                    }
+
+                    if (!empty($cat['items'])) {
+                        $cleanCats[] = $cat;
+                    }
+                }
+                $menuData['categories'] = array_values($cleanCats);
+            }
+        }
+
+        // Merge duplicate categories for Janji Jiwa (e.g. custom-coffee and item-coffee both named Coffee)
+        if ($brand === 'jiwa' && isset($menuData['categories']) && is_array($menuData['categories'])) {
+            $mergedCats = [];
+            $catMap = [];
+            foreach ($menuData['categories'] as $cat) {
+                $name = trim((string)($cat['name'] ?? ''));
+                $normName = strtolower($name);
+                if (isset($catMap[$normName])) {
+                    $idx = $catMap[$normName];
+                    foreach ($cat['items'] ?? [] as $k) {
+                        if (!in_array($k, $mergedCats[$idx]['items'], true)) {
+                            $mergedCats[$idx]['items'][] = $k;
+                        }
+                    }
+                } else {
+                    $catMap[$normName] = count($mergedCats);
+                    $mergedCats[] = $cat;
+                }
+            }
+            $menuData['categories'] = $mergedCats;
+        }
+
         $items = $menuData['items'] ?? [];
         $totalCount = count($items);
         $availableCount = 0;
@@ -223,6 +304,11 @@ class CoffeeApi
             }
 
             // Normalizing image url
+            if (!empty($item['img']) && strpos($item['img'], 'http') !== 0) {
+                if (strpos($item['img'], '/uploads/') === 0 || strpos($item['img'], '/img/') === 0) {
+                    $item['img'] = 'https://tixandcoffee.developerngantuk.my.id' . $item['img'];
+                }
+            }
             if (empty($item['img'])) {
                 $item['img'] = $this->getDefaultItemImage($brand, $item['name'] ?? '');
             }
@@ -407,7 +493,38 @@ class CoffeeApi
             }
 
             $key = $item['key'] ?? '';
-            $outletPrice = (int) ($item['outletPrice'] ?? $item['price'] ?? 0);
+            $outletPrice = (int) ($item['outletPrice'] ?? $item['normalPrice'] ?? 0);
+
+            // Handle Janji Jiwa custom items from upstream where outletPrice is 0 or empty
+            if ($brand === 'jiwa' && $outletPrice <= 0) {
+                $existingPrice = (int) ($item['price'] ?? 0);
+                if ($existingPrice > 0) {
+                    $tixFee = 6500;
+                    if (stripos($item['category'] ?? '', 'premium') !== false || stripos($item['category'] ?? '', 'breeze') !== false) {
+                        $tixFee = 8500;
+                    }
+                    $estimatedOutlet = max(0, ($existingPrice - $tixFee) * 2);
+                    if ($estimatedOutlet > 0) {
+                        $outletPrice = $estimatedOutlet;
+                        $item['outletPrice'] = $outletPrice;
+                        $item['normalPrice'] = $outletPrice;
+                    }
+                }
+            }
+            if ($outletPrice <= 0) {
+                $outletPrice = (int) ($item['price'] ?? 0);
+            }
+
+            // Normalizing image url
+            if (!empty($item['img']) && strpos($item['img'], 'http') !== 0) {
+                if (strpos($item['img'], '/uploads/') === 0 || strpos($item['img'], '/img/') === 0) {
+                    $item['img'] = 'https://tixandcoffee.developerngantuk.my.id' . $item['img'];
+                }
+            }
+            if (empty($item['img'])) {
+                $item['img'] = $this->getDefaultItemImage($brand, $item['name'] ?? '');
+            }
+
             $isSoldOut = !empty($item['isSoldOut']) || !empty($item['notCarried']);
             $isFood = !empty($item['isFood']) || (isset($item['category']) && strtolower($item['category']) === 'food');
 
@@ -443,6 +560,20 @@ class CoffeeApi
                     $calcPrice = (int) round(($outletPrice * 0.75) + 2000);
                     // Catatan: kopken fore upsize +5k
                     $largePrice = $calcPrice + 5000;
+                } elseif ($brand === 'jiwa') {
+                    // RUMUS JANJI JIWA: all menu disc 50% max 20k, fee per menu 5k
+                    $discount = min($outletPrice * 0.5, 20000);
+                    $calcPrice = (int) round(($outletPrice - $discount) + 5000);
+
+                    // Large variant if available
+                    $largeOut = (int) ($item['largeOutletPrice'] ?? 0);
+                    if ($largeOut <= 0 && (!empty($item['largePrice']) || !empty($item['largeNormal']))) {
+                        $largeOut = $outletPrice + 6000;
+                    }
+                    if ($largeOut > 0) {
+                        $largeDisc = min($largeOut * 0.5, 20000);
+                        $largePrice = (int) round(($largeOut - $largeDisc) + 5000);
+                    }
                 }
 
                 $item['price'] = $calcPrice;
@@ -474,8 +605,8 @@ class CoffeeApi
                 $largeOut = $outletPrice + 6000;
             }
 
-            // Client revision: Exclude Babyccino as it does not have Large size
-            $isNotLargeEligible = (bool) preg_match('/baby|cino/i', ($item['name'] ?? '') . ' ' . $key);
+            // Client revision (Gambar 1): Exclude Babyccino and Kopi Susu Black Aren from bundling 32
+            $isNotLargeEligible = (bool) preg_match('/baby|cino|black\s*aren|kopsu.*black/i', ($item['name'] ?? '') . ' ' . $key);
 
             if ($brand === 'kopken' && !$isFood && !$isNotLargeEligible && ($largeOut >= 25000 && $largeOut <= 27000)) {
                 $largeOpt = $item['options'] ?? [];
@@ -605,6 +736,12 @@ class CoffeeApi
             } elseif ($brand === 'fore') {
                 $regularCalc = (int) round(($basePrice * 0.75) + 2000);
                 $largeCalc = $regularCalc + 5000;
+            } elseif ($brand === 'jiwa') {
+                $baseDisc = min($basePrice * 0.5, 20000);
+                $regularCalc = (int) round(($basePrice - $baseDisc) + 5000);
+                $largeBase = $basePrice + 6000;
+                $largeDisc = min($largeBase * 0.5, 20000);
+                $largeCalc = (int) round(($largeBase - $largeDisc) + 5000);
             }
 
             // Extract option IDs for specific modifier pricing (Client request v2: Juwara Beans +2k)
@@ -1099,6 +1236,50 @@ class CoffeeApi
                     'distanceKm' => null,
                 ],
             ],
+            'jiwa' => [
+                [
+                    'code' => '25',
+                    'name' => 'Muara Karang Jakarta Utara',
+                    'address' => 'Muara Karang Blok D 7 Barat No.59A Rt.7/Rw.8, Pluit, Jakarta Utara, DKI Jakarta 14450',
+                    'city' => 'Jakarta Utara',
+                    'lat' => -6.1179217,
+                    'lng' => 106.777145,
+                    'isOpen' => true,
+                    'canOrder' => true,
+                    'statusText' => 'Buka',
+                    'hours' => '07:00 - 22:00',
+                    'category' => 'Shop House',
+                    'distanceKm' => null,
+                ],
+                [
+                    'code' => '222',
+                    'name' => 'Metro Park Kedoya Jakarta Barat',
+                    'address' => 'Metro Park Residence Apartement, Jl. Pilar Mas Utama Kav. 28, Kedoya Selatan, Kebon Jeruk, Jakarta Barat',
+                    'city' => 'Jakarta Barat',
+                    'lat' => -6.186237,
+                    'lng' => 106.757467,
+                    'isOpen' => true,
+                    'canOrder' => true,
+                    'statusText' => 'Buka',
+                    'hours' => '07:00 - 22:00',
+                    'category' => 'Apartment',
+                    'distanceKm' => null,
+                ],
+                [
+                    'code' => '636',
+                    'name' => 'MKG 3 Kelapa Gading Jakarta Utara',
+                    'address' => 'Mall Kelapa Gading 3, Jl. Boulevard Raya, Kelapa Gading Timur, Jakarta Utara',
+                    'city' => 'Jakarta Utara',
+                    'lat' => -6.156208,
+                    'lng' => 106.909708,
+                    'isOpen' => true,
+                    'canOrder' => true,
+                    'statusText' => 'Buka',
+                    'hours' => '10:00 - 22:00',
+                    'category' => 'Mall',
+                    'distanceKm' => null,
+                ],
+            ],
         ];
 
         $list = $fallbacks[$brand] ?? $fallbacks['kopken'];
@@ -1278,7 +1459,7 @@ class CoffeeApi
                     'featured' => false,
                 ],
             ];
-        } else {
+        } elseif ($brand === 'fore') {
             $items = [
                 [
                     'key' => 'fore-pandan-latte',
@@ -1321,6 +1502,57 @@ class CoffeeApi
                     'desc' => 'Green tea murni dengan topping krim keju gurih creamy.',
                     'options' => $defaultOptions,
                     'featured' => false,
+                ],
+            ];
+        } else {
+            $categories = [
+                ['id' => 'item-coffee', 'name' => 'Coffee', 'kind' => 'item'],
+                ['id' => 'item-toast', 'name' => 'Jiwa Toast', 'kind' => 'item'],
+                ['id' => 'item-non-coffee', 'name' => 'Non Coffee', 'kind' => 'item'],
+                ['id' => 'item-tea', 'name' => 'Tea-Based', 'kind' => 'item'],
+            ];
+            $items = [
+                [
+                    'key' => 'jiwa-signature-kopisusu',
+                    'id' => 'jiwa-signature-kopisusu',
+                    'name' => 'Signature Kopi Susu',
+                    'category' => 'Coffee',
+                    'price' => 17000,
+                    'normalPrice' => 24000,
+                    'largePrice' => 20000,
+                    'isSoldOut' => false,
+                    'img' => 'https://tixandcoffee.developerngantuk.my.id/uploads/c67bb7ddf16ba096.jpg',
+                    'desc' => 'Espresso dengan paduan susu creamy dan gula aren autentik Janji Jiwa.',
+                    'options' => $defaultOptions,
+                    'featured' => true,
+                ],
+                [
+                    'key' => 'jiwa-goma-chicken-toast',
+                    'id' => 'jiwa-goma-chicken-toast',
+                    'name' => 'Goma Chicken Toast',
+                    'category' => 'Jiwa Toast',
+                    'price' => 23500,
+                    'normalPrice' => 37000,
+                    'isSoldOut' => false,
+                    'isFood' => true,
+                    'img' => 'https://tixandcoffee.developerngantuk.my.id/img/menu/jiwa/crispyspicychicken.webp',
+                    'desc' => 'Roti panggang renyah dengan isian ayam juicy dan saus goma gurih.',
+                    'options' => ['sizes' => [], 'temps' => [], 'ices' => [], 'sugars' => []],
+                    'featured' => true,
+                ],
+                [
+                    'key' => 'jiwa-matcha-latte',
+                    'id' => 'jiwa-matcha-latte',
+                    'name' => 'Matcha Latte',
+                    'category' => 'Non Coffee',
+                    'price' => 21000,
+                    'normalPrice' => 32000,
+                    'largePrice' => 24000,
+                    'isSoldOut' => false,
+                    'img' => 'https://images.unsplash.com/photo-1536256263959-770b48d82b0a?q=80&w=400&auto=format&fit=crop',
+                    'desc' => 'Matcha istimewa berpadu susu lembut yang segar dan menenangkan.',
+                    'options' => $defaultOptions,
+                    'featured' => true,
                 ],
             ];
         }

@@ -106,6 +106,11 @@
             slug: 'tomoro',
             name: 'TOMORO COFFEE',
             icon: '<img src="/img/brands/tomoro.png" style="width:38px;height:38px;object-fit:contain;" alt="Tomoro">'
+          },
+          {
+            slug: 'janjiw',
+            name: 'JANJI JIWA',
+            icon: '<img src="/img/brands/jiwa.png" style="width:38px;height:38px;object-fit:contain;" alt="Janji Jiwa">'
           }
         ];
         grid.innerHTML = items.map(function (b) {
@@ -127,7 +132,7 @@
   /* ── Kartu WiFi (halaman toko) ── */
   var wifiCard = $('#wifiCard');
   if (wifiCard) {
-    var MAP = { kopikenangan: 'kopken', tomoro: 'tomoro', fore: 'fore' };
+    var MAP = { kopikenangan: 'kopken', tomoro: 'tomoro', fore: 'fore', janjiw: 'jiwa', janjijiwa: 'jiwa', jiwa: 'jiwa' };
     var brandSlug = location.pathname.replace(/^\/|\/$/g, '');
     var brandId = MAP[brandSlug] || 'kopken';
     var passEl = $('#wifiCardPass'), dateEl2 = $('#wifiCardDate');

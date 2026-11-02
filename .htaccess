@@ -25,8 +25,8 @@
     # Route /api/track
     RewriteRule ^api/track/?$ api/track.php [QSA,L]
 
-    # Route Brand pages (/kopikenangan, /tomoro, /fore) to index.php
-    RewriteRule ^(kopikenangan|tomoro|fore)/?$ index.php?brand=$1 [QSA,L]
+    # Route Brand pages (/kopikenangan, /tomoro, /fore, /janjiw) to index.php
+    RewriteRule ^(kopikenangan|tomoro|fore|janjiw|janjijiwa|jiwa)/?$ index.php?brand=$1 [QSA,L]
 
     # Route all other requests to index.php
     RewriteRule ^ index.php [QSA,L]

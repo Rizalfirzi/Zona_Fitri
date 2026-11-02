@@ -37,7 +37,7 @@ $config = [
     // Store & Admin Branding
     'store' => [
         'name' => 'Zona Fitri',
-        'tagline' => 'Jasa order Kopi Kenangan, Tomoro & Fore',
+        'tagline' => 'Jasa order Kopi Kenangan, Tomoro, Fore & Janji Jiwa',
         'description' => 'Pesan kopi favorit lebih hemat: pilih outlet, pilih menu, lalu kirim pesanan ke WhatsApp admin.',
         'accent' => '#C11F2E',
         'admin_phone' => '628973034455', // Nomor WhatsApp admin Zona Fitri (08973034455)
@@ -73,7 +73,7 @@ $config = [
                 [
                     'cta' => 'Lihat menu',
                     'href' => '#menu',
-                    'text' => 'Kopi Kenangan, Tomoro & Fore — pesan lewat WhatsApp, admin yang orderkan buat kamu.',
+                    'text' => 'Kopi Kenangan, Tomoro, Fore & Janji Jiwa — pesan lewat WhatsApp, admin yang orderkan buat kamu.',
                     'theme' => 'forest',
                     'title' => 'Kopi favorit, harga lebih hemat.',
                 ],
@@ -120,9 +120,15 @@ $config = [
             'add' => 2000,
             'largeAdd' => 5000, // upsize +5k
         ],
+        'jiwa' => [
+            'percent' => 50,
+            'maxDiscount' => 20000,
+            'add' => 5000, // fee per menu 5k
+            'largeAdd' => 3000,
+        ],
     ],
 
-    // Multi-Brand Coffee Configuration (Kopi Kenangan, Tomoro Coffee, Fore Coffee)
+    // Multi-Brand Coffee Configuration (Kopi Kenangan, Tomoro Coffee, Fore Coffee, Janji Jiwa)
     'brands' => [
         'kopken' => [
             'id' => 'kopken',
@@ -183,6 +189,27 @@ $config = [
             ],
             'defaultOutlet' => 'KOKAS, Adam Malik',
             'logo' => '/img/brands/fore.png',
+        ],
+        'jiwa' => [
+            'id' => 'jiwa',
+            'name' => 'Janji Jiwa',
+            'short' => 'Janji Jiwa',
+            'slug' => 'janjiw',
+            'color' => '#C2410C',
+            'desc' => 'Kopi Dari Hati. Promo hemat disc 50% max 20k + fee 5k.',
+            'requireOutlet' => true,
+            'wifi' => false,
+            'fee' => [
+                'mode' => 'none',
+                'single' => 0,
+                'perItem' => 0,
+                'bundleFree' => true,
+                'freeFromQty' => 0,
+                'singleSpecial' => 0,
+            ],
+            'defaultOutlet' => '25',
+            'default_outlet' => '25',
+            'logo' => '/img/brands/jiwa.png',
         ],
     ],
 
