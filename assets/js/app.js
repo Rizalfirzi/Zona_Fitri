@@ -450,6 +450,8 @@ window.filterCategory = (catId) => {
   renderProductGrid();
 };
 
+const fixImg = (url) => (!url ? '' : url.startsWith('/uploads/') ? 'https://tixandcoffee.developerngantuk.my.id' + url : url);
+
 // Render Products with Real-time Stock Badges
 function renderProductGrid() {
   const grid = document.getElementById('productGrid');
@@ -492,7 +494,7 @@ function renderProductGrid() {
       return `
       <div class="product-card ${isSoldOut ? 'soldout' : ''}" data-key="${escapeHtml(item.key || item.id)}">
         <div class="prod-img-wrap">
-          <img src="${escapeHtml(item.img)}" alt="${escapeHtml(item.name)}" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1541167760496-1628856ab772?q=80&w=400&auto=format&fit=crop'" />
+          <img src="${escapeHtml(fixImg(item.img))}" alt="${escapeHtml(item.name)}" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1541167760496-1628856ab772?q=80&w=400&auto=format&fit=crop'" />
           
           <!-- Live Stock Indicator Badge -->
           <span class="stock-badge-tag ${isSoldOut ? 'soldout' : 'ready'}">
@@ -548,8 +550,18 @@ if (outletSearchInput) {
 // Drink Customization Modal
 window.openCustomModal = (item) => {
   State.activeItemForModal = item;
+  const brand = State.currentBrand || 'kopken';
+  const isTomoro = brand === 'tomoro';
+  const is1L = /1\s*l|liter/i.test((item.name || '') + ' ' + (item.key || ''));
+
+  let defaultSizes = isTomoro && !is1L ? ['Small'] : ['Regular', 'Large'];
+  let availableSizes = (item.options?.sizes || defaultSizes).filter((s) => !/jumbo/i.test(s));
+  if (isTomoro && !is1L && !item.isFood) {
+    availableSizes = ['Small'];
+  }
+
   State.modalSelectedOptions = {
-    size: 'Regular',
+    size: availableSizes[0] || (isTomoro ? 'Small' : 'Regular'),
     temp: 'Ice',
     ice: 'Normal Ice',
     sugar: 'Normal Sugar',
@@ -564,12 +576,12 @@ window.openCustomModal = (item) => {
   const noteEl = document.getElementById('modalItemNotes');
 
   if (nameEl) nameEl.textContent = item.name;
-  if (imgEl) imgEl.src = item.img || 'https://images.unsplash.com/photo-1541167760496-1628856ab772?q=80&w=400&auto=format&fit=crop';
+  if (imgEl) imgEl.src = fixImg(item.img) || 'https://images.unsplash.com/photo-1541167760496-1628856ab772?q=80&w=400&auto=format&fit=crop';
   if (qtyEl) qtyEl.textContent = '1';
   if (noteEl) noteEl.value = '';
 
   // Render option chips
-  renderOptionChips('modalSizeChips', item.options?.sizes || ['Regular', 'Large'], 'size', updateModalPrice);
+  renderOptionChips('modalSizeChips', availableSizes, 'size', updateModalPrice);
   renderOptionChips('modalTempChips', item.options?.temps || ['Ice', 'Hot'], 'temp', updateModalPrice);
   renderOptionChips('modalIceChips', item.options?.ices || ['Normal Ice', 'Less Ice', 'No Ice'], 'ice');
   renderOptionChips('modalSugarChips', item.options?.sugars || ['Normal Sugar', 'Less Sugar', 'No Sugar'], 'sugar');

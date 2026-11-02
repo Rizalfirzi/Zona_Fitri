@@ -534,7 +534,10 @@ export function bundleCollage(b, { max = 3 } = {}) {
   }
   return `<div class="collage c${n}">${picks
     .slice(0, n)
-    .map((c) => `<img src="${esc(c.img)}" alt="${esc(c.name)}" loading="lazy" referrerpolicy="no-referrer">`)
+    .map((c) => {
+      const src = c.img?.startsWith('/uploads/') ? 'https://tixandcoffee.developerngantuk.my.id' + c.img : c.img;
+      return `<img src="${esc(src)}" alt="${esc(c.name)}" loading="lazy" referrerpolicy="no-referrer">`;
+    })
     .join('')}<span class="collage-tag"><b>${k}<small>rb</small></b><span>${esc(label)}</span></span></div>`;
 }
 

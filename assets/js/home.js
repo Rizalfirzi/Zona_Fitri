@@ -235,10 +235,11 @@ function safeHref(h) {
 
 function prodCard(b, i) {
   const href = `/${b.slug}?item=${encodeURIComponent(i.key)}`;
+  const iImg = i.img?.startsWith('/uploads/') ? 'https://tixandcoffee.developerngantuk.my.id' + i.img : i.img;
   const img = i.isBundle
     ? bundleCollage(i)
-    : i.img
-      ? `<img src="${esc(i.img)}" alt="${esc(i.name)}" loading="lazy" referrerpolicy="no-referrer" onerror="this.onerror=null;this.src='${esc(b.logo)}';this.classList.add('ph-logo');">`
+    : iImg
+      ? `<img src="${esc(iImg)}" alt="${esc(i.name)}" loading="lazy" referrerpolicy="no-referrer" onerror="this.onerror=null;this.src='${esc(b.logo)}';this.classList.add('ph-logo');">`
       : `<img class="ph-logo" src="${esc(b.logo)}" alt="">`;
   const save = i.normalPrice && i.normalPrice > i.price ? Math.round((1 - i.price / i.normalPrice) * 100) : 0;
   const badge = i.tag || (i.isBundle ? 'Bundling' : i.discountLabel ? `Diskon ${i.discountLabel.replace(/^-/, '')}` : save >= 5 ? `Hemat ${save}%` : '');

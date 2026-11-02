@@ -641,6 +641,27 @@ async function loadMenu() {
   const code = S.outlet && !S.outlet.manual ? S.outlet.code : '';
   try {
     S.menu = await api(`/api/${S.brandId}/menu${code ? `?outlet=${encodeURIComponent(code)}` : ''}`);
+    if (S.menu && Array.isArray(S.menu.items)) {
+      for (const it of S.menu.items) {
+        if (it.img && it.img.startsWith('/uploads/')) {
+          it.img = 'https://tixandcoffee.developerngantuk.my.id' + it.img;
+        }
+        if (it.options?.sizes) {
+          it.options.sizes = it.options.sizes.filter((sz) => !/jumbo/i.test(sz));
+        }
+        delete it.jumboPrice;
+        delete it.jumboNormal;
+        delete it.jumboOutletPrice;
+        const is1L = /1\s*l|liter/i.test((it.name || '') + ' ' + (it.key || ''));
+        if (S.brandId === 'tomoro' && !it.isFood && !is1L) {
+          if (!it.options) it.options = {};
+          it.options.sizes = ['Small'];
+          delete it.largePrice;
+          delete it.largeNormal;
+          delete it.largeOutletPrice;
+        }
+      }
+    }
     S.byKey = new Map(S.menu.items.map((i) => [i.key, i]));
     const hasBundles = S.menu.categories.some((c) => c.kind === 'bundle');
     const modeSeg = $('#modeSeg');
@@ -779,9 +800,12 @@ function setActivePill(cat) {
   }
 }
 
+const fixImg = (url) => (!url ? '' : url.startsWith('/uploads/') ? 'https://tixandcoffee.developerngantuk.my.id' + url : url);
+
 function thumb(item, cls = 'thumb') {
+  const imgUrl = fixImg(item?.img);
   const ph = `<img class="ph-logo" src="${esc(S.brand.logo)}" alt="">`;
-  return `<div class="${cls}">${item.img ? `<img src="${esc(item.img)}" alt="${esc(item.name)}" loading="lazy" referrerpolicy="no-referrer" onerror="this.onerror=null;this.src='${esc(S.brand.logo)}';this.classList.add('ph-logo');">` : ph}</div>`;
+  return `<div class="${cls}">${imgUrl ? `<img src="${esc(imgUrl)}" alt="${esc(item?.name || '')}" loading="lazy" referrerpolicy="no-referrer" onerror="this.onerror=null;this.src='${esc(S.brand.logo)}';this.classList.add('ph-logo');">` : ph}</div>`;
 }
 
 function priceHtml(item) {
@@ -816,10 +840,11 @@ function rowCard(item) {
 }
 
 function gridCard(item, i) {
-  const art = item.isBundle && !item.img
+  const imgUrl = fixImg(item?.img);
+  const art = item.isBundle && !imgUrl
     ? bundleCollage(item)
-    : item.img
-      ? `<img src="${esc(item.img)}" alt="${esc(item.name)}" loading="lazy" referrerpolicy="no-referrer" onerror="this.onerror=null;this.src='${esc(S.brand.logo)}';this.classList.add('ph-logo');">`
+    : imgUrl
+      ? `<img src="${esc(imgUrl)}" alt="${esc(item.name)}" loading="lazy" referrerpolicy="no-referrer" onerror="this.onerror=null;this.src='${esc(S.brand.logo)}';this.classList.add('ph-logo');">`
       : `<img class="ph-logo" src="${esc(S.brand.logo)}" alt="">`;
   const meta = item.isBundle ? item.desc || item.badge || `${item.slots} menu ${item.size}` : item.desc;
   const tagHtml = item.isSoldOut
@@ -884,8 +909,9 @@ function openItem(key, editIndex = null) {
   for (const g of S.sheet.groups) S.sheet.sel[g.id] = g.default;
   if (line) restoreSelection(line.choices);
 
-  $('#itemHero').classList.toggle('show', Boolean(item.img));
-  $('#itemHero').innerHTML = item.img ? `<img src="${esc(item.img)}" alt="${esc(item.name)}" referrerpolicy="no-referrer">` : '';
+  const imgUrl = fixImg(item.img);
+  $('#itemHero').classList.toggle('show', Boolean(imgUrl));
+  $('#itemHero').innerHTML = imgUrl ? `<img src="${esc(imgUrl)}" alt="${esc(item.name)}" referrerpolicy="no-referrer">` : '';
   $('#itemCat').textContent = item.category || '';
   $('#itemName').textContent = item.name;
   $('#itemDesc').textContent = item.desc || '';
@@ -908,8 +934,15 @@ function extrasGroup(item, extras = S.menu?.extras || []) {
 function staticGroups(item) {
   const o = item.options || {};
   const groups = [];
-  if (o.sizes?.length) {
-    groups.push({ id: 'size', key: 'size', name: 'Ukuran', values: o.sizes.map((v) => ({ id: v, text: v })), default: o.sizes[0], impact: true });
+  let sizes = (o.sizes || []).filter((v) => !/jumbo/i.test(v));
+
+  const is1L = /1\s*l|liter/i.test((item.name || '') + ' ' + (item.key || ''));
+  if (S.brandId === 'tomoro' && !item.isFood && !is1L) {
+    sizes = ['Small'];
+  }
+
+  if (sizes.length) {
+    groups.push({ id: 'size', key: 'size', name: 'Ukuran', values: sizes.map((v) => ({ id: v, text: v })), default: sizes[0], impact: true });
   }
   if (o.temps?.length) groups.push({ id: 'temp', key: 'temp', name: 'Suhu', values: o.temps.map((v) => ({ id: v, text: v })), default: o.temps[0] });
   if (o.ices?.length) groups.push({ id: 'ice', key: 'ice', name: 'Level es', values: o.ices.map((v) => ({ id: v, text: v })), default: o.ices[0], hideWhen: { temp: 'Hot' } });
@@ -932,6 +965,53 @@ async function loadItemDetail(item, line) {
       return;
     }
     if (d.groups?.length && d.prices && Object.keys(d.prices).length) {
+      // Client revision: Hapus Jumbo di all menu
+      const jumboIds = new Set();
+      for (const g of d.groups) {
+        if (Array.isArray(g.values)) {
+          for (const v of g.values) {
+            if (/jumbo/i.test(v.text || '') || /jumbo/i.test(String(v.id || ''))) {
+              jumboIds.add(String(v.id));
+            }
+          }
+          g.values = g.values.filter((v) => !jumboIds.has(String(v.id)));
+          if (jumboIds.has(String(g.default)) && g.values.length > 0) {
+            g.default = g.values[0].id;
+          }
+        }
+      }
+      d.groups = d.groups.filter((g) => g.values && g.values.length > 0);
+
+      if (jumboIds.size > 0) {
+        if (d.prices) {
+          const cleanPrices = {};
+          for (const [k, p] of Object.entries(d.prices)) {
+            if (!k.split('|').some((part) => jumboIds.has(part))) {
+              cleanPrices[k] = p;
+            }
+          }
+          d.prices = cleanPrices;
+        }
+        if (d.normals) {
+          const cleanNormals = {};
+          for (const [k, n] of Object.entries(d.normals)) {
+            if (!k.split('|').some((part) => jumboIds.has(part))) {
+              cleanNormals[k] = n;
+            }
+          }
+          d.normals = cleanNormals;
+        }
+        if (d.comboAddons) {
+          const cleanComboAddons = {};
+          for (const [k, ca] of Object.entries(d.comboAddons)) {
+            if (!k.split('|').some((part) => jumboIds.has(part))) {
+              cleanComboAddons[k] = ca;
+            }
+          }
+          d.comboAddons = cleanComboAddons;
+        }
+      }
+
       sheet.groups = d.groups;
       sheet.prices = d.prices;
       sheet.normals = d.normals || null;
@@ -986,6 +1066,7 @@ const comboKey = (sel) => impactGroups().map((g) => sel[g.id]).join('|');
 /** Price of the chosen variant, without add-ons. */
 function isLargeSelected(sel = S.sheet?.sel) {
   if (!sel || !S.sheet?.groups) return false;
+  if (S.brandId === 'tomoro') return false;
   for (const g of S.sheet.groups) {
     const valId = sel[g.id];
     if (valId == null) continue;
@@ -1020,6 +1101,7 @@ function unitPrice(sel = S.sheet.sel) {
 function normalPrice(sel = S.sheet.sel) {
   const { item, normals, prices } = S.sheet;
   if (prices) return normals ? normals[comboKey(sel)] ?? null : null;
+  if (S.brandId === 'tomoro') return item.normalPrice || null;
   if (sel.size === 'Large' && item.largePrice) return item.largeNormal || null;
   return item.normalPrice || null;
 }
@@ -1055,11 +1137,19 @@ const GROUP_LABELS = { Temperature: 'Suhu', Size: 'Ukuran', Beans: 'Biji kopi', 
 
 function renderOptions() {
   const sh = S.sheet;
+  for (const g of sh.groups) {
+    const valid = g.values.filter((v) => !/jumbo/i.test(v.text || '') && !/jumbo/i.test(String(v.id || '')));
+    if (valid.length && (!sh.sel[g.id] || !valid.some((v) => String(v.id) === String(sh.sel[g.id])))) {
+      sh.sel[g.id] = valid[0].id;
+    }
+  }
   const base = unitPrice();
   const html = sh.groups
     .filter((g) => !isHidden(g, sh.sel))
     .map((g) => {
-      const pills = g.values.map((v) => {
+      const pills = g.values
+        .filter((v) => !/jumbo/i.test(v.text || '') && !/jumbo/i.test(String(v.id || '')));
+      return `<div class="opt-group" role="group" aria-label="${esc(GROUP_LABELS[g.name] || g.name)}"><div class="opt-title">${esc(GROUP_LABELS[g.name] || g.name)}</div><div class="opt-choices">${pills.map((v) => {
         let extra = '';
         let disabled = false;
         if (g.impact) {
@@ -1072,8 +1162,7 @@ function renderOptions() {
           }
         }
         return `<button class="opt-pill ${sh.sel[g.id] === v.id ? 'active' : ''}" data-g="${esc(g.id)}" data-v="${esc(v.id)}" aria-pressed="${sh.sel[g.id] === v.id}" ${disabled ? 'disabled' : ''}>${esc(v.text)}${extra}</button>`;
-      });
-      return `<div class="opt-group" role="group" aria-label="${esc(GROUP_LABELS[g.name] || g.name)}"><div class="opt-title">${esc(GROUP_LABELS[g.name] || g.name)}</div><div class="opt-choices">${pills.join('')}</div></div>`;
+      }).join('')}</div></div>`;
     })
     .join('');
   const addonHtml = availableAddons()
@@ -1279,8 +1368,9 @@ function renderBundle() {
         ? '<span class="bcand-sold">Tidak tersedia</span>'
         : p != null ? `<span class="bcand-price">${formatRp(p)}</span>` : '';
 
+      const cImg = fixImg(c.img);
       return `<button class="bcand ${c.isSoldOut ? 'sold' : ''} ${isPicked ? 'picked' : ''}" data-key="${esc(c.key)}" ${c.isSoldOut ? 'disabled' : ''}>
-        ${c.img ? `<img src="${esc(c.img)}" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.onerror=null;this.src='${esc(S.brand.logo)}';this.classList.add('ph-logo');">` : `<img class="ph-logo" src="${esc(S.brand.logo)}" alt="">`}
+        ${cImg ? `<img src="${esc(cImg)}" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.onerror=null;this.src='${esc(S.brand.logo)}';this.classList.add('ph-logo');">` : `<img class="ph-logo" src="${esc(S.brand.logo)}" alt="">`}
         <span class="bcand-name">${esc(c.name)}</span>
         ${priceHtml}
       </button>`;
