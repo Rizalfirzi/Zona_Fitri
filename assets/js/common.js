@@ -143,7 +143,7 @@ export const FALLBACK_CONFIG = {
     kopken: { largeUpsize: 5000, juwaraBeans: 2000, oatside: 2000, fee: 5000 },
     tomoro: { fee: 5000 },
     fore: { fee: 5000 },
-    jiwa: { percent: 50, maxDiscount: 20000, fee: 5000 }
+    jiwa: { percent: 50, maxDiscount: 20000, fee: 10000 }
   },
   brands: [
     {
@@ -192,7 +192,7 @@ export const FALLBACK_CONFIG = {
       short: 'Janji Jiwa',
       theme: '#C2410C',
       badge: '50% OFF',
-      fee: 5000,
+      fee: 10000,
       logo: '/img/brands/jiwa.png',
       heroBg: '/img/brand/kopken-hero.jpg',
       bgMark: '/img/brand/mark-forest.png',

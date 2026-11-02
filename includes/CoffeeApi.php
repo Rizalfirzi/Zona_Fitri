@@ -289,25 +289,6 @@ class CoffeeApi
             $menuData['categories'] = $mergedCats;
         }
 
-        if ($brand === 'jiwa') {
-            if (isset($menuData['items'])) {
-                foreach ($menuData['items'] as &$it) {
-                    $k = $it['key'] ?? '';
-                    $nl = strtolower(trim($it['name'] ?? ''));
-                    if ($k === 'americano' || $nl === 'americano') {
-                        $it['outletPrice'] = 24000;
-                        $it['normalPrice'] = 24000;
-                        $it['price'] = 17000;
-                    } elseif ($k === 'latte' || $nl === 'latte') {
-                        $it['outletPrice'] = 24000;
-                        $it['normalPrice'] = 24000;
-                        $it['price'] = 17000;
-                    }
-                }
-                unset($it);
-            }
-        }
-
         $items = $menuData['items'] ?? [];
         $totalCount = count($items);
         $availableCount = 0;
@@ -493,25 +474,6 @@ class CoffeeApi
             }
         }
 
-        if ($brand === 'jiwa') {
-            if (isset($menuData['items'])) {
-                foreach ($menuData['items'] as &$it) {
-                    $k = $it['key'] ?? '';
-                    $nl = strtolower(trim($it['name'] ?? ''));
-                    if ($k === 'americano' || $nl === 'americano') {
-                        $it['outletPrice'] = 24000;
-                        $it['normalPrice'] = 24000;
-                        $it['price'] = 17000;
-                    } elseif ($k === 'latte' || $nl === 'latte') {
-                        $it['outletPrice'] = 24000;
-                        $it['normalPrice'] = 24000;
-                        $it['price'] = 17000;
-                    }
-                }
-                unset($it);
-            }
-        }
-
         $items = $menuData['items'] ?? [];
         $totalCount = count($items);
         $availableCount = 0;
@@ -560,20 +522,6 @@ class CoffeeApi
 
             $key = $item['key'] ?? '';
             $outletPrice = (int) ($item['outletPrice'] ?? $item['normalPrice'] ?? 0);
-
-            // Client revision: Americano & Latte harga asli resmi Jiwa+ adalah 24.000
-            if ($brand === 'jiwa') {
-                $nameLower = strtolower(trim($item['name'] ?? ''));
-                if ($key === 'americano' || $nameLower === 'americano') {
-                    $outletPrice = 24000;
-                    $item['outletPrice'] = 24000;
-                    $item['normalPrice'] = 24000;
-                } elseif ($key === 'latte' || $nameLower === 'latte') {
-                    $outletPrice = 24000;
-                    $item['outletPrice'] = 24000;
-                    $item['normalPrice'] = 24000;
-                }
-            }
 
             // Handle Janji Jiwa custom items from upstream where outletPrice is 0 or empty
             if ($brand === 'jiwa' && $outletPrice <= 0) {
@@ -639,9 +587,23 @@ class CoffeeApi
                     // Catatan: kopken fore upsize +5k
                     $largePrice = $calcPrice + 5000;
                 } elseif ($brand === 'jiwa') {
-                    // RUMUS JANJI JIWA: all menu disc 50% max 20k, fee per menu 5k
+                    // RUMUS JANJI JIWA: all menu disc 50% max 20k, fee per menu 10k (Client revision: coba +5k semua)
                     $discount = min($outletPrice * 0.5, 20000);
-                    $calcPrice = (int) round(($outletPrice - $discount) + 5000);
+                    $calcPrice = (int) round(($outletPrice - $discount) + 10000);
+
+                    // Tampilan normalPrice (harga coret) proporsional
+                    $normalPrice = max($outletPrice, (int) round(($calcPrice - 5000) * 2));
+                    if ($normalPrice <= $calcPrice) {
+                        $normalPrice = $calcPrice + 6000;
+                    }
+                    if ($key === 'americano' || strtolower($item['name'] ?? '') === 'americano') {
+                        $normalPrice = 24000;
+                    } elseif ($key === 'latte' || strtolower($item['name'] ?? '') === 'latte') {
+                        $normalPrice = 28000;
+                    } elseif ($key === 'jiwa-c-mvsaq8zc' || strtolower($item['name'] ?? '') === 'signature kopi susu') {
+                        $normalPrice = 28000;
+                    }
+                    $outletPrice = $normalPrice;
 
                     // Large variant if available
                     $largeOut = (int) ($item['largeOutletPrice'] ?? 0);
@@ -650,7 +612,7 @@ class CoffeeApi
                     }
                     if ($largeOut > 0) {
                         $largeDisc = min($largeOut * 0.5, 20000);
-                        $largePrice = (int) round(($largeOut - $largeDisc) + 5000);
+                        $largePrice = (int) round(($largeOut - $largeDisc) + 10000);
                     }
                 }
 
@@ -1707,13 +1669,27 @@ class CoffeeApi
             ];
             $items = [
                 [
+                    'key' => 'americano',
+                    'id' => 'americano',
+                    'name' => 'Americano',
+                    'category' => 'Coffee',
+                    'price' => 17500,
+                    'normalPrice' => 24000,
+                    'largePrice' => 20500,
+                    'isSoldOut' => false,
+                    'img' => 'https://tixandcoffee.developerngantuk.my.id/uploads/8cf1ecceeb60fa66.jpg',
+                    'desc' => 'Espresso dan air mineral segar pilihan khas Janji Jiwa.',
+                    'options' => $defaultOptions,
+                    'featured' => false,
+                ],
+                [
                     'key' => 'jiwa-signature-kopisusu',
                     'id' => 'jiwa-signature-kopisusu',
                     'name' => 'Signature Kopi Susu',
                     'category' => 'Coffee',
-                    'price' => 17000,
-                    'normalPrice' => 24000,
-                    'largePrice' => 20000,
+                    'price' => 22000,
+                    'normalPrice' => 28000,
+                    'largePrice' => 25000,
                     'isSoldOut' => false,
                     'img' => 'https://tixandcoffee.developerngantuk.my.id/uploads/c67bb7ddf16ba096.jpg',
                     'desc' => 'Espresso dengan paduan susu creamy dan gula aren autentik Janji Jiwa.',
@@ -1725,7 +1701,7 @@ class CoffeeApi
                     'id' => 'jiwa-goma-chicken-toast',
                     'name' => 'Goma Chicken Toast',
                     'category' => 'Jiwa Toast',
-                    'price' => 23500,
+                    'price' => 28500,
                     'normalPrice' => 37000,
                     'isSoldOut' => false,
                     'isFood' => true,
@@ -1739,9 +1715,9 @@ class CoffeeApi
                     'id' => 'jiwa-matcha-latte',
                     'name' => 'Matcha Latte',
                     'category' => 'Non Coffee',
-                    'price' => 21000,
+                    'price' => 26000,
                     'normalPrice' => 32000,
-                    'largePrice' => 24000,
+                    'largePrice' => 29000,
                     'isSoldOut' => false,
                     'img' => 'https://images.unsplash.com/photo-1536256263959-770b48d82b0a?q=80&w=400&auto=format&fit=crop',
                     'desc' => 'Matcha istimewa berpadu susu lembut yang segar dan menenangkan.',

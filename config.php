@@ -123,7 +123,7 @@ $config = [
         'jiwa' => [
             'percent' => 50,
             'maxDiscount' => 20000,
-            'add' => 5000, // fee per menu 5k
+            'add' => 10000, // Client revision: coba +5k semua (fee per menu 10k)
             'largeAdd' => 3000,
         ],
     ],
