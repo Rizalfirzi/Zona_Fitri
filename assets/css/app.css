@@ -65,18 +65,30 @@
   color-scheme: light;
 }
 
+/* Kunci palet ke kontras tinggi (mencegah teks putih di atas elemen putih saat sistem device dalam Dark Mode) */
 :root[data-theme="dark"] {
-  --bg: #0B1322;
-  --surface: #101C33;
-  --surface-2: #162646;
-  --cream: #14223E;
-  --ink: #F1F5F9;
-  --heading: #FFFFFF;
-  --muted: #94A3B8;
-  --faint: #64748B;
-  --border: rgba(255, 255, 255, 0.12);
-  --border-subtle: #1E293B;
-  color-scheme: dark;
+  --navy-deep: #070F1E;
+  --navy-dark: #0F1E36;
+  --navy-primary: #1E3A8A;
+  --navy-mid: #2563EB;
+  --navy-light: #3B82F6;
+  --navy-ice: #EFF6FF;
+  --navy-ice-subtle: #F0F4F9;
+  --primary: #1E3A8A;
+  --primary-hover: #172554;
+  --accent: #2563EB;
+  --accent-hover: #1D4ED8;
+  --bg: #F4F7FB;
+  --surface: #FFFFFF;
+  --surface-2: #F1F5F9;
+  --cream: #F8FAFC;
+  --ink: #0F172A;
+  --heading: #0A1128;
+  --muted: #64748B;
+  --faint: #94A3B8;
+  --border: rgba(15, 30, 54, 0.12);
+  --border-subtle: #E2E8F0;
+  color-scheme: light;
 }
 
 html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }

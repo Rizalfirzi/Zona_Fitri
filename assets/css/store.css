@@ -442,21 +442,27 @@ body.store-page .container { padding-bottom: 24px; }
 .item-price { font-size: 19px; color: #1E3A8A; font-weight: 900; }
 .item-normal { color: var(--faint); text-decoration: line-through; font-size: 13px; }
 
-.opt-group { margin-top: 10px; }
-.opt-title { font-weight: 700; font-size: 12px; color: var(--navy-dark); margin-bottom: 5px; }
-.opt-hint { font-weight: 500; color: var(--muted); font-size: 10.5px; }
-.opt-choices { display: flex; flex-wrap: wrap; gap: 6px; }
+.opt-group { margin-top: 12px; }
+.opt-title { font-weight: 800; font-size: 13px; color: #0F1E36; margin-bottom: 6px; }
+.opt-hint { font-weight: 500; color: #64748B; font-size: 11px; margin-left: 4px; }
+.opt-choices { display: flex; flex-wrap: wrap; gap: 8px; }
 .opt-pill {
-  border: 1.5px solid #CBD5E1; background: #FFFFFF; border-radius: 999px; padding: 5px 12px;
-  font-weight: 600; font-size: 11.5px; cursor: pointer; font-family: inherit; color: var(--ink);
-  transition: all .15s ease;
+  border: 1.5px solid #CBD5E1; background: #FFFFFF; border-radius: 999px; padding: 6px 14px;
+  font-weight: 700; font-size: 12.5px; cursor: pointer; font-family: inherit;
+  color: #1E293B !important; /* Sangat jelas & kontras tinggi saat tidak dipilih */
+  transition: all .15s ease; display: inline-flex; align-items: center; gap: 4px;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.05);
 }
-.opt-pill:hover { border-color: #2563EB; background: #F8FAFC; }
+.opt-pill small {
+  color: #64748B !important; font-weight: 600; font-size: 11px; margin-left: 2px;
+}
+.opt-pill:hover { border-color: #2563EB; background: #F1F5F9; color: #0F1E36 !important; }
 .opt-pill.active {
-  background: #0F1E36; border-color: #0F1E36; color: #FFFFFF;
-  box-shadow: 0 2px 6px rgba(15, 30, 54, 0.2);
+  background: #0F1E36 !important; border-color: #0F1E36 !important; color: #FFFFFF !important;
+  box-shadow: 0 2px 8px rgba(15, 30, 54, 0.25);
 }
-.opt-pill:disabled { opacity: .4; }
+.opt-pill.active small { color: #93C5FD !important; }
+.opt-pill:disabled { opacity: .35; cursor: not-allowed; border-color: #E2E8F0; background: #F8FAFC; color: #94A3B8 !important; }
 
 .qty-row { display: flex; align-items: center; justify-content: space-between; margin-top: 14px; }
 .qty-label { font-weight: 700; font-size: 13px; color: var(--navy-dark); }

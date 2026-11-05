@@ -2,6 +2,6 @@
 (function () {
   var t = null;
   try { t = JSON.parse(localStorage.getItem('jo_theme')); } catch (e) {}
-  if (!t) t = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  if (!t) t = 'light';
   document.documentElement.dataset.theme = t;
 })();

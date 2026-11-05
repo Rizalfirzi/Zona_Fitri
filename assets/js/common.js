@@ -240,13 +240,13 @@ export const $$ = (sel, root = document) => [...root.querySelectorAll(sel)];
 // ── Theme ─────────────────────────────────────────────────────────────────
 export function initTheme() {
   const saved = store.get('jo_theme');
-  const dark = saved ? saved === 'dark' : window.matchMedia?.('(prefers-color-scheme: dark)').matches;
+  const dark = saved === 'dark';
   applyTheme(dark ? 'dark' : 'light');
 }
 function applyTheme(t) {
   document.documentElement.dataset.theme = t;
   const meta = document.querySelector('meta[name="theme-color"]');
-  if (meta) meta.content = t === 'dark' ? '#0F0C0B' : '#FFFFFF';
+  if (meta) meta.content = '#0F1E36';
 }
 export function toggleTheme() {
   const next = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
