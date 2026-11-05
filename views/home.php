@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <meta name="theme-color" content="#F4EFE4" />
+  <meta name="theme-color" content="#0F1E36" />
   <meta name="description" content="Zona Fitri — jasa order Kopi Kenangan, Tomoro Coffee, Fore Coffee & Janji Jiwa. Lebih hemat, pesan langsung via WhatsApp." />
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Zona Fitri — Jasa Order Kopi" />
@@ -33,25 +33,21 @@
 
     <div id="closedBanner"></div>
 
-    <!-- Splash tampilan pilih brand dengan latar tekstur elegan -->
+    <!-- Splash tampilan pilih brand dengan tema Modern Navy -->
     <section id="splash" data-mode="malam">
-      <div class="sp-bg sp-bg-pagi" style="background-image: url('/img/hero/bg1.jpg');"></div>
-      <div class="sp-bg sp-bg-senja" style="background-image: url('/img/hero/bg2.jpg');"></div>
-      <div class="sp-bg sp-bg-malam" style="background-image: url('/img/hero/bg1.jpg');"></div>
-
       <div class="sp-content">
         <div class="sp-header">
           <div class="sp-brand">
-            <img src="/img/brand/zonafitri-logo.png" alt="Zona Fitri" style="height:52px;width:auto;object-fit:contain;filter:drop-shadow(0 2px 8px rgba(100,50,20,0.2));" />
+            <img src="/img/brand/zonafitri-logo.png" alt="Zona Fitri" style="height:48px;width:auto;object-fit:contain;filter:drop-shadow(0 2px 10px rgba(0,0,0,0.3));" />
           </div>
           <div class="sp-status" id="spStatus"><span class="sp-dot"></span><span id="spStatusText">SEDANG BUKA</span></div>
           <h2 id="spTitle">Pesan Kopi Lebih Hemat</h2>
-          <p class="sp-sub" id="spSub">pilih outlet & pesan sekarang</p>
+          <p class="sp-sub" id="spSub">Pilih outlet & pesan langsung via WhatsApp</p>
         </div>
 
-        <!-- Direct Brand Picker di Halaman Awal Sesuai Request Client (Page 1) -->
+        <!-- Direct Brand Picker di Halaman Awal -->
         <div class="sp-brand-picker">
-          <span class="sp-picker-label">Pilihan brand langsung di halaman awal saja</span>
+          <span class="sp-picker-label">PILIH BRAND KOPI</span>
           <div class="sp-brand-grid">
             <a href="/kopikenangan" class="sp-brand-card">
               <img src="/img/brands/kopken.png" alt="Kopi Kenangan" />

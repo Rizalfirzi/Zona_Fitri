@@ -1,8 +1,7 @@
 <?php
 /**
- * RID Store (Zona Fitri) - Central Application Configuration (PHP Native)
- * Real-time Coffee Outlets & Stock Management Web Application
- * Exact Replica of ridstore.developerngantuk.my.id Architecture
+ * Zona Fitri - Central Application Configuration (PHP Native)
+ * Real-time Multi-Brand Coffee Outlets & Stock Management Web Application
  * 
  * 100% PHP Native - Zero Database - Zero Laravel Dependency
  */
@@ -12,7 +11,7 @@ date_default_timezone_set('Asia/Jakarta');
 define('ROOT_PATH', __DIR__);
 
 // Cache directory in system temp directory
-$cacheDir = sys_get_temp_dir() . DIRECTORY_SEPARATOR . 'ridstore_cache';
+$cacheDir = sys_get_temp_dir() . DIRECTORY_SEPARATOR . 'zonafitri_cache';
 define('CACHE_PATH', $cacheDir);
 if (!is_dir(CACHE_PATH)) {
     @mkdir(CACHE_PATH, 0777, true);
@@ -39,7 +38,7 @@ $config = [
         'name' => 'Zona Fitri',
         'tagline' => 'Jasa order Kopi Kenangan, Tomoro, Fore & Janji Jiwa',
         'description' => 'Pesan kopi favorit lebih hemat: pilih outlet, pilih menu, lalu kirim pesanan ke WhatsApp admin.',
-        'accent' => '#C11F2E',
+        'accent' => '#1E3A8A',
         'admin_phone' => '628973034455', // Nomor WhatsApp admin Zona Fitri (08973034455)
         'order_prefix' => 'ZF',
         'channel_url' => 'https://whatsapp.com/channel/0029VbAzAXsI1rcbcchmmj2F',

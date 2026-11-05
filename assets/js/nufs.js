@@ -1,4 +1,4 @@
-/* RID Store — lapisan gaya video (splash 3D, brand modal 2x2, kartu WiFi). */
+/* Zona Fitri — Interactive UI Helper */
 (function () {
   'use strict';
   var $ = function (s, r) { return (r || document).querySelector(s); };

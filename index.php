@@ -1,7 +1,7 @@
 <?php
 /**
  * Zona Fitri - Entry Point (PHP Native)
- * Inspired by ridstore.developerngantuk.my.id & Kedai Kyuti
+ * Zona Fitri - Coffee Ordering Application (PHP Native)
  * 100% PHP Native Murni, Zero Database, Zero Laravel
  * Supports built-in server directly (php -S localhost:8000) and serverless environments
  */

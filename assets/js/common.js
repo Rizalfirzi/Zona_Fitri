@@ -414,7 +414,7 @@ export function renderDrawer(cfg, activeBrand = null) {
 export function logoHtml(cfg) {
   const alt = esc(cfg.storeName || 'Zona Fitri');
   return `<span class="logo" role="img" aria-label="${alt}">
-    <img src="/img/brand/zonafitri-logo.png" class="logo-rid-img" alt="${alt}" style="height:32px;width:auto;object-fit:contain;display:inline-block;vertical-align:middle;" />
+    <img src="/img/brand/zonafitri-logo.png" class="logo-zf-img" alt="${alt}" style="height:32px;width:auto;object-fit:contain;display:inline-block;vertical-align:middle;" />
   </span>`;
 }
 

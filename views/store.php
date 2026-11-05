@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <meta name="theme-color" content="#F4EFE4" />
+  <meta name="theme-color" content="#0F1E36" />
   <meta name="description" content="Order Kopi Kenangan, Tomoro, Fore & Janji Jiwa lebih hemat lewat Zona Fitri. Pilih outlet, pilih menu, kirim pesanan via WhatsApp." />
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Zona Fitri — Jasa Order Kopi" />

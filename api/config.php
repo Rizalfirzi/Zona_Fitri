@@ -1,7 +1,7 @@
 <?php
 /**
  * API Endpoint: Configuration & Brands Metadata
- * Matches exactly the schema expected by RID Store frontend
+ * Zona Fitri API Config Schema
  */
 
 header('Content-Type: application/json; charset=UTF-8');
@@ -22,7 +22,7 @@ try {
         'storeName' => config('store.name', 'Zona Fitri'),
         'tagline' => config('store.tagline', 'Jasa order Kopi Kenangan, Tomoro & Fore'),
         'description' => config('store.description', 'Pesan kopi favorit lebih hemat: pilih outlet, pilih menu, lalu kirim pesanan ke WhatsApp admin.'),
-        'accent' => config('store.accent', '#C11F2E'),
+        'accent' => config('store.accent', '#1E3A8A'),
         'orderPrefix' => config('store.order_prefix', 'ZF'),
         'channelUrl' => config('store.channel_url', 'https://whatsapp.com/channel/0029VbAzAXsI1rcbcchmmj2F'),
         'admins' => config('store.admins', [
