@@ -41,8 +41,8 @@
             <img src="/img/brand/zonafitri-logo.png" alt="Zona Fitri" style="height:48px;width:auto;object-fit:contain;filter:drop-shadow(0 2px 10px rgba(0,0,0,0.3));" />
           </div>
           <div class="sp-status" id="spStatus"><span class="sp-dot"></span><span id="spStatusText">SEDANG BUKA</span></div>
-          <h2 id="spTitle">Pesan Kopi Lebih Hemat</h2>
-          <p class="sp-sub" id="spSub">Pilih outlet & pesan langsung via WhatsApp</p>
+          <h2 id="spTitle">Mau Ngopi?</h2>
+          <p class="sp-sub" id="spSub">Ingat Fitri</p>
         </div>
 
         <!-- Direct Brand Picker di Halaman Awal -->
@@ -66,15 +66,17 @@
               <span>JANJI JIWA</span>
             </a>
           </div>
+
+          <!-- Tombol Gabung Saluran WA dipindahkan ke bawah brand card sesuai Gambar 3 -->
+          <a class="sp-channel-btn" id="spWa" href="https://whatsapp.com/channel/0029VbAzAXsI1rcbcchmmj2F" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5a8.5 8.5 0 0 0-7.3 12.8L3.5 20.5l4.3-1.1A8.5 8.5 0 1 0 12 3.5z"/><path d="M9 8.8c.2-.5.4-.5.6-.5l.5.1 1 2.4c.1.2 0 .4-.1.6l-.5.5c.4.8 1 1.5 1.9 2l.6-.5c.2-.2.4-.2.6-.1l2.3 1.1c.2.1.3.3.3.5-.1.9-.6 1.7-1.4 1.9-.7.2-1.5.1-2.7-.4a12.6 12.6 0 0 1-4.5-4c-.6-1-.8-1.9-.6-2.7.1-.5.5-.8 1-1z" fill="currentColor" stroke="none"/></g></svg>
+            <span>Gabung Saluran</span>
+          </a>
         </div>
 
         <div class="sp-building-spacer"></div>
 
         <div class="sp-bottom">
-          <div class="sp-cta">
-            <a class="btn btn-green" id="spWa" href="https://whatsapp.com/channel/0029VbAzAXsI1rcbcchmmj2F" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5a8.5 8.5 0 0 0-7.3 12.8L3.5 20.5l4.3-1.1A8.5 8.5 0 1 0 12 3.5z"/><path d="M9 8.8c.2-.5.4-.5.6-.5l.5.1 1 2.4c.1.2 0 .4-.1.6l-.5.5c.4.8 1 1.5 1.9 2l.6-.5c.2-.2.4-.2.6-.1l2.3 1.1c.2.1.3.3.3.5-.1.9-.6 1.7-1.4 1.9-.7.2-1.5.1-2.7-.4a12.6 12.6 0 0 1-4.5-4c-.6-1-.8-1.9-.6-2.7.1-.5.5-.8 1-1z" fill="currentColor" stroke="none"/></g></svg><span>Gabung Saluran</span></a>
-            <button class="btn btn-dark" id="spLihat" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20.5" r="1.5" fill="currentColor"/><circle cx="18" cy="20.5" r="1.5" fill="currentColor"/><path d="M2.5 3.5h3.2l2.4 11.2a1.5 1.5 0 0 0 1.5 1.2h8.5a1.5 1.5 0 0 0 1.5-1.2l1.6-8.2H6.2"/></g></svg><span>Order Sekarang</span></button>
-          </div>
           <div class="sp-url"><span>‹</span><span id="spHost">zonafitri.id</span><span>•••</span></div>
         </div>
       </div>

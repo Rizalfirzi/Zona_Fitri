@@ -103,18 +103,19 @@ body.home-page .topnav, body.home-page #fabWa { display: none !important; }
 @keyframes blink { 50% { opacity: .4; } }
 
 #splash h2 {
-  font-size: 26px; font-weight: 800; margin-top: 10px; z-index: 2;
+  font-size: 28px; font-weight: 800; margin-top: 10px; z-index: 2;
   line-height: 1.2; letter-spacing: -.4px; color: #FFFFFF;
   text-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
 }
 .sp-sub {
-  opacity: .9; margin-top: 4px; font-size: 13.5px; font-weight: 500;
-  z-index: 2; color: #94A3B8;
+  margin-top: 4px; font-size: 16px; font-weight: 700;
+  z-index: 2; color: #93C5FD; letter-spacing: 0.3px;
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.25);
 }
 
 .sp-building-spacer {
   flex: 1;
-  min-height: 20px;
+  min-height: 14px;
   width: 100%;
   pointer-events: none;
 }
@@ -123,7 +124,7 @@ body.home-page .topnav, body.home-page #fabWa { display: none !important; }
 .sp-brand-picker {
   width: 100%;
   max-width: 360px;
-  margin: 12px auto 8px;
+  margin: 12px auto 6px;
   z-index: 3;
 }
 .sp-picker-label {
@@ -181,27 +182,51 @@ body.home-page .topnav, body.home-page #fabWa { display: none !important; }
   color: #0F1E36;
 }
 
+/* Tombol Gabung Saluran WA (di bawah 4 brand card sesuai Gambar 3) */
+.sp-channel-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  margin-top: 12px;
+  padding: 13px 20px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+  color: #FFFFFF;
+  text-decoration: none;
+  font-weight: 800;
+  font-size: 14.5px;
+  letter-spacing: 0.3px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 6px 20px rgba(16, 185, 129, 0.35);
+  transition: all .18s var(--ease);
+}
+.sp-channel-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 26px rgba(16, 185, 129, 0.5);
+  background: linear-gradient(135deg, #059669 0%, #047857 100%);
+}
+.sp-channel-btn:active {
+  transform: translateY(1px);
+  box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
+}
+.sp-channel-btn svg {
+  width: 20px;
+  height: 20px;
+  flex: 0 0 20px;
+}
+
 .sp-bottom {
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
+  margin-top: auto;
 }
-
-.sp-cta {
-  display: flex; gap: 12px; width: 100%; margin-top: 10px; z-index: 2;
-}
-.sp-cta .btn {
-  flex: 1; min-width: 0; text-decoration: none; min-height: 48px; font-size: 14px; font-weight: 700;
-  border-radius: 14px; white-space: nowrap; padding: 10px 14px;
-  display: flex; align-items: center; justify-content: center; gap: 8px; cursor: pointer;
-  border: none;
-}
-.sp-cta .btn svg { width: 19px; height: 19px; flex: 0 0 19px; }
-.sp-cta .btn span { overflow: hidden; text-overflow: ellipsis; }
 
 .sp-url {
-  margin: 14px 0 0; z-index: 2;
+  margin: 10px 0 0; z-index: 2;
   background: rgba(255, 255, 255, 0.10);
   backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
   border-radius: 999px;
@@ -213,14 +238,19 @@ body.home-page .topnav, body.home-page #fabWa { display: none !important; }
 
 /* Responsif layar pendek */
 @media (max-height: 750px) {
-  .sp-content { padding: 16px 14px 14px; }
+  .sp-content { padding: 14px 14px 12px; }
+  .sp-brand img { height: 40px !important; }
   #splash h2 { font-size: 22px; margin-top: 6px; }
-  .sp-sub { font-size: 12.5px; }
-  .sp-building-spacer { min-height: 10px; }
+  .sp-sub { font-size: 14px; }
+  .sp-building-spacer { min-height: 6px; }
+  .sp-brand-picker { margin: 8px auto 6px; }
+  .sp-picker-label { margin-bottom: 6px; font-size: 10.5px; }
+  .sp-brand-grid { gap: 8px; }
   .sp-brand-card { padding: 10px 16px; }
   .sp-brand-card img { width: 26px; height: 26px; }
   .sp-brand-card span { font-size: 13.5px; }
-  .sp-cta .btn { min-height: 44px; font-size: 13.5px; }
+  .sp-channel-btn { margin-top: 8px; padding: 10px 16px; font-size: 13.5px; }
+  .sp-url { margin-top: 6px; padding: 5px 14px; }
 }
 
 /* ── Brand modal (beranda: Lihat-lihat; toko: •••) ── */

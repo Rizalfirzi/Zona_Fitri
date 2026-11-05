@@ -66,9 +66,9 @@
         if (stTxt) stTxt.textContent = open ? 'SEDANG BUKA' : 'SEDANG TUTUP';
       }
       var spTitle = $('#spTitle');
-      if (spTitle) spTitle.textContent = open ? 'Toko Sedang Buka' : 'Toko Sedang Tutup';
+      if (spTitle) spTitle.textContent = open ? 'Mau Ngopi?' : 'Toko Sedang Tutup';
       var spSub = $('#spSub');
-      if (spSub) spSub.textContent = open ? 'pilih outlet & pesan sekarang' : (cfg.shop && cfg.shop.reason ? cfg.shop.reason : 'open besok lgi');
+      if (spSub) spSub.textContent = open ? 'Ingat Fitri' : (cfg.shop && cfg.shop.reason ? cfg.shop.reason : 'Toko sedang tutup');
       var spWa = $('#spWa');
       if (spWa) {
         var channelLink = (cfg.settings && cfg.settings.channelUrl) || cfg.channelUrl || 'https://whatsapp.com/channel/0029VbAzAXsI1rcbcchmmj2F';
