@@ -513,6 +513,7 @@ class CoffeeApi
 
         $stockMap = [];
         $candidates1719 = [];
+        $candidates1719Drinks = [];
         $candidates19Drinks = [];
 
         foreach ($items as &$item) {
@@ -635,9 +636,9 @@ class CoffeeApi
                 unset($item['jumboPrice'], $item['jumboNormal'], $item['jumboOutletPrice']);
             }
 
-            // Check if eligible for Kopken Bundling 3 (17k & 19k original price, including food)
+            // Check if eligible for Kopken Bundling (17k & 19k original price)
             if ($brand === 'kopken' && ($outletPrice === 17000 || $outletPrice === 19000)) {
-                $candidates1719[] = [
+                $candItem = [
                     'key' => $key,
                     'name' => $item['name'],
                     'img' => $item['img'],
@@ -648,6 +649,12 @@ class CoffeeApi
                     'premium' => 0,
                     'options' => $item['options'] ?? [],
                 ];
+                $candidates1719[] = $candItem;
+                if (!$isFood) {
+                    $candDrink = $candItem;
+                    $candDrink['category'] = $item['category'] ?? 'Minuman';
+                    $candidates1719Drinks[] = $candDrink;
+                }
             }
 
             // Check if eligible for Kopken Bundling Large 2 (menu varian Large 25.000 - 27.000 sesuai revisi client v2)
@@ -680,6 +687,23 @@ class CoffeeApi
 
         // If Kopken, add client specific Bundling packages
         if ($brand === 'kopken' && (!empty($candidates1719) || !empty($candidates19Drinks))) {
+            $bundling4pcs = [
+                'key' => 'zf-b-4pcs-35k',
+                'id' => 'zf-b-4pcs-35k',
+                'name' => 'Bundling 4 Pcs (Rp35.000)',
+                'category' => 'Promo Bundling',
+                'desc' => '2 Minuman Reguler (menu 17k–19k) + 2 Roti Coklat Klasik (Total 4 item)',
+                'img' => '/img/bundling-4pcs-35k.png',
+                'price' => 35000,
+                'normalPrice' => 58000,
+                'isBundle' => true,
+                'slots' => 2,
+                'fixedItems' => ['2 Roti Coklat Klasik'],
+                'group' => 'Bundling 4 Pcs (2 Minuman + 2 Roti)',
+                'candidates' => !empty($candidates1719Drinks) ? $candidates1719Drinks : $candidates1719,
+                'isSoldOut' => false,
+            ];
+
             $bundling3 = [
                 'key' => 'zf-b-3-35k',
                 'id' => 'zf-b-3-35k',
@@ -715,14 +739,14 @@ class CoffeeApi
 
             // Remove existing bundles and replace with client bundles
             $items = array_values(array_filter($items, fn($i) => empty($i['isBundle'])));
-            array_unshift($items, $bundling3, $bundlingLarge2);
+            array_unshift($items, $bundling4pcs, $bundling3, $bundlingLarge2);
 
             $cats = $menuData['categories'] ?? [];
             $bundleCat = [
                 'id' => 'bundle-promo-bundling',
                 'name' => 'Promo Bundling',
                 'kind' => 'bundle',
-                'items' => ['zf-b-3-35k', 'zf-b-large2-32k'],
+                'items' => ['zf-b-4pcs-35k', 'zf-b-3-35k', 'zf-b-large2-32k'],
             ];
             $cats = array_values(array_filter($cats, fn($c) => ($c['kind'] ?? '') !== 'bundle'));
             array_unshift($cats, $bundleCat);

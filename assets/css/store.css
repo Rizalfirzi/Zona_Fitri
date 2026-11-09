@@ -381,7 +381,14 @@ body.store-page .container { padding-bottom: 24px; }
 .collage-tag b { font-size: 13.5px; }
 
 /* ── Bundling Sheet Slots & Candidate Grid ── */
-.bundle-slots { display: flex; flex-direction: column; gap: 8px; margin-top: 14px; }
+.bundle-fixed {
+  display: none;
+  background: #EFF6FF; border: 1.5px solid #BFDBFE; border-radius: 12px;
+  padding: 9px 14px; margin-top: 10px; font-size: 13px; font-weight: 700; color: #1E3A8A;
+}
+.bundle-fixed:not(:empty) { display: flex; align-items: center; gap: 8px; }
+.bundle-fixed:not(:empty)::before { content: "🎁"; font-size: 15px; }
+.bundle-slots { display: flex; flex-direction: column; gap: 8px; margin-top: 12px; }
 .bundle-slot {
   display: flex; align-items: center; gap: 10px; background: #FFFFFF;
   border: 1.5px solid #E2E8F0; border-radius: 14px; padding: 10px 14px;
