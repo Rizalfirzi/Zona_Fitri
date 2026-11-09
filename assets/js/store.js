@@ -3,7 +3,7 @@ import {
   $, $$, api, avatarText, bundleCollage, catIcon, closeSheet, esc, icons, initTheme, loadConfig, logoHtml, mountInfoSheets, openDrawer, openSheet,
   renderDrawer, shopClosedBanner, showDialog, store, toast, toggleTheme, watchNavScroll,
 } from './common.js?v=3aeca02b99';
-import { buildWaMessage, cartTotals, formatRp, normalizePhone, optionText, orderCode, roundTo, waLink } from './shared/order.js?v=4qty2026';
+import { buildWaMessage, cartTotals, formatRp, normalizePhone, optionText, orderCode, roundTo, waLink } from './shared/order.js?v=5bundleqty';
 
 const SLUG_TO_BRAND = { kopikenangan: 'kopken', kopken: 'kopken', tomoro: 'tomoro', fore: 'fore', janjiw: 'jiwa', janjijiwa: 'jiwa', jiwa: 'jiwa' };
 
@@ -1457,6 +1457,7 @@ function addBundleToCart() {
     price: bundlePrice(),
     basePrice: bundlePrice(),
     isBundle: true,
+    slots: B.bundle.slots || (B.slots ? B.slots.length : 0),
     isSpecial: false,
     selections: B.slots,
     fixedItems: B.bundle.fixedItems || [],
@@ -1563,6 +1564,7 @@ function renderCart() {
       .join('');
   }
   const t = cartTotals(S.cart, S.brand.fee);
+  if ($('#sumQty')) $('#sumQty').textContent = `${t.qty} item`;
   if ($('#sumSubtotal')) $('#sumSubtotal').textContent = formatRp(t.subtotal);
   if ($('#sumFee')) $('#sumFee').textContent = '';
   if ($('#sumTotal')) $('#sumTotal').textContent = formatRp(t.total);
@@ -1674,7 +1676,7 @@ function checkout() {
   const payload = {
     code: order.code, brand: S.brandId, outlet: { code: S.outlet?.code || '', name: S.outlet?.name || '' },
     customerName: name, customerPhone: phoneRaw, pickup, note: order.note, admin: admin.name,
-    items: S.cart.map((l) => ({ name: l.name, qty: l.qty, price: l.price, choices: l.choices, note: l.note, isBundle: l.isBundle, isSpecial: l.isSpecial, selections: l.selections })),
+    items: S.cart.map((l) => ({ name: l.name, qty: l.qty, price: l.price, choices: l.choices, note: l.note, isBundle: l.isBundle, isSpecial: l.isSpecial, selections: l.selections, fixedItems: l.fixedItems, slots: l.slots })),
   };
   fetch('/api/orders', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(payload), keepalive: true }).catch(() => {});
 

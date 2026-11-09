@@ -200,6 +200,7 @@
       </div>
 
       <div class="summary">
+        <div class="summary-row" id="sumQtyRow"><span>Total pesanan</span><span id="sumQty">0 item</span></div>
         <div class="summary-total"><span>Total bayar</span><span class="price" id="sumTotal">Rp0</span></div>
       </div>
       <div class="sheet-actions">
@@ -233,7 +234,7 @@
     </div>
   </div>
 
-  <script type="module" src="/assets/js/store.js?v=4qty2026"></script>
+  <script type="module" src="/assets/js/store.js?v=5bundleqty"></script>
   <script src="/assets/js/nufs.js" defer></script>
 </body>
 </html>

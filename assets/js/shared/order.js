@@ -38,6 +38,48 @@ export function computePrice(outletPrice, pricing = {}, options = {}) {
 }
 
 /**
+ * Returns the effective count of individual items (cups / food / pcs) in a line item.
+ * For regular items, this is simply the line quantity.
+ * For bundles, this sums user selections (cups) and fixed items (e.g. 2 roti),
+ * multiplied by the bundle line quantity.
+ */
+export function countBundleItems(it) {
+  if (!it) return 0;
+  const lineQty = Number(it.qty) || 1;
+  if (!it.isBundle) return lineQty;
+
+  let count = 0;
+  if (Array.isArray(it.selections) && it.selections.length > 0) {
+    count += it.selections.length;
+  } else if (Number(it.slots) > 0) {
+    count += Number(it.slots);
+  }
+
+  if (Array.isArray(it.fixedItems) && it.fixedItems.length > 0) {
+    for (const f of it.fixedItems) {
+      if (typeof f === 'string') {
+        const m = f.match(/^\s*(\d+)/);
+        count += m ? parseInt(m[1], 10) : 1;
+      } else if (typeof f === 'object' && f !== null) {
+        count += Number(f.qty) || 1;
+      } else {
+        count += 1;
+      }
+    }
+  }
+
+  if (count === 0) {
+    const nameStr = String(it.name || '');
+    const m = nameStr.match(/(\d+)\s*(?:pcs|cup|item|menu)/i)
+      || nameStr.match(/large\s*(\d+)/i)
+      || nameStr.match(/(\d+)/);
+    if (m) count = parseInt(m[1], 10);
+  }
+
+  return (count || 1) * lineQty;
+}
+
+/**
  * Service fee for a cart.
  * cart items: { qty, isBundle, isSpecial } (isSpecial = frappe / food)
  * rule.mode:
@@ -55,7 +97,7 @@ export function calcFee(cart, rule = {}) {
 
   const hasBundle = cart.some((i) => i.isBundle);
   if (hasBundle && rule.bundleFree !== false) return 0;
-  const totalQty = cart.reduce((a, i) => a + (i.qty || 0), 0);
+  const totalQty = cart.reduce((a, i) => a + countBundleItems(i), 0);
   const freeFrom = Number(rule.freeFromQty) || 0;
   if (freeFrom > 0 && totalQty >= freeFrom) return 0;
   if (nonBundleQty === 0) return 0;
@@ -67,7 +109,7 @@ export function calcFee(cart, rule = {}) {
 export function cartTotals(cart, rule) {
   const subtotal = cart.reduce((a, i) => a + (i.price || 0) * (i.qty || 0), 0);
   const fee = calcFee(cart, rule);
-  const qty = cart.reduce((a, i) => a + (i.qty || 0), 0);
+  const qty = cart.reduce((a, i) => a + countBundleItems(i), 0);
   return { subtotal, fee, total: subtotal + fee, qty };
 }
 
@@ -134,7 +176,7 @@ export function buildWaMessage(order) {
     if (it.note) out.push(`    Catatan: ${it.note}`);
   });
   out.push('');
-  const totalQty = order.qty != null ? order.qty : order.items.reduce((sum, it) => sum + (Number(it.qty) || 0), 0);
+  const totalQty = order.qty != null ? order.qty : order.items.reduce((sum, it) => sum + countBundleItems(it), 0);
   out.push(`Total Qty : ${totalQty} item`);
   out.push(`Total : ${formatRp(order.total)}`);
   if (order.note) out.push(`Catatan : ${order.note}`);

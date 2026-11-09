@@ -1,7 +1,7 @@
 import {
   $, $$, api, bundleCollage, esc, icons, initTheme, loadConfig, logoHtml, mountInfoSheets, openDrawer, openSheet, renderDrawer, shopClosedBanner, store, toggleTheme, watchNavScroll,
 } from './common.js?v=3aeca02b99';
-import { cartTotals, formatRp } from './shared/order.js?v=4qty2026';
+import { cartTotals, formatRp } from './shared/order.js?v=5bundleqty';
 
 const PERK_ICONS = [icons.tag, icons.pulse, icons.chat];
 
