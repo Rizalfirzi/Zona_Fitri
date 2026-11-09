@@ -1,5 +1,5 @@
 // Shared UI for the home and store pages: config, theme, drawer, sheets, dialogs, CS chat.
-import { calcFee, formatRp, waLink } from './shared/order.js?v=3aeca02b99';
+import { calcFee, formatRp, waLink } from './shared/order.js?v=4qty2026';
 
 export const icons = {
   menu: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>',

@@ -134,6 +134,8 @@ export function buildWaMessage(order) {
     if (it.note) out.push(`    Catatan: ${it.note}`);
   });
   out.push('');
+  const totalQty = order.qty != null ? order.qty : order.items.reduce((sum, it) => sum + (Number(it.qty) || 0), 0);
+  out.push(`Total Qty : ${totalQty} item`);
   out.push(`Total : ${formatRp(order.total)}`);
   if (order.note) out.push(`Catatan : ${order.note}`);
   if (order.code) out.push(`Kode Order : ${order.code}`);

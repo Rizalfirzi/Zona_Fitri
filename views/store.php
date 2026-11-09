@@ -233,7 +233,7 @@
     </div>
   </div>
 
-  <script type="module" src="/assets/js/store.js"></script>
+  <script type="module" src="/assets/js/store.js?v=4qty2026"></script>
   <script src="/assets/js/nufs.js" defer></script>
 </body>
 </html>

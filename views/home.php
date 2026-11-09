@@ -38,7 +38,7 @@
       <div class="sp-content">
         <div class="sp-header">
           <div class="sp-brand">
-            <img src="/img/brand/zonafitri-logo.png" alt="Zona Fitri" style="height:48px;width:auto;object-fit:contain;filter:drop-shadow(0 2px 10px rgba(0,0,0,0.3));" />
+            <img src="/img/brand/zonafitri-logo.png" alt="Zona Fitri" style="height:48px;width:auto;object-fit:contain;" />
           </div>
           <div class="sp-status" id="spStatus"><span class="sp-dot"></span><span id="spStatusText">SEDANG BUKA</span></div>
           <h2 id="spTitle">Mau Ngopi?</h2>
@@ -151,7 +151,7 @@
     </div>
   </div>
 
-  <script type="module" src="/assets/js/home.js"></script>
+  <script type="module" src="/assets/js/home.js?v=4qty2026"></script>
   <script src="/assets/js/nufs.js" defer></script>
 </body>
 </html>
