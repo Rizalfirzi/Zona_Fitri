@@ -267,6 +267,73 @@ class CoffeeApi
             }
         }
 
+        // Client revision: Hapus menu Fried Chicken Kenangan (FCK) & Salt Bread Original pada Kopi Kenangan
+        if ($brand === 'kopken' && isset($menuData['items']) && is_array($menuData['items'])) {
+            $removedKeys = [];
+            $filteredItems = [];
+            foreach ($menuData['items'] as $it) {
+                $itCat = strtolower(trim((string)($it['category'] ?? '')));
+                $itName = strtolower(trim((string)($it['name'] ?? '')));
+                $itKey = strtolower(trim((string)($it['key'] ?? '')));
+
+                $isFck = str_contains($itCat, 'fried chicken')
+                    || str_contains($itCat, 'fck')
+                    || str_contains($itName, 'bungeoppang')
+                    || str_contains($itName, 'spaghetti')
+                    || str_contains($itName, 'burger')
+                    || str_contains($itName, 'gyoza')
+                    || str_contains($itName, 'fried chicken')
+                    || str_contains($itName, 'nugget')
+                    || str_contains($itName, 'mie judes')
+                    || str_contains($itName, 'judes kremes')
+                    || str_contains($itName, 'fish ball')
+                    || str_contains($itName, 'fish cake')
+                    || str_contains($itName, 'boneless chicken')
+                    || str_contains($itName, 'chicken skin')
+                    || str_contains($itName, 'chicken ball')
+                    || preg_match('/\bnasi\b/i', $itName)
+                    || $itKey === 'nasi'
+                    || str_contains($itName, 'salt bread original')
+                    || $itKey === 'saltbreadoriginal';
+
+                if ($isFck) {
+                    if (!empty($it['key'])) $removedKeys[$it['key']] = true;
+                    if (!empty($it['id'])) $removedKeys[$it['id']] = true;
+                } else {
+                    $filteredItems[] = $it;
+                }
+            }
+            $menuData['items'] = $filteredItems;
+
+            // Remove FCK categories & prune category items
+            if (isset($menuData['categories']) && is_array($menuData['categories'])) {
+                $cleanCats = [];
+                foreach ($menuData['categories'] as $cat) {
+                    $catName = strtolower(trim((string)($cat['name'] ?? '')));
+                    $catId = strtolower(trim((string)($cat['id'] ?? '')));
+                    $isFckCat = str_contains($catName, 'fried chicken')
+                        || str_contains($catName, 'fck')
+                        || str_contains($catId, 'fried chicken')
+                        || str_contains($catId, 'fck');
+
+                    if ($isFckCat) {
+                        continue;
+                    }
+
+                    if (!empty($cat['items']) && is_array($cat['items'])) {
+                        $cat['items'] = array_values(array_filter($cat['items'], function ($k) use ($removedKeys) {
+                            return !isset($removedKeys[$k]);
+                        }));
+                    }
+
+                    if (!empty($cat['items'])) {
+                        $cleanCats[] = $cat;
+                    }
+                }
+                $menuData['categories'] = array_values($cleanCats);
+            }
+        }
+
         // Merge duplicate categories for Janji Jiwa (e.g. custom-coffee and item-coffee both named Coffee)
         if ($brand === 'jiwa' && isset($menuData['categories']) && is_array($menuData['categories'])) {
             $mergedCats = [];
