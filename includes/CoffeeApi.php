@@ -714,21 +714,11 @@ class CoffeeApi
             }
 
             // Check if eligible for Kopken Bundling (17k & 19k tier)
-            // Client rule: Bundling menu yg harga 17.000-19.000 (2cup) + roti coklat klasik 2pcs
+            // Client rule per screenshot: "all menu yang harga asli 17.000 & 19.000 termasuk menu food"
             // Strictly exclude premium drinks (Avocado, Oreo, Dutch Choco, Frappe, Liter)
             $isExcludedFromBundling = (bool) preg_match('/avocado|oreo|dutch|frappe|1\s*l|liter/i', ($item['name'] ?? '') . ' ' . $key);
 
-            $standardRegularKeys = [
-                'kopikenanganmantan', 'spanishlatte', 'americano', 'creamyarenlatte',
-                'ogarenspeculooslatte', 'pistachioarenlatte', 'cafemaltlatte',
-                'ogthaitea', 'kenanganmilktea', 'lemonblacktea', 'milodinosaurus',
-                'taromilk', 'tarocloudmilktea', 'bananaamericano', 'freshlemonade',
-                'babyccino', 'chococaramel', 'earlgreymilktea'
-            ];
-            $isRegEligible = !$isExcludedFromBundling && (
-                in_array($key, $standardRegularKeys, true)
-                || ($outletPrice >= 16000 && $outletPrice <= 19500)
-            );
+            $isRegEligible = !$isExcludedFromBundling && ($outletPrice >= 16000 && $outletPrice <= 19500);
 
             if ($brand === 'kopken' && $isRegEligible) {
                 $candItem = [
@@ -750,9 +740,9 @@ class CoffeeApi
                 }
             }
 
-            // Check if eligible for Kopken Bundling Large 2 (menu varian Large 25.000 - 27.000 per revisi client)
-            // Client rule: Pilih 2 cup Large dari menu varian Large 25.000–27.000 (Kenangan Mantan, Sparen, dll. Khusus minuman)
-            // Strictly exclude: Babyccino, Black Aren, Avocado Milk/Caramel, Oreo Shake, Dutch Chocolate, Frappe, Liter, and Food!
+            // Check if eligible for Kopken Bundling Large 2 (Rp32.000)
+            // Client rule per screenshot: "all menu harga 19.000(reg) seperti kenangan mantan, spanish, pistacio aren, banana americano, bluberi americano dll itu harga regnya 19.000 bisa untuk bundling large 2 32.000 kak (drink only)"
+            // Strictly exclude: Babyccino, Black Aren, Avocado, Oreo, Dutch Choco, Frappe, Liter, and Food!
             $largeOut = (int) ($item['largeOutletPrice'] ?? 0);
             if ($largeOut <= 0 && $outletPrice > 0) {
                 $largeOut = $outletPrice + 6000;
@@ -760,18 +750,9 @@ class CoffeeApi
 
             $isNotLargeEligible = (bool) preg_match('/baby|cino|black\s*aren|kopsu.*black|avocado|oreo|dutch|frappe|1\s*l|liter/i', ($item['name'] ?? '') . ' ' . $key);
 
-            $largeEligibleKeys = [
-                'kopikenanganmantan', 'spanishlatte', 'creamyarenlatte', 'americano',
-                'ogthaitea', 'kenanganmilktea', 'milodinosaurus', 'lemonblacktea',
-                'ogarenspeculooslatte', 'pistachioarenlatte', 'cafemaltlatte',
-                'chococaramel', 'earlgreymilktea', 'taromilk', 'tarocloudmilktea',
-                'bananaamericano', 'butterscotcharenlatte'
-            ];
+            $isLargeEligible = !$isFood && !$isNotLargeEligible && ($outletPrice >= 16000 && $outletPrice <= 19500);
 
-            $isLargeEligible = in_array($key, $largeEligibleKeys, true)
-                || ($largeOut >= 23000 && $largeOut <= 27000 && $outletPrice <= 21000);
-
-            if ($brand === 'kopken' && !$isFood && !$isNotLargeEligible && $isLargeEligible) {
+            if ($brand === 'kopken' && $isLargeEligible) {
                 $largeOpt = $item['options'] ?? [];
                 $largeOpt['sizes'] = ['Large'];
                 $candidates19Drinks[] = [
@@ -830,7 +811,7 @@ class CoffeeApi
                 'id' => 'zf-b-large2-32k',
                 'name' => 'Bundling Large 2 (Rp32.000)',
                 'category' => 'Promo Bundling',
-                'desc' => 'Pilih 2 cup Large dari menu varian Large 25.000–27.000 (Kenangan Mantan, Sparen, dll. Khusus minuman)',
+                'desc' => 'Pilih 2 cup Large dari menu reguler 19.000 (Kenangan Mantan, Spanish, Pistachio Aren, Banana Americano, dll. Khusus minuman)',
                 'img' => '/img/bundling-2-cup-large.png',
                 'price' => 32000,
                 'normalPrice' => 52000,
