@@ -2,8 +2,8 @@
 import {
   $, $$, api, avatarText, bundleCollage, catIcon, closeSheet, esc, icons, initTheme, loadConfig, logoHtml, mountInfoSheets, openDrawer, openSheet,
   renderDrawer, shopClosedBanner, showDialog, store, toast, toggleTheme, watchNavScroll,
-} from './common.js?v=3aeca02b99';
-import { buildWaMessage, cartTotals, formatRp, normalizePhone, optionText, orderCode, roundTo, waLink } from './shared/order.js?v=5bundleqty';
+} from './common.js?v=6stockfix';
+import { buildWaMessage, cartTotals, formatRp, normalizePhone, optionText, orderCode, roundTo, waLink } from './shared/order.js?v=6stockfix';
 
 const SLUG_TO_BRAND = { kopikenangan: 'kopken', kopken: 'kopken', tomoro: 'tomoro', fore: 'fore', janjiw: 'jiwa', janjijiwa: 'jiwa', jiwa: 'jiwa' };
 
@@ -1488,7 +1488,7 @@ function syncCart() {
     const item = S.byKey.get(l.key);
     let sold = !item || item.isSoldOut;
     if (l.isBundle && item) {
-      sold = sold || (l.selections || []).some((s) => item.candidates.find((c) => c.key === s.key)?.isSoldOut !== false);
+      sold = sold || (l.selections || []).some((s) => Boolean(item.candidates?.find((c) => c.key === s.key)?.isSoldOut));
       const price = bundlePrice({ bundle: item }, l.selections || []);
       if (!sold && price !== l.price) {
         l.price = price;

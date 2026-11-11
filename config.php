@@ -146,7 +146,8 @@ $config = [
                 'freeFromQty' => 0,
                 'singleSpecial' => 0,
             ],
-            'defaultOutlet' => 'LA.CODEFIN, JKT.LIPPOKMG, KK.JKT.CKJNG, JKT.THAMCIT, KK.JKT.RKKSTBNJB',
+            'defaultOutlet' => 'KK.SBY.MERRNGKTDT',
+            'default_outlet' => 'KK.SBY.MERRNGKTDT',
             'logo' => '/img/brands/kopken.png',
         ],
         'tomoro' => [
@@ -167,6 +168,7 @@ $config = [
                 'singleSpecial' => 0,
             ],
             'defaultOutlet' => 'TMR-627779',
+            'default_outlet' => 'TMR-627779',
             'logo' => '/img/brands/tomoro.png',
         ],
         'fore' => [
@@ -186,7 +188,8 @@ $config = [
                 'freeFromQty' => 0,
                 'singleSpecial' => 0,
             ],
-            'defaultOutlet' => 'KOKAS, Adam Malik',
+            'defaultOutlet' => 'KOKAS',
+            'default_outlet' => 'KOKAS',
             'logo' => '/img/brands/fore.png',
         ],
         'jiwa' => [

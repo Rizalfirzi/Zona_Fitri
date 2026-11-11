@@ -158,8 +158,15 @@ class CoffeeApi
     {
         $brand = $this->normalizeBrand($brand);
         $outletCode = trim((string) $outletCode);
+        if (str_contains($outletCode, ',')) {
+            $outletCode = trim(explode(',', $outletCode)[0]);
+        }
         if ($outletCode === '') {
-            $outletCode = config("brands.{$brand}.default_outlet", 'LA.CODEFIN');
+            $rawDef = config("brands.{$brand}.defaultOutlet", config("brands.{$brand}.default_outlet", ''));
+            $outletCode = trim(explode(',', (string)$rawDef)[0]);
+            if ($outletCode === '') {
+                $outletCode = $brand === 'kopken' ? 'KK.SBY.MERRNGKTDT' : ($brand === 'jiwa' ? '25' : ($brand === 'fore' ? 'KOKAS' : 'TMR-627779'));
+            }
         }
 
         $safeOutlet = preg_replace('/[^A-Za-z0-9_-]/', '_', $outletCode);
@@ -703,8 +710,19 @@ class CoffeeApi
                 unset($item['jumboPrice'], $item['jumboNormal'], $item['jumboOutletPrice']);
             }
 
-            // Check if eligible for Kopken Bundling (17k & 19k original price)
-            if ($brand === 'kopken' && ($outletPrice === 17000 || $outletPrice === 19000)) {
+            // Check if eligible for Kopken Bundling (17k & 19k tier, adapting to outlet pricing 16k-24k)
+            $standardRegularKeys = [
+                'kopikenanganmantan', 'spanishlatte', 'americano', 'creamyarenlatte',
+                'ogarenspeculooslatte', 'pistachioarenlatte', 'cafemaltlatte',
+                'ogthaitea', 'thaitealoaded', 'kenanganmilktea', 'lemonblacktea',
+                'milodinosaurus', 'taromilk', 'tarocloudmilktea', 'tarocloudmatcha',
+                'tarocloudlatte', 'bananaamericano', 'freshlemonade', 'babyccino',
+                'susugrassjelly', 'oreoshake'
+            ];
+            $isRegEligible = in_array($key, $standardRegularKeys, true)
+                || ($outletPrice >= 16000 && $outletPrice <= 24000 && stripos($item['name'] ?? '', 'frappe') === false && stripos($item['name'] ?? '', '1 l') === false);
+
+            if ($brand === 'kopken' && $isRegEligible) {
                 $candItem = [
                     'key' => $key,
                     'name' => $item['name'],
@@ -724,7 +742,7 @@ class CoffeeApi
                 }
             }
 
-            // Check if eligible for Kopken Bundling Large 2 (menu varian Large 25.000 - 27.000 sesuai revisi client v2)
+            // Check if eligible for Kopken Bundling Large 2 (menu varian Large 25.000 - 27.000 tier, adapting to outlet pricing)
             $largeOut = (int) ($item['largeOutletPrice'] ?? 0);
             if ($largeOut <= 0 && $outletPrice > 0) {
                 $largeOut = $outletPrice + 6000;
@@ -733,7 +751,13 @@ class CoffeeApi
             // Client revision (Gambar 1): Exclude Babyccino and Kopi Susu Black Aren from bundling 32
             $isNotLargeEligible = (bool) preg_match('/baby|cino|black\s*aren|kopsu.*black/i', ($item['name'] ?? '') . ' ' . $key);
 
-            if ($brand === 'kopken' && !$isFood && !$isNotLargeEligible && ($largeOut >= 25000 && $largeOut <= 27000)) {
+            $isLargeEligible = in_array($key, [
+                'kopikenanganmantan', 'spanishlatte', 'creamyarenlatte', 'americano',
+                'ogthaitea', 'kenanganmilktea', 'milodinosaurus', 'lemonblacktea',
+                'ogarenspeculooslatte', 'pistachioarenlatte', 'cafemaltlatte', 'oreoshake'
+            ], true) || ($largeOut >= 23000 && $largeOut <= 30000 && stripos($item['name'] ?? '', 'frappe') === false && stripos($item['name'] ?? '', '1 l') === false);
+
+            if ($brand === 'kopken' && !$isFood && !$isNotLargeEligible && $isLargeEligible) {
                 $largeOpt = $item['options'] ?? [];
                 $largeOpt['sizes'] = ['Large'];
                 $candidates19Drinks[] = [

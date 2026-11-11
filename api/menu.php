@@ -35,8 +35,15 @@ try {
     }
 
     $outletCode = $_GET['outlet'] ?? $_GET['outletCode'] ?? '';
+    if (str_contains($outletCode, ',')) {
+        $outletCode = trim(explode(',', $outletCode)[0]);
+    }
     if (empty($outletCode)) {
-        $outletCode = config("brands.{$brand}.defaultOutlet", config("brands.{$brand}.default_outlet", 'LA.CODEFIN'));
+        $rawDef = config("brands.{$brand}.defaultOutlet", config("brands.{$brand}.default_outlet", ''));
+        $outletCode = trim(explode(',', (string)$rawDef)[0]);
+        if (empty($outletCode)) {
+            $outletCode = $brand === 'kopken' ? 'KK.SBY.MERRNGKTDT' : ($brand === 'jiwa' ? '25' : ($brand === 'fore' ? 'KOKAS' : 'TMR-627779'));
+        }
     }
 
     $forceRefresh = isset($_GET['refresh']) && in_array(strtolower((string)$_GET['refresh']), ['1', 'true', 'yes'], true);
