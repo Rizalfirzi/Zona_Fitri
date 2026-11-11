@@ -2,8 +2,8 @@
 import {
   $, $$, api, avatarText, bundleCollage, catIcon, closeSheet, esc, icons, initTheme, loadConfig, logoHtml, mountInfoSheets, openDrawer, openSheet,
   renderDrawer, shopClosedBanner, showDialog, store, toast, toggleTheme, watchNavScroll,
-} from './common.js?v=6stockfix';
-import { buildWaMessage, cartTotals, formatRp, normalizePhone, optionText, orderCode, roundTo, waLink } from './shared/order.js?v=6stockfix';
+} from './common.js?v=7bundlingfix';
+import { buildWaMessage, cartTotals, formatRp, normalizePhone, optionText, orderCode, roundTo, waLink } from './shared/order.js?v=7bundlingfix';
 
 const SLUG_TO_BRAND = { kopikenangan: 'kopken', kopken: 'kopken', tomoro: 'tomoro', fore: 'fore', janjiw: 'jiwa', janjijiwa: 'jiwa', jiwa: 'jiwa' };
 
