@@ -14,6 +14,7 @@ header('Access-Control-Allow-Methods: GET, OPTIONS');
 header('Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With');
 header('Cache-Control: no-store, no-cache, must-revalidate, max-age=0');
 header('Pragma: no-cache');
+header('Expires: 0');
 
 if (($_SERVER['REQUEST_METHOD'] ?? '') === 'OPTIONS') {
     exit(0);
@@ -48,7 +49,8 @@ try {
         }
     }
 
-    $forceRefresh = isset($_GET['refresh']) && in_array(strtolower((string)$_GET['refresh']), ['1', 'true', 'yes'], true);
+    $forceRefresh = (isset($_GET['refresh']) && in_array(strtolower((string)$_GET['refresh']), ['1', 'true', 'yes'], true))
+        || !empty($_GET['t']);
 
     $result = $api->getMenu($brand, $outletCode, $forceRefresh);
     echo json_encode($result, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);

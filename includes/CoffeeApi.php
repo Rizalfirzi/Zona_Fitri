@@ -477,24 +477,102 @@ class CoffeeApi
         // Apply Zona Fitri client pricing formulas and live-stock bundling
         $this->applyClientPricingAndBundling($menuData, $brand);
 
-        // Client request v2: Thai Tea harus ada di kategori Non-Kopi Kopi Kenangan
-        if ($brand === 'kopken' && isset($menuData['categories'])) {
-            foreach ($menuData['categories'] as &$cat) {
-                if (($cat['id'] ?? '') === 'item-non-kopi' || strtolower($cat['name'] ?? '') === 'non-kopi' || strtolower($cat['name'] ?? '') === 'non coffee') {
-                    if (!in_array('ogthaitea', $cat['items'], true)) {
-                        $bPos = array_search('bananachoco', $cat['items'], true);
-                        if ($bPos !== false) {
-                            array_splice($cat['items'], $bPos + 1, 0, 'ogthaitea');
-                        } else {
-                            $cat['items'][] = 'ogthaitea';
-                        }
-                    }
-                    if (!in_array('thaitealoaded', $cat['items'], true)) {
-                        $cat['items'][] = 'thaitealoaded';
+        // Client request: Kategori Kopi Kenangan disinkronkan real-time: Kopi, Non-Kopi, Tea, Frappe, Food
+        if ($brand === 'kopken' && isset($menuData['categories']) && is_array($menuData['categories'])) {
+            $teaKeys = [
+                'tarocloudmilktea', 'ogthaitea', 'thaitealoaded', 
+                'hazelnutchocomilktea', 'lemonblacktea', 'kenanganmilktea',
+                'earlgreytea', 'earlgreymilktea', 'raspberryhibiscus'
+            ];
+
+            // Normalize item categories
+            if (!empty($menuData['items']) && is_array($menuData['items'])) {
+                foreach ($menuData['items'] as &$it) {
+                    $k = strtolower(trim((string)($it['key'] ?? '')));
+                    $c = strtolower(trim((string)($it['category'] ?? '')));
+                    $n = strtolower(trim((string)($it['name'] ?? '')));
+
+                    if (in_array($k, $teaKeys, true) || (str_contains($c, 'non') && str_contains($n, 'tea'))) {
+                        $it['category'] = 'Tea';
+                    } elseif ($c === 'coffee' || $c === 'kopi') {
+                        $it['category'] = 'Kopi';
+                    } elseif ($c === 'non coffee' || $c === 'non-kopi' || $c === 'nonkopi') {
+                        $it['category'] = 'Non-Kopi';
+                    } elseif (str_contains($c, 'frappe')) {
+                        $it['category'] = 'Frappe';
+                    } elseif (str_contains($c, 'food') || str_contains($c, 'toast') || str_contains($c, 'bakery')) {
+                        $it['category'] = 'Food';
                     }
                 }
+                unset($it);
             }
-            unset($cat);
+
+            $newCats = [];
+            foreach ($menuData['categories'] as $cat) {
+                $cId = strtolower(trim((string)($cat['id'] ?? '')));
+                $cName = strtolower(trim((string)($cat['name'] ?? '')));
+
+                if ($cId === 'bundle-promo-bundling' || ($cat['kind'] ?? '') === 'bundle') {
+                    $cat['name'] = 'Promo Bundling';
+                    $newCats[] = $cat;
+                    continue;
+                }
+
+                if ($cId === 'item-coffee' || $cName === 'coffee' || $cName === 'kopi') {
+                    $cat['id'] = 'item-kopi';
+                    $cat['name'] = 'Kopi';
+                    $cat['kind'] = 'item';
+                    $newCats[] = $cat;
+                    continue;
+                }
+
+                if ($cId === 'item-non-coffee' || $cName === 'non coffee' || $cName === 'non-kopi') {
+                    $nonKopiItems = [];
+                    $teaItems = [];
+                    foreach ($cat['items'] ?? [] as $k) {
+                        $kLower = strtolower($k);
+                        if (in_array($kLower, $teaKeys, true) || str_contains($kLower, 'tea')) {
+                            $teaItems[] = $k;
+                        } else {
+                            $nonKopiItems[] = $k;
+                        }
+                    }
+                    $newCats[] = [
+                        'id' => 'item-non-kopi',
+                        'name' => 'Non-Kopi',
+                        'kind' => 'item',
+                        'items' => array_values($nonKopiItems),
+                    ];
+                    if (!empty($teaItems)) {
+                        $newCats[] = [
+                            'id' => 'item-tea',
+                            'name' => 'Tea',
+                            'kind' => 'item',
+                            'items' => array_values($teaItems),
+                        ];
+                    }
+                    continue;
+                }
+
+                if (str_contains($cId, 'frappe') || str_contains($cName, 'frappe')) {
+                    $cat['id'] = 'item-frappe';
+                    $cat['name'] = 'Frappe';
+                    $cat['kind'] = 'item';
+                    $newCats[] = $cat;
+                    continue;
+                }
+
+                if (str_contains($cId, 'food') || str_contains($cName, 'food')) {
+                    $cat['id'] = 'item-food';
+                    $cat['name'] = 'Food';
+                    $cat['kind'] = 'item';
+                    $newCats[] = $cat;
+                    continue;
+                }
+
+                $newCats[] = $cat;
+            }
+            $menuData['categories'] = $newCats;
         }
 
         // Client request v2: Sinkronisasi Tomoro (Siwalankerto & kategori Signature/Classic)
@@ -1386,6 +1464,8 @@ class CoffeeApi
             curl_setopt($ch, CURLOPT_USERAGENT, 'ZonaFitriNative/1.0 (Windows NT 10.0)');
             curl_setopt($ch, CURLOPT_HTTPHEADER, [
                 'Accept: application/json',
+                'Cache-Control: no-cache, no-store, must-revalidate',
+                'Pragma: no-cache',
             ]);
 
             $response = curl_exec($ch);

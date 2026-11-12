@@ -2,8 +2,8 @@
 import {
   $, $$, api, avatarText, bundleCollage, catIcon, closeSheet, esc, icons, initTheme, loadConfig, logoHtml, mountInfoSheets, openDrawer, openSheet,
   renderDrawer, shopClosedBanner, showDialog, store, toast, toggleTheme, watchNavScroll,
-} from './common.js?v=7bundlingfix';
-import { buildWaMessage, cartTotals, formatRp, normalizePhone, optionText, orderCode, roundTo, waLink } from './shared/order.js?v=7bundlingfix';
+} from './common.js?v=10kopkenrealtimesync';
+import { buildWaMessage, cartTotals, formatRp, normalizePhone, optionText, orderCode, roundTo, waLink } from './shared/order.js?v=10kopkenrealtimesync';
 
 const SLUG_TO_BRAND = { kopikenangan: 'kopken', kopken: 'kopken', tomoro: 'tomoro', fore: 'fore', janjiw: 'jiwa', janjijiwa: 'jiwa', jiwa: 'jiwa' };
 
@@ -561,6 +561,7 @@ async function selectOutlet(o) {
     toast(`Outlet dipilih: ${o.name}`);
   }
   await loadMenu();
+  updateCartBar();
   if (S.pendingItem) {
     const k = S.pendingItem;
     S.pendingItem = null;
@@ -626,21 +627,16 @@ async function loadMenu() {
   const menuEl = $('#menu');
   if (!menuEl) return;
 
-  // Pas di awal / belum pilih outlet: list menu dikosongkan dengan petunjuk ramah
-  if (!S.outlet) {
-    menuEl.innerHTML = '<div class="menu-empty" style="grid-column: 1 / -1; width: 100%;"><span style="font-size:32px;display:block;margin-bottom:8px;">📍</span><b>Pilih outlet terlebih dahulu</b>Ketik nama kota atau gerai pada kotak pencarian di atas, atau klik tombol <b>Terdekat</b> untuk melihat menu dan harga outlet.</div>';
-    const catBar = $('#catBar');
-    if (catBar) catBar.innerHTML = '';
-    const menuSource = $('#menuSource');
-    if (menuSource) menuSource.textContent = '';
-    return;
-  }
-
   if (!S.menu) menuEl.innerHTML = Array.from({ length: 6 }, () => '<div class="skel skel-row"></div>').join('');
   else menuEl.style.opacity = '.5';
-  const code = S.outlet && !S.outlet.manual ? S.outlet.code : '';
+
+  const defaultCode = S.brand?.defaultOutlet ? S.brand.defaultOutlet.split(',')[0].trim() : '';
+  const code = S.outlet && !S.outlet.manual ? S.outlet.code : defaultCode;
   try {
-    S.menu = await api(`/api/${S.brandId}/menu${code ? `?outlet=${encodeURIComponent(code)}` : ''}`);
+    const qs = [];
+    if (code) qs.push(`outlet=${encodeURIComponent(code)}`);
+    qs.push(`t=${Date.now()}`);
+    S.menu = await api(`/api/${S.brandId}/menu?${qs.join('&')}`);
     if (S.menu && Array.isArray(S.menu.items)) {
       for (const it of S.menu.items) {
         if (it.img && it.img.startsWith('/uploads/')) {
@@ -670,13 +666,16 @@ async function loadMenu() {
     renderCats();
     renderMenu();
     syncCart();
+    updateCartBar();
     const menuSource = $('#menuSource');
     if (menuSource) {
-      menuSource.textContent = S.menu.live
-        ? `Stok & harga live dari outlet ${S.outlet?.name || ''}.`
-        : S.menu.preview && S.brand.requireOutlet
-          ? 'Pilih outlet untuk melihat stok & harga outlet.'
-          : 'Stok diperbarui manual oleh admin.';
+      menuSource.textContent = S.outlet
+        ? (S.menu.live
+          ? `Stok & harga live dari outlet ${S.outlet.name}.`
+          : 'Stok diperbarui manual oleh admin.')
+        : (S.brand?.requireOutlet
+          ? 'Pilih outlet untuk melihat stok & harga tepat gerai kamu.'
+          : 'Stok diperbarui manual oleh admin.');
     }
   } catch (err) {
     menuEl.innerHTML = `<div class="menu-empty"><b>Menu belum bisa dimuat</b>${esc(err.message)}<br><button class="btn btn-primary" id="retryMenu">Coba lagi</button></div>`;
@@ -711,7 +710,7 @@ function setMode(mode, scroll) {
 function renderCats() {
   const catBar = $('#catBar');
   if (!catBar) return;
-  if (!S.outlet || !S.menu) {
+  if (!S.menu) {
     catBar.innerHTML = '';
     return;
   }
