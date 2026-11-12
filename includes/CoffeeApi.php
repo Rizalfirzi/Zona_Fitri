@@ -91,9 +91,26 @@ class CoffeeApi
             $response = $this->httpRequest($backupUrl, $params);
         }
 
-        if ($response && !empty($response['outlets'])) {
-            $outlets = $response['outlets'];
+        $outlets = ($response && !empty($response['outlets'])) ? $response['outlets'] : [];
 
+        // Special enhancement for Tomoro: Merge with comprehensive 645+ outlet dataset
+        if ($brand === 'tomoro') {
+            $localTomoro = $this->searchLocalTomoroOutlets($query);
+            $existingCodes = [];
+            foreach ($outlets as $o) {
+                $c = (string)($o['code'] ?? $o['id'] ?? '');
+                if ($c !== '') $existingCodes[$c] = true;
+            }
+            foreach ($localTomoro as $lo) {
+                $c = (string)($lo['code'] ?? $lo['id'] ?? '');
+                if ($c !== '' && !isset($existingCodes[$c])) {
+                    $outlets[] = $lo;
+                    $existingCodes[$c] = true;
+                }
+            }
+        }
+
+        if (!empty($outlets)) {
             // Calculate GPS distance locally if coordinates provided
             if ($lat !== null && $lng !== null) {
                 foreach ($outlets as &$outlet) {
@@ -113,6 +130,35 @@ class CoffeeApi
                     $distB = $b['distanceKm'] ?? 999999;
                     return $distA <=> $distB;
                 });
+
+                if (count($outlets) > 40) {
+                    $outlets = array_slice($outlets, 0, 40);
+                }
+            } elseif ($query !== '') {
+                $qLower = strtolower($query);
+                usort($outlets, function ($a, $b) use ($qLower) {
+                    $scoreA = 999;
+                    $cityA = strtolower($a['city'] ?? '');
+                    $nameA = strtolower($a['name'] ?? '');
+                    $addrA = strtolower($a['address'] ?? '');
+                    if (preg_match('/\b' . preg_quote($qLower, '/') . '\b/i', $cityA)) $scoreA = 1;
+                    elseif (preg_match('/\b' . preg_quote($qLower, '/') . '\b/i', $nameA)) $scoreA = 2;
+                    elseif (preg_match('/\b' . preg_quote($qLower, '/') . '\b/i', $addrA)) $scoreA = 3;
+                    elseif (str_contains($cityA . ' ' . $nameA . ' ' . $addrA, $qLower)) $scoreA = 4;
+
+                    $scoreB = 999;
+                    $cityB = strtolower($b['city'] ?? '');
+                    $nameB = strtolower($b['name'] ?? '');
+                    $addrB = strtolower($b['address'] ?? '');
+                    if (preg_match('/\b' . preg_quote($qLower, '/') . '\b/i', $cityB)) $scoreB = 1;
+                    elseif (preg_match('/\b' . preg_quote($qLower, '/') . '\b/i', $nameB)) $scoreB = 2;
+                    elseif (preg_match('/\b' . preg_quote($qLower, '/') . '\b/i', $addrB)) $scoreB = 3;
+                    elseif (str_contains($cityB . ' ' . $nameB . ' ' . $addrB, $qLower)) $scoreB = 4;
+
+                    return $scoreA <=> $scoreB;
+                });
+            } elseif ($query === '' && count($outlets) > 50) {
+                $outlets = array_slice($outlets, 0, 50);
             }
 
             // Evaluate operating hours for each outlet
@@ -183,16 +229,19 @@ class CoffeeApi
             return $this->formatMenuStats($cached, $brand, $outletCode);
         }
 
-        // Primary API request
+        // Primary API request: pass outlet parameter for live outlet-specific pricing (Big Outlet / Mall / Rest Area / Stasiun) and stock
         $url = $this->primaryBaseUrl . "/{$brand}/menu";
-        // Client & user requirement: Kopi Kenangan uses base catalog https://tixandcoffee.developerngantuk.my.id/api/kopken/menu
-        // so drinks are not falsely marked as "Tidak tersedia" per outlet.
-        $requestParams = ($brand === 'kopken') ? [] : ['outlet' => $outletCode];
+        $requestParams = $outletCode !== '' ? ['outlet' => $outletCode] : [];
         $response = $this->httpRequest($url, $requestParams);
 
         if (!$response || empty($response['items'])) {
             $backupUrl = $this->backupBaseUrl . "/{$brand}/menu";
             $response = $this->httpRequest($backupUrl, $requestParams);
+        }
+
+        // Safety fallback: if outlet-specific request returned empty, query base brand menu
+        if (!$response || empty($response['items'])) {
+            $response = $this->httpRequest($url, []);
         }
 
         if ($response && isset($response['items'])) {
@@ -696,7 +745,7 @@ class CoffeeApi
 
                 $item['price'] = $calcPrice;
                 $item['normalPrice'] = $outletPrice;
-                if ($largePrice !== null) {
+                if ($largePrice !== null && !$isFood && (empty($item['options']['sizes']) || in_array('Large', $item['options']['sizes'], true))) {
                     $item['largePrice'] = $largePrice;
                     $item['largeNormal'] = $item['largeOutletPrice'] ?? ($outletPrice + 6000);
                 } else {
@@ -718,7 +767,22 @@ class CoffeeApi
             // Strictly exclude premium drinks (Avocado, Oreo, Dutch Choco, Frappe, Liter)
             $isExcludedFromBundling = (bool) preg_match('/avocado|oreo|dutch|frappe|1\s*l|liter/i', ($item['name'] ?? '') . ' ' . $key);
 
-            $isRegEligible = !$isExcludedFromBundling && ($outletPrice >= 16000 && $outletPrice <= 19500);
+            $base1719Keys = [
+                'kopikenanganmantan', 'spanishlatte', 'pistachioarenlatte', 'bananaamericano', 
+                'bluberiamericano', 'blueberryamericano', 'americano', 'taromilk', 'tarocloudmilktea', 
+                'ogthaitea', 'earlgreytea', 'earlgreymilktea', 'lemonblacktea', 'freshlemonade',
+                'classicpeanutbutterpanini', 'triplecheesebagel', 'doublechocobagel', 'wahyusapitoast', 
+                'oboycoffeetoast', 'chocolatecroissant', 'sweethoneysoftbakedcookie', 
+                'oatmealraisinsoftbakedcookie', 'friendchipcookie', 'saltbreadabon', 
+                'milkycarameldanish', 'almondcroissant', 'berrylovecromboloni', 
+                'bananachocosoftbakedcookie', 'canelearen', 'chocomuffin', 'blueberrymuffin', 
+                'donuttiramisu', 'saltbreadbeefandcheese', 'caneleoriginal', 'rotigulungaren', 
+                'saltbreadsausage'
+            ];
+            $isRegEligible = !$isExcludedFromBundling && (
+                ($outletPrice >= 16000 && $outletPrice <= 19500) ||
+                in_array($key, $base1719Keys, true)
+            );
 
             if ($brand === 'kopken' && $isRegEligible) {
                 $candItem = [
@@ -750,7 +814,15 @@ class CoffeeApi
 
             $isNotLargeEligible = (bool) preg_match('/baby|cino|black\s*aren|kopsu.*black|avocado|oreo|dutch|frappe|1\s*l|liter/i', ($item['name'] ?? '') . ' ' . $key);
 
-            $isLargeEligible = !$isFood && !$isNotLargeEligible && ($outletPrice >= 16000 && $outletPrice <= 19500);
+            $base19DrinkKeys = [
+                'kopikenanganmantan', 'spanishlatte', 'pistachioarenlatte', 'bananaamericano', 
+                'bluberiamericano', 'blueberryamericano', 'taromilk', 'tarocloudmilktea', 
+                'ogthaitea', 'earlgreytea', 'earlgreymilktea', 'lemonblacktea'
+            ];
+            $isLargeEligible = !$isFood && !$isNotLargeEligible && (
+                ($outletPrice >= 18000 && $outletPrice <= 19500) ||
+                in_array($key, $base19DrinkKeys, true)
+            );
 
             if ($brand === 'kopken' && $isLargeEligible) {
                 $largeOpt = $item['options'] ?? [];
@@ -1543,16 +1615,23 @@ class CoffeeApi
             ],
         ];
 
-        $list = $fallbacks[$brand] ?? $fallbacks['kopken'];
+        if ($brand === 'tomoro') {
+            $list = $this->searchLocalTomoroOutlets($query);
+            if (empty($list)) {
+                $list = $fallbacks['tomoro'] ?? [];
+            }
+        } else {
+            $list = $fallbacks[$brand] ?? $fallbacks['kopken'];
 
-        // Filter by query if supplied
-        if ($query !== '' && $query !== null) {
-            $qLower = strtolower($query);
-            $list = array_values(array_filter($list, function ($it) use ($qLower) {
-                return str_contains(strtolower($it['name'] ?? ''), $qLower)
-                    || str_contains(strtolower($it['address'] ?? ''), $qLower)
-                    || str_contains(strtolower($it['city'] ?? ''), $qLower);
-            }));
+            // Filter by query if supplied
+            if ($query !== '' && $query !== null) {
+                $qLower = strtolower($query);
+                $list = array_values(array_filter($list, function ($it) use ($qLower) {
+                    return str_contains(strtolower($it['name'] ?? ''), $qLower)
+                        || str_contains(strtolower($it['address'] ?? ''), $qLower)
+                        || str_contains(strtolower($it['city'] ?? ''), $qLower);
+                }));
+            }
         }
 
         // Distance calculate
@@ -1567,6 +1646,87 @@ class CoffeeApi
         }
 
         return $list;
+    }
+
+    /**
+     * Search local comprehensive Tomoro dataset (645+ outlets across Indonesia)
+     */
+    public function searchLocalTomoroOutlets(?string $query): array
+    {
+        $filePath = (defined('ROOT_PATH') ? ROOT_PATH : __DIR__ . '/..') . '/data/outlets_tomoro.json';
+        if (!file_exists($filePath)) {
+            return [];
+        }
+        $raw = @file_get_contents($filePath);
+        if (!$raw) {
+            return [];
+        }
+        $all = json_decode($raw, true);
+        if (!is_array($all)) {
+            return [];
+        }
+
+        $q = strtolower(trim((string)$query));
+        if ($q === '') {
+            return $all;
+        }
+
+        $aliases = [
+            'ptc' => ['pakuwon', 'trade center'],
+            'tp' => ['tunjungan plaza'],
+            'gm' => ['galaxy mall'],
+            'cw' => ['ciputra world'],
+            'sby' => ['surabaya'],
+            'mlg' => ['malang'],
+            'bdg' => ['bandung'],
+            'jkt' => ['jakarta'],
+            'smg' => ['semarang'],
+            'jogja' => ['yogyakarta'],
+            'yogya' => ['yogyakarta'],
+            'bali' => ['denpasar', 'badung', 'kuta', 'ubud'],
+        ];
+
+        $terms = [$q];
+        if (isset($aliases[$q])) {
+            $terms = array_merge($terms, $aliases[$q]);
+        }
+
+        $results = [];
+        foreach ($all as $item) {
+            $name = strtolower($item['name'] ?? '');
+            $city = strtolower($item['city'] ?? '');
+            $address = strtolower($item['address'] ?? '');
+            $code = strtolower($item['code'] ?? '');
+            $haystack = "{$name} {$city} {$address} {$code}";
+
+            $score = 999;
+            foreach ($terms as $t) {
+                $tEsc = preg_quote($t, '/');
+                if (preg_match('/\b' . $tEsc . '\b/i', $city)) {
+                    $score = min($score, 1);
+                } elseif (preg_match('/\b' . $tEsc . '\b/i', $name)) {
+                    $score = min($score, 2);
+                } elseif (preg_match('/\b' . $tEsc . '\b/i', $address)) {
+                    $score = min($score, 3);
+                } elseif (str_contains($haystack, $t)) {
+                    $score = min($score, 4);
+                }
+            }
+
+            if ($score < 999) {
+                $item['_score'] = $score;
+                $results[] = $item;
+            }
+        }
+
+        usort($results, fn($a, $b) => ($a['_score'] ?? 999) <=> ($b['_score'] ?? 999));
+
+        foreach ($results as &$r) {
+            unset($r['_score']);
+        }
+        unset($r);
+
+        return $results;
     }
 
     /**
