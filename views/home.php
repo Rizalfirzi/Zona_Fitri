@@ -151,7 +151,7 @@
     </div>
   </div>
 
-  <script type="module" src="/assets/js/home.js?v=8outletprice"></script>
+  <script type="module" src="/assets/js/home.js?v=9tomoropricefix"></script>
   <script src="/assets/js/nufs.js" defer></script>
 </body>
 </html>

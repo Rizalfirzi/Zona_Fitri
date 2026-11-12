@@ -456,11 +456,16 @@ class CoffeeApi
                 $is1L = (bool) preg_match('/1\s*l|liter/i', ($item['name'] ?? '') . ' ' . ($item['key'] ?? ''));
                 if (!$isFood && !$is1L) {
                     if (!isset($item['options']) || !is_array($item['options'])) {
-                        $item['options'] = [
-                            'temps' => ['Ice', 'Hot'],
-                            'ices' => ['Normal Ice', 'Less Ice', 'No Ice'],
-                            'sugars' => ['Normal Sugar', 'Less Sugar', 'No Sugar'],
-                        ];
+                        $item['options'] = [];
+                    }
+                    if (empty($item['options']['temps'])) {
+                        $item['options']['temps'] = ['Ice', 'Hot'];
+                    }
+                    if (empty($item['options']['ices'])) {
+                        $item['options']['ices'] = ['Normal Ice', 'Less Ice', 'No Ice'];
+                    }
+                    if (empty($item['options']['sugars'])) {
+                        $item['options']['sugars'] = ['Normal Sugar', 'Less Sugar', 'No Sugar'];
                     }
                     $item['options']['sizes'] = ['Small'];
                     unset($item['largePrice'], $item['largeNormal'], $item['largeOutletPrice']);
@@ -566,6 +571,30 @@ class CoffeeApi
                             $it['price'] = 17000;
                         }
                     }
+
+                    // Seasonal / Custom Tomoro Drinks (Client revision: Triple Pistachio & Mont Blanc series)
+                    $normName = strtolower(trim((string)($it['name'] ?? '')));
+                    if (str_contains($normName, 'triple pistachio matcha')) {
+                        $it['outletPrice'] = 32000;
+                        $it['normalPrice'] = 32000;
+                        $it['price'] = 21000; // (32k - 50%) + 5k = 21k
+                    } elseif (str_contains($normName, 'triple dubai pistachio chocolate') || str_contains($normName, 'dubai pistachio')) {
+                        $it['outletPrice'] = 32000;
+                        $it['normalPrice'] = 32000;
+                        $it['price'] = 21000; // (32k - 50%) + 5k = 21k
+                    } elseif (str_contains($normName, 'triple pistachio latte')) {
+                        $it['outletPrice'] = 29000;
+                        $it['normalPrice'] = 29000;
+                        $it['price'] = 19500; // (29k - 50%) + 5k = 19.5k
+                    } elseif (str_contains($normName, 'choco mont blanc')) {
+                        $it['outletPrice'] = 29000;
+                        $it['normalPrice'] = 29000;
+                        $it['price'] = 19500; // (29k - 50%) + 5k = 19.5k
+                    } elseif (str_contains($normName, 'mocha mont blanc')) {
+                        $it['outletPrice'] = 28000;
+                        $it['normalPrice'] = 28000;
+                        $it['price'] = 19000; // (28k - 50%) + 5k = 19k
+                    }
                 }
                 unset($it);
 
@@ -661,6 +690,39 @@ class CoffeeApi
                     $estimatedOutlet = max(0, ($existingPrice - $tixFee) * 2);
                     if ($estimatedOutlet > 0) {
                         $outletPrice = $estimatedOutlet;
+                        $item['outletPrice'] = $outletPrice;
+                        $item['normalPrice'] = $outletPrice;
+                    }
+                }
+            }
+
+            // Handle Tomoro seasonal / custom drinks from upstream where outletPrice is empty or needs normalization
+            if ($brand === 'tomoro') {
+                $normName = strtolower(trim((string)($item['name'] ?? '')));
+                if (str_contains($normName, 'triple pistachio matcha')) {
+                    $outletPrice = 32000;
+                    $item['outletPrice'] = 32000;
+                    $item['normalPrice'] = 32000;
+                } elseif (str_contains($normName, 'triple dubai pistachio chocolate') || str_contains($normName, 'dubai pistachio')) {
+                    $outletPrice = 32000;
+                    $item['outletPrice'] = 32000;
+                    $item['normalPrice'] = 32000;
+                } elseif (str_contains($normName, 'triple pistachio latte')) {
+                    $outletPrice = 29000;
+                    $item['outletPrice'] = 29000;
+                    $item['normalPrice'] = 29000;
+                } elseif (str_contains($normName, 'choco mont blanc')) {
+                    $outletPrice = 29000;
+                    $item['outletPrice'] = 29000;
+                    $item['normalPrice'] = 29000;
+                } elseif (str_contains($normName, 'mocha mont blanc')) {
+                    $outletPrice = 28000;
+                    $item['outletPrice'] = 28000;
+                    $item['normalPrice'] = 28000;
+                } elseif ($outletPrice <= 0 && !empty($item['isCustom'])) {
+                    $existingPrice = (int) ($item['price'] ?? 0);
+                    if ($existingPrice > 0) {
+                        $outletPrice = max(0, ($existingPrice - 5000) * 2);
                         $item['outletPrice'] = $outletPrice;
                         $item['normalPrice'] = $outletPrice;
                     }
