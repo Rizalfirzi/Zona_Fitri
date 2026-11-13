@@ -22,9 +22,10 @@ $config = [
     'app_domain' => 'zonafitri.id',
     'app_env' => 'production',
 
-    // Primary Upstream Live APIs (Referenced from tixandcoffee.developerngantuk.my.id)
-    'api_base_url' => 'https://tixandcoffee.developerngantuk.my.id/api',
-    'api_backup_url' => 'https://ridstore.developerngantuk.my.id/api',
+    // Primary Upstream Live APIs (Referenced from twinsjasdor.my.id & tixandcoffee.developerngantuk.my.id)
+    'api_base_url' => 'https://twinsjasdor.my.id/api',
+    'api_backup_url' => 'https://tixandcoffee.developerngantuk.my.id/api',
+    'api_tertiary_url' => 'https://ridstore.developerngantuk.my.id/api',
     'api_timeout' => 8,
 
     // Cache TTL Settings (in seconds)

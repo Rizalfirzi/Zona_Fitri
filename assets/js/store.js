@@ -2,8 +2,8 @@
 import {
   $, $$, api, avatarText, bundleCollage, catIcon, closeSheet, esc, icons, initTheme, loadConfig, logoHtml, mountInfoSheets, openDrawer, openSheet,
   renderDrawer, shopClosedBanner, showDialog, store, toast, toggleTheme, watchNavScroll,
-} from './common.js?v=10kopkenrealtimesync';
-import { buildWaMessage, cartTotals, formatRp, normalizePhone, optionText, orderCode, roundTo, waLink } from './shared/order.js?v=10kopkenrealtimesync';
+} from './common.js?v=11twinsjasdorsync';
+import { buildWaMessage, cartTotals, formatRp, normalizePhone, optionText, orderCode, roundTo, waLink } from './shared/order.js?v=11twinsjasdorsync';
 
 const SLUG_TO_BRAND = { kopikenangan: 'kopken', kopken: 'kopken', tomoro: 'tomoro', fore: 'fore', janjiw: 'jiwa', janjijiwa: 'jiwa', jiwa: 'jiwa' };
 
@@ -640,7 +640,7 @@ async function loadMenu() {
     if (S.menu && Array.isArray(S.menu.items)) {
       for (const it of S.menu.items) {
         if (it.img && it.img.startsWith('/uploads/')) {
-          it.img = 'https://tixandcoffee.developerngantuk.my.id' + it.img;
+          it.img = 'https://twinsjasdor.my.id' + it.img;
         }
         if (it.options?.sizes) {
           it.options.sizes = it.options.sizes.filter((sz) => !/jumbo/i.test(sz));
@@ -799,7 +799,7 @@ function setActivePill(cat) {
   }
 }
 
-const fixImg = (url) => (!url ? '' : url.startsWith('/uploads/') ? 'https://tixandcoffee.developerngantuk.my.id' + url : url);
+const fixImg = (url) => (!url ? '' : url.startsWith('/uploads/') ? 'https://twinsjasdor.my.id' + url : url);
 
 function thumb(item, cls = 'thumb') {
   const imgUrl = fixImg(item?.img);

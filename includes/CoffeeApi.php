@@ -17,16 +17,18 @@ class CoffeeApi
 {
     protected string $primaryBaseUrl;
     protected string $backupBaseUrl;
+    protected string $tertiaryBaseUrl;
     protected int $outletsTtl;
     protected int $stockTtl;
     protected string $cacheDir;
 
     public function __construct()
     {
-        $this->primaryBaseUrl = rtrim((string) config('api_base_url', 'https://tixandcoffee.developerngantuk.my.id/api'), '/');
-        $this->backupBaseUrl = rtrim((string) config('api_backup_url', 'https://ridstore.developerngantuk.my.id/api'), '/');
+        $this->primaryBaseUrl = rtrim((string) config('api_base_url', 'https://twinsjasdor.my.id/api'), '/');
+        $this->backupBaseUrl = rtrim((string) config('api_backup_url', 'https://tixandcoffee.developerngantuk.my.id/api'), '/');
+        $this->tertiaryBaseUrl = rtrim((string) config('api_tertiary_url', 'https://ridstore.developerngantuk.my.id/api'), '/');
         $this->outletsTtl = (int) config('cache_ttl.outlets', 1800);
-        $this->stockTtl = (int) config('cache_ttl.menu', 60);
+        $this->stockTtl = (int) config('cache_ttl.menu', 3);
         $this->cacheDir = defined('CACHE_PATH') ? CACHE_PATH : sys_get_temp_dir() . DIRECTORY_SEPARATOR . 'zonafitri_cache';
 
         if (!is_dir($this->cacheDir)) {
@@ -89,6 +91,11 @@ class CoffeeApi
         if (!$response || empty($response['outlets'])) {
             $backupUrl = $this->backupBaseUrl . "/{$brand}/outlets";
             $response = $this->httpRequest($backupUrl, $params);
+        }
+
+        if (!$response || empty($response['outlets'])) {
+            $tertiaryUrl = $this->tertiaryBaseUrl . "/{$brand}/outlets";
+            $response = $this->httpRequest($tertiaryUrl, $params);
         }
 
         $outlets = ($response && !empty($response['outlets'])) ? $response['outlets'] : [];
@@ -239,9 +246,17 @@ class CoffeeApi
             $response = $this->httpRequest($backupUrl, $requestParams);
         }
 
+        if (!$response || empty($response['items'])) {
+            $tertiaryUrl = $this->tertiaryBaseUrl . "/{$brand}/menu";
+            $response = $this->httpRequest($tertiaryUrl, $requestParams);
+        }
+
         // Safety fallback: if outlet-specific request returned empty, query base brand menu
         if (!$response || empty($response['items'])) {
             $response = $this->httpRequest($url, []);
+            if (!$response || empty($response['items'])) {
+                $response = $this->httpRequest($this->backupBaseUrl . "/{$brand}/menu", []);
+            }
         }
 
         if ($response && isset($response['items'])) {
@@ -249,6 +264,7 @@ class CoffeeApi
                 'success' => true,
                 'live' => true,
                 'isClosed' => $response['isClosed'] ?? false,
+                'premium' => !empty($response['premium']),
                 'brand' => $brand,
                 'outletCode' => $outletCode,
                 'categories' => $response['categories'] ?? [],
@@ -432,13 +448,13 @@ class CoffeeApi
             // Normalizing image url
             if (!empty($item['img']) && strpos($item['img'], 'http') !== 0) {
                 if (strpos($item['img'], '/uploads/') === 0 || strpos($item['img'], '/img/') === 0) {
-                    $item['img'] = 'https://tixandcoffee.developerngantuk.my.id' . $item['img'];
+                    $item['img'] = 'https://twinsjasdor.my.id' . $item['img'];
                 }
             }
             if (empty($item['img'])) {
                 $item['img'] = $this->getDefaultItemImage($brand, $item['name'] ?? '');
             } elseif (str_starts_with($item['img'], '/uploads/')) {
-                $item['img'] = 'https://tixandcoffee.developerngantuk.my.id' . $item['img'];
+                $item['img'] = 'https://twinsjasdor.my.id' . $item['img'];
             }
 
             // Client revision: Hapus Jumbo di all menu
@@ -554,6 +570,14 @@ class CoffeeApi
                     continue;
                 }
 
+                if (str_contains($cId, 'tea') || str_contains($cName, 'tea')) {
+                    $cat['id'] = 'item-tea';
+                    $cat['name'] = 'Tea';
+                    $cat['kind'] = 'item';
+                    $newCats[] = $cat;
+                    continue;
+                }
+
                 if (str_contains($cId, 'frappe') || str_contains($cName, 'frappe')) {
                     $cat['id'] = 'item-frappe';
                     $cat['name'] = 'Frappe';
@@ -572,7 +596,25 @@ class CoffeeApi
 
                 $newCats[] = $cat;
             }
-            $menuData['categories'] = $newCats;
+
+            // Deduplicate categories by ID
+            $mergedCats = [];
+            $catIndexMap = [];
+            foreach ($newCats as $cat) {
+                $id = $cat['id'];
+                if (isset($catIndexMap[$id])) {
+                    $idx = $catIndexMap[$id];
+                    foreach ($cat['items'] ?? [] as $itKey) {
+                        if (!in_array($itKey, $mergedCats[$idx]['items'], true)) {
+                            $mergedCats[$idx]['items'][] = $itKey;
+                        }
+                    }
+                } else {
+                    $catIndexMap[$id] = count($mergedCats);
+                    $mergedCats[] = $cat;
+                }
+            }
+            $menuData['categories'] = $mergedCats;
         }
 
         // Client request v2: Sinkronisasi Tomoro (Siwalankerto & kategori Signature/Classic)
@@ -704,6 +746,125 @@ class CoffeeApi
                     ];
                     $menuData['items'][] = $item1L;
                 }
+
+                // Add seasonal Tomoro drinks (Triple Pistachio & Mont Blanc series) if not present
+                $seasonalDefs = [
+                    'triplepistachiomatcha' => [
+                        'key' => 'triplepistachiomatcha',
+                        'id' => 'triplepistachiomatcha',
+                        'code' => '990002',
+                        'name' => 'Triple Pistachio Matcha',
+                        'category' => 'Matcha Series',
+                        'sourceCategory' => 'Matcha Series',
+                        'img' => 'https://tixandcoffee.developerngantuk.my.id/uploads/1bd5d564d13a99f2.jpg',
+                        'desc' => 'Perpaduan matcha first flush premium dengan foam pistachio creamy dan crumble pistachio renyah.',
+                        'outletPrice' => 32000,
+                        'normalPrice' => 32000,
+                        'price' => 21000,
+                        'isSoldOut' => false,
+                        'notCarried' => false,
+                        'isFood' => false,
+                        'options' => ['sizes' => ['Small'], 'temps' => ['Ice'], 'ices' => ['Normal Ice', 'Less Ice', 'No Ice'], 'sugars' => ['Normal Sugar', 'Less Sugar', 'No Sugar']],
+                        'tag' => 'Seasonal',
+                    ],
+                    'tripledubaipistachiochocolate' => [
+                        'key' => 'tripledubaipistachiochocolate',
+                        'id' => 'tripledubaipistachiochocolate',
+                        'code' => '990003',
+                        'name' => 'Triple Dubai Pistachio Chocolate',
+                        'category' => 'Non Coffee',
+                        'sourceCategory' => 'Non Coffee',
+                        'img' => 'https://tixandcoffee.developerngantuk.my.id/uploads/c9b8b59dd72bcf06.jpg',
+                        'desc' => 'Dessert kekinian dalam segelas minuman cokelat lezat dengan saus pistachio gurih dan sensasi kunafa crunchy.',
+                        'outletPrice' => 32000,
+                        'normalPrice' => 32000,
+                        'price' => 21000,
+                        'isSoldOut' => false,
+                        'notCarried' => false,
+                        'isFood' => false,
+                        'options' => ['sizes' => ['Small'], 'temps' => ['Ice'], 'ices' => ['Normal Ice', 'Less Ice', 'No Ice'], 'sugars' => ['Normal Sugar', 'Less Sugar', 'No Sugar']],
+                        'tag' => 'Seasonal',
+                    ],
+                    'triplepistachiolatte' => [
+                        'key' => 'triplepistachiolatte',
+                        'id' => 'triplepistachiolatte',
+                        'code' => '990004',
+                        'name' => 'Triple Pistachio Latte',
+                        'category' => 'Flavored Latte',
+                        'sourceCategory' => 'Flavored Latte',
+                        'img' => 'https://tixandcoffee.developerngantuk.my.id/uploads/9e740957f49eb292.jpg',
+                        'desc' => 'Pistachio Latte favorit kini hadir dengan rasa pistachio lebih pekat dan topping pistachio crumble.',
+                        'outletPrice' => 29000,
+                        'normalPrice' => 29000,
+                        'price' => 19500,
+                        'isSoldOut' => false,
+                        'notCarried' => false,
+                        'isFood' => false,
+                        'options' => ['sizes' => ['Small'], 'temps' => ['Ice'], 'ices' => ['Normal Ice', 'Less Ice', 'No Ice'], 'sugars' => ['Normal Sugar', 'Less Sugar', 'No Sugar']],
+                        'tag' => 'Seasonal',
+                    ],
+                    'chocomontblanc' => [
+                        'key' => 'chocomontblanc',
+                        'id' => 'chocomontblanc',
+                        'code' => '990005',
+                        'name' => 'Choco Mont Blanc',
+                        'category' => 'Cloud Series',
+                        'sourceCategory' => 'Cloud Series',
+                        'img' => 'https://tixandcoffee.developerngantuk.my.id/uploads/991979dee615bfe7.jpg',
+                        'desc' => 'Pengalaman yang worthed dari kenikmatan dark chocolate kaya rasa berpadu dengan coffee foam lembut.',
+                        'outletPrice' => 29000,
+                        'normalPrice' => 29000,
+                        'price' => 19500,
+                        'isSoldOut' => false,
+                        'notCarried' => false,
+                        'isFood' => false,
+                        'options' => ['sizes' => ['Small'], 'temps' => ['Ice'], 'ices' => ['Normal Ice', 'Less Ice', 'No Ice'], 'sugars' => ['Normal Sugar', 'Less Sugar', 'No Sugar']],
+                        'tag' => 'Seasonal',
+                    ],
+                    'mochamontblanc' => [
+                        'key' => 'mochamontblanc',
+                        'id' => 'mochamontblanc',
+                        'code' => '990006',
+                        'name' => 'Mocha Mont Blanc',
+                        'category' => 'Cloud Series',
+                        'sourceCategory' => 'Cloud Series',
+                        'img' => 'https://tixandcoffee.developerngantuk.my.id/uploads/7ab8b1ed060289f8.jpg',
+                        'desc' => 'Mocha Kesukaanmu, tampil beda dengan coffee foam lembut dan taburan cokelat renyah.',
+                        'outletPrice' => 28000,
+                        'normalPrice' => 28000,
+                        'price' => 19000,
+                        'isSoldOut' => false,
+                        'notCarried' => false,
+                        'isFood' => false,
+                        'options' => ['sizes' => ['Small'], 'temps' => ['Ice'], 'ices' => ['Normal Ice', 'Less Ice', 'No Ice'], 'sugars' => ['Normal Sugar', 'Less Sugar', 'No Sugar']],
+                        'tag' => 'Seasonal',
+                    ],
+                ];
+
+                $existingKeys = [];
+                foreach ($menuData['items'] as $it) {
+                    $k = $it['key'] ?? '';
+                    if ($k !== '') $existingKeys[$k] = true;
+                }
+
+                foreach ($seasonalDefs as $sKey => $sDef) {
+                    if (!isset($existingKeys[$sKey])) {
+                        $menuData['items'][] = $sDef;
+                        if (isset($menuData['categories']) && is_array($menuData['categories'])) {
+                            foreach ($menuData['categories'] as &$cat) {
+                                $cName = strtolower(trim((string)($cat['name'] ?? '')));
+                                $cId = strtolower(trim((string)($cat['id'] ?? '')));
+                                $tName = strtolower($sDef['category']);
+                                if ($cName === $tName || str_contains($cId, str_replace(' ', '-', $tName))) {
+                                    if (!in_array($sKey, $cat['items'], true)) {
+                                        array_unshift($cat['items'], $sKey);
+                                    }
+                                }
+                            }
+                            unset($cat);
+                        }
+                    }
+                }
             }
         }
 
@@ -813,7 +974,7 @@ class CoffeeApi
             // Normalizing image url
             if (!empty($item['img']) && strpos($item['img'], 'http') !== 0) {
                 if (strpos($item['img'], '/uploads/') === 0 || strpos($item['img'], '/img/') === 0) {
-                    $item['img'] = 'https://tixandcoffee.developerngantuk.my.id' . $item['img'];
+                    $item['img'] = 'https://twinsjasdor.my.id' . $item['img'];
                 }
             }
             if (empty($item['img'])) {
