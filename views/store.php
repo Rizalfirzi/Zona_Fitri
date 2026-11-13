@@ -16,8 +16,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/assets/css/app.css" />
-  <link rel="stylesheet" href="/assets/css/store.css" />
+  <link rel="stylesheet" href="/assets/css/app.css?v=12tomororedpricefix" />
+  <link rel="stylesheet" href="/assets/css/store.css?v=12tomororedpricefix" />
   <script src="/assets/js/theme-boot.js"></script>
 </head>
 <body class="store-page">
@@ -234,7 +234,7 @@
     </div>
   </div>
 
-  <script type="module" src="/assets/js/store.js?v=11twinsjasdorsync"></script>
+  <script type="module" src="/assets/js/store.js?v=12tomororedpricefix"></script>
   <script src="/assets/js/nufs.js" defer></script>
 </body>
 </html>

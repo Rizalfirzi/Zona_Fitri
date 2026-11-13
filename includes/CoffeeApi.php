@@ -685,11 +685,9 @@ class CoffeeApi
                             $it['isSoldOut'] = true; // HABIS di Siwalankerto per live app
                         }
                     } elseif ($k === 'tomoroarenlatte') {
-                        if ($isSiwalankerto) {
-                            $it['outletPrice'] = 24000;
-                            $it['normalPrice'] = 24000;
-                            $it['price'] = 17000;
-                        }
+                        $it['outletPrice'] = 21000;
+                        $it['normalPrice'] = 21000;
+                        $it['price'] = 15500;
                     }
 
                     // Seasonal / Custom Tomoro Drinks (Client revision: Triple Pistachio & Mont Blanc series)

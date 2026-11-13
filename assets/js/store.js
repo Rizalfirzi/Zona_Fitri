@@ -2,8 +2,8 @@
 import {
   $, $$, api, avatarText, bundleCollage, catIcon, closeSheet, esc, icons, initTheme, loadConfig, logoHtml, mountInfoSheets, openDrawer, openSheet,
   renderDrawer, shopClosedBanner, showDialog, store, toast, toggleTheme, watchNavScroll,
-} from './common.js?v=11twinsjasdorsync';
-import { buildWaMessage, cartTotals, formatRp, normalizePhone, optionText, orderCode, roundTo, waLink } from './shared/order.js?v=11twinsjasdorsync';
+} from './common.js?v=12tomororedpricefix';
+import { buildWaMessage, cartTotals, formatRp, normalizePhone, optionText, orderCode, roundTo, waLink } from './shared/order.js?v=12tomororedpricefix';
 
 const SLUG_TO_BRAND = { kopikenangan: 'kopken', kopken: 'kopken', tomoro: 'tomoro', fore: 'fore', janjiw: 'jiwa', janjijiwa: 'jiwa', jiwa: 'jiwa' };
 
@@ -850,12 +850,26 @@ function gridCard(item, i) {
     ? '<span class="badge badge-sold">Tidak tersedia</span>'
     : (item.tag ? `<span class="badge">${esc(item.tag)}</span>` : item.isBundle && item.badge ? `<span class="badge">${esc(item.badge)}</span>` : '');
 
+  const normalPrice = item.normalPrice || (item.outletPrice && item.outletPrice > item.price ? item.outletPrice : null);
+  const save = normalPrice && normalPrice > item.price ? Math.round((1 - item.price / normalPrice) * 100) : 0;
+  const badge = item.discountLabel ? `Diskon ${item.discountLabel.replace(/^-/, '')}` : save >= 5 ? `-${save}%` : '';
+
   return `<button class="gcard ${item.isBundle ? 'bundle-gcard' : ''} ${item.isSoldOut ? 'sold' : ''}" data-key="${esc(item.key)}">
     <div class="gcard-art">${art}${tagHtml}</div>
     <div class="gcard-body"><div class="gcard-name">${esc(item.name)}</div>${meta ? `<div class="gcard-meta">${esc(meta)}</div>` : ''}
-      <div class="gcard-foot">${item.isBundle && (item.priceVaries || item.fromPrice > item.price)
-        ? `<span class="bundle-from">${item.priceVaries ? '<small>mulai</small> ' : ''}<span class="price">${formatRp(item.fromPrice || item.price)}</span></span>`
-        : `<span class="price">${formatRp(item.isBundle ? item.fromPrice ?? item.price : item.price)}</span>`}${item.isSoldOut ? '' : `<span class="add-btn" aria-hidden="true">${icons.plus}</span>`}</div></div>
+      <div class="gcard-foot">
+        <div class="row-price">
+          ${normalPrice && normalPrice > item.price ? `<span class="price-normal">${formatRp(normalPrice)}</span>` : ''}
+          <div class="row-price-bottom">
+            ${item.isBundle && (item.priceVaries || item.fromPrice > item.price)
+              ? `<span class="bundle-from">${item.priceVaries ? '<small>mulai</small> ' : ''}<span class="price">${formatRp(item.fromPrice || item.price)}</span></span>`
+              : `<span class="price">${formatRp(item.isBundle ? item.fromPrice ?? item.price : item.price)}</span>`}
+            ${badge && !item.isSoldOut ? `<span class="save-badge">${esc(badge)}</span>` : ''}
+          </div>
+        </div>
+        ${item.isSoldOut ? '' : `<span class="add-btn" aria-hidden="true">${icons.plus}</span>`}
+      </div>
+    </div>
   </button>`;
 }
 

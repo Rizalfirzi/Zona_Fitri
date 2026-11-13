@@ -332,8 +332,8 @@ body.store-page .container { padding-bottom: 24px; }
 }
 .row.sold .row-name, .gcard.sold .gcard-name { color: #94A3B8 !important; }
 .row.sold .row-price .price, .gcard.sold .gcard-foot .price { color: #94A3B8 !important; }
-.row.sold .price-normal { color: #CBD5E1 !important; }
-.row.sold .save-badge { display: none !important; }
+.row.sold .price-normal, .gcard.sold .price-normal { color: #CBD5E1 !important; }
+.row.sold .save-badge, .gcard.sold .save-badge { display: none !important; }
 .row.sold .add-btn, .gcard.sold .add-btn { display: none !important; }
 
 .row-tags .badge.badge-sold, .gcard-art .badge.badge-sold {
@@ -366,7 +366,8 @@ body.store-page .container { padding-bottom: 24px; }
   display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; min-height: 28px;
 }
 .gcard-meta { color: var(--muted); font-size: 10px; display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden; }
-.gcard-foot { display: flex; align-items: baseline; gap: 4px; margin-top: 2px; }
+.gcard-foot { display: flex; align-items: flex-end; justify-content: space-between; gap: 4px; margin-top: 2px; }
+.gcard-foot .row-price { flex: 1; }
 .gcard-foot .price { color: #1E3A8A; font-size: 12px; font-weight: 800; }
 .bundle-from .price { color: #1E3A8A; }
 
