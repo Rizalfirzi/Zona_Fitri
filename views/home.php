@@ -77,7 +77,7 @@
         <div class="sp-building-spacer"></div>
 
         <div class="sp-bottom">
-          <div class="sp-url"><span>‹</span><span id="spHost">zonafitri.id</span><span>•••</span></div>
+          <div class="sp-url"><span>‹</span><span id="spHost">zonafitrinet.my.id</span><span>•••</span></div>
         </div>
       </div>
     </section>

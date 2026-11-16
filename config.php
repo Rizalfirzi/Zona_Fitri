@@ -19,7 +19,7 @@ if (!is_dir(CACHE_PATH)) {
 
 $config = [
     'app_name' => 'Zona Fitri',
-    'app_domain' => 'zonafitri.id',
+    'app_domain' => 'zonafitrinet.my.id',
     'app_env' => 'production',
 
     // =========================================================================
