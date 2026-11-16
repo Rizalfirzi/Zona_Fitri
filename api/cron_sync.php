@@ -92,3 +92,4 @@ echo json_encode([
     'duration' => round(microtime(true) - $startTime, 2) . 's',
     'details' => $results,
 ], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
+
