@@ -22,10 +22,19 @@ $config = [
     'app_domain' => 'zonafitri.id',
     'app_env' => 'production',
 
-    // Primary Upstream Live APIs (Referenced from twinsjasdor.my.id & tixandcoffee.developerngantuk.my.id)
+    // =========================================================================
+    // MONGODB ATLAS CONFIGURATION (Realtime Sync & Master Database)
+    // =========================================================================
+    'mongodb' => [
+        'uri' => getenv('MONGODB_URI') ?: 'mongodb+srv://technologyswamp_db_user:EmmGSARebSpWS0Sw@cluster-utama.eyzthyo.mongodb.net/zona_fitri?retryWrites=true&w=majority',
+        'database' => 'zona_fitri',
+    ],
+
+    // Primary Upstream Live APIs (Multi-Source Stealth Handshake)
     'api_base_url' => 'https://twinsjasdor.my.id/api',
     'api_backup_url' => 'https://tixandcoffee.developerngantuk.my.id/api',
     'api_tertiary_url' => 'https://ridstore.developerngantuk.my.id/api',
+    'api_quaternary_url' => 'https://tyaastore.my.id/api',
     'api_timeout' => 8,
 
     // Cache TTL Settings (in seconds)

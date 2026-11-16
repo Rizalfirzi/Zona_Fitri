@@ -1,0 +1,4115 @@
+{
+  "brand": "jiwa",
+  "extras": [],
+  "live": true,
+  "isClosed": false,
+  "source": "jiwa+ api (live)",
+  "premium": false,
+  "categories": [
+    {
+      "id": "item-janji-jiwa-x-chef-ray-janson",
+      "name": "Janji Jiwa x Chef Ray Janson",
+      "kind": "item",
+      "items": [
+        "doubletwistofjapantoast",
+        "atwistofjapantoastdrinkcombo",
+        "menchibeefkatsutoast",
+        "gomachickentoast"
+      ]
+    },
+    {
+      "id": "item-special-offers",
+      "name": "Special Offers",
+      "kind": "item",
+      "items": [
+        "spreadtoastcombo"
+      ]
+    },
+    {
+      "id": "item-combo-hemat",
+      "name": "Combo Hemat",
+      "kind": "item",
+      "items": [
+        "jiwatoastcombo",
+        "noodlescombo",
+        "ricecombo",
+        "litebitescombo"
+      ]
+    },
+    {
+      "id": "item-kalimantan-exclusive",
+      "name": "Kalimantan Exclusive",
+      "kind": "item",
+      "items": [
+        "borneolatte"
+      ]
+    },
+    {
+      "id": "item-coffee",
+      "name": "Coffee",
+      "kind": "item",
+      "items": [
+        "americano",
+        "signaturekopisusu",
+        "doubleshakenespresso",
+        "vanillalatte",
+        "hazelnutlatte",
+        "latte",
+        "caramellatte",
+        "caramelmacchiato",
+        "mocha",
+        "milomochamacchiato",
+        "cappuccino",
+        "espresso"
+      ]
+    },
+    {
+      "id": "item-premium-matcha-vibes",
+      "name": "Premium Matcha Vibes",
+      "kind": "item",
+      "items": [
+        "dirtymatchalatte",
+        "honeyoatmatcha",
+        "premiummatchalatte",
+        "saltedbrownmatcha"
+      ]
+    },
+    {
+      "id": "item-flavored-americano",
+      "name": "Flavored Americano",
+      "kind": "item",
+      "items": [
+        "mangoamericano",
+        "montblanc",
+        "pearshakenamericano",
+        "blackforestamericano",
+        "honeyamericano",
+        "berrybrew"
+      ]
+    },
+    {
+      "id": "item-joe-jiwa-origin-espresso",
+      "name": "Joe (Jiwa Origin Espresso)",
+      "kind": "item",
+      "items": [
+        "bluebatakbutterlatte",
+        "bluebatakhimalayanlatte",
+        "bluebataklatte",
+        "bluebataklongblack"
+      ]
+    },
+    {
+      "id": "item-classic-tea",
+      "name": "Classic Tea",
+      "kind": "item",
+      "items": [
+        "jasminefreshmint",
+        "hibiscusmixberry"
+      ]
+    },
+    {
+      "id": "item-tea-based",
+      "name": "Tea-Based",
+      "kind": "item",
+      "items": [
+        "earlgreytea",
+        "fruitypeachtea",
+        "fruitylycheetea",
+        "thaimilktea",
+        "lemonteawithcocojelly",
+        "earlgreymilktea"
+      ]
+    },
+    {
+      "id": "item-non-coffee",
+      "name": "Non-Coffee",
+      "kind": "item",
+      "items": [
+        "ubecoconutcloud",
+        "ubematcha",
+        "matchalatte",
+        "classicchocolate",
+        "hazelnutchoco",
+        "royalemilo",
+        "milomacchiato",
+        "creamyberrypop"
+      ]
+    },
+    {
+      "id": "item-breeze",
+      "name": "Breeze",
+      "kind": "item",
+      "items": [
+        "doublechocobreeze",
+        "javamochabreeze",
+        "matchabreeze",
+        "seasaltcaramelbreeze"
+      ]
+    },
+    {
+      "id": "item-jiwa-toast",
+      "name": "Jiwa Toast",
+      "kind": "item",
+      "items": [
+        "eggncheese",
+        "creamyeggtruffle",
+        "crispychickenmentai",
+        "cheezycrispychickenmentai",
+        "crispyspicychicken",
+        "smokedbeefncheese",
+        "spicybulgogi",
+        "ultimatecheesybeef",
+        "beeftrufflemayo",
+        "spicybuldakchicken",
+        "honeygochujangchicken",
+        "saltedeggchickentoast",
+        "crunchychoco",
+        "plaintoastwithnastarspread",
+        "plaintoastwithchococrunchyspread",
+        "plaintoastwithkayaspread",
+        "plaintoastwithstrawberryspread",
+        "plaintoastwithblueberryspread",
+        "plaintoastwithpeanutbutterspread"
+      ]
+    },
+    {
+      "id": "item-asian-toast",
+      "name": "Asian Toast",
+      "kind": "item",
+      "items": [
+        "crunchychococheeseasiantoast",
+        "kayabutterasiantoast"
+      ]
+    },
+    {
+      "id": "item-noodle",
+      "name": "Noodle",
+      "kind": "item",
+      "items": [
+        "tomyumnoodle",
+        "currynoodle",
+        "mushroomchickennoodle",
+        "trufflemushroomchickennoodle",
+        "smokedcakalangnoodle",
+        "friedwonton"
+      ]
+    },
+    {
+      "id": "item-rice",
+      "name": "Rice",
+      "kind": "item",
+      "items": [
+        "chickenpadkrapaorice",
+        "saltedeggchickenrice",
+        "redsambalchickenrice",
+        "crispychickenskinrice",
+        "indonesiangultikrice",
+        "smokedcakalangrice"
+      ]
+    },
+    {
+      "id": "item-bites",
+      "name": "Bites",
+      "kind": "item",
+      "items": [
+        "friedfishcake",
+        "frenchfries",
+        "crispychickennugget",
+        "authenticbatagor",
+        "fusionsnackplatternugget",
+        "fusionsnackplatterpop",
+        "savorysnackplatter",
+        "sundanesecireng",
+        "waliktofufritters"
+      ]
+    },
+    {
+      "id": "item-ready-to-drink",
+      "name": "Ready To Drink",
+      "kind": "item",
+      "items": [
+        "mineralwater"
+      ]
+    },
+    {
+      "id": "item-bottled",
+      "name": "Bottled",
+      "kind": "item",
+      "items": [
+        "signaturekopisusu1l",
+        "mangoamericano1l"
+      ]
+    }
+  ],
+  "items": [
+    {
+      "key": "doubletwistofjapantoast",
+      "id": "doubletwistofjapantoast",
+      "code": "5447",
+      "name": "Double Twist Of Japan Toast",
+      "category": "Janji Jiwa x Chef Ray Janson",
+      "sourceCategory": "Janji Jiwa x Chef Ray Janson",
+      "img": "https://assets.jiwa.app/Bundling/CMS/CS2026000909%201790061733776.webp",
+      "desc": "Double Twist Of Japan Toast",
+      "price": 47500,
+      "largePrice": null,
+      "normalPrice": 74000,
+      "outletPrice": 74000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": true,
+      "isSpecial": true,
+      "noLarge": false,
+      "options": {
+        "sizes": [],
+        "temps": [],
+        "ices": [],
+        "sugars": []
+      },
+      "tag": ""
+    },
+    {
+      "key": "atwistofjapantoastdrinkcombo",
+      "id": "atwistofjapantoastdrinkcombo",
+      "code": "5448",
+      "name": "A Twist Of Japan Toast + Drink Combo",
+      "category": "Janji Jiwa x Chef Ray Janson",
+      "sourceCategory": "Janji Jiwa x Chef Ray Janson",
+      "img": "https://assets.jiwa.app/Bundling/CMS/CS2026000910%201790068371101.webp",
+      "desc": "A Twist Of Japan Toast + Drink Combo",
+      "price": 39500,
+      "largePrice": null,
+      "normalPrice": 61000,
+      "outletPrice": 61000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": true,
+      "isSpecial": true,
+      "noLarge": false,
+      "options": {
+        "sizes": [],
+        "temps": [],
+        "ices": [],
+        "sugars": []
+      },
+      "tag": ""
+    },
+    {
+      "key": "menchibeefkatsutoast",
+      "id": "menchibeefkatsutoast",
+      "code": "2991",
+      "name": "Menchi Beef Katsu Toast",
+      "category": "Janji Jiwa x Chef Ray Janson",
+      "sourceCategory": "Janji Jiwa x Chef Ray Janson",
+      "img": "https://assets.jiwa.app/Product/CMS/JJxRayJansonCultureMenchiBeefKatsuToast_1789634685939.webp",
+      "desc": "Toasted bread filled with crispy beef katsu, fresh cabbage, creamy mustard mayo, and a tangy sweet-savory Japanese-style sauce.",
+      "price": 25000,
+      "largePrice": null,
+      "normalPrice": 37000,
+      "outletPrice": 37000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": true,
+      "isSpecial": true,
+      "noLarge": false,
+      "options": {
+        "sizes": [],
+        "temps": [],
+        "ices": [],
+        "sugars": []
+      },
+      "tag": ""
+    },
+    {
+      "key": "gomachickentoast",
+      "id": "gomachickentoast",
+      "code": "2990",
+      "name": "Goma Chicken Toast",
+      "category": "Janji Jiwa x Chef Ray Janson",
+      "sourceCategory": "Janji Jiwa x Chef Ray Janson",
+      "img": "https://assets.jiwa.app/Product/CMS/JJxRayJansonCultureGomaChickenToast_1789634575427.webp",
+      "desc": "Toasted bread layered with Japanese-inspired fillings of crispy spicy chicken, fresh cabbage, creamy mayonnaise, nutty sesame dressing, and fragrant fried garlic.",
+      "price": 24500,
+      "largePrice": null,
+      "normalPrice": 37000,
+      "outletPrice": 37000,
+      "customPrice": true,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": true,
+      "isSpecial": true,
+      "noLarge": false,
+      "options": {
+        "sizes": [],
+        "temps": [],
+        "ices": [],
+        "sugars": []
+      },
+      "tag": ""
+    },
+    {
+      "key": "spreadtoastcombo",
+      "id": "spreadtoastcombo",
+      "code": "5484",
+      "name": "Spread Toast Combo",
+      "category": "Special Offers",
+      "sourceCategory": "Special Offers",
+      "img": "https://assets.jiwa.app/Bundling/CMS/CS2026000836%201789089787093.png",
+      "desc": "Get Our Plain Toast with spread and claim your free drinks!",
+      "price": 32000,
+      "largePrice": null,
+      "normalPrice": 48000,
+      "outletPrice": 48000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": true,
+      "isSpecial": true,
+      "noLarge": false,
+      "options": {
+        "sizes": [],
+        "temps": [],
+        "ices": [],
+        "sugars": []
+      },
+      "tag": ""
+    },
+    {
+      "key": "jiwatoastcombo",
+      "id": "jiwatoastcombo",
+      "code": "5481",
+      "name": "Jiwa Toast Combo",
+      "category": "Combo Hemat",
+      "sourceCategory": "Combo Hemat",
+      "img": "https://assets.jiwa.app/Bundling/CMS/CS2026000880%201789163114266.webp",
+      "desc": "Pair your favorite Jiwa Toast with a selected drink, starting from 30k",
+      "price": 35500,
+      "largePrice": null,
+      "normalPrice": 54000,
+      "outletPrice": 54000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": true,
+      "isSpecial": true,
+      "noLarge": false,
+      "options": {
+        "sizes": [],
+        "temps": [],
+        "ices": [],
+        "sugars": []
+      },
+      "tag": ""
+    },
+    {
+      "key": "noodlescombo",
+      "id": "noodlescombo",
+      "code": "5497",
+      "name": "Noodles Combo",
+      "category": "Combo Hemat",
+      "sourceCategory": "Combo Hemat",
+      "img": "https://assets.jiwa.app/Bundling/CMS/CS2026000134%201771338355607.webp",
+      "desc": "Choose 1 noodle dish and 1 selected drink at a special combo price",
+      "price": 40000,
+      "largePrice": 48000,
+      "normalPrice": 62000,
+      "outletPrice": 62000,
+      "largeBase": 67000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": false,
+      "isSpecial": false,
+      "noLarge": false,
+      "options": {
+        "sizes": [
+          "Regular",
+          "Large"
+        ],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      },
+      "tag": ""
+    },
+    {
+      "key": "ricecombo",
+      "id": "ricecombo",
+      "code": "5498",
+      "name": "Rice Combo",
+      "category": "Combo Hemat",
+      "sourceCategory": "Combo Hemat",
+      "img": "https://assets.jiwa.app/Bundling/CMS/CS2026000133%201771338075759.webp",
+      "desc": "Choose 1 rice dish and 1 selected drink at a special combo price",
+      "price": 39000,
+      "largePrice": null,
+      "normalPrice": 60000,
+      "outletPrice": 60000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": true,
+      "isSpecial": true,
+      "noLarge": false,
+      "options": {
+        "sizes": [],
+        "temps": [],
+        "ices": [],
+        "sugars": []
+      },
+      "tag": ""
+    },
+    {
+      "key": "litebitescombo",
+      "id": "litebitescombo",
+      "code": "5496",
+      "name": "Lite Bites Combo",
+      "category": "Combo Hemat",
+      "sourceCategory": "Combo Hemat",
+      "img": "https://assets.jiwa.app/Bundling/CMS/CS2026000135%201771338610937.webp",
+      "desc": "Pair your choice of snack with 1 selected drink (R)",
+      "price": 30000,
+      "largePrice": 38000,
+      "normalPrice": 45000,
+      "outletPrice": 45000,
+      "largeBase": 50000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": false,
+      "isSpecial": false,
+      "noLarge": false,
+      "options": {
+        "sizes": [
+          "Regular",
+          "Large"
+        ],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      },
+      "tag": ""
+    },
+    {
+      "key": "borneolatte",
+      "id": "borneolatte",
+      "code": "2930",
+      "name": "Borneo Latte",
+      "category": "Kalimantan Exclusive",
+      "sourceCategory": "Kalimantan Exclusive",
+      "img": "https://assets.jiwa.app/Product/CMS/KalimantanSeriesBorneoLatte_1780841974335.webp",
+      "desc": "Janji Jiwa Culture signature latte with brown sugar and a touch of pandan.",
+      "price": 18500,
+      "largePrice": 26500,
+      "normalPrice": 26000,
+      "outletPrice": 26000,
+      "largeBase": 31000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": false,
+      "isSpecial": false,
+      "noLarge": false,
+      "options": {
+        "sizes": [
+          "Regular",
+          "Large"
+        ],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      },
+      "tag": ""
+    },
+    {
+      "key": "americano",
+      "id": "americano",
+      "code": "2916",
+      "name": "Americano",
+      "category": "Coffee",
+      "sourceCategory": "Coffee",
+      "img": "https://assets.jiwa.app/Product/CMS/CCCoffeeAmericano_1780839556192.webp",
+      "desc": "A smooth, no-fuss mix of premium espresso and water.",
+      "price": 18000,
+      "largePrice": 26000,
+      "normalPrice": 24000,
+      "outletPrice": 24000,
+      "largeBase": 29000,
+      "customPrice": true,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": false,
+      "isSpecial": false,
+      "noLarge": false,
+      "options": {
+        "sizes": [
+          "Regular",
+          "Large"
+        ],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": []
+      },
+      "tag": ""
+    },
+    {
+      "key": "signaturekopisusu",
+      "id": "signaturekopisusu",
+      "code": "2919",
+      "name": "Signature Kopi Susu",
+      "category": "Coffee",
+      "sourceCategory": "Coffee",
+      "img": "https://assets.jiwa.app/Product/CMS/CCCoffeeSignatureKopiSusu_1780840120751.webp",
+      "desc": "Premium espresso meets fresh milk and irresistible aren sugar.",
+      "price": 20000,
+      "largePrice": 28000,
+      "normalPrice": 28000,
+      "outletPrice": 28000,
+      "largeBase": 33000,
+      "customPrice": true,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": false,
+      "isSpecial": false,
+      "noLarge": false,
+      "options": {
+        "sizes": [
+          "Regular",
+          "Large"
+        ],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      },
+      "tag": ""
+    },
+    {
+      "key": "doubleshakenespresso",
+      "id": "doubleshakenespresso",
+      "code": "2882",
+      "name": "Iced Double Shaken Espresso",
+      "category": "Coffee",
+      "sourceCategory": "Coffee",
+      "img": "https://assets.jiwa.app/Product/CMS/JJCoffeeIcedDoubleShakenEspresso_1780632387334.webp",
+      "desc": "A refreshing double shot of premium espresso iced shaken with fresh milk, served in a 10oz glass.",
+      "price": 20500,
+      "largePrice": null,
+      "normalPrice": 29000,
+      "outletPrice": 29000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": false,
+      "isSpecial": true,
+      "noLarge": false,
+      "options": {
+        "sizes": [
+          "Regular"
+        ],
+        "temps": [
+          "Ice"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      },
+      "tag": ""
+    },
+    {
+      "key": "vanillalatte",
+      "id": "vanillalatte",
+      "code": "2920",
+      "name": "Vanilla Latte",
+      "category": "Coffee",
+      "sourceCategory": "Coffee",
+      "img": "https://assets.jiwa.app/Product/CMS/CCCoffeeVanillaLatte_1780840303413.webp",
+      "desc": "Vanilla-flavored smooth latte.",
+      "price": 22000,
+      "largePrice": 30000,
+      "normalPrice": 32000,
+      "outletPrice": 32000,
+      "largeBase": 37000,
+      "customPrice": true,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": false,
+      "isSpecial": false,
+      "noLarge": false,
+      "options": {
+        "sizes": [
+          "Regular",
+          "Large"
+        ],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      },
+      "tag": ""
+    },
+    {
+      "key": "hazelnutlatte",
+      "id": "hazelnutlatte",
+      "code": "2918",
+      "name": "Hazelnut Latte",
+      "category": "Coffee",
+      "sourceCategory": "Coffee",
+      "img": "https://assets.jiwa.app/Product/CMS/CCCoffeeHazelnutLatte_1780839936828.webp",
+      "desc": "Hazelnut-flavored smooth latte.",
+      "price": 22000,
+      "largePrice": 30000,
+      "normalPrice": 32000,
+      "outletPrice": 32000,
+      "largeBase": 37000,
+      "customPrice": true,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": false,
+      "isSpecial": false,
+      "noLarge": false,
+      "options": {
+        "sizes": [
+          "Regular",
+          "Large"
+        ],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      },
+      "tag": ""
+    },
+    {
+      "key": "latte",
+      "id": "latte",
+      "code": "2939",
+      "name": "Latte",
+      "category": "Coffee",
+      "sourceCategory": "Coffee",
+      "img": "https://assets.jiwa.app/Product/CMS/CCCoffeeLatte_1780882838725.webp",
+      "desc": " A comforting classic of premium espresso wrapped in fresh milk.",
+      "price": 19500,
+      "largePrice": 27500,
+      "normalPrice": 27000,
+      "outletPrice": 27000,
+      "largeBase": 32000,
+      "customPrice": true,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": false,
+      "isSpecial": false,
+      "noLarge": false,
+      "options": {
+        "sizes": [
+          "Regular",
+          "Large"
+        ],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      },
+      "tag": ""
+    },
+    {
+      "key": "caramellatte",
+      "id": "caramellatte",
+      "code": "2917",
+      "name": "Caramel Latte",
+      "category": "Coffee",
+      "sourceCategory": "Coffee",
+      "img": "https://assets.jiwa.app/Product/CMS/CCCoffeeCaramelLatte_1780839743008.webp",
+      "desc": "A smooth latte with just the right touch of caramel comfort.",
+      "price": 22000,
+      "largePrice": 30000,
+      "normalPrice": 32000,
+      "outletPrice": 32000,
+      "largeBase": 37000,
+      "customPrice": true,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": false,
+      "isSpecial": false,
+      "noLarge": false,
+      "options": {
+        "sizes": [
+          "Regular",
+          "Large"
+        ],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      },
+      "tag": ""
+    },
+    {
+      "key": "caramelmacchiato",
+      "id": "caramelmacchiato",
+      "code": "2940",
+      "name": "Caramel Macchiato",
+      "category": "Coffee",
+      "sourceCategory": "Coffee",
+      "img": "https://assets.jiwa.app/Product/CMS/CCCoffeeCaramelMacchiato_1780883095447.webp",
+      "desc": "A perfectly balanced indulgence of premium espresso, fresh milk, rich caramel, and thick macchiato cream",
+      "price": 23000,
+      "largePrice": 31000,
+      "normalPrice": 34000,
+      "outletPrice": 34000,
+      "largeBase": 39000,
+      "customPrice": true,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": false,
+      "isSpecial": false,
+      "noLarge": false,
+      "options": {
+        "sizes": [
+          "Regular",
+          "Large"
+        ],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      },
+      "tag": ""
+    },
+    {
+      "key": "mocha",
+      "id": "mocha",
+      "code": "2922",
+      "name": "Mocha",
+      "category": "Coffee",
+      "sourceCategory": "Coffee",
+      "img": "https://assets.jiwa.app/Product/CMS/CCCoffeeMocha_1780840727027.webp",
+      "desc": "A silky swirl of chocolate, premium espresso, and fresh milk with a comforting aftertaste.",
+      "price": 22500,
+      "largePrice": 30500,
+      "normalPrice": 33000,
+      "outletPrice": 33000,
+      "largeBase": 38000,
+      "customPrice": true,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": false,
+      "isSpecial": false,
+      "noLarge": false,
+      "options": {
+        "sizes": [
+          "Regular",
+          "Large"
+        ],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      },
+      "tag": ""
+    },
+    {
+      "key": "milomochamacchiato",
+      "id": "milomochamacchiato",
+      "code": "2921",
+      "name": "Milo Mocha Macchiato",
+      "category": "Coffee",
+      "sourceCategory": "Coffee",
+      "img": "https://assets.jiwa.app/Product/CMS/CCCoffeeMiloMochaMacchiato_1780840445715.webp",
+      "desc": "Premium espresso layered with fresh milk and the malty, chocolatey comfort of Milo.",
+      "price": 23000,
+      "largePrice": 31000,
+      "normalPrice": 34000,
+      "outletPrice": 34000,
+      "largeBase": 39000,
+      "customPrice": true,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": false,
+      "isSpecial": false,
+      "noLarge": false,
+      "options": {
+        "sizes": [
+          "Regular",
+          "Large"
+        ],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      },
+      "tag": ""
+    },
+    {
+      "key": "cappuccino",
+      "id": "cappuccino",
+      "code": "2912",
+      "name": "Cappuccino",
+      "category": "Coffee",
+      "sourceCategory": "Coffee",
+      "img": "https://assets.jiwa.app/Product/CMS/CCBeverageCappuccino_1780838657860.webp",
+      "desc": "A premium shot of espresso softened with fresh milk and topped with velvety milk foam.",
+      "price": 19000,
+      "largePrice": 27000,
+      "normalPrice": 27000,
+      "outletPrice": 27000,
+      "largeBase": 32000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": false,
+      "isSpecial": false,
+      "noLarge": false,
+      "options": {
+        "sizes": [
+          "Regular",
+          "Large"
+        ],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      },
+      "tag": ""
+    },
+    {
+      "key": "espresso",
+      "id": "espresso",
+      "code": "2911",
+      "name": "Espresso",
+      "category": "Coffee",
+      "sourceCategory": "Coffee",
+      "img": "https://assets.jiwa.app/Product/CMS/CCBeverageEspresso_1780838421363.webp",
+      "desc": "100% Arabica Espresso",
+      "price": 14000,
+      "largePrice": null,
+      "normalPrice": 18000,
+      "outletPrice": 18000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": false,
+      "isSpecial": false,
+      "noLarge": false,
+      "options": {
+        "sizes": [
+          "Regular"
+        ],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": []
+      },
+      "tag": ""
+    },
+    {
+      "key": "dirtymatchalatte",
+      "id": "dirtymatchalatte",
+      "code": "2925",
+      "name": "Dirty Matcha Latte",
+      "category": "Premium Matcha Vibes",
+      "sourceCategory": "Premium Matcha Vibes",
+      "img": "https://assets.jiwa.app/Product/CMS/CulturePremiumMatchaDirtyMatchaLatte_1780841328779.webp",
+      "desc": "Premium matcha meets bold espresso, layered with oat milk for a rich, velvety texture",
+      "price": 30500,
+      "largePrice": 38500,
+      "normalPrice": 46000,
+      "outletPrice": 46000,
+      "largeBase": 51000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": false,
+      "isSpecial": false,
+      "noLarge": false,
+      "options": {
+        "sizes": [
+          "Regular",
+          "Large"
+        ],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      },
+      "tag": ""
+    },
+    {
+      "key": "honeyoatmatcha",
+      "id": "honeyoatmatcha",
+      "code": "2926",
+      "name": "Honey Oat Matcha",
+      "category": "Premium Matcha Vibes",
+      "sourceCategory": "Premium Matcha Vibes",
+      "img": "https://assets.jiwa.app/Product/CMS/CulturePremiumMatchaHoneyOatMatcha_1780841466309.webp",
+      "desc": "Premium matcha with floral honey and creamy oat milk. Softly sweet with a smooth, rounded finish.",
+      "price": 29500,
+      "largePrice": 37500,
+      "normalPrice": 44000,
+      "outletPrice": 44000,
+      "largeBase": 49000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": false,
+      "isSpecial": false,
+      "noLarge": false,
+      "options": {
+        "sizes": [
+          "Regular",
+          "Large"
+        ],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      },
+      "tag": ""
+    },
+    {
+      "key": "premiummatchalatte",
+      "id": "premiummatchalatte",
+      "code": "2927",
+      "name": "Premium Matcha Latte",
+      "category": "Premium Matcha Vibes",
+      "sourceCategory": "Premium Matcha Vibes",
+      "img": "https://assets.jiwa.app/Product/CMS/CulturePremiumMatchaPremiumMatchaLatte_1780841592442.webp",
+      "desc": "Premium matcha with creamy oat milk, smooth, earthy, and clean. A straightforward matcha experience done right.",
+      "price": 29500,
+      "largePrice": 37500,
+      "normalPrice": 44000,
+      "outletPrice": 44000,
+      "largeBase": 49000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": false,
+      "isSpecial": false,
+      "noLarge": false,
+      "options": {
+        "sizes": [
+          "Regular",
+          "Large"
+        ],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      },
+      "tag": ""
+    },
+    {
+      "key": "saltedbrownmatcha",
+      "id": "saltedbrownmatcha",
+      "code": "2928",
+      "name": "Salted Brown Matcha",
+      "category": "Premium Matcha Vibes",
+      "sourceCategory": "Premium Matcha Vibes",
+      "img": "https://assets.jiwa.app/Product/CMS/CulturePremiumMatchaSaltedBrownMatcha_1780841697882.webp",
+      "desc": "Premium matcha meets creamy oat milk, brown sugar and a hint of Himalayan salt, sweet, savory, and perfectly balanced",
+      "price": 29500,
+      "largePrice": 37500,
+      "normalPrice": 44000,
+      "outletPrice": 44000,
+      "largeBase": 49000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": false,
+      "isSpecial": false,
+      "noLarge": false,
+      "options": {
+        "sizes": [
+          "Regular",
+          "Large"
+        ],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      },
+      "tag": ""
+    },
+    {
+      "key": "mangoamericano",
+      "id": "mangoamericano",
+      "code": "2879",
+      "name": "Mango Americano",
+      "category": "Flavored Americano",
+      "sourceCategory": "Flavored Americano",
+      "img": "https://assets.jiwa.app/Product/CMS/JJCoffeeMangoAmericano_1780625728386.webp",
+      "desc": "A refreshing iced Americano with a twist of mango and a hint of tangy tamarind flavor.",
+      "price": 20000,
+      "largePrice": 28000,
+      "normalPrice": 28000,
+      "outletPrice": 28000,
+      "largeBase": 33000,
+      "customPrice": true,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": false,
+      "isSpecial": false,
+      "noLarge": false,
+      "options": {
+        "sizes": [
+          "Regular",
+          "Large"
+        ],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      },
+      "tag": ""
+    },
+    {
+      "key": "montblanc",
+      "id": "montblanc",
+      "code": "2880",
+      "name": "Mont Blanc",
+      "category": "Flavored Americano",
+      "sourceCategory": "Flavored Americano",
+      "img": "https://assets.jiwa.app/Product/CMS/JJCoffeeMontBlanc_1780631652860.webp",
+      "desc": "A smooth kick of iced Americano topped with a sweet foam, a hint of orange zest, and warm nutty aroma",
+      "price": 20000,
+      "largePrice": 28000,
+      "normalPrice": 28000,
+      "outletPrice": 28000,
+      "largeBase": 33000,
+      "customPrice": true,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": false,
+      "isSpecial": false,
+      "noLarge": false,
+      "options": {
+        "sizes": [
+          "Regular",
+          "Large"
+        ],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      },
+      "tag": ""
+    },
+    {
+      "key": "pearshakenamericano",
+      "id": "pearshakenamericano",
+      "code": "2881",
+      "name": "Pear Shaken Americano",
+      "category": "Flavored Americano",
+      "sourceCategory": "Flavored Americano",
+      "img": "https://assets.jiwa.app/Product/CMS/JJCoffeePearShakenAmericano_1780631945762.webp",
+      "desc": "A refreshing pear-flavored premium americano.",
+      "price": 20000,
+      "largePrice": 28000,
+      "normalPrice": 28000,
+      "outletPrice": 28000,
+      "largeBase": 33000,
+      "customPrice": true,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": false,
+      "isSpecial": true,
+      "noLarge": false,
+      "options": {
+        "sizes": [
+          "Regular",
+          "Large"
+        ],
+        "temps": [
+          "Ice"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      },
+      "tag": ""
+    },
+    {
+      "key": "blackforestamericano",
+      "id": "blackforestamericano",
+      "code": "2878",
+      "name": "Black Forest Americano",
+      "category": "Flavored Americano",
+      "sourceCategory": "Flavored Americano",
+      "img": "https://assets.jiwa.app/Product/CMS/JJCoffeeBlackForestAmericano_1780625180793.webp",
+      "desc": "An iced Americano swirled with buttery sweetness and creamy foam on top.",
+      "price": 20000,
+      "largePrice": 28000,
+      "normalPrice": 28000,
+      "outletPrice": 28000,
+      "largeBase": 33000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": false,
+      "isSpecial": false,
+      "noLarge": false,
+      "options": {
+        "sizes": [
+          "Regular",
+          "Large"
+        ],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      },
+      "tag": ""
+    },
+    {
+      "key": "honeyamericano",
+      "id": "honeyamericano",
+      "code": "2913",
+      "name": "Honey Americano",
+      "category": "Flavored Americano",
+      "sourceCategory": "Flavored Americano",
+      "img": "https://assets.jiwa.app/Product/CMS/CCBeverageHoneyAmericano_1780838847441.webp",
+      "desc": "A refreshing honey-flavored premium americano.",
+      "price": 20000,
+      "largePrice": 28000,
+      "normalPrice": 28000,
+      "outletPrice": 28000,
+      "largeBase": 33000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": false,
+      "isSpecial": false,
+      "noLarge": false,
+      "options": {
+        "sizes": [
+          "Regular",
+          "Large"
+        ],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      },
+      "tag": ""
+    },
+    {
+      "key": "berrybrew",
+      "id": "berrybrew",
+      "code": "2954",
+      "name": "Berry Brew",
+      "category": "Flavored Americano",
+      "sourceCategory": "Flavored Americano",
+      "img": "https://assets.jiwa.app/Product/CMS/SummerSeriesBerryBrew_1786802914995.png",
+      "desc": "A mix of strawberry flavor with a hint of mango and coconut water, \nfinished with a light americano. Smooth and easy to enjoy, with a gentle coffee finish.",
+      "price": 18000,
+      "largePrice": 26000,
+      "normalPrice": 25000,
+      "outletPrice": 25000,
+      "largeBase": 30000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": true,
+      "notCarried": false,
+      "isFood": false,
+      "isSpecial": false,
+      "noLarge": false,
+      "options": {
+        "sizes": [
+          "Regular",
+          "Large"
+        ],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      },
+      "tag": ""
+    },
+    {
+      "key": "bluebatakbutterlatte",
+      "id": "bluebatakbutterlatte",
+      "code": "2892",
+      "name": "Blue Batak Butter Latte",
+      "category": "Joe (Jiwa Origin Espresso)",
+      "sourceCategory": "Joe (Jiwa Origin Espresso)",
+      "img": "https://assets.jiwa.app/Product/CMS/JOEBlueBatakButterLatte_1780829532603.webp",
+      "desc": "A bold butterscotch-flavored latte with our premium Arabica Blue Batak beans.",
+      "price": 25000,
+      "largePrice": null,
+      "normalPrice": 38000,
+      "outletPrice": 38000,
+      "customPrice": true,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": false,
+      "isSpecial": false,
+      "noLarge": true,
+      "options": {
+        "sizes": [
+          "Regular"
+        ],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      },
+      "tag": ""
+    },
+    {
+      "key": "bluebatakhimalayanlatte",
+      "id": "bluebatakhimalayanlatte",
+      "code": "2893",
+      "name": "Blue Batak Himalayan Latte",
+      "category": "Joe (Jiwa Origin Espresso)",
+      "sourceCategory": "Joe (Jiwa Origin Espresso)",
+      "img": "https://assets.jiwa.app/Product/CMS/JOEBlueBatakHimalayanLatte_1780829769155.webp",
+      "desc": "A bold latte with our premium Arabica Blue Batak beans with a hint of Himalayan salt.",
+      "price": 25000,
+      "largePrice": 33000,
+      "normalPrice": 38000,
+      "outletPrice": 38000,
+      "largeBase": 43000,
+      "customPrice": true,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": false,
+      "isSpecial": false,
+      "noLarge": false,
+      "options": {
+        "sizes": [
+          "Regular",
+          "Large"
+        ],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      },
+      "tag": ""
+    },
+    {
+      "key": "bluebataklatte",
+      "id": "bluebataklatte",
+      "code": "2894",
+      "name": "Blue Batak Latte",
+      "category": "Joe (Jiwa Origin Espresso)",
+      "sourceCategory": "Joe (Jiwa Origin Espresso)",
+      "img": "https://assets.jiwa.app/Product/CMS/JOEBlueBatakLatte_1780830029378.webp",
+      "desc": "A bold latte with our premium Arabica Blue Batak beans.",
+      "price": 22500,
+      "largePrice": 30500,
+      "normalPrice": 33000,
+      "outletPrice": 33000,
+      "largeBase": 38000,
+      "customPrice": true,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": false,
+      "isSpecial": false,
+      "noLarge": false,
+      "options": {
+        "sizes": [
+          "Regular",
+          "Large"
+        ],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      },
+      "tag": ""
+    },
+    {
+      "key": "bluebataklongblack",
+      "id": "bluebataklongblack",
+      "code": "2895",
+      "name": "Blue Batak Long Black",
+      "category": "Joe (Jiwa Origin Espresso)",
+      "sourceCategory": "Joe (Jiwa Origin Espresso)",
+      "img": "https://assets.jiwa.app/Product/CMS/JOEBlueBatakLongBlack_1780830226944.webp",
+      "desc": "A bold long black with our premium Arabica Blue Batak beans.",
+      "price": 20000,
+      "largePrice": 28000,
+      "normalPrice": 28000,
+      "outletPrice": 28000,
+      "largeBase": 33000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": false,
+      "isSpecial": false,
+      "noLarge": false,
+      "options": {
+        "sizes": [
+          "Regular",
+          "Large"
+        ],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      },
+      "tag": ""
+    },
+    {
+      "key": "jasminefreshmint",
+      "id": "jasminefreshmint",
+      "code": "2915",
+      "name": "Jasmine Fresh Mint",
+      "category": "Classic Tea",
+      "sourceCategory": "Classic Tea",
+      "img": "https://assets.jiwa.app/Product/CMS/CCBeverageJasmineFreshMint_1780839368978.webp",
+      "desc": "Classic Mint Green Tea.",
+      "price": 17000,
+      "largePrice": 25000,
+      "normalPrice": 22000,
+      "outletPrice": 22000,
+      "largeBase": 27000,
+      "customPrice": true,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": false,
+      "isSpecial": false,
+      "noLarge": false,
+      "options": {
+        "sizes": [
+          "Regular",
+          "Large"
+        ],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      },
+      "tag": ""
+    },
+    {
+      "key": "hibiscusmixberry",
+      "id": "hibiscusmixberry",
+      "code": "2914",
+      "name": "Hibiscus Mix Berry",
+      "category": "Classic Tea",
+      "sourceCategory": "Classic Tea",
+      "img": "https://assets.jiwa.app/Product/CMS/CCBeverageHibiscusMixBerry_1780839205022.webp",
+      "desc": "Classic Hibiscus Mix Berry tea.",
+      "price": 17000,
+      "largePrice": 25000,
+      "normalPrice": 22000,
+      "outletPrice": 22000,
+      "largeBase": 27000,
+      "customPrice": true,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": false,
+      "isSpecial": false,
+      "noLarge": false,
+      "options": {
+        "sizes": [
+          "Regular",
+          "Large"
+        ],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      },
+      "tag": ""
+    },
+    {
+      "key": "earlgreytea",
+      "id": "earlgreytea",
+      "code": "2885",
+      "name": "Earl Grey Tea",
+      "category": "Tea-Based",
+      "sourceCategory": "Tea-Based",
+      "img": "https://assets.jiwa.app/Product/CMS/JJNonCoffeeEarlGreyTea_1780635159749.webp",
+      "desc": "Classic black Earl Grey tea",
+      "price": 16000,
+      "largePrice": 24000,
+      "normalPrice": 20000,
+      "outletPrice": 20000,
+      "largeBase": 25000,
+      "customPrice": true,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": false,
+      "isSpecial": false,
+      "noLarge": false,
+      "options": {
+        "sizes": [
+          "Regular",
+          "Large"
+        ],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      },
+      "tag": ""
+    },
+    {
+      "key": "fruitypeachtea",
+      "id": "fruitypeachtea",
+      "code": "2986",
+      "name": "Fruity Peach Tea",
+      "category": "Tea-Based",
+      "sourceCategory": "Tea-Based",
+      "img": "https://assets.jiwa.app/Product/CMS/FruityTeaFruityPeachTea_1788239412265.webp",
+      "desc": "A refreshing peach tea with peach chunks and coconut jelly.",
+      "price": 18500,
+      "largePrice": 26500,
+      "normalPrice": 26000,
+      "outletPrice": 26000,
+      "largeBase": 31000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": false,
+      "isSpecial": false,
+      "noLarge": false,
+      "options": {
+        "sizes": [
+          "Regular",
+          "Large"
+        ],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      },
+      "tag": ""
+    },
+    {
+      "key": "fruitylycheetea",
+      "id": "fruitylycheetea",
+      "code": "2985",
+      "name": "Fruity Lychee Tea",
+      "category": "Tea-Based",
+      "sourceCategory": "Tea-Based",
+      "img": "https://assets.jiwa.app/Product/CMS/FruityTeaFruityLycheeTea_1788239384969.webp",
+      "desc": "A soothing lychee tea with lychee chunks and coconut jelly.",
+      "price": 18500,
+      "largePrice": 26500,
+      "normalPrice": 26000,
+      "outletPrice": 26000,
+      "largeBase": 31000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": false,
+      "isSpecial": false,
+      "noLarge": false,
+      "options": {
+        "sizes": [
+          "Regular",
+          "Large"
+        ],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      },
+      "tag": ""
+    },
+    {
+      "key": "thaimilktea",
+      "id": "thaimilktea",
+      "code": "2987",
+      "name": "Thai Milk Tea",
+      "category": "Tea-Based",
+      "sourceCategory": "Tea-Based",
+      "img": "https://assets.jiwa.app/Product/CMS/JJNonCoffeeThaiMilkTea_1788148621760.webp",
+      "desc": "Thai-styled milk tea.",
+      "price": 20000,
+      "largePrice": 28000,
+      "normalPrice": 28000,
+      "outletPrice": 28000,
+      "largeBase": 33000,
+      "customPrice": true,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": false,
+      "isSpecial": false,
+      "noLarge": false,
+      "options": {
+        "sizes": [
+          "Regular",
+          "Large"
+        ],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      },
+      "tag": ""
+    },
+    {
+      "key": "lemonteawithcocojelly",
+      "id": "lemonteawithcocojelly",
+      "code": "2886",
+      "name": "Lemon Tea With Coco Jelly",
+      "category": "Tea-Based",
+      "sourceCategory": "Tea-Based",
+      "img": "https://assets.jiwa.app/Product/CMS/JJNonCoffeeLemonTeaWithCocoJelly_1780797976835.webp",
+      "desc": "A zesty lemon-flavored tea with a juicy citrus kick and coconut jelly.",
+      "price": 19000,
+      "largePrice": 27000,
+      "normalPrice": 26000,
+      "outletPrice": 26000,
+      "largeBase": 31000,
+      "customPrice": true,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": false,
+      "isSpecial": false,
+      "noLarge": false,
+      "options": {
+        "sizes": [
+          "Regular",
+          "Large"
+        ],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      },
+      "tag": ""
+    },
+    {
+      "key": "earlgreymilktea",
+      "id": "earlgreymilktea",
+      "code": "2883",
+      "name": "Earl Grey Milk Tea",
+      "category": "Tea-Based",
+      "sourceCategory": "Tea-Based",
+      "img": "https://assets.jiwa.app/Product/CMS/JJNonCoffeeEarlGreyMilkTea_1780633867639.webp",
+      "desc": "A creamy twist of black Earl Grey tea with fresh milk and brown sugar.",
+      "price": 20000,
+      "largePrice": 28000,
+      "normalPrice": 28000,
+      "outletPrice": 28000,
+      "largeBase": 33000,
+      "customPrice": true,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": false,
+      "isSpecial": false,
+      "noLarge": false,
+      "options": {
+        "sizes": [
+          "Regular",
+          "Large"
+        ],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      },
+      "tag": ""
+    },
+    {
+      "key": "ubecoconutcloud",
+      "id": "ubecoconutcloud",
+      "code": "2978",
+      "name": "Ube Coconut Cloud",
+      "category": "Non-Coffee",
+      "sourceCategory": "Non-Coffee",
+      "img": "https://assets.jiwa.app/Product/CMS/UBESeriesCultureUbeCoconutCloud_1787546304761.png",
+      "desc": "A Creamy ube cloud melts into fresh coconut water, creating a smooth and refreshing contrast in every sip.",
+      "price": 19500,
+      "largePrice": 27500,
+      "normalPrice": 27000,
+      "outletPrice": 27000,
+      "largeBase": 32000,
+      "customPrice": true,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": false,
+      "isSpecial": false,
+      "noLarge": false,
+      "options": {
+        "sizes": [
+          "Regular",
+          "Large"
+        ],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      },
+      "tag": ""
+    },
+    {
+      "key": "ubematcha",
+      "id": "ubematcha",
+      "code": "2977",
+      "name": "Ube Matcha",
+      "category": "Non-Coffee",
+      "sourceCategory": "Non-Coffee",
+      "img": "https://assets.jiwa.app/Product/CMS/UBESeriesCultureUbeMatcha_1787546078254.webp",
+      "desc": "A playful mix of earthy matcha, creamy ube, and a salty twist that never feels boring.",
+      "price": 19500,
+      "largePrice": 27500,
+      "normalPrice": 27000,
+      "outletPrice": 27000,
+      "largeBase": 32000,
+      "customPrice": true,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": false,
+      "isSpecial": false,
+      "noLarge": false,
+      "options": {
+        "sizes": [
+          "Regular",
+          "Large"
+        ],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      },
+      "tag": ""
+    },
+    {
+      "key": "matchalatte",
+      "id": "matchalatte",
+      "code": "2889",
+      "name": "Matcha Latte",
+      "category": "Non-Coffee",
+      "sourceCategory": "Non-Coffee",
+      "img": "https://assets.jiwa.app/Product/CMS/JJNonCoffeeMatchaLatte_1780801531355.webp",
+      "desc": "A calming blend of fresh milk and bold matcha, made to refresh your senses.",
+      "price": 23000,
+      "largePrice": 31000,
+      "normalPrice": 33000,
+      "outletPrice": 33000,
+      "largeBase": 38000,
+      "customPrice": true,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": false,
+      "isSpecial": false,
+      "noLarge": false,
+      "options": {
+        "sizes": [
+          "Regular",
+          "Large"
+        ],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      },
+      "tag": ""
+    },
+    {
+      "key": "classicchocolate",
+      "id": "classicchocolate",
+      "code": "2923",
+      "name": "Classic Chocolate",
+      "category": "Non-Coffee",
+      "sourceCategory": "Non-Coffee",
+      "img": "https://assets.jiwa.app/Product/CMS/CultureNonCoffeeClassicChocolate_1780840916940.webp",
+      "desc": "A timeless chocolate experience you’ll keep coming back to.",
+      "price": 18500,
+      "largePrice": 26500,
+      "normalPrice": 25000,
+      "outletPrice": 25000,
+      "largeBase": 30000,
+      "customPrice": true,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": false,
+      "isSpecial": false,
+      "noLarge": false,
+      "options": {
+        "sizes": [
+          "Regular",
+          "Large"
+        ],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      },
+      "tag": ""
+    },
+    {
+      "key": "hazelnutchoco",
+      "id": "hazelnutchoco",
+      "code": "2924",
+      "name": "Hazelnut Choco",
+      "category": "Non-Coffee",
+      "sourceCategory": "Non-Coffee",
+      "img": "https://assets.jiwa.app/Product/CMS/CultureNonCoffeeHazelnutChoco_1780841065294.webp",
+      "desc": "Velvety chocolate layered with a subtle warmth of hazelnut. Sweet, soft, and satisfying.",
+      "price": 20000,
+      "largePrice": 28000,
+      "normalPrice": 28000,
+      "outletPrice": 28000,
+      "largeBase": 33000,
+      "customPrice": true,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": false,
+      "isSpecial": false,
+      "noLarge": false,
+      "options": {
+        "sizes": [
+          "Regular",
+          "Large"
+        ],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      },
+      "tag": ""
+    },
+    {
+      "key": "royalemilo",
+      "id": "royalemilo",
+      "code": "2891",
+      "name": "Royale Milo",
+      "category": "Non-Coffee",
+      "sourceCategory": "Non-Coffee",
+      "img": "https://assets.jiwa.app/Product/CMS/JJNonCoffeeRoyaleMilo_1780802516328.webp",
+      "desc": "A pure guilty pleasure. Creamy Classic Milo loaded with extra Milo on top.",
+      "price": 21000,
+      "largePrice": 29000,
+      "normalPrice": 30000,
+      "outletPrice": 30000,
+      "largeBase": 35000,
+      "customPrice": true,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": false,
+      "isSpecial": false,
+      "noLarge": false,
+      "options": {
+        "sizes": [
+          "Regular",
+          "Large"
+        ],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      },
+      "tag": ""
+    },
+    {
+      "key": "milomacchiato",
+      "id": "milomacchiato",
+      "code": "2890",
+      "name": "Milo Macchiato",
+      "category": "Non-Coffee",
+      "sourceCategory": "Non-Coffee",
+      "img": "https://assets.jiwa.app/Product/CMS/JJNonCoffeeMiloMacchiato_1780802252885.webp",
+      "desc": "The Classic Milo layered with irresistible thick macchiato.",
+      "price": 21000,
+      "largePrice": 29000,
+      "normalPrice": 30000,
+      "outletPrice": 30000,
+      "largeBase": 35000,
+      "customPrice": true,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": false,
+      "isSpecial": false,
+      "noLarge": false,
+      "options": {
+        "sizes": [
+          "Regular",
+          "Large"
+        ],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      },
+      "tag": ""
+    },
+    {
+      "key": "creamyberrypop",
+      "id": "creamyberrypop",
+      "code": "2955",
+      "name": "Creamy Berry Pop",
+      "category": "Non-Coffee",
+      "sourceCategory": "Non-Coffee",
+      "img": "https://assets.jiwa.app/Product/CMS/SummerSeriesCreamyBerryPop_1786802988482.png",
+      "desc": "A creamy strawberry base with a hint of mango, coconut water, oat milk, \nand fresh milk. Rich, smooth, and gently refreshing.",
+      "price": 18000,
+      "largePrice": 26000,
+      "normalPrice": 25000,
+      "outletPrice": 25000,
+      "largeBase": 30000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": true,
+      "notCarried": false,
+      "isFood": false,
+      "isSpecial": false,
+      "noLarge": false,
+      "options": {
+        "sizes": [
+          "Regular",
+          "Large"
+        ],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      },
+      "tag": ""
+    },
+    {
+      "key": "doublechocobreeze",
+      "id": "doublechocobreeze",
+      "code": "2896",
+      "name": "Double Choco Breeze",
+      "category": "Breeze",
+      "sourceCategory": "Breeze",
+      "img": "https://assets.jiwa.app/Product/CMS/BreezeDoubleChocoBreeze_1780830480508.webp",
+      "desc": "A thick and satisfying chocolate blended with crispy choco chips and whipped cream. Unapologetically indulgent.",
+      "price": 27000,
+      "largePrice": 35000,
+      "normalPrice": 40000,
+      "outletPrice": 40000,
+      "largeBase": 45000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": false,
+      "isSpecial": false,
+      "noLarge": false,
+      "options": {
+        "sizes": [
+          "Regular",
+          "Large"
+        ],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      },
+      "tag": ""
+    },
+    {
+      "key": "javamochabreeze",
+      "id": "javamochabreeze",
+      "code": "2897",
+      "name": "Java Mocha Breeze",
+      "category": "Breeze",
+      "sourceCategory": "Breeze",
+      "img": "https://assets.jiwa.app/Product/CMS/BreezeJavaMochaBreeze_1780830834588.webp",
+      "desc": "A cool, chocolatey coffee blend with oat milk and whipped cream. Crowned with salted caramel sauce swirls.",
+      "price": 27000,
+      "largePrice": 35000,
+      "normalPrice": 40000,
+      "outletPrice": 40000,
+      "largeBase": 45000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": false,
+      "isSpecial": false,
+      "noLarge": false,
+      "options": {
+        "sizes": [
+          "Regular",
+          "Large"
+        ],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      },
+      "tag": ""
+    },
+    {
+      "key": "matchabreeze",
+      "id": "matchabreeze",
+      "code": "2898",
+      "name": "Matcha Breeze",
+      "category": "Breeze",
+      "sourceCategory": "Breeze",
+      "img": "https://assets.jiwa.app/Product/CMS/BreezeMatchaBreeze_1780830972733.webp",
+      "desc": "Earthy matcha blended with vanilla whipped cream into a smooth, creamy finish, made to refresh your senses.",
+      "price": 30000,
+      "largePrice": 38000,
+      "normalPrice": 45000,
+      "outletPrice": 45000,
+      "largeBase": 50000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": false,
+      "isSpecial": false,
+      "noLarge": false,
+      "options": {
+        "sizes": [
+          "Regular",
+          "Large"
+        ],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      },
+      "tag": ""
+    },
+    {
+      "key": "seasaltcaramelbreeze",
+      "id": "seasaltcaramelbreeze",
+      "code": "2899",
+      "name": "Sea Salt Caramel Breeze",
+      "category": "Breeze",
+      "sourceCategory": "Breeze",
+      "img": "https://assets.jiwa.app/Product/CMS/BreezeSeaSaltCaramelBreeze_1780831123019.webp",
+      "desc": "A perfect blend of espresso, sea salt, and whipped cream crowned with salted caramel sauce swirls.",
+      "price": 27000,
+      "largePrice": 35000,
+      "normalPrice": 40000,
+      "outletPrice": 40000,
+      "largeBase": 45000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": false,
+      "isSpecial": false,
+      "noLarge": false,
+      "options": {
+        "sizes": [
+          "Regular",
+          "Large"
+        ],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      },
+      "tag": ""
+    },
+    {
+      "key": "eggncheese",
+      "id": "eggncheese",
+      "code": "2826",
+      "name": "Egg n Cheese",
+      "category": "Jiwa Toast",
+      "sourceCategory": "Jiwa Toast",
+      "img": "https://assets.jiwa.app/Product/CMS/ToastEggnCheese_1791552456604.webp",
+      "desc": "Toasted bread with omelette and cheese, served with Jiwa Toast’s signature sauce.",
+      "price": 21000,
+      "largePrice": null,
+      "normalPrice": 30000,
+      "outletPrice": 30000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": true,
+      "isSpecial": true,
+      "noLarge": false,
+      "options": {
+        "sizes": [],
+        "temps": [],
+        "ices": [],
+        "sugars": []
+      },
+      "tag": ""
+    },
+    {
+      "key": "creamyeggtruffle",
+      "id": "creamyeggtruffle",
+      "code": "1588",
+      "name": "Creamy Egg Truffle",
+      "category": "Jiwa Toast",
+      "sourceCategory": "Jiwa Toast",
+      "img": "https://assets.jiwa.app/Product/CMS/ToastCreamyEggTruffle_1791552483956.webp",
+      "desc": "Toasted bread topped with scrambled eggs, sautéed champignon mushrooms, truffle sauce, cheese sauce, and parsley sprinkles",
+      "price": 24500,
+      "largePrice": null,
+      "normalPrice": 36000,
+      "outletPrice": 36000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": true,
+      "notCarried": false,
+      "isFood": true,
+      "isSpecial": true,
+      "noLarge": false,
+      "options": {
+        "sizes": [],
+        "temps": [],
+        "ices": [],
+        "sugars": []
+      },
+      "tag": ""
+    },
+    {
+      "key": "crispychickenmentai",
+      "id": "crispychickenmentai",
+      "code": "2846",
+      "name": "Crispy Chicken Mentai",
+      "category": "Jiwa Toast",
+      "sourceCategory": "Jiwa Toast",
+      "img": "https://assets.jiwa.app/Product/CMS/ToastCrispyChickenMentai_1791552310126.webp",
+      "desc": "Toasted bread with crispy chicken, coleslaw, cheese slice, and mentai sauce.",
+      "price": 24500,
+      "largePrice": null,
+      "normalPrice": 36000,
+      "outletPrice": 36000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": true,
+      "isSpecial": true,
+      "noLarge": false,
+      "options": {
+        "sizes": [],
+        "temps": [],
+        "ices": [],
+        "sugars": []
+      },
+      "tag": ""
+    },
+    {
+      "key": "cheezycrispychickenmentai",
+      "id": "cheezycrispychickenmentai",
+      "code": "2847",
+      "name": "Cheezy Crispy Chicken Mentai",
+      "category": "Jiwa Toast",
+      "sourceCategory": "Jiwa Toast",
+      "img": "https://assets.jiwa.app/Product/CMS/ToastCheezyCrispyChickenMentai_1791552235171.webp",
+      "desc": "Toasted bread with crispy chicken, coleslaw, omelette, mentai sauce, and cheese sauce",
+      "price": 24000,
+      "largePrice": null,
+      "normalPrice": 36000,
+      "outletPrice": 36000,
+      "customPrice": true,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": true,
+      "isSpecial": true,
+      "noLarge": false,
+      "options": {
+        "sizes": [],
+        "temps": [],
+        "ices": [],
+        "sugars": []
+      },
+      "tag": ""
+    },
+    {
+      "key": "crispyspicychicken",
+      "id": "crispyspicychicken",
+      "code": "2824",
+      "name": "Crispy Spicy Chicken",
+      "category": "Jiwa Toast",
+      "sourceCategory": "Jiwa Toast",
+      "img": "https://assets.jiwa.app/Product/CMS/ToastCrispySpicyChicken_1791552344539.webp",
+      "desc": "Toasted bread loaded with crispy-spicy chicken fillet and Jiwa Toast’s signature sauce.",
+      "price": 24500,
+      "largePrice": null,
+      "normalPrice": 36000,
+      "outletPrice": 36000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": true,
+      "isSpecial": true,
+      "noLarge": false,
+      "options": {
+        "sizes": [],
+        "temps": [],
+        "ices": [],
+        "sugars": []
+      },
+      "tag": ""
+    },
+    {
+      "key": "smokedbeefncheese",
+      "id": "smokedbeefncheese",
+      "code": "2827",
+      "name": "Smoked Beef n Cheese",
+      "category": "Jiwa Toast",
+      "sourceCategory": "Jiwa Toast",
+      "img": "https://assets.jiwa.app/Product/CMS/ToastSmokedBeefnCheese_1791552372340.webp",
+      "desc": "Toasted bread with smoked beef, coleslaw, omelette, cheese, and Jiwa Toast’s signature sauce,",
+      "price": 25000,
+      "largePrice": null,
+      "normalPrice": 37000,
+      "outletPrice": 37000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": true,
+      "isSpecial": true,
+      "noLarge": false,
+      "options": {
+        "sizes": [],
+        "temps": [],
+        "ices": [],
+        "sugars": []
+      },
+      "tag": ""
+    },
+    {
+      "key": "spicybulgogi",
+      "id": "spicybulgogi",
+      "code": "2828",
+      "name": "Spicy Bulgogi",
+      "category": "Jiwa Toast",
+      "sourceCategory": "Jiwa Toast",
+      "img": "https://assets.jiwa.app/Product/CMS/ToastSpicyBulgogi_1791552401602.webp",
+      "desc": "Toasted bread filled with beef, coleslaw, omelette, cheese, and spicy bulgogi sauce",
+      "price": 24500,
+      "largePrice": null,
+      "normalPrice": 37000,
+      "outletPrice": 37000,
+      "customPrice": true,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": true,
+      "notCarried": false,
+      "isFood": true,
+      "isSpecial": true,
+      "noLarge": false,
+      "options": {
+        "sizes": [],
+        "temps": [],
+        "ices": [],
+        "sugars": []
+      },
+      "tag": ""
+    },
+    {
+      "key": "ultimatecheesybeef",
+      "id": "ultimatecheesybeef",
+      "code": "2829",
+      "name": "Ultimate Cheesy Beef",
+      "category": "Jiwa Toast",
+      "sourceCategory": "Jiwa Toast",
+      "img": "https://assets.jiwa.app/Product/CMS/ToastUltimateCheesyBeef_1791552428473.webp",
+      "desc": "Toasted bread with beef, coleslaw, omelette, cheese, and cheese sauce on top.",
+      "price": 24500,
+      "largePrice": null,
+      "normalPrice": 37000,
+      "outletPrice": 37000,
+      "customPrice": true,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": true,
+      "notCarried": false,
+      "isFood": true,
+      "isSpecial": true,
+      "noLarge": false,
+      "options": {
+        "sizes": [],
+        "temps": [],
+        "ices": [],
+        "sugars": []
+      },
+      "tag": ""
+    },
+    {
+      "key": "beeftrufflemayo",
+      "id": "beeftrufflemayo",
+      "code": "1441",
+      "name": "Beef Truffle Mayo",
+      "category": "Jiwa Toast",
+      "sourceCategory": "Jiwa Toast",
+      "img": "https://assets.jiwa.app/Product/CMS/ToastBeefTruffleMayo_1791552275393.webp",
+      "desc": "Toasted bread with beef, omelette, cheese, garlic flakes, and truffle mayo",
+      "price": 25000,
+      "largePrice": null,
+      "normalPrice": 37000,
+      "outletPrice": 37000,
+      "customPrice": true,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": true,
+      "notCarried": false,
+      "isFood": true,
+      "isSpecial": true,
+      "noLarge": false,
+      "options": {
+        "sizes": [],
+        "temps": [],
+        "ices": [],
+        "sugars": []
+      },
+      "tag": ""
+    },
+    {
+      "key": "spicybuldakchicken",
+      "id": "spicybuldakchicken",
+      "code": "2849",
+      "name": "Spicy Buldak Chicken",
+      "category": "Jiwa Toast",
+      "sourceCategory": "Jiwa Toast",
+      "img": "https://assets.jiwa.app/Product/CMS/ToastSpicyBuldakChicken_1777343536918.webp",
+      "desc": "Crispy and soft charcoal toast filled with spicy and savory taste in one bite. Juicy chicken with spicy buldak sauce, balanced with creamy mayo, fresh lettuce and coleslaw.",
+      "price": 23000,
+      "largePrice": null,
+      "normalPrice": 35000,
+      "outletPrice": 35000,
+      "customPrice": true,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": true,
+      "notCarried": false,
+      "isFood": true,
+      "isSpecial": true,
+      "noLarge": false,
+      "options": {
+        "sizes": [],
+        "temps": [],
+        "ices": [],
+        "sugars": []
+      },
+      "tag": ""
+    },
+    {
+      "key": "honeygochujangchicken",
+      "id": "honeygochujangchicken",
+      "code": "2850",
+      "name": "Honey Gochujang Chicken",
+      "category": "Jiwa Toast",
+      "sourceCategory": "Jiwa Toast",
+      "img": "https://assets.jiwa.app/Product/CMS/ToastHoneyGochujangChicken_1777343762376.webp",
+      "desc": "Crispy and soft charcoal toast filled with sweet, savory, and mildly spicy taste in on bite. Juicy chicken coated in bold honey gochujang sauce, balanced with creamy mayo, fresh lettuce, and coleslaw.",
+      "price": 21000,
+      "largePrice": null,
+      "normalPrice": 30000,
+      "outletPrice": 30000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": true,
+      "notCarried": false,
+      "isFood": true,
+      "isSpecial": true,
+      "noLarge": false,
+      "options": {
+        "sizes": [],
+        "temps": [],
+        "ices": [],
+        "sugars": []
+      },
+      "tag": ""
+    },
+    {
+      "key": "saltedeggchickentoast",
+      "id": "saltedeggchickentoast",
+      "code": "2848",
+      "name": "Salted Egg Chicken Toast",
+      "category": "Jiwa Toast",
+      "sourceCategory": "Jiwa Toast",
+      "img": "https://assets.jiwa.app/Product/CMS/SaltedEggToastCultureSaltedEggChickenToast_1777342375912.webp",
+      "desc": "Toasted bread with crispy, juicy chicken, layered with creamy salted egg sauce for a rich and savory bite.",
+      "price": 26000,
+      "largePrice": null,
+      "normalPrice": 38000,
+      "outletPrice": 38000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": true,
+      "isSpecial": true,
+      "noLarge": false,
+      "options": {
+        "sizes": [],
+        "temps": [],
+        "ices": [],
+        "sugars": []
+      },
+      "tag": ""
+    },
+    {
+      "key": "crunchychoco",
+      "id": "crunchychoco",
+      "code": "2825",
+      "name": "Crunchy Choco",
+      "category": "Jiwa Toast",
+      "sourceCategory": "Jiwa Toast",
+      "img": "https://assets.jiwa.app/Product/CMS/ToastCrunchyChoco_1776245860355.webp",
+      "desc": "Toasted bread spread with crunchy chocolate and topped with crispy corn flakes.",
+      "price": 25000,
+      "largePrice": null,
+      "normalPrice": 37000,
+      "outletPrice": 37000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": true,
+      "isSpecial": true,
+      "noLarge": false,
+      "options": {
+        "sizes": [],
+        "temps": [],
+        "ices": [],
+        "sugars": []
+      },
+      "tag": ""
+    },
+    {
+      "key": "plaintoastwithnastarspread",
+      "id": "plaintoastwithnastarspread",
+      "code": "2984",
+      "name": "Plain Toast With Nastar Spread",
+      "category": "Jiwa Toast",
+      "sourceCategory": "Jiwa Toast",
+      "img": "https://assets.jiwa.app/Product/CMS/SpreadToastCulturePlainToastWithNastarSpread_1788098080529.webp",
+      "desc": "Plain Toast With Nastar Spread",
+      "price": 18500,
+      "largePrice": null,
+      "normalPrice": 26000,
+      "outletPrice": 26000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": true,
+      "notCarried": false,
+      "isFood": true,
+      "isSpecial": true,
+      "noLarge": false,
+      "options": {
+        "sizes": [],
+        "temps": [],
+        "ices": [],
+        "sugars": []
+      },
+      "tag": ""
+    },
+    {
+      "key": "plaintoastwithchococrunchyspread",
+      "id": "plaintoastwithchococrunchyspread",
+      "code": "2983",
+      "name": "Plain Toast With Choco Crunchy Spread",
+      "category": "Jiwa Toast",
+      "sourceCategory": "Jiwa Toast",
+      "img": "https://assets.jiwa.app/Product/CMS/SpreadToastCulturePlainToastWithChocoCrunchySpread_1788098009021.webp",
+      "desc": "Plain Toast With Choco Crunchy Spread",
+      "price": 18500,
+      "largePrice": null,
+      "normalPrice": 26000,
+      "outletPrice": 26000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": true,
+      "notCarried": false,
+      "isFood": true,
+      "isSpecial": true,
+      "noLarge": false,
+      "options": {
+        "sizes": [],
+        "temps": [],
+        "ices": [],
+        "sugars": []
+      },
+      "tag": ""
+    },
+    {
+      "key": "plaintoastwithkayaspread",
+      "id": "plaintoastwithkayaspread",
+      "code": "2982",
+      "name": "Plain Toast With Kaya Spread",
+      "category": "Jiwa Toast",
+      "sourceCategory": "Jiwa Toast",
+      "img": "https://assets.jiwa.app/Product/CMS/SpreadToastCulturePlainToastWithKayaSpread_1788097932290.webp",
+      "desc": "Plain Toast With Kaya Spread",
+      "price": 17500,
+      "largePrice": null,
+      "normalPrice": 24000,
+      "outletPrice": 24000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": true,
+      "notCarried": false,
+      "isFood": true,
+      "isSpecial": true,
+      "noLarge": false,
+      "options": {
+        "sizes": [],
+        "temps": [],
+        "ices": [],
+        "sugars": []
+      },
+      "tag": ""
+    },
+    {
+      "key": "plaintoastwithstrawberryspread",
+      "id": "plaintoastwithstrawberryspread",
+      "code": "2979",
+      "name": "Plain Toast With Strawberry Spread",
+      "category": "Jiwa Toast",
+      "sourceCategory": "Jiwa Toast",
+      "img": "https://assets.jiwa.app/Product/CMS/SpreadToastCulturePlainToastWithStrawberrySpread_1788097250559.webp",
+      "desc": "Plain Toast With Strawberry Spread",
+      "price": 17500,
+      "largePrice": null,
+      "normalPrice": 24000,
+      "outletPrice": 24000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": true,
+      "notCarried": false,
+      "isFood": true,
+      "isSpecial": true,
+      "noLarge": false,
+      "options": {
+        "sizes": [],
+        "temps": [],
+        "ices": [],
+        "sugars": []
+      },
+      "tag": ""
+    },
+    {
+      "key": "plaintoastwithblueberryspread",
+      "id": "plaintoastwithblueberryspread",
+      "code": "2980",
+      "name": "Plain Toast With Blueberry Spread",
+      "category": "Jiwa Toast",
+      "sourceCategory": "Jiwa Toast",
+      "img": "https://assets.jiwa.app/Product/CMS/SpreadToastCulturePlainToastWithBlueberrySpread_1788097767010.webp",
+      "desc": "Plain Toast With Blueberry Spread",
+      "price": 17500,
+      "largePrice": null,
+      "normalPrice": 24000,
+      "outletPrice": 24000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": true,
+      "notCarried": false,
+      "isFood": true,
+      "isSpecial": true,
+      "noLarge": false,
+      "options": {
+        "sizes": [],
+        "temps": [],
+        "ices": [],
+        "sugars": []
+      },
+      "tag": ""
+    },
+    {
+      "key": "plaintoastwithpeanutbutterspread",
+      "id": "plaintoastwithpeanutbutterspread",
+      "code": "2981",
+      "name": "Plain Toast With Peanut Butter Spread",
+      "category": "Jiwa Toast",
+      "sourceCategory": "Jiwa Toast",
+      "img": "https://assets.jiwa.app/Product/CMS/SpreadToastCulturePlainToastWithPeanutButterSpread_1788097850236.webp",
+      "desc": "Plain Toast With Peanut Butter Spread",
+      "price": 18500,
+      "largePrice": null,
+      "normalPrice": 26000,
+      "outletPrice": 26000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": true,
+      "notCarried": false,
+      "isFood": true,
+      "isSpecial": true,
+      "noLarge": false,
+      "options": {
+        "sizes": [],
+        "temps": [],
+        "ices": [],
+        "sugars": []
+      },
+      "tag": ""
+    },
+    {
+      "key": "crunchychococheeseasiantoast",
+      "id": "crunchychococheeseasiantoast",
+      "code": "1586",
+      "name": "Crunchy Choco Cheese Asian Toast",
+      "category": "Asian Toast",
+      "sourceCategory": "Asian Toast",
+      "img": "https://assets.jiwa.app/Product/CMS/ToastCrunchyChocoCheeseAsianToast_1759714591289.webp",
+      "desc": "Crispy toast on the outside with rich chocolate and savory cheese inside for a delicate and crunchy sensation",
+      "price": 19500,
+      "largePrice": null,
+      "normalPrice": 27000,
+      "outletPrice": 27000,
+      "customPrice": true,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": true,
+      "isSpecial": true,
+      "noLarge": false,
+      "options": {
+        "sizes": [],
+        "temps": [],
+        "ices": [],
+        "sugars": []
+      },
+      "tag": ""
+    },
+    {
+      "key": "kayabutterasiantoast",
+      "id": "kayabutterasiantoast",
+      "code": "1584",
+      "name": "Kaya Butter Asian Toast",
+      "category": "Asian Toast",
+      "sourceCategory": "Asian Toast",
+      "img": "https://assets.jiwa.app/Product/CMS/ToastKayaButterAsianToast_1759714562203.webp",
+      "desc": "Crispy toast on the outside with mouthwatering creamy kaya and butter inside for a delicate balance of sweet and savory",
+      "price": 19500,
+      "largePrice": null,
+      "normalPrice": 27000,
+      "outletPrice": 27000,
+      "customPrice": true,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": true,
+      "notCarried": false,
+      "isFood": true,
+      "isSpecial": true,
+      "noLarge": false,
+      "options": {
+        "sizes": [],
+        "temps": [],
+        "ices": [],
+        "sugars": []
+      },
+      "tag": ""
+    },
+    {
+      "key": "tomyumnoodle",
+      "id": "tomyumnoodle",
+      "code": "2970",
+      "name": "Tom Yum Noodle",
+      "category": "Noodle",
+      "sourceCategory": "Noodle",
+      "img": "https://assets.jiwa.app/Product/CMS/TasteofThaiTomYumNoodle_1787023076924.webp",
+      "desc": "A comforting bowl of noodles in a savory, tangy, and aromatic Tom Yum broth, topped with fish balls and fish cake.",
+      "price": 26000,
+      "largePrice": 34000,
+      "normalPrice": 38000,
+      "outletPrice": 38000,
+      "largeBase": 43000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": false,
+      "isSpecial": false,
+      "noLarge": false,
+      "options": {
+        "sizes": [
+          "Regular",
+          "Large"
+        ],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      },
+      "tag": ""
+    },
+    {
+      "key": "currynoodle",
+      "id": "currynoodle",
+      "code": "1538",
+      "name": "Curry Noodle",
+      "category": "Noodle",
+      "sourceCategory": "Noodle",
+      "img": "https://assets.jiwa.app/Product/CMS/NoodleCurryNoodle_1759714261388.webp",
+      "desc": "Flavor-packed golden noodles served in curry style, tender chicken chunks, soft tofu, and boiled egg. Savory, satisfying, and seriously addictive.",
+      "price": 25000,
+      "largePrice": 33000,
+      "normalPrice": 38000,
+      "outletPrice": 38000,
+      "largeBase": 43000,
+      "customPrice": true,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": false,
+      "isSpecial": false,
+      "noLarge": false,
+      "options": {
+        "sizes": [
+          "Regular",
+          "Large"
+        ],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      },
+      "tag": ""
+    },
+    {
+      "key": "mushroomchickennoodle",
+      "id": "mushroomchickennoodle",
+      "code": "1540",
+      "name": "Mushroom Chicken Noodle",
+      "category": "Noodle",
+      "sourceCategory": "Noodle",
+      "img": "https://assets.jiwa.app/Product/CMS/NoodleMushroomChickenNoodle_1759714296194.webp",
+      "desc": "Flavor-packed golden noodles served with juicy chicken chunks, earthy mushrooms, meatballs, and soft boiled wontons. A bowl full of umami comfort, warm, and totally craveable",
+      "price": 29000,
+      "largePrice": 37000,
+      "normalPrice": 42000,
+      "outletPrice": 42000,
+      "largeBase": 47000,
+      "customPrice": true,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": false,
+      "isSpecial": false,
+      "noLarge": false,
+      "options": {
+        "sizes": [
+          "Regular",
+          "Large"
+        ],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      },
+      "tag": ""
+    },
+    {
+      "key": "trufflemushroomchickennoodle",
+      "id": "trufflemushroomchickennoodle",
+      "code": "1542",
+      "name": "Truffle Mushroom Chicken Noodle",
+      "category": "Noodle",
+      "sourceCategory": "Noodle",
+      "img": "https://assets.jiwa.app/Product/CMS/NoodleTruffleMushroomChickenNoodle_1759714225334.webp",
+      "desc": "Flavor-packed golden noodles served with tender chicken chunks, earthy mushrooms, a touch of truffle aroma, soft boiled wontons, and meatballs. An elevated twist on comfort",
+      "price": 31000,
+      "largePrice": 39000,
+      "normalPrice": 44000,
+      "outletPrice": 44000,
+      "largeBase": 49000,
+      "customPrice": true,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": false,
+      "isSpecial": false,
+      "noLarge": false,
+      "options": {
+        "sizes": [
+          "Regular",
+          "Large"
+        ],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      },
+      "tag": ""
+    },
+    {
+      "key": "smokedcakalangnoodle",
+      "id": "smokedcakalangnoodle",
+      "code": "1546",
+      "name": "Smoked Cakalang Noodle",
+      "category": "Noodle",
+      "sourceCategory": "Noodle",
+      "img": "https://assets.jiwa.app/Product/CMS/NoodleSmokedCakalangNoodle_1759714342510.webp",
+      "desc": "Flavor-packed golden noodles served with spicy smoked cakalang, soft boiled wontons, and meatballs, flavorful expression of coastal Indonesian taste.",
+      "price": 31000,
+      "largePrice": 39000,
+      "normalPrice": 44000,
+      "outletPrice": 44000,
+      "largeBase": 49000,
+      "customPrice": true,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": false,
+      "isSpecial": false,
+      "noLarge": false,
+      "options": {
+        "sizes": [
+          "Regular",
+          "Large"
+        ],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      },
+      "tag": ""
+    },
+    {
+      "key": "friedwonton",
+      "id": "friedwonton",
+      "code": "1465",
+      "name": "Fried Wonton (3pcs)",
+      "category": "Noodle",
+      "sourceCategory": "Noodle",
+      "img": "https://assets.jiwa.app/Product/CMS/NoodleFriedWonton3pcs_1759714382305.webp",
+      "desc": "3 pieces of fried wontons",
+      "price": 18500,
+      "largePrice": 26500,
+      "normalPrice": 20000,
+      "outletPrice": 20000,
+      "largeBase": 25000,
+      "customPrice": true,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": false,
+      "isSpecial": false,
+      "noLarge": false,
+      "options": {
+        "sizes": [
+          "Regular",
+          "Large"
+        ],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      },
+      "tag": ""
+    },
+    {
+      "key": "chickenpadkrapaorice",
+      "id": "chickenpadkrapaorice",
+      "code": "2971",
+      "name": "Chicken Pad Kra Pao Rice",
+      "category": "Rice",
+      "sourceCategory": "Rice",
+      "img": "https://assets.jiwa.app/Product/CMS/TasteofThaiChickenPadKraPaoRice_1787023425119.webp",
+      "desc": "Savory Thai basil chicken over warm rice, bringing bold flavor, fragrant herbs, and one seriously satisfying bite.",
+      "price": 24000,
+      "largePrice": null,
+      "normalPrice": 36000,
+      "outletPrice": 36000,
+      "customPrice": true,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": true,
+      "isSpecial": true,
+      "noLarge": false,
+      "options": {
+        "sizes": [],
+        "temps": [],
+        "ices": [],
+        "sugars": []
+      },
+      "tag": ""
+    },
+    {
+      "key": "saltedeggchickenrice",
+      "id": "saltedeggchickenrice",
+      "code": "1488",
+      "name": "Salted Egg Chicken Rice",
+      "category": "Rice",
+      "sourceCategory": "Rice",
+      "img": "https://assets.jiwa.app/Product/CMS/RiceSaltedEggChickenRice_1759910594201.webp",
+      "desc": "Steamed rice served with crispy fried chicken and stir-fried cabbage, topped with rich salted egg sauce. Crunchy, creamy, and deeply comforting",
+      "price": 24000,
+      "largePrice": null,
+      "normalPrice": 36000,
+      "outletPrice": 36000,
+      "customPrice": true,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": true,
+      "isSpecial": true,
+      "noLarge": false,
+      "options": {
+        "sizes": [],
+        "temps": [],
+        "ices": [],
+        "sugars": []
+      },
+      "tag": ""
+    },
+    {
+      "key": "redsambalchickenrice",
+      "id": "redsambalchickenrice",
+      "code": "1489",
+      "name": "Red Sambal Chicken Rice",
+      "category": "Rice",
+      "sourceCategory": "Rice",
+      "img": "https://assets.jiwa.app/Product/CMS/RiceRedSambalChickenRice_1759714111365.webp",
+      "desc": "Steamed rice served with crispy chicken and stir-fried cabbage, topped with our signature red sambal. Flavorful, bold, and daring",
+      "price": 24000,
+      "largePrice": null,
+      "normalPrice": 36000,
+      "outletPrice": 36000,
+      "customPrice": true,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": true,
+      "isSpecial": true,
+      "noLarge": false,
+      "options": {
+        "sizes": [],
+        "temps": [],
+        "ices": [],
+        "sugars": []
+      },
+      "tag": ""
+    },
+    {
+      "key": "crispychickenskinrice",
+      "id": "crispychickenskinrice",
+      "code": "1490",
+      "name": "Crispy Chicken Skin Rice",
+      "category": "Rice",
+      "sourceCategory": "Rice",
+      "img": "https://assets.jiwa.app/Product/CMS/RiceCrispyChickenSkinRice_1759714090035.webp",
+      "desc": "Steamed rice served with golden chicken skin and stir-fried cabbage. Irresistibly crispy with every bite",
+      "price": 24000,
+      "largePrice": null,
+      "normalPrice": 36000,
+      "outletPrice": 36000,
+      "customPrice": true,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": true,
+      "isSpecial": true,
+      "noLarge": false,
+      "options": {
+        "sizes": [],
+        "temps": [],
+        "ices": [],
+        "sugars": []
+      },
+      "tag": ""
+    },
+    {
+      "key": "indonesiangultikrice",
+      "id": "indonesiangultikrice",
+      "code": "1601",
+      "name": "Indonesian Gultik Rice",
+      "category": "Rice",
+      "sourceCategory": "Rice",
+      "img": "https://assets.jiwa.app/Product/CMS/JJNCFullFledgedIndonesianGultikRice_1759714153279.webp",
+      "desc": "An elevated take on a local favorite. Steamed rice served with tender beef in rich Indonesian gulai, sambal, pickles, and crackers",
+      "price": 25000,
+      "largePrice": null,
+      "normalPrice": 38000,
+      "outletPrice": 38000,
+      "customPrice": true,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": true,
+      "isSpecial": true,
+      "noLarge": false,
+      "options": {
+        "sizes": [],
+        "temps": [],
+        "ices": [],
+        "sugars": []
+      },
+      "tag": ""
+    },
+    {
+      "key": "smokedcakalangrice",
+      "id": "smokedcakalangrice",
+      "code": "1468",
+      "name": "Smoked Cakalang Rice",
+      "category": "Rice",
+      "sourceCategory": "Rice",
+      "img": "https://assets.jiwa.app/Product/CMS/RiceSmokedCakalangRice_1759713412741.webp",
+      "desc": "Steamed rice served with smoked cakalang from the East, paired with soft scrambled eggs. A bold and soulful expression of Indonesian coastal flavor",
+      "price": 24000,
+      "largePrice": null,
+      "normalPrice": 36000,
+      "outletPrice": 36000,
+      "customPrice": true,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": true,
+      "isSpecial": true,
+      "noLarge": false,
+      "options": {
+        "sizes": [],
+        "temps": [],
+        "ices": [],
+        "sugars": []
+      },
+      "tag": ""
+    },
+    {
+      "key": "friedfishcake",
+      "id": "friedfishcake",
+      "code": "2972",
+      "name": "Fried Fish Cake",
+      "category": "Bites",
+      "sourceCategory": "Bites",
+      "img": "https://assets.jiwa.app/Product/CMS/TasteofThaiFriedFishCake_1787023982930.webp",
+      "desc": "Savory fish cake with a crispy bite, made for easy snacking anytime.",
+      "price": 18500,
+      "largePrice": null,
+      "normalPrice": 25000,
+      "outletPrice": 25000,
+      "customPrice": true,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": true,
+      "isSpecial": true,
+      "noLarge": false,
+      "options": {
+        "sizes": [],
+        "temps": [],
+        "ices": [],
+        "sugars": []
+      },
+      "tag": ""
+    },
+    {
+      "key": "frenchfries",
+      "id": "frenchfries",
+      "code": "1430",
+      "name": "French Fries",
+      "category": "Bites",
+      "sourceCategory": "Bites",
+      "img": "https://assets.jiwa.app/Product/CMS/BitesFrenchFries_1759707770375.webp",
+      "desc": "Original french fries.",
+      "price": 18500,
+      "largePrice": null,
+      "normalPrice": 25000,
+      "outletPrice": 25000,
+      "customPrice": true,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": true,
+      "isSpecial": true,
+      "noLarge": false,
+      "options": {
+        "sizes": [],
+        "temps": [],
+        "ices": [],
+        "sugars": []
+      },
+      "tag": ""
+    },
+    {
+      "key": "crispychickennugget",
+      "id": "crispychickennugget",
+      "code": "1428",
+      "name": "Crispy Chicken Nugget",
+      "category": "Bites",
+      "sourceCategory": "Bites",
+      "img": "https://assets.jiwa.app/Product/CMS/BitesCrispyChickenNugget_1759707822763.webp",
+      "desc": "5 pieces of crispy chicken nuggets.",
+      "price": 18500,
+      "largePrice": null,
+      "normalPrice": 25000,
+      "outletPrice": 25000,
+      "customPrice": true,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": true,
+      "isSpecial": true,
+      "noLarge": false,
+      "options": {
+        "sizes": [],
+        "temps": [],
+        "ices": [],
+        "sugars": []
+      },
+      "tag": ""
+    },
+    {
+      "key": "authenticbatagor",
+      "id": "authenticbatagor",
+      "code": "1549",
+      "name": "Authentic Batagor",
+      "category": "Bites",
+      "sourceCategory": "Bites",
+      "img": "https://assets.jiwa.app/Product/CMS/BitesAuthenticBatagor_1759711217501.webp",
+      "desc": "Golden-fried batagor served with bold peanut sauce. Authentic, satisfying, and full of flavor.",
+      "price": 22000,
+      "largePrice": null,
+      "normalPrice": 32000,
+      "outletPrice": 32000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": true,
+      "isSpecial": true,
+      "noLarge": false,
+      "options": {
+        "sizes": [],
+        "temps": [],
+        "ices": [],
+        "sugars": []
+      },
+      "tag": ""
+    },
+    {
+      "key": "fusionsnackplatternugget",
+      "id": "fusionsnackplatternugget",
+      "code": "2973",
+      "name": "Fusion Snack Platter - Nugget",
+      "category": "Bites",
+      "sourceCategory": "Bites",
+      "img": "https://assets.jiwa.app/Product/CMS/RamadhanSeriesCulture2026FusionSnackPlatterNugget_1787280877587.webp",
+      "desc": "A fun combination of gochujang-glazed chicken nugget, tahu walik, and sweet potato fries.",
+      "price": 38000,
+      "largePrice": null,
+      "normalPrice": 50000,
+      "outletPrice": 50000,
+      "customPrice": true,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": true,
+      "isSpecial": true,
+      "noLarge": false,
+      "options": {
+        "sizes": [],
+        "temps": [],
+        "ices": [],
+        "sugars": []
+      },
+      "tag": ""
+    },
+    {
+      "key": "fusionsnackplatterpop",
+      "id": "fusionsnackplatterpop",
+      "code": "2787",
+      "name": "Fusion Snack Platter - Pop",
+      "category": "Bites",
+      "sourceCategory": "Bites",
+      "img": "https://assets.jiwa.app/Product/CMS/RamadhanSeriesCulture2026FusionSnackPlatter_1770003178604.webp",
+      "desc": "A fun combination of gochujang-glazed chicken pop, tahu walik, and sweet potato fries.",
+      "price": 38000,
+      "largePrice": null,
+      "normalPrice": 50000,
+      "outletPrice": 50000,
+      "customPrice": true,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": true,
+      "notCarried": false,
+      "isFood": true,
+      "isSpecial": true,
+      "noLarge": false,
+      "options": {
+        "sizes": [],
+        "temps": [],
+        "ices": [],
+        "sugars": []
+      },
+      "tag": ""
+    },
+    {
+      "key": "savorysnackplatter",
+      "id": "savorysnackplatter",
+      "code": "2788",
+      "name": "Savory Snack Platter",
+      "category": "Bites",
+      "sourceCategory": "Bites",
+      "img": "https://assets.jiwa.app/Product/CMS/RamadhanSeriesCulture2026SavorySnackPlatter_1770003160195.webp",
+      "desc": "A satisfying mix of crispy chicken nuggets, cireng, tahu walik, and French fries. Perfect for sharing and enjoying after iftar.",
+      "price": 38000,
+      "largePrice": null,
+      "normalPrice": 50000,
+      "outletPrice": 50000,
+      "customPrice": true,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": true,
+      "isSpecial": true,
+      "noLarge": false,
+      "options": {
+        "sizes": [],
+        "temps": [],
+        "ices": [],
+        "sugars": []
+      },
+      "tag": ""
+    },
+    {
+      "key": "sundanesecireng",
+      "id": "sundanesecireng",
+      "code": "1591",
+      "name": "Sundanese Cireng",
+      "category": "Bites",
+      "sourceCategory": "Bites",
+      "img": "https://assets.jiwa.app/Product/CMS/BitesSundaneseCireng_1759711024796.webp",
+      "desc": "Crispy Sundanese-style cireng served with sweet and spicy dipping sauce.",
+      "price": 18500,
+      "largePrice": null,
+      "normalPrice": 25000,
+      "outletPrice": 25000,
+      "customPrice": true,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": true,
+      "isSpecial": true,
+      "noLarge": false,
+      "options": {
+        "sizes": [],
+        "temps": [],
+        "ices": [],
+        "sugars": []
+      },
+      "tag": ""
+    },
+    {
+      "key": "waliktofufritters",
+      "id": "waliktofufritters",
+      "code": "1593",
+      "name": "Walik Tofu Fritters",
+      "category": "Bites",
+      "sourceCategory": "Bites",
+      "img": "https://assets.jiwa.app/Product/CMS/BitesWalikTofuFritters_1759710993540.webp",
+      "desc": "Crispy walik tofu served with sweet & spicy sauce.",
+      "price": 18500,
+      "largePrice": null,
+      "normalPrice": 25000,
+      "outletPrice": 25000,
+      "customPrice": true,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": true,
+      "isSpecial": true,
+      "noLarge": false,
+      "options": {
+        "sizes": [],
+        "temps": [],
+        "ices": [],
+        "sugars": []
+      },
+      "tag": ""
+    },
+    {
+      "key": "mineralwater",
+      "id": "mineralwater",
+      "code": "2993",
+      "name": "Mineral Water",
+      "category": "Ready To Drink",
+      "sourceCategory": "Ready To Drink",
+      "img": "https://assets.jiwa.app/Product/CMS/ReadyToDrinkMineralWater_1793699323898.webp",
+      "desc": "Mineral Water 330 ml",
+      "price": 8500,
+      "largePrice": null,
+      "normalPrice": 9000,
+      "outletPrice": 9000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": false,
+      "isSpecial": false,
+      "noLarge": true,
+      "options": {
+        "sizes": [
+          "Regular"
+        ],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      },
+      "tag": ""
+    },
+    {
+      "key": "signaturekopisusu1l",
+      "id": "signaturekopisusu1l",
+      "code": "2953",
+      "name": "Signature Kopi Susu 1L",
+      "category": "Bottled",
+      "sourceCategory": "Bottled",
+      "img": "https://assets.jiwa.app/Product/CMS/CCCoffeeSignatureKopiSusu1L_1780889853243.webp",
+      "desc": "Signature Kopi Susu 1L",
+      "price": 110000,
+      "largePrice": null,
+      "normalPrice": 120000,
+      "outletPrice": 120000,
+      "customPrice": true,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": false,
+      "isSpecial": false,
+      "noLarge": false,
+      "options": {
+        "sizes": [
+          "1 Liter"
+        ],
+        "temps": [],
+        "ices": [],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      },
+      "tag": ""
+    },
+    {
+      "key": "mangoamericano1l",
+      "id": "mangoamericano1l",
+      "code": "2947",
+      "name": "Mango Americano 1L",
+      "category": "Bottled",
+      "sourceCategory": "Bottled",
+      "img": "https://assets.jiwa.app/Product/CMS/JJCoffeeMangoAmericano1L_1780886632200.webp",
+      "desc": "Mango Americano 1L",
+      "price": 88000,
+      "largePrice": null,
+      "normalPrice": 98000,
+      "outletPrice": 98000,
+      "customPrice": true,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": false,
+      "isSpecial": false,
+      "noLarge": false,
+      "options": {
+        "sizes": [
+          "1 Liter"
+        ],
+        "temps": [],
+        "ices": [],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      },
+      "tag": ""
+    }
+  ],
+  "satuan": [],
+  "seliter": [],
+  "bundles": [],
+  "outlet": "JIWA-SMD-01",
+  "preview": false
+}

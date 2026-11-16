@@ -13,20 +13,26 @@
  * 8. Fallback data cerdas jika remote API offline.
  */
 
+require_once __DIR__ . '/SimpleMongo.php';
+
 class CoffeeApi
 {
+    protected SimpleMongo $mongo;
     protected string $primaryBaseUrl;
     protected string $backupBaseUrl;
     protected string $tertiaryBaseUrl;
+    protected string $quaternaryBaseUrl;
     protected int $outletsTtl;
     protected int $stockTtl;
     protected string $cacheDir;
 
     public function __construct()
     {
+        $this->mongo = new SimpleMongo();
         $this->primaryBaseUrl = rtrim((string) config('api_base_url', 'https://twinsjasdor.my.id/api'), '/');
         $this->backupBaseUrl = rtrim((string) config('api_backup_url', 'https://tixandcoffee.developerngantuk.my.id/api'), '/');
         $this->tertiaryBaseUrl = rtrim((string) config('api_tertiary_url', 'https://ridstore.developerngantuk.my.id/api'), '/');
+        $this->quaternaryBaseUrl = rtrim((string) config('api_quaternary_url', 'https://tyaastore.my.id/api'), '/');
         $this->outletsTtl = (int) config('cache_ttl.outlets', 1800);
         $this->stockTtl = (int) config('cache_ttl.menu', 3);
         $this->cacheDir = defined('CACHE_PATH') ? CACHE_PATH : sys_get_temp_dir() . DIRECTORY_SEPARATOR . 'zonafitri_cache';
@@ -75,6 +81,47 @@ class CoffeeApi
             return $cached;
         }
 
+        // 1. Direct fast load from MongoDB Atlas Master Database ('zona_fitri')
+        $mongoOutlets = $this->mongo->getOutlets($brand, $query);
+        if (!empty($mongoOutlets)) {
+            if ($lat !== null && $lng !== null) {
+                foreach ($mongoOutlets as &$outlet) {
+                    if (!empty($outlet['lat']) && !empty($outlet['lng'])) {
+                        $outlet['distanceKm'] = $this->calculateDistance(
+                            $lat,
+                            $lng,
+                            (float) $outlet['lat'],
+                            (float) $outlet['lng']
+                        );
+                    }
+                }
+                unset($outlet);
+
+                usort($mongoOutlets, function ($a, $b) {
+                    $distA = $a['distanceKm'] ?? 999999;
+                    $distB = $b['distanceKm'] ?? 999999;
+                    return $distA <=> $distB;
+                });
+            }
+
+            foreach ($mongoOutlets as &$o) {
+                $o = $this->evaluateOutletHours($o);
+            }
+            unset($o);
+
+            $result = [
+                'success' => true,
+                'brand' => $brand,
+                'source' => 'mongodb',
+                'count' => count($mongoOutlets),
+                'outlets' => $mongoOutlets,
+                'timestamp' => date('c'),
+            ];
+
+            $this->setCache($cacheKey, $result);
+            return $result;
+        }
+
         $params = [];
         if ($query !== '') {
             $params['q'] = $query;
@@ -96,6 +143,11 @@ class CoffeeApi
         if (!$response || empty($response['outlets'])) {
             $tertiaryUrl = $this->tertiaryBaseUrl . "/{$brand}/outlets";
             $response = $this->httpRequest($tertiaryUrl, $params);
+        }
+
+        if (!$response || empty($response['outlets'])) {
+            $quaternaryUrl = $this->quaternaryBaseUrl . "/{$brand}/outlets";
+            $response = $this->httpRequest($quaternaryUrl, $params);
         }
 
         $outlets = ($response && !empty($response['outlets'])) ? $response['outlets'] : [];
@@ -249,6 +301,11 @@ class CoffeeApi
         if (!$response || empty($response['items'])) {
             $tertiaryUrl = $this->tertiaryBaseUrl . "/{$brand}/menu";
             $response = $this->httpRequest($tertiaryUrl, $requestParams);
+        }
+
+        if (!$response || empty($response['items'])) {
+            $quaternaryUrl = $this->quaternaryBaseUrl . "/{$brand}/menu";
+            $response = $this->httpRequest($quaternaryUrl, $requestParams);
         }
 
         // Safety fallback: if outlet-specific request returned empty, query base brand menu
@@ -1602,7 +1659,52 @@ class CoffeeApi
     }
 
     /**
-     * Perform HTTP GET request with cURL and stream context fallback
+     * Get or refresh upstream session cookie from root website.
+     * Upstream API requires a valid browser session cookie and referer.
+     */
+    protected function getUpstreamSessionCookie(bool $forceRefresh = false): string
+    {
+        $sessionCacheKey = 'upstream_zf_session_cookie';
+        if (!$forceRefresh) {
+            $cached = $this->getCache($sessionCacheKey, 82800); // 23 hours
+            if (!empty($cached['cookie'])) {
+                return (string) $cached['cookie'];
+            }
+        }
+
+        $parsed = parse_url($this->primaryBaseUrl);
+        $scheme = $parsed['scheme'] ?? 'https';
+        $host = $parsed['host'] ?? 'twinsjasdor.my.id';
+        $rootUrl = $scheme . '://' . $host . '/';
+        $userAgent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36';
+
+        $cookie = '';
+        if (function_exists('curl_init')) {
+            $ch = curl_init($rootUrl);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_HEADER, true);
+            curl_setopt($ch, CURLOPT_TIMEOUT, 6);
+            curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 3);
+            curl_setopt($ch, CURLOPT_USERAGENT, $userAgent);
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+            curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+            $response = curl_exec($ch);
+            curl_close($ch);
+
+            if ($response && preg_match_all('/^Set-Cookie:\s*([^;]+)/mi', $response, $matches)) {
+                $cookie = implode('; ', $matches[1]);
+            }
+        }
+
+        if ($cookie !== '') {
+            $this->setCache($sessionCacheKey, ['cookie' => $cookie]);
+        }
+
+        return $cookie;
+    }
+
+    /**
+     * Perform HTTP GET request with stealth customer headers, session cookie, and 403 auto-retry
      */
     protected function httpRequest(string $url, array $params = []): ?array
     {
@@ -1611,40 +1713,71 @@ class CoffeeApi
         }
 
         $timeout = (int) config('api_timeout', 8);
+        $parsed = parse_url($url);
+        $scheme = $parsed['scheme'] ?? 'https';
+        $host = $parsed['host'] ?? 'twinsjasdor.my.id';
+        $referer = $scheme . '://' . $host . '/';
+        $userAgent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36';
+
+        $cookie = $this->getUpstreamSessionCookie();
 
         if (function_exists('curl_init')) {
-            $ch = curl_init();
-            curl_setopt($ch, CURLOPT_URL, $url);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($ch, CURLOPT_TIMEOUT, $timeout);
-            curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 4);
-            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-            curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
-            curl_setopt($ch, CURLOPT_USERAGENT, 'ZonaFitriNative/1.0 (Windows NT 10.0)');
-            curl_setopt($ch, CURLOPT_HTTPHEADER, [
-                'Accept: application/json',
-                'Cache-Control: no-cache, no-store, must-revalidate',
-                'Pragma: no-cache',
-            ]);
+            $makeRequest = function($cookieStr) use ($url, $timeout, $userAgent, $referer) {
+                $ch = curl_init();
+                curl_setopt($ch, CURLOPT_URL, $url);
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                curl_setopt($ch, CURLOPT_TIMEOUT, $timeout);
+                curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 3);
+                curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+                curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+                curl_setopt($ch, CURLOPT_USERAGENT, $userAgent);
+                curl_setopt($ch, CURLOPT_REFERER, $referer);
+                
+                $headers = [
+                    'Accept: application/json',
+                    'X-Requested-With: XMLHttpRequest',
+                ];
+                if (!empty($cookieStr)) {
+                    $headers[] = 'Cookie: ' . $cookieStr;
+                }
+                curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 
-            $response = curl_exec($ch);
-            $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-            curl_close($ch);
+                $response = curl_exec($ch);
+                $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+                curl_close($ch);
+
+                return [$httpCode, $response];
+            };
+
+            [$httpCode, $response] = $makeRequest($cookie);
+
+            // If 403 (session expired or invalid), refresh session cookie and retry once
+            if ($httpCode === 403) {
+                $cookie = $this->getUpstreamSessionCookie(true);
+                [$httpCode, $response] = $makeRequest($cookie);
+            }
 
             if ($response !== false && $httpCode >= 200 && $httpCode < 300) {
                 $decoded = json_decode($response, true);
-                if (is_array($decoded)) {
+                if (is_array($decoded) && empty($decoded['error'])) {
                     return $decoded;
                 }
             }
         }
 
         if (ini_get('allow_url_fopen')) {
+            $headersStr = "Accept: application/json\r\n" .
+                          "Referer: {$referer}\r\n" .
+                          "X-Requested-With: XMLHttpRequest\r\n";
+            if (!empty($cookie)) {
+                $headersStr .= "Cookie: {$cookie}\r\n";
+            }
+
             $context = stream_context_create([
                 'http' => [
                     'timeout' => $timeout,
-                    'user_agent' => 'ZonaFitriNative/1.0',
-                    'header' => "Accept: application/json\r\n",
+                    'user_agent' => $userAgent,
+                    'header' => $headersStr,
                 ],
                 'ssl' => [
                     'verify_peer' => false,
@@ -1655,7 +1788,7 @@ class CoffeeApi
             $response = @file_get_contents($url, false, $context);
             if ($response !== false) {
                 $decoded = json_decode($response, true);
-                if (is_array($decoded)) {
+                if (is_array($decoded) && empty($decoded['error'])) {
                     return $decoded;
                 }
             }
@@ -1729,6 +1862,48 @@ class CoffeeApi
      */
     protected function getFallbackOutlets(string $brand, ?string $query, ?float $lat, ?float $lng): array
     {
+        // 1. Direct from MongoDB Atlas Master Database ('zona_fitri')
+        $mongoOutlets = $this->mongo->getOutlets($brand, $query ?? '');
+        if (!empty($mongoOutlets)) {
+            if ($lat !== null && $lng !== null) {
+                foreach ($mongoOutlets as &$o) {
+                    if (!empty($o['lat']) && !empty($o['lng'])) {
+                        $o['distanceKm'] = $this->calculateDistance($lat, $lng, (float)$o['lat'], (float)$o['lng']);
+                    }
+                }
+                unset($o);
+                usort($mongoOutlets, fn ($a, $b) => ($a['distanceKm'] ?? 999999) <=> ($b['distanceKm'] ?? 999999));
+            }
+            return array_values($mongoOutlets);
+        }
+
+        // 2. Direct from local master snapshot file
+        $masterFile = dirname(__DIR__) . "/data/outlets_master_{$brand}.json";
+        if (file_exists($masterFile)) {
+            $json = json_decode((string)file_get_contents($masterFile), true);
+            if (is_array($json) && !empty($json)) {
+                $outlets = $json;
+                if ($query !== '' && $query !== null) {
+                    $q = strtolower(trim($query));
+                    $outlets = array_filter($outlets, function ($o) use ($q) {
+                        return str_contains(strtolower($o['name'] ?? ''), $q) ||
+                               str_contains(strtolower($o['address'] ?? ''), $q) ||
+                               str_contains(strtolower($o['city'] ?? ''), $q);
+                    });
+                }
+                if ($lat !== null && $lng !== null) {
+                    foreach ($outlets as &$o) {
+                        if (!empty($o['lat']) && !empty($o['lng'])) {
+                            $o['distanceKm'] = $this->calculateDistance($lat, $lng, (float)$o['lat'], (float)$o['lng']);
+                        }
+                    }
+                    unset($o);
+                    usort($outlets, fn ($a, $b) => ($a['distanceKm'] ?? 999999) <=> ($b['distanceKm'] ?? 999999));
+                }
+                return array_values($outlets);
+            }
+        }
+
         $fallbacks = [
             'kopken' => [
                 [
@@ -2035,6 +2210,27 @@ class CoffeeApi
      */
     protected function getFallbackMenu(string $brand, string $outletCode): array
     {
+        // 1. Direct from MongoDB Atlas Master Database ('zona_fitri')
+        $master = $this->mongo->getMenu($brand);
+        if ($master && !empty($master['items'])) {
+            $master['outletCode'] = $outletCode;
+            $master['source'] = 'mongodb';
+            $master['live'] = true;
+            return $master;
+        }
+
+        // 2. Direct from local master snapshot file
+        $masterFile = dirname(__DIR__) . "/data/menu_master_{$brand}.json";
+        if (file_exists($masterFile)) {
+            $json = json_decode((string)file_get_contents($masterFile), true);
+            if (is_array($json) && !empty($json['items'])) {
+                $json['outletCode'] = $outletCode;
+                $json['source'] = 'master_snapshot';
+                $json['live'] = true;
+                return $json;
+            }
+        }
+
         $defaultOptions = [
             'sizes' => ['Regular', 'Large'],
             'temps' => ['Ice', 'Hot'],

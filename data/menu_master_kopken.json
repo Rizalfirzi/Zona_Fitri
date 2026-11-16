@@ -1,0 +1,6959 @@
+{
+  "brand": "kopken",
+  "extras": [],
+  "live": true,
+  "isClosed": false,
+  "source": "kopi kenangan live",
+  "premium": false,
+  "categories": [
+    {
+      "id": "item-coffee",
+      "name": "Coffee",
+      "kind": "item",
+      "items": [
+        "koreanbananalatte",
+        "bananaamericano",
+        "ogarenspeculooslatte",
+        "duashotogaren",
+        "pistachioarenlatte",
+        "cafemaltlatte",
+        "kopikenanganmantan",
+        "caramellatte",
+        "caramelmacchiato",
+        "hazelnutlatte",
+        "kopisusublackaren",
+        "mochalatte",
+        "vanillalatte",
+        "spanishlatte",
+        "creamyarenlatte",
+        "butterscotcharenlatte",
+        "butterscotchseasaltlatte",
+        "americano",
+        "cappuccino",
+        "latte",
+        "tarocloudlatte",
+        "oatsidelatte",
+        "oatsidekopikenanganmantan"
+      ]
+    },
+    {
+      "id": "item-non-coffee",
+      "name": "Non Coffee",
+      "kind": "item",
+      "items": [
+        "tarocloudmatcha",
+        "taromilk",
+        "matchaespresso",
+        "avocadocoffee",
+        "bananachoco",
+        "ogarenmilkyspeculoos",
+        "butterscotchseasaltcrumble",
+        "babyccino",
+        "avocadocaramel",
+        "avocadomilk",
+        "carameldutchchoco",
+        "dutchchocolate",
+        "hazelnutdutchchoco",
+        "milodinosaurus",
+        "raspberryhibiscus",
+        "matchalatte",
+        "milkoreocrumble",
+        "freshlemonade",
+        "susugrassjelly",
+        "oatsidematchalatte"
+      ]
+    },
+    {
+      "id": "item-tea",
+      "name": "Tea",
+      "kind": "item",
+      "items": [
+        "tarocloudmilktea",
+        "ogthaitea",
+        "lemonblacktea",
+        "kenanganmilktea",
+        "thaitealoaded",
+        "hazelnutchocomilktea"
+      ]
+    },
+    {
+      "id": "item-frappe",
+      "name": "Frappe",
+      "kind": "item",
+      "items": [
+        "duashoticedshaken",
+        "oreoshake",
+        "butterscotchkenanganfrappe",
+        "kopikenanganmantanfrappe",
+        "vanillakenanganfrappe",
+        "dutchchocokenanganfrappe"
+      ]
+    },
+    {
+      "id": "item-food",
+      "name": "Food",
+      "kind": "item",
+      "items": [
+        "strawberrypeanutbutterpanini",
+        "doublechocobagel",
+        "buttercroissant",
+        "chocolatecroissant",
+        "sugardonut",
+        "bananachocosoftbakedcookie",
+        "sweethoneysoftbakedcookie",
+        "oatmealraisinsoftbakedcookie",
+        "vanillachouxpuff",
+        "strawberrychouxpuff",
+        "chocolatechouxpuff",
+        "rotisusumanis",
+        "rotikejumanis",
+        "chocochipcookies",
+        "friendchipcookie",
+        "classicpeanutbutterpanini",
+        "chocopeanutbutterpanini",
+        "beefcheesejalapeobagel",
+        "triplecheesebagel",
+        "adamayamtoast",
+        "wahyusapitoast",
+        "chocolatedonut",
+        "saltbreadoriginal",
+        "donutalmond",
+        "sandwichsmokedbeefandcheese",
+        "saltbreadchocobutter",
+        "roticoklatklasik",
+        "rotisrikaya",
+        "bambangchococheesetoast"
+      ]
+    }
+  ],
+  "items": [
+    {
+      "key": "koreanbananalatte",
+      "id": "koreanbananalatte",
+      "code": "1778661",
+      "name": "Korean Banana Latte",
+      "category": "Coffee",
+      "sourceCategory": "Kopi",
+      "img": "https://cdn.kopikenangan.com/ID/release/pub/kk-api-management/product/abf8f929-2d72-42ef-a05d-ebeadec7bb75?",
+      "desc": "",
+      "price": 16500,
+      "largePrice": 22500,
+      "normalPrice": 23000,
+      "outletPrice": 23000,
+      "largeBase": 31000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": false,
+      "isSpecial": false,
+      "noLarge": false,
+      "options": {
+        "sizes": [
+          "Regular",
+          "Large"
+        ],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      },
+      "tag": ""
+    },
+    {
+      "key": "bananaamericano",
+      "id": "bananaamericano",
+      "code": "4701583",
+      "name": "Banana Americano",
+      "category": "Coffee",
+      "sourceCategory": "Kopi",
+      "img": "https://cdn.kopikenangan.com/ID/release/pub/kk-api-management/product/c0442198-2f86-4d81-9a55-9aaf35019b92?",
+      "desc": "",
+      "price": 14500,
+      "largePrice": 20500,
+      "normalPrice": 19000,
+      "outletPrice": 19000,
+      "largeBase": 27000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": false,
+      "isSpecial": false,
+      "noLarge": false,
+      "options": {
+        "sizes": [
+          "Regular",
+          "Large"
+        ],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      },
+      "tag": ""
+    },
+    {
+      "key": "ogarenspeculooslatte",
+      "id": "ogarenspeculooslatte",
+      "code": "2111467",
+      "name": "OG Aren Speculoos Latte",
+      "category": "Coffee",
+      "sourceCategory": "Kopi",
+      "img": "https://cdn.kopikenangan.com/ID/release/pub/kk-api-management/product/10c984f9-994b-4d97-8e29-164354598e22?",
+      "desc": "",
+      "price": 15500,
+      "largePrice": 21500,
+      "normalPrice": 21000,
+      "outletPrice": 21000,
+      "largeBase": 28000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": false,
+      "isSpecial": false,
+      "noLarge": false,
+      "options": {
+        "sizes": [
+          "Regular",
+          "Large"
+        ],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      },
+      "tag": ""
+    },
+    {
+      "key": "duashotogaren",
+      "id": "duashotogaren",
+      "code": "8954182",
+      "name": "Dua Shot OG Aren",
+      "category": "Coffee",
+      "sourceCategory": "Kopi",
+      "img": "https://cdn.kopikenangan.com/ID/release/pub/kk-api-management/product/7c81b141-162c-4d41-8285-674283926e56?",
+      "desc": "",
+      "price": 17500,
+      "largePrice": 23500,
+      "normalPrice": 25000,
+      "outletPrice": 25000,
+      "largeBase": 32000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": false,
+      "isSpecial": false,
+      "noLarge": false,
+      "options": {
+        "sizes": [
+          "Regular",
+          "Large"
+        ],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      },
+      "tag": ""
+    },
+    {
+      "key": "pistachioarenlatte",
+      "id": "pistachioarenlatte",
+      "code": "1913244",
+      "name": "Pistachio Aren Latte",
+      "category": "Coffee",
+      "sourceCategory": "Kopi",
+      "img": "https://cdn.kopikenangan.com/public/392219eb-08e1-daf9-69d6-a12a8242e5be",
+      "desc": "",
+      "price": 14500,
+      "largePrice": 20500,
+      "normalPrice": 19000,
+      "outletPrice": 19000,
+      "largeBase": 26000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": false,
+      "isSpecial": false,
+      "noLarge": false,
+      "options": {
+        "sizes": [
+          "Regular",
+          "Large"
+        ],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      },
+      "tag": ""
+    },
+    {
+      "key": "cafemaltlatte",
+      "id": "cafemaltlatte",
+      "code": "9764593",
+      "name": "Cafe Malt Latte",
+      "category": "Coffee",
+      "sourceCategory": "Kopi",
+      "img": "https://cdn.kopikenangan.com/public/4c582a52-fbc8-2d9e-0007-f6a1c0b5fed6",
+      "desc": "",
+      "price": 16500,
+      "largePrice": 22500,
+      "normalPrice": 23000,
+      "outletPrice": 23000,
+      "largeBase": 30000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": false,
+      "isSpecial": false,
+      "noLarge": false,
+      "options": {
+        "sizes": [
+          "Regular",
+          "Large"
+        ],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      },
+      "tag": ""
+    },
+    {
+      "key": "kopikenanganmantan",
+      "id": "kopikenanganmantan",
+      "code": "7833007",
+      "name": "Kopi Kenangan Mantan",
+      "category": "Coffee",
+      "sourceCategory": "Kopi",
+      "img": "https://cdn.kopikenangan.com/public/da484154-47b1-a756-54a4-8b3490fb0eae",
+      "desc": "",
+      "price": 14500,
+      "largePrice": 20500,
+      "normalPrice": 19000,
+      "outletPrice": 19000,
+      "largeBase": 25000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": false,
+      "isSpecial": false,
+      "noLarge": false,
+      "options": {
+        "sizes": [
+          "Regular",
+          "Large"
+        ],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      },
+      "tag": "Best Seller"
+    },
+    {
+      "key": "caramellatte",
+      "id": "caramellatte",
+      "code": "1771127",
+      "name": "Caramel Latte",
+      "category": "Coffee",
+      "sourceCategory": "Kopi",
+      "img": "https://cdn.kopikenangan.com/public/630c892e-17a7-0d8c-301f-9e2d33bf1de8",
+      "desc": "",
+      "price": 18000,
+      "largePrice": 24000,
+      "normalPrice": 26000,
+      "outletPrice": 26000,
+      "largeBase": 34000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": false,
+      "isSpecial": false,
+      "noLarge": false,
+      "options": {
+        "sizes": [
+          "Regular",
+          "Large"
+        ],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      },
+      "tag": ""
+    },
+    {
+      "key": "duashoticedshaken",
+      "id": "duashoticedshaken",
+      "code": "5700547",
+      "name": "Dua Shot Iced Shaken",
+      "category": "Frappe",
+      "sourceCategory": "Kopi",
+      "img": "https://cdn.kopikenangan.com/public/82e14825-c028-65d6-0c70-c352639bcf23",
+      "desc": "",
+      "price": 19000,
+      "largePrice": 25000,
+      "normalPrice": 28000,
+      "outletPrice": 28000,
+      "largeBase": 38000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": false,
+      "isSpecial": true,
+      "noLarge": false,
+      "options": {
+        "sizes": [
+          "Regular",
+          "Large"
+        ],
+        "temps": [
+          "Ice"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      },
+      "tag": ""
+    },
+    {
+      "key": "caramelmacchiato",
+      "id": "caramelmacchiato",
+      "code": "7958284",
+      "name": "Caramel Macchiato",
+      "category": "Coffee",
+      "sourceCategory": "Kopi",
+      "img": "https://cdn.kopikenangan.com/public/821509a2-815f-3349-896c-9d15f787ab37",
+      "desc": "",
+      "price": 19000,
+      "largePrice": 25000,
+      "normalPrice": 28000,
+      "outletPrice": 28000,
+      "largeBase": 38000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": false,
+      "isSpecial": false,
+      "noLarge": false,
+      "options": {
+        "sizes": [
+          "Regular",
+          "Large"
+        ],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      },
+      "tag": ""
+    },
+    {
+      "key": "hazelnutlatte",
+      "id": "hazelnutlatte",
+      "code": "3759680",
+      "name": "Hazelnut Latte",
+      "category": "Coffee",
+      "sourceCategory": "Kopi",
+      "img": "https://cdn.kopikenangan.com/public/5ac8e750-455e-dcf6-a4e4-5fb398bb25bb",
+      "desc": "",
+      "price": 18000,
+      "largePrice": 24000,
+      "normalPrice": 26000,
+      "outletPrice": 26000,
+      "largeBase": 34000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": false,
+      "isSpecial": false,
+      "noLarge": false,
+      "options": {
+        "sizes": [
+          "Regular",
+          "Large"
+        ],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      },
+      "tag": ""
+    },
+    {
+      "key": "kopisusublackaren",
+      "id": "kopisusublackaren",
+      "code": "3394640",
+      "name": "Kopi Susu Black Aren",
+      "category": "Coffee",
+      "sourceCategory": "Kopi",
+      "img": "https://cdn.kopikenangan.com/public/2ba99b9b-7912-397a-9fea-a21d4073a197",
+      "desc": "",
+      "price": 15500,
+      "largePrice": 21500,
+      "normalPrice": 21000,
+      "outletPrice": 21000,
+      "largeBase": 30000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": false,
+      "isSpecial": false,
+      "noLarge": false,
+      "options": {
+        "sizes": [
+          "Regular",
+          "Large"
+        ],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      },
+      "tag": ""
+    },
+    {
+      "key": "mochalatte",
+      "id": "mochalatte",
+      "code": "1384426",
+      "name": "Mocha Latte",
+      "category": "Coffee",
+      "sourceCategory": "Kopi",
+      "img": "https://cdn.kopikenangan.com/public/92fe7698-7b99-9b4b-39db-8b01557fecb3",
+      "desc": "",
+      "price": 19000,
+      "largePrice": 25000,
+      "normalPrice": 28000,
+      "outletPrice": 28000,
+      "largeBase": 38000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": false,
+      "isSpecial": false,
+      "noLarge": false,
+      "options": {
+        "sizes": [
+          "Regular",
+          "Large"
+        ],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      },
+      "tag": ""
+    },
+    {
+      "key": "vanillalatte",
+      "id": "vanillalatte",
+      "code": "9903149",
+      "name": "Vanilla Latte",
+      "category": "Coffee",
+      "sourceCategory": "Kopi",
+      "img": "https://cdn.kopikenangan.com/public/6831574a-3d7f-d543-9a0c-bd68e7dcb54a",
+      "desc": "",
+      "price": 18000,
+      "largePrice": 24000,
+      "normalPrice": 26000,
+      "outletPrice": 26000,
+      "largeBase": 34000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": false,
+      "isSpecial": false,
+      "noLarge": false,
+      "options": {
+        "sizes": [
+          "Regular",
+          "Large"
+        ],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      },
+      "tag": ""
+    },
+    {
+      "key": "spanishlatte",
+      "id": "spanishlatte",
+      "code": "9602810",
+      "name": "Spanish Latte",
+      "category": "Coffee",
+      "sourceCategory": "Kopi",
+      "img": "https://cdn.kopikenangan.com/public/e3aa23b8-278d-54a0-0769-0de6e82b4d60",
+      "desc": "",
+      "price": 14500,
+      "largePrice": 20500,
+      "normalPrice": 19000,
+      "outletPrice": 19000,
+      "largeBase": 27000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": false,
+      "isSpecial": false,
+      "noLarge": false,
+      "options": {
+        "sizes": [
+          "Regular",
+          "Large"
+        ],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      },
+      "tag": ""
+    },
+    {
+      "key": "creamyarenlatte",
+      "id": "creamyarenlatte",
+      "code": "9840203",
+      "name": "Creamy Aren Latte",
+      "category": "Coffee",
+      "sourceCategory": "Kopi",
+      "img": "https://cdn.kopikenangan.com/public/34ac251c-14e6-44b7-d2b9-b4c63f6e2136",
+      "desc": "",
+      "price": 16000,
+      "largePrice": 22000,
+      "normalPrice": 22000,
+      "outletPrice": 22000,
+      "largeBase": 31000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": false,
+      "isSpecial": false,
+      "noLarge": false,
+      "options": {
+        "sizes": [
+          "Regular",
+          "Large"
+        ],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      },
+      "tag": "Best Seller"
+    },
+    {
+      "key": "butterscotcharenlatte",
+      "id": "butterscotcharenlatte",
+      "code": "6100292",
+      "name": "Butterscotch Aren Latte",
+      "category": "Coffee",
+      "sourceCategory": "Kopi",
+      "img": "https://cdn.kopikenangan.com/public/a1cb7272-f6e2-bb69-950d-59bc87515fd2",
+      "desc": "",
+      "price": 15000,
+      "largePrice": 21000,
+      "normalPrice": 20000,
+      "outletPrice": 20000,
+      "largeBase": 27000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": false,
+      "isSpecial": false,
+      "noLarge": false,
+      "options": {
+        "sizes": [
+          "Regular",
+          "Large"
+        ],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      },
+      "tag": ""
+    },
+    {
+      "key": "butterscotchseasaltlatte",
+      "id": "butterscotchseasaltlatte",
+      "code": "6960127",
+      "name": "Butterscotch Sea Salt Latte",
+      "category": "Coffee",
+      "sourceCategory": "Kopi",
+      "img": "https://cdn.kopikenangan.com/public/e72f731f-d24e-7fed-372b-86eb398a0d22",
+      "desc": "",
+      "price": 17500,
+      "largePrice": 23500,
+      "normalPrice": 25000,
+      "outletPrice": 25000,
+      "largeBase": 33000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": false,
+      "isSpecial": false,
+      "noLarge": false,
+      "options": {
+        "sizes": [
+          "Regular",
+          "Large"
+        ],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      },
+      "tag": ""
+    },
+    {
+      "key": "americano",
+      "id": "americano",
+      "code": "4021465",
+      "name": "Americano",
+      "category": "Coffee",
+      "sourceCategory": "Kopi",
+      "img": "https://cdn.kopikenangan.com/public/36155ddd-784d-a7d9-4d02-13d596417078",
+      "desc": "",
+      "price": 13500,
+      "largePrice": 19500,
+      "normalPrice": 17000,
+      "outletPrice": 17000,
+      "largeBase": 22000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": false,
+      "isSpecial": false,
+      "noLarge": false,
+      "options": {
+        "sizes": [
+          "Regular",
+          "Large"
+        ],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      },
+      "tag": ""
+    },
+    {
+      "key": "cappuccino",
+      "id": "cappuccino",
+      "code": "8188474",
+      "name": "Cappuccino",
+      "category": "Coffee",
+      "sourceCategory": "Kopi",
+      "img": "https://cdn.kopikenangan.com/public/8a0d42d0-4801-ca84-48e9-7b434b22aee4",
+      "desc": "",
+      "price": 16000,
+      "largePrice": 22000,
+      "normalPrice": 22000,
+      "outletPrice": 22000,
+      "largeBase": 29000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": false,
+      "isSpecial": false,
+      "noLarge": false,
+      "options": {
+        "sizes": [
+          "Regular",
+          "Large"
+        ],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      },
+      "tag": ""
+    },
+    {
+      "key": "latte",
+      "id": "latte",
+      "code": "2653593",
+      "name": "Latte",
+      "category": "Coffee",
+      "sourceCategory": "Kopi",
+      "img": "https://cdn.kopikenangan.com/public/7b33aac1-3e8a-f15d-bb58-158692adf173",
+      "desc": "",
+      "price": 16000,
+      "largePrice": 22000,
+      "normalPrice": 22000,
+      "outletPrice": 22000,
+      "largeBase": 29000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": false,
+      "isSpecial": false,
+      "noLarge": false,
+      "options": {
+        "sizes": [
+          "Regular",
+          "Large"
+        ],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      },
+      "tag": ""
+    },
+    {
+      "key": "tarocloudlatte",
+      "id": "tarocloudlatte",
+      "code": "7245645",
+      "name": "Taro Cloud Latte",
+      "category": "Coffee",
+      "sourceCategory": "Kopi",
+      "img": "https://cdn.kopikenangan.com/ID/release/pub/kk-api-management/product/73af63fc-8f5c-48c0-aece-da0307e77af8?",
+      "desc": "",
+      "price": 16000,
+      "largePrice": 22000,
+      "normalPrice": 22000,
+      "outletPrice": 22000,
+      "largeBase": 29000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": true,
+      "notCarried": true,
+      "isFood": false,
+      "isSpecial": false,
+      "noLarge": false,
+      "options": {
+        "sizes": [
+          "Regular",
+          "Large"
+        ],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      },
+      "tag": ""
+    },
+    {
+      "key": "oatsidelatte",
+      "id": "oatsidelatte",
+      "code": "3147103",
+      "name": "Oatside Latte",
+      "category": "Coffee",
+      "sourceCategory": "Kopi",
+      "img": "https://cdn.kopikenangan.com/public/4890326b-b307-b2f8-a6f1-1a6ae4b15804",
+      "desc": "",
+      "price": 17500,
+      "largePrice": 23500,
+      "normalPrice": 25000,
+      "outletPrice": 25000,
+      "largeBase": 32000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": true,
+      "notCarried": true,
+      "isFood": false,
+      "isSpecial": false,
+      "noLarge": false,
+      "options": {
+        "sizes": [
+          "Regular",
+          "Large"
+        ],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      },
+      "tag": ""
+    },
+    {
+      "key": "oatsidekopikenanganmantan",
+      "id": "oatsidekopikenanganmantan",
+      "code": "1458627",
+      "name": "Oatside Kopi Kenangan Mantan",
+      "category": "Coffee",
+      "sourceCategory": "Kopi",
+      "img": "https://cdn.kopikenangan.com/public/c651acb8-3df7-7b75-45e2-f207926d863a",
+      "desc": "",
+      "price": 16000,
+      "largePrice": 22000,
+      "normalPrice": 22000,
+      "outletPrice": 22000,
+      "largeBase": 28000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": true,
+      "notCarried": true,
+      "isFood": false,
+      "isSpecial": false,
+      "noLarge": false,
+      "options": {
+        "sizes": [
+          "Regular",
+          "Large"
+        ],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      },
+      "tag": ""
+    },
+    {
+      "key": "tarocloudmatcha",
+      "id": "tarocloudmatcha",
+      "code": "1269751",
+      "name": "Taro Cloud Matcha",
+      "category": "Non Coffee",
+      "sourceCategory": "Non-Kopi",
+      "img": "https://cdn.kopikenangan.com/ID/release/pub/kk-api-management/product/ace3b7e3-7320-4adb-b9cb-61752ff91dea?",
+      "desc": "",
+      "price": 16000,
+      "largePrice": 22000,
+      "normalPrice": 22000,
+      "outletPrice": 22000,
+      "largeBase": 29000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": false,
+      "isSpecial": false,
+      "noLarge": false,
+      "options": {
+        "sizes": [
+          "Regular",
+          "Large"
+        ],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      },
+      "tag": ""
+    },
+    {
+      "key": "taromilk",
+      "id": "taromilk",
+      "code": "9590924",
+      "name": "Taro Milk",
+      "category": "Non Coffee",
+      "sourceCategory": "Non-Kopi",
+      "img": "https://cdn.kopikenangan.com/ID/release/pub/kk-api-management/product/d388cac3-16df-4519-9e80-f8ef633048b9?",
+      "desc": "",
+      "price": 14500,
+      "largePrice": 20500,
+      "normalPrice": 19000,
+      "outletPrice": 19000,
+      "largeBase": 26000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": false,
+      "isSpecial": false,
+      "noLarge": false,
+      "options": {
+        "sizes": [
+          "Regular",
+          "Large"
+        ],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      },
+      "tag": ""
+    },
+    {
+      "key": "tarocloudmilktea",
+      "id": "tarocloudmilktea",
+      "code": "8056833",
+      "name": "Taro Cloud Milk Tea",
+      "category": "Tea",
+      "sourceCategory": "Non-Kopi",
+      "img": "https://cdn.kopikenangan.com/ID/release/pub/kk-api-management/product/72c9b4d3-a487-457d-8e94-060d3aee9b1e?",
+      "desc": "",
+      "price": 14500,
+      "largePrice": 20500,
+      "normalPrice": 19000,
+      "outletPrice": 19000,
+      "largeBase": 26000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": false,
+      "isSpecial": false,
+      "noLarge": false,
+      "options": {
+        "sizes": [
+          "Regular",
+          "Large"
+        ],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      },
+      "tag": ""
+    },
+    {
+      "key": "matchaespresso",
+      "id": "matchaespresso",
+      "code": "7494662",
+      "name": "Matcha Espresso",
+      "category": "Non Coffee",
+      "sourceCategory": "Non-Kopi",
+      "img": "https://cdn.kopikenangan.com/public/20738f57-23ed-ea72-85f3-cdd8bc468352",
+      "desc": "",
+      "price": 18000,
+      "largePrice": null,
+      "normalPrice": 26000,
+      "outletPrice": 26000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": false,
+      "isSpecial": false,
+      "noLarge": false,
+      "options": {
+        "sizes": [
+          "Regular"
+        ],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      },
+      "tag": ""
+    },
+    {
+      "key": "avocadocoffee",
+      "id": "avocadocoffee",
+      "code": "2895061",
+      "name": "Avocado Coffee",
+      "category": "Non Coffee",
+      "sourceCategory": "Non-Kopi",
+      "img": "https://cdn.kopikenangan.com/public/24081765-c705-34a8-eccb-ebccf7f7ae5a",
+      "desc": "",
+      "price": 19000,
+      "largePrice": 25000,
+      "normalPrice": 28000,
+      "outletPrice": 28000,
+      "largeBase": 38000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": false,
+      "isSpecial": false,
+      "noLarge": false,
+      "options": {
+        "sizes": [
+          "Regular",
+          "Large"
+        ],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      },
+      "tag": ""
+    },
+    {
+      "key": "bananachoco",
+      "id": "bananachoco",
+      "code": "2662471",
+      "name": "Banana Choco",
+      "category": "Non Coffee",
+      "sourceCategory": "Non-Kopi",
+      "img": "https://cdn.kopikenangan.com/ID/release/pub/kk-api-management/product/dda71d19-28a8-4737-95da-fdb94a44892e?",
+      "desc": "",
+      "price": 17000,
+      "largePrice": 23000,
+      "normalPrice": 24000,
+      "outletPrice": 24000,
+      "largeBase": 32000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": false,
+      "isSpecial": false,
+      "noLarge": false,
+      "options": {
+        "sizes": [
+          "Regular",
+          "Large"
+        ],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      },
+      "tag": ""
+    },
+    {
+      "key": "ogthaitea",
+      "id": "ogthaitea",
+      "code": "2055831",
+      "name": "OG Thai Tea",
+      "category": "Tea",
+      "sourceCategory": "Non-Kopi",
+      "img": "https://cdn.kopikenangan.com/ID/release/pub/kk-api-management/product/4f6889ec-6103-4fa0-a447-b7b3ee2742c9?",
+      "desc": "",
+      "price": 14500,
+      "largePrice": 20500,
+      "normalPrice": 19000,
+      "outletPrice": 19000,
+      "largeBase": 23000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": false,
+      "isSpecial": false,
+      "noLarge": false,
+      "options": {
+        "sizes": [
+          "Regular",
+          "Large"
+        ],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      },
+      "tag": ""
+    },
+    {
+      "key": "ogarenmilkyspeculoos",
+      "id": "ogarenmilkyspeculoos",
+      "code": "6307883",
+      "name": "OG Aren Milky Speculoos",
+      "category": "Non Coffee",
+      "sourceCategory": "Non-Kopi",
+      "img": "https://cdn.kopikenangan.com/ID/release/pub/kk-api-management/product/31e167f1-1598-481d-adb9-48669769854b?",
+      "desc": "",
+      "price": 16500,
+      "largePrice": 22500,
+      "normalPrice": 23000,
+      "outletPrice": 23000,
+      "largeBase": 30000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": false,
+      "isSpecial": false,
+      "noLarge": false,
+      "options": {
+        "sizes": [
+          "Regular",
+          "Large"
+        ],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      },
+      "tag": ""
+    },
+    {
+      "key": "butterscotchseasaltcrumble",
+      "id": "butterscotchseasaltcrumble",
+      "code": "3714392",
+      "name": "Butterscotch Sea Salt Crumble",
+      "category": "Non Coffee",
+      "sourceCategory": "Non-Kopi",
+      "img": "https://cdn.kopikenangan.com/public/032d2ddc-8df7-6d63-4101-1ccb50298085",
+      "desc": "",
+      "price": 17500,
+      "largePrice": null,
+      "normalPrice": 25000,
+      "outletPrice": 25000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": false,
+      "isSpecial": false,
+      "noLarge": true,
+      "options": {
+        "sizes": [
+          "Regular"
+        ],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      },
+      "tag": "Best Seller"
+    },
+    {
+      "key": "babyccino",
+      "id": "babyccino",
+      "code": "3351380",
+      "name": "Babyccino",
+      "category": "Non Coffee",
+      "sourceCategory": "Non-Kopi",
+      "img": "https://cdn.kopikenangan.com/public/afd5cdf3-964b-a63a-6db2-fb8c08410c61",
+      "desc": "",
+      "price": 14500,
+      "largePrice": null,
+      "normalPrice": 19000,
+      "outletPrice": 19000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": false,
+      "isSpecial": false,
+      "noLarge": true,
+      "options": {
+        "sizes": [
+          "Regular"
+        ],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      },
+      "tag": ""
+    },
+    {
+      "key": "avocadocaramel",
+      "id": "avocadocaramel",
+      "code": "8689856",
+      "name": "Avocado Caramel",
+      "category": "Non Coffee",
+      "sourceCategory": "Non-Kopi",
+      "img": "https://cdn.kopikenangan.com/public/b5179af7-1dd7-aa4e-09f6-e1a1c8295602",
+      "desc": "",
+      "price": 19000,
+      "largePrice": 25000,
+      "normalPrice": 28000,
+      "outletPrice": 28000,
+      "largeBase": 38000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": false,
+      "isSpecial": false,
+      "noLarge": false,
+      "options": {
+        "sizes": [
+          "Regular",
+          "Large"
+        ],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      },
+      "tag": ""
+    },
+    {
+      "key": "avocadomilk",
+      "id": "avocadomilk",
+      "code": "9536776",
+      "name": "Avocado Milk",
+      "category": "Non Coffee",
+      "sourceCategory": "Non-Kopi",
+      "img": "https://cdn.kopikenangan.com/public/9f2e7aa5-3c8a-24cf-5944-84a5cc8d4cc8",
+      "desc": "",
+      "price": 17000,
+      "largePrice": 23000,
+      "normalPrice": 24000,
+      "outletPrice": 24000,
+      "largeBase": 34000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": false,
+      "isSpecial": false,
+      "noLarge": false,
+      "options": {
+        "sizes": [
+          "Regular",
+          "Large"
+        ],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      },
+      "tag": ""
+    },
+    {
+      "key": "carameldutchchoco",
+      "id": "carameldutchchoco",
+      "code": "1515179",
+      "name": "Caramel Dutch Choco",
+      "category": "Non Coffee",
+      "sourceCategory": "Non-Kopi",
+      "img": "https://cdn.kopikenangan.com/public/c241a3f5-7e20-25be-a067-76170345d684",
+      "desc": "",
+      "price": 19000,
+      "largePrice": 25000,
+      "normalPrice": 28000,
+      "outletPrice": 28000,
+      "largeBase": 38000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": false,
+      "isSpecial": false,
+      "noLarge": false,
+      "options": {
+        "sizes": [
+          "Regular",
+          "Large"
+        ],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      },
+      "tag": ""
+    },
+    {
+      "key": "dutchchocolate",
+      "id": "dutchchocolate",
+      "code": "3931425",
+      "name": "Dutch Chocolate",
+      "category": "Non Coffee",
+      "sourceCategory": "Non-Kopi",
+      "img": "https://cdn.kopikenangan.com/public/e7dfc639-f112-28b7-4cff-8e1cda6f82b5",
+      "desc": "",
+      "price": 18000,
+      "largePrice": 24000,
+      "normalPrice": 26000,
+      "outletPrice": 26000,
+      "largeBase": 36000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": false,
+      "isSpecial": false,
+      "noLarge": false,
+      "options": {
+        "sizes": [
+          "Regular",
+          "Large"
+        ],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      },
+      "tag": ""
+    },
+    {
+      "key": "hazelnutdutchchoco",
+      "id": "hazelnutdutchchoco",
+      "code": "8593772",
+      "name": "Hazelnut Dutch Choco",
+      "category": "Non Coffee",
+      "sourceCategory": "Non-Kopi",
+      "img": "https://cdn.kopikenangan.com/public/d1e575af-ee5a-bbf7-0e41-915c0e5f93d6",
+      "desc": "",
+      "price": 19000,
+      "largePrice": 25000,
+      "normalPrice": 28000,
+      "outletPrice": 28000,
+      "largeBase": 38000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": false,
+      "isSpecial": false,
+      "noLarge": false,
+      "options": {
+        "sizes": [
+          "Regular",
+          "Large"
+        ],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      },
+      "tag": ""
+    },
+    {
+      "key": "lemonblacktea",
+      "id": "lemonblacktea",
+      "code": "8734620",
+      "name": "Lemon Black Tea",
+      "category": "Tea",
+      "sourceCategory": "Non-Kopi",
+      "img": "https://cdn.kopikenangan.com/public/3be29e5b-7a9d-8cb5-1d97-9667d92378f9",
+      "desc": "",
+      "price": 13500,
+      "largePrice": 19500,
+      "normalPrice": 17000,
+      "outletPrice": 17000,
+      "largeBase": 24000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": false,
+      "isSpecial": false,
+      "noLarge": false,
+      "options": {
+        "sizes": [
+          "Regular",
+          "Large"
+        ],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      },
+      "tag": ""
+    },
+    {
+      "key": "kenanganmilktea",
+      "id": "kenanganmilktea",
+      "code": "1608769",
+      "name": "Kenangan Milk Tea",
+      "category": "Tea",
+      "sourceCategory": "Non-Kopi",
+      "img": "https://cdn.kopikenangan.com/public/5a15d4ef-582c-1391-5e58-e523d6b87398",
+      "desc": "",
+      "price": 15500,
+      "largePrice": 21500,
+      "normalPrice": 21000,
+      "outletPrice": 21000,
+      "largeBase": 27000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": false,
+      "isSpecial": false,
+      "noLarge": false,
+      "options": {
+        "sizes": [
+          "Regular",
+          "Large"
+        ],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      },
+      "tag": ""
+    },
+    {
+      "key": "milodinosaurus",
+      "id": "milodinosaurus",
+      "code": "5008474",
+      "name": "Milo Dinosaurus",
+      "category": "Non Coffee",
+      "sourceCategory": "Non-Kopi",
+      "img": "https://cdn.kopikenangan.com/public/658f1737-546d-133b-ac36-aea2f524920c",
+      "desc": "",
+      "price": 16500,
+      "largePrice": 22500,
+      "normalPrice": 23000,
+      "outletPrice": 23000,
+      "largeBase": 30000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": false,
+      "isSpecial": false,
+      "noLarge": false,
+      "options": {
+        "sizes": [
+          "Regular",
+          "Large"
+        ],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      },
+      "tag": ""
+    },
+    {
+      "key": "oreoshake",
+      "id": "oreoshake",
+      "code": "3806931",
+      "name": "Oreo Shake",
+      "category": "Frappe",
+      "sourceCategory": "Non-Kopi",
+      "img": "https://cdn.kopikenangan.com/public/8c0d86d6-3c45-8c5e-4679-ae4f6d935583",
+      "desc": "",
+      "price": 18000,
+      "largePrice": 24000,
+      "normalPrice": 26000,
+      "outletPrice": 26000,
+      "largeBase": 34000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": false,
+      "isSpecial": true,
+      "noLarge": false,
+      "options": {
+        "sizes": [
+          "Regular",
+          "Large"
+        ],
+        "temps": [
+          "Ice"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      },
+      "tag": ""
+    },
+    {
+      "key": "raspberryhibiscus",
+      "id": "raspberryhibiscus",
+      "code": "4740155",
+      "name": "Raspberry Hibiscus",
+      "category": "Non Coffee",
+      "sourceCategory": "Non-Kopi",
+      "img": "https://cdn.kopikenangan.com/public/615287c4-c7a7-272c-c38e-df0c89886391",
+      "desc": "",
+      "price": 15000,
+      "largePrice": 21000,
+      "normalPrice": 20000,
+      "outletPrice": 20000,
+      "largeBase": 27000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": false,
+      "isSpecial": false,
+      "noLarge": false,
+      "options": {
+        "sizes": [
+          "Regular",
+          "Large"
+        ],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      },
+      "tag": ""
+    },
+    {
+      "key": "matchalatte",
+      "id": "matchalatte",
+      "code": "8101210",
+      "name": "Matcha Latte",
+      "category": "Non Coffee",
+      "sourceCategory": "Non-Kopi",
+      "img": "https://cdn.kopikenangan.com/public/97f5cfe8-ad68-1598-9430-1b5f732deedc",
+      "desc": "",
+      "price": 17500,
+      "largePrice": 23500,
+      "normalPrice": 25000,
+      "outletPrice": 25000,
+      "largeBase": 32000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": false,
+      "isSpecial": false,
+      "noLarge": false,
+      "options": {
+        "sizes": [
+          "Regular",
+          "Large"
+        ],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      },
+      "tag": ""
+    },
+    {
+      "key": "thaitealoaded",
+      "id": "thaitealoaded",
+      "code": "1379233",
+      "name": "Thai Tea Loaded",
+      "category": "Tea",
+      "sourceCategory": "Non-Kopi",
+      "img": "https://cdn.kopikenangan.com/ID/release/pub/kk-api-management/product/6663aa38-c764-4ead-9db4-5a79634e9a77?",
+      "desc": "",
+      "price": 18500,
+      "largePrice": null,
+      "normalPrice": 27000,
+      "outletPrice": 27000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": true,
+      "notCarried": true,
+      "isFood": false,
+      "isSpecial": false,
+      "noLarge": true,
+      "options": {
+        "sizes": [
+          "Regular"
+        ],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      },
+      "tag": ""
+    },
+    {
+      "key": "milkoreocrumble",
+      "id": "milkoreocrumble",
+      "code": "1169082",
+      "name": "Milk Oreo Crumble",
+      "category": "Non Coffee",
+      "sourceCategory": "Non-Kopi",
+      "img": "https://cdn.kopikenangan.com/public/d27c63d0-4931-60fd-5eec-0963bdf095fc",
+      "desc": "",
+      "price": 19500,
+      "largePrice": null,
+      "normalPrice": 29000,
+      "outletPrice": 29000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": true,
+      "notCarried": true,
+      "isFood": false,
+      "isSpecial": false,
+      "noLarge": true,
+      "options": {
+        "sizes": [
+          "Regular"
+        ],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      },
+      "tag": ""
+    },
+    {
+      "key": "freshlemonade",
+      "id": "freshlemonade",
+      "code": "7693496",
+      "name": "Fresh Lemonade",
+      "category": "Non Coffee",
+      "sourceCategory": "Non-Kopi",
+      "img": "https://cdn.kopikenangan.com/public/a68ad5fc-839b-e7b4-c502-8535f7e76e55",
+      "desc": "",
+      "price": 15000,
+      "largePrice": null,
+      "normalPrice": 20000,
+      "outletPrice": 20000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": true,
+      "notCarried": true,
+      "isFood": false,
+      "isSpecial": false,
+      "noLarge": true,
+      "options": {
+        "sizes": [
+          "Regular"
+        ],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      },
+      "tag": ""
+    },
+    {
+      "key": "hazelnutchocomilktea",
+      "id": "hazelnutchocomilktea",
+      "code": "4298003",
+      "name": "Hazelnut Choco Milk Tea",
+      "category": "Tea",
+      "sourceCategory": "Non-Kopi",
+      "img": "https://cdn.kopikenangan.com/public/9766bcc9-55b8-aa14-2a02-6c94e24ddaf4",
+      "desc": "",
+      "price": 16000,
+      "largePrice": 22000,
+      "normalPrice": 22000,
+      "outletPrice": 22000,
+      "largeBase": 29000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": true,
+      "notCarried": true,
+      "isFood": false,
+      "isSpecial": false,
+      "noLarge": false,
+      "options": {
+        "sizes": [
+          "Regular",
+          "Large"
+        ],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      },
+      "tag": ""
+    },
+    {
+      "key": "susugrassjelly",
+      "id": "susugrassjelly",
+      "code": "8621085",
+      "name": "Susu Grass Jelly",
+      "category": "Non Coffee",
+      "sourceCategory": "Non-Kopi",
+      "img": "https://cdn.kopikenangan.com/public/9717e724-83d5-7c5f-55b9-efbb1b2a7864",
+      "desc": "",
+      "price": 17000,
+      "largePrice": 23000,
+      "normalPrice": 24000,
+      "outletPrice": 24000,
+      "largeBase": 32000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": true,
+      "notCarried": true,
+      "isFood": false,
+      "isSpecial": false,
+      "noLarge": false,
+      "options": {
+        "sizes": [
+          "Regular",
+          "Large"
+        ],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      },
+      "tag": ""
+    },
+    {
+      "key": "oatsidematchalatte",
+      "id": "oatsidematchalatte",
+      "code": "2763964",
+      "name": "Oatside Matcha Latte",
+      "category": "Non Coffee",
+      "sourceCategory": "Non-Kopi",
+      "img": "https://cdn.kopikenangan.com/public/d048cf0f-ed3f-8b76-26b0-75f651fe5dc7",
+      "desc": "",
+      "price": 17500,
+      "largePrice": 23500,
+      "normalPrice": 25000,
+      "outletPrice": 25000,
+      "largeBase": 32000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": true,
+      "notCarried": true,
+      "isFood": false,
+      "isSpecial": false,
+      "noLarge": false,
+      "options": {
+        "sizes": [
+          "Regular",
+          "Large"
+        ],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      },
+      "tag": ""
+    },
+    {
+      "key": "butterscotchkenanganfrappe",
+      "id": "butterscotchkenanganfrappe",
+      "code": "4187986",
+      "name": "Butterscotch Kenangan Frappe",
+      "category": "Frappe",
+      "sourceCategory": "Frappe",
+      "img": "https://cdn.kopikenangan.com/public/36ac278e-5212-00b3-ce73-e347a88b0372",
+      "desc": "",
+      "price": 20000,
+      "largePrice": 26000,
+      "normalPrice": 30000,
+      "outletPrice": 30000,
+      "largeBase": 40000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": true,
+      "notCarried": true,
+      "isFood": false,
+      "isSpecial": true,
+      "noLarge": false,
+      "options": {
+        "sizes": [
+          "Regular",
+          "Large"
+        ],
+        "temps": [
+          "Ice"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      },
+      "tag": ""
+    },
+    {
+      "key": "kopikenanganmantanfrappe",
+      "id": "kopikenanganmantanfrappe",
+      "code": "9318104",
+      "name": "Kopi Kenangan Mantan Frappe",
+      "category": "Frappe",
+      "sourceCategory": "Frappe",
+      "img": "https://cdn.kopikenangan.com/public/18899b9c-b242-468f-1839-c096e27b0225",
+      "desc": "",
+      "price": 18500,
+      "largePrice": 24500,
+      "normalPrice": 27000,
+      "outletPrice": 27000,
+      "largeBase": 34000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": true,
+      "notCarried": true,
+      "isFood": false,
+      "isSpecial": true,
+      "noLarge": false,
+      "options": {
+        "sizes": [
+          "Regular",
+          "Large"
+        ],
+        "temps": [
+          "Ice"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      },
+      "tag": ""
+    },
+    {
+      "key": "vanillakenanganfrappe",
+      "id": "vanillakenanganfrappe",
+      "code": "5865175",
+      "name": "Vanilla Kenangan Frappe",
+      "category": "Frappe",
+      "sourceCategory": "Frappe",
+      "img": "https://cdn.kopikenangan.com/public/839fa121-427c-110e-6550-479d604d1f2d",
+      "desc": "",
+      "price": 17500,
+      "largePrice": 23500,
+      "normalPrice": 25000,
+      "outletPrice": 25000,
+      "largeBase": 32000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": true,
+      "notCarried": true,
+      "isFood": false,
+      "isSpecial": true,
+      "noLarge": false,
+      "options": {
+        "sizes": [
+          "Regular",
+          "Large"
+        ],
+        "temps": [
+          "Ice"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      },
+      "tag": ""
+    },
+    {
+      "key": "dutchchocokenanganfrappe",
+      "id": "dutchchocokenanganfrappe",
+      "code": "7054742",
+      "name": "Dutch Choco Kenangan Frappe",
+      "category": "Frappe",
+      "sourceCategory": "Frappe",
+      "img": "https://cdn.kopikenangan.com/public/0bf0ec79-18a9-414f-4b7e-e50b940495bf",
+      "desc": "",
+      "price": 21500,
+      "largePrice": 27500,
+      "normalPrice": 33000,
+      "outletPrice": 33000,
+      "largeBase": 40000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": true,
+      "notCarried": true,
+      "isFood": false,
+      "isSpecial": true,
+      "noLarge": false,
+      "options": {
+        "sizes": [
+          "Regular",
+          "Large"
+        ],
+        "temps": [
+          "Ice"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      },
+      "tag": ""
+    },
+    {
+      "key": "strawberrypeanutbutterpanini",
+      "id": "strawberrypeanutbutterpanini",
+      "code": "1272466",
+      "name": "Strawberry Peanut Butter Panini",
+      "category": "Food",
+      "sourceCategory": "Food",
+      "img": "https://cdn.kopikenangan.com/ID/release/pub/kk-api-management/product/1818734e-23b9-4404-99b1-2667d706981b?",
+      "desc": "",
+      "price": 14500,
+      "largePrice": null,
+      "normalPrice": 19000,
+      "outletPrice": 19000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": true,
+      "isSpecial": true,
+      "noLarge": false,
+      "options": {
+        "sizes": [],
+        "temps": [],
+        "ices": [],
+        "sugars": []
+      },
+      "tag": ""
+    },
+    {
+      "key": "doublechocobagel",
+      "id": "doublechocobagel",
+      "code": "6493381",
+      "name": "Double Choco Bagel",
+      "category": "Food",
+      "sourceCategory": "Food",
+      "img": "https://cdn.kopikenangan.com/ID/release/pub/kk-api-management/product/63681082-b5b6-4943-b58b-96c6b8c64734?",
+      "desc": "",
+      "price": 14000,
+      "largePrice": null,
+      "normalPrice": 18000,
+      "outletPrice": 18000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": true,
+      "isSpecial": true,
+      "noLarge": false,
+      "options": {
+        "sizes": [],
+        "temps": [],
+        "ices": [],
+        "sugars": []
+      },
+      "tag": ""
+    },
+    {
+      "key": "buttercroissant",
+      "id": "buttercroissant",
+      "code": "8644378",
+      "name": "Butter Croissant",
+      "category": "Food",
+      "sourceCategory": "Food",
+      "img": "https://cdn.kopikenangan.com/public/c45258b8-74b3-fb41-090d-b9f3a58cc343",
+      "desc": "",
+      "price": 12500,
+      "largePrice": null,
+      "normalPrice": 15000,
+      "outletPrice": 15000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": true,
+      "isSpecial": true,
+      "noLarge": false,
+      "options": {
+        "sizes": [],
+        "temps": [],
+        "ices": [],
+        "sugars": []
+      },
+      "tag": ""
+    },
+    {
+      "key": "chocolatecroissant",
+      "id": "chocolatecroissant",
+      "code": "0413320",
+      "name": "Chocolate Croissant",
+      "category": "Food",
+      "sourceCategory": "Food",
+      "img": "https://cdn.kopikenangan.com/public/c1f26135-eacc-4eca-0444-8356c507e0db",
+      "desc": "",
+      "price": 14500,
+      "largePrice": null,
+      "normalPrice": 19000,
+      "outletPrice": 19000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": true,
+      "isSpecial": true,
+      "noLarge": false,
+      "options": {
+        "sizes": [],
+        "temps": [],
+        "ices": [],
+        "sugars": []
+      },
+      "tag": ""
+    },
+    {
+      "key": "sugardonut",
+      "id": "sugardonut",
+      "code": "2743263",
+      "name": "Sugar Donut",
+      "category": "Food",
+      "sourceCategory": "Food",
+      "img": "https://cdn.kopikenangan.com/public/8ee8824b-5f64-470c-57aa-d6b81a7ba9f1",
+      "desc": "",
+      "price": 8500,
+      "largePrice": null,
+      "normalPrice": 10000,
+      "outletPrice": 10000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": true,
+      "isSpecial": true,
+      "noLarge": false,
+      "options": {
+        "sizes": [],
+        "temps": [],
+        "ices": [],
+        "sugars": []
+      },
+      "tag": ""
+    },
+    {
+      "key": "bananachocosoftbakedcookie",
+      "id": "bananachocosoftbakedcookie",
+      "code": "5043322",
+      "name": "Bananachoco Soft Baked Cookie",
+      "category": "Food",
+      "sourceCategory": "Food",
+      "img": "https://cdn.kopikenangan.com/ID/release/pub/kk-api-management/product/05eb553f-d71c-4fef-aa17-d21c58d62ff1?",
+      "desc": "",
+      "price": 14000,
+      "largePrice": null,
+      "normalPrice": 18000,
+      "outletPrice": 18000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": true,
+      "isSpecial": true,
+      "noLarge": false,
+      "options": {
+        "sizes": [],
+        "temps": [],
+        "ices": [],
+        "sugars": []
+      },
+      "tag": ""
+    },
+    {
+      "key": "sweethoneysoftbakedcookie",
+      "id": "sweethoneysoftbakedcookie",
+      "code": "9785533",
+      "name": "Sweet Honey Soft Baked Cookie",
+      "category": "Food",
+      "sourceCategory": "Food",
+      "img": "https://cdn.kopikenangan.com/ID/release/pub/kk-api-management/product/690b5282-8bfe-4066-b34e-8091c54e7914?",
+      "desc": "",
+      "price": 13500,
+      "largePrice": null,
+      "normalPrice": 17000,
+      "outletPrice": 17000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": true,
+      "isSpecial": true,
+      "noLarge": false,
+      "options": {
+        "sizes": [],
+        "temps": [],
+        "ices": [],
+        "sugars": []
+      },
+      "tag": ""
+    },
+    {
+      "key": "oatmealraisinsoftbakedcookie",
+      "id": "oatmealraisinsoftbakedcookie",
+      "code": "9536550",
+      "name": "Oatmeal Raisin Soft Baked Cookie",
+      "category": "Food",
+      "sourceCategory": "Food",
+      "img": "https://cdn.kopikenangan.com/ID/release/pub/kk-api-management/product/bf2761e1-0e2f-4e6d-9fd6-3c573c1648c9?",
+      "desc": "",
+      "price": 14000,
+      "largePrice": null,
+      "normalPrice": 18000,
+      "outletPrice": 18000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": true,
+      "isSpecial": true,
+      "noLarge": false,
+      "options": {
+        "sizes": [],
+        "temps": [],
+        "ices": [],
+        "sugars": []
+      },
+      "tag": ""
+    },
+    {
+      "key": "vanillachouxpuff",
+      "id": "vanillachouxpuff",
+      "code": "8303484",
+      "name": "Vanilla Choux Puff",
+      "category": "Food",
+      "sourceCategory": "Food",
+      "img": "https://cdn.kopikenangan.com/ID/release/pub/kk-api-management/product/856c89ab-af73-4fd8-a990-58013c896c6c?",
+      "desc": "",
+      "price": 11000,
+      "largePrice": null,
+      "normalPrice": 12000,
+      "outletPrice": 12000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": true,
+      "isSpecial": true,
+      "noLarge": false,
+      "options": {
+        "sizes": [],
+        "temps": [],
+        "ices": [],
+        "sugars": []
+      },
+      "tag": ""
+    },
+    {
+      "key": "strawberrychouxpuff",
+      "id": "strawberrychouxpuff",
+      "code": "3236278",
+      "name": "Strawberry Choux Puff",
+      "category": "Food",
+      "sourceCategory": "Food",
+      "img": "https://cdn.kopikenangan.com/ID/release/pub/kk-api-management/product/573912ec-701c-4e99-802e-affd7eef6e9b?",
+      "desc": "",
+      "price": 11000,
+      "largePrice": null,
+      "normalPrice": 12000,
+      "outletPrice": 12000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": true,
+      "isSpecial": true,
+      "noLarge": false,
+      "options": {
+        "sizes": [],
+        "temps": [],
+        "ices": [],
+        "sugars": []
+      },
+      "tag": ""
+    },
+    {
+      "key": "chocolatechouxpuff",
+      "id": "chocolatechouxpuff",
+      "code": "1177693",
+      "name": "Chocolate Choux Puff",
+      "category": "Food",
+      "sourceCategory": "Food",
+      "img": "https://cdn.kopikenangan.com/ID/release/pub/kk-api-management/product/207e4c8e-2d59-4bdd-8c15-a5c4176dce1a?",
+      "desc": "",
+      "price": 11000,
+      "largePrice": null,
+      "normalPrice": 12000,
+      "outletPrice": 12000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": true,
+      "isSpecial": true,
+      "noLarge": false,
+      "options": {
+        "sizes": [],
+        "temps": [],
+        "ices": [],
+        "sugars": []
+      },
+      "tag": ""
+    },
+    {
+      "key": "rotisusumanis",
+      "id": "rotisusumanis",
+      "code": "6271571",
+      "name": "Roti Susu Manis",
+      "category": "Food",
+      "sourceCategory": "Food",
+      "img": "https://cdn.kopikenangan.com/public/c84c79bb-893d-c83d-3562-c48b40c66aa8",
+      "desc": "",
+      "price": 8500,
+      "largePrice": null,
+      "normalPrice": 10000,
+      "outletPrice": 10000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": true,
+      "isSpecial": true,
+      "noLarge": false,
+      "options": {
+        "sizes": [],
+        "temps": [],
+        "ices": [],
+        "sugars": []
+      },
+      "tag": ""
+    },
+    {
+      "key": "rotikejumanis",
+      "id": "rotikejumanis",
+      "code": "8442449",
+      "name": "Roti Keju Manis",
+      "category": "Food",
+      "sourceCategory": "Food",
+      "img": "https://cdn.kopikenangan.com/public/682e9719-e692-1872-c174-d634a34ff67d",
+      "desc": "",
+      "price": 11500,
+      "largePrice": null,
+      "normalPrice": 13000,
+      "outletPrice": 13000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": true,
+      "isSpecial": true,
+      "noLarge": false,
+      "options": {
+        "sizes": [],
+        "temps": [],
+        "ices": [],
+        "sugars": []
+      },
+      "tag": ""
+    },
+    {
+      "key": "chocochipcookies",
+      "id": "chocochipcookies",
+      "code": "8663835",
+      "name": "Choco Chip Cookies",
+      "category": "Food",
+      "sourceCategory": "Food",
+      "img": "https://cdn.kopikenangan.com/public/4974032d-c48d-eac4-93a9-a5d47eaf5f60",
+      "desc": "",
+      "price": 12000,
+      "largePrice": null,
+      "normalPrice": 14000,
+      "outletPrice": 14000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": true,
+      "isSpecial": true,
+      "noLarge": false,
+      "options": {
+        "sizes": [],
+        "temps": [],
+        "ices": [],
+        "sugars": []
+      },
+      "tag": ""
+    },
+    {
+      "key": "friendchipcookie",
+      "id": "friendchipcookie",
+      "code": "8273358",
+      "name": "Friend Chip Cookie",
+      "category": "Food",
+      "sourceCategory": "Food",
+      "img": "https://cdn.kopikenangan.com/public/bf62a77f-41cf-babb-97e1-4dfc6a889487",
+      "desc": "",
+      "price": 13500,
+      "largePrice": null,
+      "normalPrice": 17000,
+      "outletPrice": 17000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": true,
+      "isSpecial": true,
+      "noLarge": false,
+      "options": {
+        "sizes": [],
+        "temps": [],
+        "ices": [],
+        "sugars": []
+      },
+      "tag": ""
+    },
+    {
+      "key": "classicpeanutbutterpanini",
+      "id": "classicpeanutbutterpanini",
+      "code": "5957219",
+      "name": "Classic Peanut Butter Panini",
+      "category": "Food",
+      "sourceCategory": "Food",
+      "img": "https://cdn.kopikenangan.com/ID/release/pub/kk-api-management/product/897b3ee2-0ee9-4a10-84b7-6ad64ccc3fcb?",
+      "desc": "",
+      "price": 14000,
+      "largePrice": null,
+      "normalPrice": 18000,
+      "outletPrice": 18000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": true,
+      "notCarried": true,
+      "isFood": true,
+      "isSpecial": true,
+      "noLarge": false,
+      "options": {
+        "sizes": [],
+        "temps": [],
+        "ices": [],
+        "sugars": []
+      },
+      "tag": ""
+    },
+    {
+      "key": "chocopeanutbutterpanini",
+      "id": "chocopeanutbutterpanini",
+      "code": "5952206",
+      "name": "Choco Peanut Butter Panini",
+      "category": "Food",
+      "sourceCategory": "Food",
+      "img": "https://cdn.kopikenangan.com/ID/release/pub/kk-api-management/product/ebb8c338-239c-4fa8-ab74-0ce949897828?",
+      "desc": "",
+      "price": 15000,
+      "largePrice": null,
+      "normalPrice": 20000,
+      "outletPrice": 20000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": true,
+      "notCarried": true,
+      "isFood": true,
+      "isSpecial": true,
+      "noLarge": false,
+      "options": {
+        "sizes": [],
+        "temps": [],
+        "ices": [],
+        "sugars": []
+      },
+      "tag": ""
+    },
+    {
+      "key": "beefcheesejalapeobagel",
+      "id": "beefcheesejalapeobagel",
+      "code": "3373629",
+      "name": "Beef & Cheese Jalapeño Bagel",
+      "category": "Food",
+      "sourceCategory": "Food",
+      "img": "https://cdn.kopikenangan.com/ID/release/pub/kk-api-management/product/f5239e58-8fa7-4eac-84d9-3c66b8cd059e?",
+      "desc": "",
+      "price": 17000,
+      "largePrice": null,
+      "normalPrice": 24000,
+      "outletPrice": 24000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": true,
+      "notCarried": true,
+      "isFood": true,
+      "isSpecial": true,
+      "noLarge": false,
+      "options": {
+        "sizes": [],
+        "temps": [],
+        "ices": [],
+        "sugars": []
+      },
+      "tag": ""
+    },
+    {
+      "key": "triplecheesebagel",
+      "id": "triplecheesebagel",
+      "code": "5641200",
+      "name": "Triple Cheese Bagel",
+      "category": "Food",
+      "sourceCategory": "Food",
+      "img": "https://cdn.kopikenangan.com/ID/release/pub/kk-api-management/product/186b5436-c2a5-4b4e-bef4-319943616c12?",
+      "desc": "",
+      "price": 16000,
+      "largePrice": null,
+      "normalPrice": 22000,
+      "outletPrice": 22000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": true,
+      "notCarried": true,
+      "isFood": true,
+      "isSpecial": true,
+      "noLarge": false,
+      "options": {
+        "sizes": [],
+        "temps": [],
+        "ices": [],
+        "sugars": []
+      },
+      "tag": ""
+    },
+    {
+      "key": "adamayamtoast",
+      "id": "adamayamtoast",
+      "code": "8355692",
+      "name": "Adam Ayam Toast",
+      "category": "Food",
+      "sourceCategory": "Food",
+      "img": "https://cdn.kopikenangan.com/public/79146711-94ca-c5cf-8b18-11205acac4b7",
+      "desc": "",
+      "price": 14500,
+      "largePrice": null,
+      "normalPrice": 19000,
+      "outletPrice": 19000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": true,
+      "notCarried": true,
+      "isFood": true,
+      "isSpecial": true,
+      "noLarge": false,
+      "options": {
+        "sizes": [],
+        "temps": [],
+        "ices": [],
+        "sugars": []
+      },
+      "tag": ""
+    },
+    {
+      "key": "wahyusapitoast",
+      "id": "wahyusapitoast",
+      "code": "9341610",
+      "name": "Wahyu Sapi Toast",
+      "category": "Food",
+      "sourceCategory": "Food",
+      "img": "https://cdn.kopikenangan.com/public/9844851e-1ef8-dc73-309f-24bad50dffab",
+      "desc": "",
+      "price": 14500,
+      "largePrice": null,
+      "normalPrice": 19000,
+      "outletPrice": 19000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": true,
+      "notCarried": true,
+      "isFood": true,
+      "isSpecial": true,
+      "noLarge": false,
+      "options": {
+        "sizes": [],
+        "temps": [],
+        "ices": [],
+        "sugars": []
+      },
+      "tag": ""
+    },
+    {
+      "key": "chocolatedonut",
+      "id": "chocolatedonut",
+      "code": "9271252",
+      "name": "Chocolate Donut",
+      "category": "Food",
+      "sourceCategory": "Food",
+      "img": "https://cdn.kopikenangan.com/public/6eb95cd8-4dc2-2f07-c77b-78a5789f1c89",
+      "desc": "",
+      "price": 11500,
+      "largePrice": null,
+      "normalPrice": 13000,
+      "outletPrice": 13000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": true,
+      "notCarried": true,
+      "isFood": true,
+      "isSpecial": true,
+      "noLarge": false,
+      "options": {
+        "sizes": [],
+        "temps": [],
+        "ices": [],
+        "sugars": []
+      },
+      "tag": ""
+    },
+    {
+      "key": "saltbreadoriginal",
+      "id": "saltbreadoriginal",
+      "code": "9370104",
+      "name": "Salt Bread Original",
+      "category": "Food",
+      "sourceCategory": "Food",
+      "img": "https://cdn.kopikenangan.com/ID/release/pub/kk-api-management/product/13fe0b4c-b159-4b60-91ae-b3a6f6552746?",
+      "desc": "",
+      "price": 11000,
+      "largePrice": null,
+      "normalPrice": 12000,
+      "outletPrice": 12000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": true,
+      "notCarried": true,
+      "isFood": true,
+      "isSpecial": true,
+      "noLarge": false,
+      "options": {
+        "sizes": [],
+        "temps": [],
+        "ices": [],
+        "sugars": []
+      },
+      "tag": ""
+    },
+    {
+      "key": "donutalmond",
+      "id": "donutalmond",
+      "code": "2363098",
+      "name": "Donut Almond",
+      "category": "Food",
+      "sourceCategory": "Food",
+      "img": "https://cdn.kopikenangan.com/ID/release/pub/kk-api-management/product/ee829769-9e58-4125-b31f-7aa1e8dbfad2?",
+      "desc": "",
+      "price": 13500,
+      "largePrice": null,
+      "normalPrice": 17000,
+      "outletPrice": 17000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": true,
+      "notCarried": true,
+      "isFood": true,
+      "isSpecial": true,
+      "noLarge": false,
+      "options": {
+        "sizes": [],
+        "temps": [],
+        "ices": [],
+        "sugars": []
+      },
+      "tag": ""
+    },
+    {
+      "key": "sandwichsmokedbeefandcheese",
+      "id": "sandwichsmokedbeefandcheese",
+      "code": "1581055",
+      "name": "Sandwich Smoked Beef and Cheese",
+      "category": "Food",
+      "sourceCategory": "Food",
+      "img": "https://cdn.kopikenangan.com/ID/release/pub/kk-api-management/product/133d50a5-fb4b-4777-94c7-00b8f9c76089?",
+      "desc": "",
+      "price": 17500,
+      "largePrice": null,
+      "normalPrice": 25000,
+      "outletPrice": 25000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": true,
+      "notCarried": true,
+      "isFood": true,
+      "isSpecial": true,
+      "noLarge": false,
+      "options": {
+        "sizes": [],
+        "temps": [],
+        "ices": [],
+        "sugars": []
+      },
+      "tag": ""
+    },
+    {
+      "key": "saltbreadchocobutter",
+      "id": "saltbreadchocobutter",
+      "code": "1397942",
+      "name": "Salt Bread Choco Butter",
+      "category": "Food",
+      "sourceCategory": "Food",
+      "img": "https://cdn.kopikenangan.com/ID/release/pub/kk-api-management/product/091b6b3e-dd10-45fc-9d49-a905dc713228?",
+      "desc": "",
+      "price": 11000,
+      "largePrice": null,
+      "normalPrice": 12000,
+      "outletPrice": 12000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": true,
+      "notCarried": true,
+      "isFood": true,
+      "isSpecial": true,
+      "noLarge": false,
+      "options": {
+        "sizes": [],
+        "temps": [],
+        "ices": [],
+        "sugars": []
+      },
+      "tag": ""
+    },
+    {
+      "key": "roticoklatklasik",
+      "id": "roticoklatklasik",
+      "code": "2918119",
+      "name": "Roti Coklat Klasik",
+      "category": "Food",
+      "sourceCategory": "Food",
+      "img": "https://cdn.kopikenangan.com/public/b10ffd87-6f6e-fb75-8a37-2b1e993bdc8a",
+      "desc": "",
+      "price": 8000,
+      "largePrice": null,
+      "normalPrice": 9000,
+      "outletPrice": 9000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": true,
+      "notCarried": true,
+      "isFood": true,
+      "isSpecial": true,
+      "noLarge": false,
+      "options": {
+        "sizes": [],
+        "temps": [],
+        "ices": [],
+        "sugars": []
+      },
+      "tag": "Best Seller"
+    },
+    {
+      "key": "rotisrikaya",
+      "id": "rotisrikaya",
+      "code": "4136526",
+      "name": "Roti Srikaya",
+      "category": "Food",
+      "sourceCategory": "Food",
+      "img": "https://cdn.kopikenangan.com/public/a5bbc92a-9abe-d2f3-daf9-b00dca1ac336",
+      "desc": "",
+      "price": 12500,
+      "largePrice": null,
+      "normalPrice": 15000,
+      "outletPrice": 15000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": true,
+      "notCarried": true,
+      "isFood": true,
+      "isSpecial": true,
+      "noLarge": false,
+      "options": {
+        "sizes": [],
+        "temps": [],
+        "ices": [],
+        "sugars": []
+      },
+      "tag": ""
+    },
+    {
+      "key": "bambangchococheesetoast",
+      "id": "bambangchococheesetoast",
+      "code": "1736117",
+      "name": "Bambang Choco Cheese Toast",
+      "category": "Food",
+      "sourceCategory": "Food",
+      "img": "https://cdn.kopikenangan.com/public/bccc5e24-0e25-1a67-1361-5b22783c1833",
+      "desc": "",
+      "price": 13500,
+      "largePrice": null,
+      "normalPrice": 17000,
+      "outletPrice": 17000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": true,
+      "notCarried": true,
+      "isFood": true,
+      "isSpecial": true,
+      "noLarge": false,
+      "options": {
+        "sizes": [],
+        "temps": [],
+        "ices": [],
+        "sugars": []
+      },
+      "tag": ""
+    }
+  ],
+  "satuan": [
+    {
+      "key": "satuan:ogthaitea",
+      "baseKey": "ogthaitea",
+      "code": "2055831",
+      "name": "OG Thai Tea",
+      "group": "Non Coffee",
+      "img": "https://cdn.kopikenangan.com/ID/release/pub/kk-api-management/product/4f6889ec-6103-4fa0-a447-b7b3ee2742c9?",
+      "price": 14500,
+      "normalPrice": 19000,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": false,
+      "options": {
+        "sizes": [],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      },
+      "isSatuan": true
+    },
+    {
+      "key": "satuan:babyccino",
+      "baseKey": "babyccino",
+      "code": "3351380",
+      "name": "Babyccino",
+      "group": "Non Coffee",
+      "img": "https://cdn.kopikenangan.com/public/afd5cdf3-964b-a63a-6db2-fb8c08410c61",
+      "price": 14500,
+      "normalPrice": 19000,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": false,
+      "options": {
+        "sizes": [],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      },
+      "isSatuan": true
+    },
+    {
+      "key": "satuan:raspberryhibiscus",
+      "baseKey": "raspberryhibiscus",
+      "code": "4740155",
+      "name": "Raspberry Hibiscus",
+      "group": "Non Coffee",
+      "img": "https://cdn.kopikenangan.com/public/615287c4-c7a7-272c-c38e-df0c89886391",
+      "price": 15000,
+      "normalPrice": 20000,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": false,
+      "options": {
+        "sizes": [],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      },
+      "isSatuan": true
+    },
+    {
+      "key": "satuan:butterscotchseasaltcrumble",
+      "baseKey": "butterscotchseasaltcrumble",
+      "code": "3714392",
+      "name": "Butterscotch Sea Salt Crumble",
+      "group": "Non Coffee",
+      "img": "https://cdn.kopikenangan.com/public/032d2ddc-8df7-6d63-4101-1ccb50298085",
+      "price": 16000,
+      "normalPrice": 25000,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": false,
+      "options": {
+        "sizes": [],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      },
+      "isSatuan": true
+    },
+    {
+      "key": "satuan:hazelnutchocomilktea",
+      "baseKey": "hazelnutchocomilktea",
+      "code": "4298003",
+      "name": "Hazelnut Choco Milk Tea",
+      "group": "Non Coffee",
+      "img": "https://cdn.kopikenangan.com/public/9766bcc9-55b8-aa14-2a02-6c94e24ddaf4",
+      "price": 16000,
+      "normalPrice": 22000,
+      "isSoldOut": true,
+      "notCarried": true,
+      "isFood": false,
+      "options": {
+        "sizes": [],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      },
+      "isSatuan": true
+    },
+    {
+      "key": "satuan:kenanganmilktea",
+      "baseKey": "kenanganmilktea",
+      "code": "1608769",
+      "name": "Kenangan Milk Tea",
+      "group": "Non Coffee",
+      "img": "https://cdn.kopikenangan.com/public/5a15d4ef-582c-1391-5e58-e523d6b87398",
+      "price": 15500,
+      "normalPrice": 21000,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": false,
+      "options": {
+        "sizes": [],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      },
+      "isSatuan": true
+    },
+    {
+      "key": "satuan:freshlemonade",
+      "baseKey": "freshlemonade",
+      "code": "7693496",
+      "name": "Fresh Lemonade",
+      "group": "Non Coffee",
+      "img": "https://cdn.kopikenangan.com/public/a68ad5fc-839b-e7b4-c502-8535f7e76e55",
+      "price": 15000,
+      "normalPrice": 20000,
+      "isSoldOut": true,
+      "notCarried": true,
+      "isFood": false,
+      "options": {
+        "sizes": [],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      },
+      "isSatuan": true
+    },
+    {
+      "key": "satuan:kopikenanganmantan",
+      "baseKey": "kopikenanganmantan",
+      "code": "7833007",
+      "name": "Kopi Kenangan Mantan",
+      "group": "Coffee",
+      "img": "https://cdn.kopikenangan.com/public/da484154-47b1-a756-54a4-8b3490fb0eae",
+      "price": 14500,
+      "normalPrice": 19000,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": false,
+      "options": {
+        "sizes": [],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      },
+      "isSatuan": true
+    },
+    {
+      "key": "satuan:spanishlatte",
+      "baseKey": "spanishlatte",
+      "code": "9602810",
+      "name": "Spanish Latte",
+      "group": "Coffee",
+      "img": "https://cdn.kopikenangan.com/public/e3aa23b8-278d-54a0-0769-0de6e82b4d60",
+      "price": 14500,
+      "normalPrice": 19000,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": false,
+      "options": {
+        "sizes": [],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      },
+      "isSatuan": true
+    },
+    {
+      "key": "satuan:pistachioarenlatte",
+      "baseKey": "pistachioarenlatte",
+      "code": "1913244",
+      "name": "Pistachio Aren Latte",
+      "group": "Coffee",
+      "img": "https://cdn.kopikenangan.com/public/392219eb-08e1-daf9-69d6-a12a8242e5be",
+      "price": 14500,
+      "normalPrice": 19000,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": false,
+      "options": {
+        "sizes": [],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      },
+      "isSatuan": true
+    },
+    {
+      "key": "satuan:butterscotcharenlatte",
+      "baseKey": "butterscotcharenlatte",
+      "code": "6100292",
+      "name": "Butterscotch Aren Latte",
+      "group": "Coffee",
+      "img": "https://cdn.kopikenangan.com/public/a1cb7272-f6e2-bb69-950d-59bc87515fd2",
+      "price": 15000,
+      "normalPrice": 20000,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": false,
+      "options": {
+        "sizes": [],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      },
+      "isSatuan": true
+    },
+    {
+      "key": "satuan:bananaamericano",
+      "baseKey": "bananaamericano",
+      "code": "4701583",
+      "name": "Banana Americano",
+      "group": "Coffee",
+      "img": "https://cdn.kopikenangan.com/ID/release/pub/kk-api-management/product/c0442198-2f86-4d81-9a55-9aaf35019b92?",
+      "price": 14500,
+      "normalPrice": 19000,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": false,
+      "options": {
+        "sizes": [],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      },
+      "isSatuan": true
+    },
+    {
+      "key": "satuan:ogarenspeculooslatte",
+      "baseKey": "ogarenspeculooslatte",
+      "code": "2111467",
+      "name": "OG Aren Speculoos Latte",
+      "group": "Coffee",
+      "img": "https://cdn.kopikenangan.com/ID/release/pub/kk-api-management/product/10c984f9-994b-4d97-8e29-164354598e22?",
+      "price": 15500,
+      "normalPrice": 21000,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": false,
+      "options": {
+        "sizes": [],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      },
+      "isSatuan": true
+    },
+    {
+      "key": "satuan:kopisusublackaren",
+      "baseKey": "kopisusublackaren",
+      "code": "3394640",
+      "name": "Kopi Susu Black Aren",
+      "group": "Coffee",
+      "img": "https://cdn.kopikenangan.com/public/2ba99b9b-7912-397a-9fea-a21d4073a197",
+      "price": 15500,
+      "normalPrice": 21000,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": false,
+      "options": {
+        "sizes": [],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      },
+      "isSatuan": true
+    },
+    {
+      "key": "satuan:cappuccino",
+      "baseKey": "cappuccino",
+      "code": "8188474",
+      "name": "Cappuccino",
+      "group": "Coffee",
+      "img": "https://cdn.kopikenangan.com/public/8a0d42d0-4801-ca84-48e9-7b434b22aee4",
+      "price": 16000,
+      "normalPrice": 22000,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": false,
+      "options": {
+        "sizes": [],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      },
+      "isSatuan": true
+    },
+    {
+      "key": "satuan:latte",
+      "baseKey": "latte",
+      "code": "2653593",
+      "name": "Latte",
+      "group": "Coffee",
+      "img": "https://cdn.kopikenangan.com/public/7b33aac1-3e8a-f15d-bb58-158692adf173",
+      "price": 16000,
+      "normalPrice": 22000,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": false,
+      "options": {
+        "sizes": [],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      },
+      "isSatuan": true
+    },
+    {
+      "key": "satuan:creamyarenlatte",
+      "baseKey": "creamyarenlatte",
+      "code": "9840203",
+      "name": "Creamy Aren Latte",
+      "group": "Coffee",
+      "img": "https://cdn.kopikenangan.com/public/34ac251c-14e6-44b7-d2b9-b4c63f6e2136",
+      "price": 16000,
+      "normalPrice": 22000,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": false,
+      "options": {
+        "sizes": [],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      },
+      "isSatuan": true
+    },
+    {
+      "key": "satuan:americano",
+      "baseKey": "americano",
+      "code": "4021465",
+      "name": "Americano",
+      "group": "Coffee",
+      "img": "https://cdn.kopikenangan.com/public/36155ddd-784d-a7d9-4d02-13d596417078",
+      "price": 13500,
+      "normalPrice": 17000,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": false,
+      "options": {
+        "sizes": [],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      },
+      "isSatuan": true
+    },
+    {
+      "key": "satuan:taromilk",
+      "baseKey": "taromilk",
+      "code": "9590924",
+      "name": "Taro Milk",
+      "group": "Menu Baru Taro",
+      "img": "https://cdn.kopikenangan.com/ID/release/pub/kk-api-management/product/d388cac3-16df-4519-9e80-f8ef633048b9?",
+      "price": 14500,
+      "normalPrice": 19000,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": false,
+      "options": {
+        "sizes": [],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      },
+      "isSatuan": true
+    },
+    {
+      "key": "satuan:tarocloudmilktea",
+      "baseKey": "tarocloudmilktea",
+      "code": "8056833",
+      "name": "Taro Cloud Milk Tea",
+      "group": "Menu Baru Taro",
+      "img": "https://cdn.kopikenangan.com/ID/release/pub/kk-api-management/product/72c9b4d3-a487-457d-8e94-060d3aee9b1e?",
+      "price": 14500,
+      "normalPrice": 19000,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": false,
+      "options": {
+        "sizes": [],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      },
+      "isSatuan": true
+    },
+    {
+      "key": "satuan:tarocloudmatcha",
+      "baseKey": "tarocloudmatcha",
+      "code": "1269751",
+      "name": "Taro Cloud Matcha",
+      "group": "Menu Baru Taro",
+      "img": "https://cdn.kopikenangan.com/ID/release/pub/kk-api-management/product/ace3b7e3-7320-4adb-b9cb-61752ff91dea?",
+      "price": 16000,
+      "normalPrice": 22000,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": false,
+      "options": {
+        "sizes": [],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      },
+      "isSatuan": true
+    },
+    {
+      "key": "satuan:tarocloudlatte",
+      "baseKey": "tarocloudlatte",
+      "code": "7245645",
+      "name": "Taro Cloud Latte",
+      "group": "Menu Baru Taro",
+      "img": "https://cdn.kopikenangan.com/ID/release/pub/kk-api-management/product/73af63fc-8f5c-48c0-aece-da0307e77af8?",
+      "price": 16000,
+      "normalPrice": 22000,
+      "isSoldOut": true,
+      "notCarried": true,
+      "isFood": false,
+      "options": {
+        "sizes": [],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      },
+      "isSatuan": true
+    }
+  ],
+  "seliter": [
+    {
+      "key": "seliter:seliter-americano-juwara",
+      "name": "Americano Juwara Beans (1L)",
+      "img": "/img/seliter/seliter-americano-juwara.jpg",
+      "desc": "1 Liter · Free ongkir max 2km",
+      "price": 79000,
+      "normalPrice": null,
+      "isSoldOut": false,
+      "options": {
+        "sizes": [],
+        "temps": [],
+        "ices": [],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      },
+      "isSeliter": true
+    },
+    {
+      "key": "seliter:seliter-kenangan-mantan",
+      "name": "Kopi Kenangan Mantan (1L)",
+      "img": "/img/seliter/seliter-kenangan-mantan.jpg",
+      "desc": "1 Liter · Free ongkir max 2km",
+      "price": 82500,
+      "normalPrice": null,
+      "isSoldOut": false,
+      "options": {
+        "sizes": [],
+        "temps": [],
+        "ices": [],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      },
+      "isSeliter": true
+    },
+    {
+      "key": "seliter:seliter-latte",
+      "name": "Latte (1L)",
+      "img": "/img/seliter/seliter-latte.jpg",
+      "desc": "1 Liter · Free ongkir max 2km",
+      "price": 82500,
+      "normalPrice": null,
+      "isSoldOut": false,
+      "options": {
+        "sizes": [],
+        "temps": [],
+        "ices": [],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      },
+      "isSeliter": true
+    },
+    {
+      "key": "seliter:seliter-caramel-macchiato",
+      "name": "Caramel Macchiato (1L)",
+      "img": "/img/seliter/seliter-caramel-macchiato.jpg",
+      "desc": "1 Liter · Free ongkir max 2km",
+      "price": 89000,
+      "normalPrice": null,
+      "isSoldOut": false,
+      "options": {
+        "sizes": [],
+        "temps": [],
+        "ices": [],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      },
+      "isSeliter": true
+    },
+    {
+      "key": "seliter:seliter-black-aren",
+      "name": "Kopi Susu Black Aren (1L)",
+      "img": "/img/seliter/seliter-black-aren.jpg",
+      "desc": "1 Liter · Free ongkir max 2km",
+      "price": 86000,
+      "normalPrice": null,
+      "isSoldOut": false,
+      "options": {
+        "sizes": [],
+        "temps": [],
+        "ices": [],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      },
+      "isSeliter": true
+    },
+    {
+      "key": "seliter:seliter-thai-tea",
+      "name": "Thai Tea (1L)",
+      "img": "/img/seliter/seliter-thai-tea.jpg",
+      "desc": "1 Liter · Free ongkir max 2km",
+      "price": 79000,
+      "normalPrice": null,
+      "isSoldOut": false,
+      "options": {
+        "sizes": [],
+        "temps": [],
+        "ices": [],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      },
+      "isSeliter": true
+    }
+  ],
+  "bundles": [
+    {
+      "key": "bundle:bundle-3-38",
+      "id": "bundle-3-38",
+      "type": "pick",
+      "name": "BUNDLING 3 CUP REG",
+      "img": "/uploads/60ea6c8cd3be815c.jpg",
+      "meta": "Pilih 3 menu · Regular",
+      "desc": "bebas pilih 3 menu sesuai varian yang tersedia, bisa pilih menu yang sama atau mix. Tidak bisa upsize dan tidak berlaku di outlet overprice. Khusus outlet tertentu seperti stasiun, mall, dan rest area dikenakan tambahan Rp6.000 per paket.",
+      "size": "Regular",
+      "price": 35000,
+      "isBundle": true,
+      "distinct": false,
+      "slots": [
+        {
+          "label": "Cup 1",
+          "options": [
+            {
+              "key": "pistachioarenlatte",
+              "name": "Pistachio Aren Latte",
+              "img": "https://cdn.kopikenangan.com/public/392219eb-08e1-daf9-69d6-a12a8242e5be",
+              "isSoldOut": false,
+              "notCarried": false,
+              "isFood": false,
+              "category": "Coffee",
+              "options": {
+                "sizes": [],
+                "temps": [
+                  "Ice",
+                  "Hot"
+                ],
+                "ices": [
+                  "Normal Ice",
+                  "Less Ice",
+                  "No Ice"
+                ],
+                "sugars": [
+                  "Normal Sugar",
+                  "Less Sugar",
+                  "No Sugar"
+                ]
+              }
+            },
+            {
+              "key": "kopikenanganmantan",
+              "name": "Kopi Kenangan Mantan",
+              "img": "https://cdn.kopikenangan.com/public/da484154-47b1-a756-54a4-8b3490fb0eae",
+              "isSoldOut": false,
+              "notCarried": false,
+              "isFood": false,
+              "category": "Coffee",
+              "options": {
+                "sizes": [],
+                "temps": [
+                  "Ice",
+                  "Hot"
+                ],
+                "ices": [
+                  "Normal Ice",
+                  "Less Ice",
+                  "No Ice"
+                ],
+                "sugars": [
+                  "Normal Sugar",
+                  "Less Sugar",
+                  "No Sugar"
+                ]
+              }
+            },
+            {
+              "key": "spanishlatte",
+              "name": "Spanish Latte",
+              "img": "https://cdn.kopikenangan.com/public/e3aa23b8-278d-54a0-0769-0de6e82b4d60",
+              "isSoldOut": false,
+              "notCarried": false,
+              "isFood": false,
+              "category": "Coffee",
+              "options": {
+                "sizes": [],
+                "temps": [
+                  "Ice",
+                  "Hot"
+                ],
+                "ices": [
+                  "Normal Ice",
+                  "Less Ice",
+                  "No Ice"
+                ],
+                "sugars": [
+                  "Normal Sugar",
+                  "Less Sugar",
+                  "No Sugar"
+                ]
+              }
+            },
+            {
+              "key": "bananaamericano",
+              "name": "Banana Americano",
+              "img": "https://cdn.kopikenangan.com/ID/release/pub/kk-api-management/product/c0442198-2f86-4d81-9a55-9aaf35019b92?",
+              "isSoldOut": false,
+              "notCarried": false,
+              "isFood": false,
+              "category": "Coffee",
+              "options": {
+                "sizes": [],
+                "temps": [
+                  "Ice",
+                  "Hot"
+                ],
+                "ices": [
+                  "Normal Ice",
+                  "Less Ice",
+                  "No Ice"
+                ],
+                "sugars": [
+                  "Normal Sugar",
+                  "Less Sugar",
+                  "No Sugar"
+                ]
+              }
+            },
+            {
+              "key": "ogthaitea",
+              "name": "OG Thai Tea",
+              "img": "https://cdn.kopikenangan.com/ID/release/pub/kk-api-management/product/4f6889ec-6103-4fa0-a447-b7b3ee2742c9?",
+              "isSoldOut": false,
+              "notCarried": false,
+              "isFood": false,
+              "category": "Tea",
+              "options": {
+                "sizes": [],
+                "temps": [
+                  "Ice",
+                  "Hot"
+                ],
+                "ices": [
+                  "Normal Ice",
+                  "Less Ice",
+                  "No Ice"
+                ],
+                "sugars": [
+                  "Normal Sugar",
+                  "Less Sugar",
+                  "No Sugar"
+                ]
+              }
+            },
+            {
+              "key": "babyccino",
+              "name": "Babyccino",
+              "img": "https://cdn.kopikenangan.com/public/afd5cdf3-964b-a63a-6db2-fb8c08410c61",
+              "isSoldOut": false,
+              "notCarried": false,
+              "isFood": false,
+              "category": "Non Coffee",
+              "options": {
+                "sizes": [],
+                "temps": [
+                  "Ice",
+                  "Hot"
+                ],
+                "ices": [
+                  "Normal Ice",
+                  "Less Ice",
+                  "No Ice"
+                ],
+                "sugars": [
+                  "Normal Sugar",
+                  "Less Sugar",
+                  "No Sugar"
+                ]
+              }
+            },
+            {
+              "key": "taromilk",
+              "name": "Taro Milk",
+              "img": "https://cdn.kopikenangan.com/ID/release/pub/kk-api-management/product/d388cac3-16df-4519-9e80-f8ef633048b9?",
+              "isSoldOut": false,
+              "notCarried": false,
+              "isFood": false,
+              "category": "Non Coffee",
+              "options": {
+                "sizes": [],
+                "temps": [
+                  "Ice",
+                  "Hot"
+                ],
+                "ices": [
+                  "Normal Ice",
+                  "Less Ice",
+                  "No Ice"
+                ],
+                "sugars": [
+                  "Normal Sugar",
+                  "Less Sugar",
+                  "No Sugar"
+                ]
+              }
+            },
+            {
+              "key": "tarocloudmilktea",
+              "name": "Taro Cloud Milk Tea",
+              "img": "https://cdn.kopikenangan.com/ID/release/pub/kk-api-management/product/72c9b4d3-a487-457d-8e94-060d3aee9b1e?",
+              "isSoldOut": false,
+              "notCarried": false,
+              "isFood": false,
+              "category": "Tea",
+              "options": {
+                "sizes": [],
+                "temps": [
+                  "Ice",
+                  "Hot"
+                ],
+                "ices": [
+                  "Normal Ice",
+                  "Less Ice",
+                  "No Ice"
+                ],
+                "sugars": [
+                  "Normal Sugar",
+                  "Less Sugar",
+                  "No Sugar"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "label": "Cup 2",
+          "options": [
+            {
+              "key": "pistachioarenlatte",
+              "name": "Pistachio Aren Latte",
+              "img": "https://cdn.kopikenangan.com/public/392219eb-08e1-daf9-69d6-a12a8242e5be",
+              "isSoldOut": false,
+              "notCarried": false,
+              "isFood": false,
+              "category": "Coffee",
+              "options": {
+                "sizes": [],
+                "temps": [
+                  "Ice",
+                  "Hot"
+                ],
+                "ices": [
+                  "Normal Ice",
+                  "Less Ice",
+                  "No Ice"
+                ],
+                "sugars": [
+                  "Normal Sugar",
+                  "Less Sugar",
+                  "No Sugar"
+                ]
+              }
+            },
+            {
+              "key": "kopikenanganmantan",
+              "name": "Kopi Kenangan Mantan",
+              "img": "https://cdn.kopikenangan.com/public/da484154-47b1-a756-54a4-8b3490fb0eae",
+              "isSoldOut": false,
+              "notCarried": false,
+              "isFood": false,
+              "category": "Coffee",
+              "options": {
+                "sizes": [],
+                "temps": [
+                  "Ice",
+                  "Hot"
+                ],
+                "ices": [
+                  "Normal Ice",
+                  "Less Ice",
+                  "No Ice"
+                ],
+                "sugars": [
+                  "Normal Sugar",
+                  "Less Sugar",
+                  "No Sugar"
+                ]
+              }
+            },
+            {
+              "key": "spanishlatte",
+              "name": "Spanish Latte",
+              "img": "https://cdn.kopikenangan.com/public/e3aa23b8-278d-54a0-0769-0de6e82b4d60",
+              "isSoldOut": false,
+              "notCarried": false,
+              "isFood": false,
+              "category": "Coffee",
+              "options": {
+                "sizes": [],
+                "temps": [
+                  "Ice",
+                  "Hot"
+                ],
+                "ices": [
+                  "Normal Ice",
+                  "Less Ice",
+                  "No Ice"
+                ],
+                "sugars": [
+                  "Normal Sugar",
+                  "Less Sugar",
+                  "No Sugar"
+                ]
+              }
+            },
+            {
+              "key": "bananaamericano",
+              "name": "Banana Americano",
+              "img": "https://cdn.kopikenangan.com/ID/release/pub/kk-api-management/product/c0442198-2f86-4d81-9a55-9aaf35019b92?",
+              "isSoldOut": false,
+              "notCarried": false,
+              "isFood": false,
+              "category": "Coffee",
+              "options": {
+                "sizes": [],
+                "temps": [
+                  "Ice",
+                  "Hot"
+                ],
+                "ices": [
+                  "Normal Ice",
+                  "Less Ice",
+                  "No Ice"
+                ],
+                "sugars": [
+                  "Normal Sugar",
+                  "Less Sugar",
+                  "No Sugar"
+                ]
+              }
+            },
+            {
+              "key": "ogthaitea",
+              "name": "OG Thai Tea",
+              "img": "https://cdn.kopikenangan.com/ID/release/pub/kk-api-management/product/4f6889ec-6103-4fa0-a447-b7b3ee2742c9?",
+              "isSoldOut": false,
+              "notCarried": false,
+              "isFood": false,
+              "category": "Tea",
+              "options": {
+                "sizes": [],
+                "temps": [
+                  "Ice",
+                  "Hot"
+                ],
+                "ices": [
+                  "Normal Ice",
+                  "Less Ice",
+                  "No Ice"
+                ],
+                "sugars": [
+                  "Normal Sugar",
+                  "Less Sugar",
+                  "No Sugar"
+                ]
+              }
+            },
+            {
+              "key": "babyccino",
+              "name": "Babyccino",
+              "img": "https://cdn.kopikenangan.com/public/afd5cdf3-964b-a63a-6db2-fb8c08410c61",
+              "isSoldOut": false,
+              "notCarried": false,
+              "isFood": false,
+              "category": "Non Coffee",
+              "options": {
+                "sizes": [],
+                "temps": [
+                  "Ice",
+                  "Hot"
+                ],
+                "ices": [
+                  "Normal Ice",
+                  "Less Ice",
+                  "No Ice"
+                ],
+                "sugars": [
+                  "Normal Sugar",
+                  "Less Sugar",
+                  "No Sugar"
+                ]
+              }
+            },
+            {
+              "key": "taromilk",
+              "name": "Taro Milk",
+              "img": "https://cdn.kopikenangan.com/ID/release/pub/kk-api-management/product/d388cac3-16df-4519-9e80-f8ef633048b9?",
+              "isSoldOut": false,
+              "notCarried": false,
+              "isFood": false,
+              "category": "Non Coffee",
+              "options": {
+                "sizes": [],
+                "temps": [
+                  "Ice",
+                  "Hot"
+                ],
+                "ices": [
+                  "Normal Ice",
+                  "Less Ice",
+                  "No Ice"
+                ],
+                "sugars": [
+                  "Normal Sugar",
+                  "Less Sugar",
+                  "No Sugar"
+                ]
+              }
+            },
+            {
+              "key": "tarocloudmilktea",
+              "name": "Taro Cloud Milk Tea",
+              "img": "https://cdn.kopikenangan.com/ID/release/pub/kk-api-management/product/72c9b4d3-a487-457d-8e94-060d3aee9b1e?",
+              "isSoldOut": false,
+              "notCarried": false,
+              "isFood": false,
+              "category": "Tea",
+              "options": {
+                "sizes": [],
+                "temps": [
+                  "Ice",
+                  "Hot"
+                ],
+                "ices": [
+                  "Normal Ice",
+                  "Less Ice",
+                  "No Ice"
+                ],
+                "sugars": [
+                  "Normal Sugar",
+                  "Less Sugar",
+                  "No Sugar"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "label": "Cup 3",
+          "options": [
+            {
+              "key": "pistachioarenlatte",
+              "name": "Pistachio Aren Latte",
+              "img": "https://cdn.kopikenangan.com/public/392219eb-08e1-daf9-69d6-a12a8242e5be",
+              "isSoldOut": false,
+              "notCarried": false,
+              "isFood": false,
+              "category": "Coffee",
+              "options": {
+                "sizes": [],
+                "temps": [
+                  "Ice",
+                  "Hot"
+                ],
+                "ices": [
+                  "Normal Ice",
+                  "Less Ice",
+                  "No Ice"
+                ],
+                "sugars": [
+                  "Normal Sugar",
+                  "Less Sugar",
+                  "No Sugar"
+                ]
+              }
+            },
+            {
+              "key": "kopikenanganmantan",
+              "name": "Kopi Kenangan Mantan",
+              "img": "https://cdn.kopikenangan.com/public/da484154-47b1-a756-54a4-8b3490fb0eae",
+              "isSoldOut": false,
+              "notCarried": false,
+              "isFood": false,
+              "category": "Coffee",
+              "options": {
+                "sizes": [],
+                "temps": [
+                  "Ice",
+                  "Hot"
+                ],
+                "ices": [
+                  "Normal Ice",
+                  "Less Ice",
+                  "No Ice"
+                ],
+                "sugars": [
+                  "Normal Sugar",
+                  "Less Sugar",
+                  "No Sugar"
+                ]
+              }
+            },
+            {
+              "key": "spanishlatte",
+              "name": "Spanish Latte",
+              "img": "https://cdn.kopikenangan.com/public/e3aa23b8-278d-54a0-0769-0de6e82b4d60",
+              "isSoldOut": false,
+              "notCarried": false,
+              "isFood": false,
+              "category": "Coffee",
+              "options": {
+                "sizes": [],
+                "temps": [
+                  "Ice",
+                  "Hot"
+                ],
+                "ices": [
+                  "Normal Ice",
+                  "Less Ice",
+                  "No Ice"
+                ],
+                "sugars": [
+                  "Normal Sugar",
+                  "Less Sugar",
+                  "No Sugar"
+                ]
+              }
+            },
+            {
+              "key": "bananaamericano",
+              "name": "Banana Americano",
+              "img": "https://cdn.kopikenangan.com/ID/release/pub/kk-api-management/product/c0442198-2f86-4d81-9a55-9aaf35019b92?",
+              "isSoldOut": false,
+              "notCarried": false,
+              "isFood": false,
+              "category": "Coffee",
+              "options": {
+                "sizes": [],
+                "temps": [
+                  "Ice",
+                  "Hot"
+                ],
+                "ices": [
+                  "Normal Ice",
+                  "Less Ice",
+                  "No Ice"
+                ],
+                "sugars": [
+                  "Normal Sugar",
+                  "Less Sugar",
+                  "No Sugar"
+                ]
+              }
+            },
+            {
+              "key": "ogthaitea",
+              "name": "OG Thai Tea",
+              "img": "https://cdn.kopikenangan.com/ID/release/pub/kk-api-management/product/4f6889ec-6103-4fa0-a447-b7b3ee2742c9?",
+              "isSoldOut": false,
+              "notCarried": false,
+              "isFood": false,
+              "category": "Tea",
+              "options": {
+                "sizes": [],
+                "temps": [
+                  "Ice",
+                  "Hot"
+                ],
+                "ices": [
+                  "Normal Ice",
+                  "Less Ice",
+                  "No Ice"
+                ],
+                "sugars": [
+                  "Normal Sugar",
+                  "Less Sugar",
+                  "No Sugar"
+                ]
+              }
+            },
+            {
+              "key": "babyccino",
+              "name": "Babyccino",
+              "img": "https://cdn.kopikenangan.com/public/afd5cdf3-964b-a63a-6db2-fb8c08410c61",
+              "isSoldOut": false,
+              "notCarried": false,
+              "isFood": false,
+              "category": "Non Coffee",
+              "options": {
+                "sizes": [],
+                "temps": [
+                  "Ice",
+                  "Hot"
+                ],
+                "ices": [
+                  "Normal Ice",
+                  "Less Ice",
+                  "No Ice"
+                ],
+                "sugars": [
+                  "Normal Sugar",
+                  "Less Sugar",
+                  "No Sugar"
+                ]
+              }
+            },
+            {
+              "key": "taromilk",
+              "name": "Taro Milk",
+              "img": "https://cdn.kopikenangan.com/ID/release/pub/kk-api-management/product/d388cac3-16df-4519-9e80-f8ef633048b9?",
+              "isSoldOut": false,
+              "notCarried": false,
+              "isFood": false,
+              "category": "Non Coffee",
+              "options": {
+                "sizes": [],
+                "temps": [
+                  "Ice",
+                  "Hot"
+                ],
+                "ices": [
+                  "Normal Ice",
+                  "Less Ice",
+                  "No Ice"
+                ],
+                "sugars": [
+                  "Normal Sugar",
+                  "Less Sugar",
+                  "No Sugar"
+                ]
+              }
+            },
+            {
+              "key": "tarocloudmilktea",
+              "name": "Taro Cloud Milk Tea",
+              "img": "https://cdn.kopikenangan.com/ID/release/pub/kk-api-management/product/72c9b4d3-a487-457d-8e94-060d3aee9b1e?",
+              "isSoldOut": false,
+              "notCarried": false,
+              "isFood": false,
+              "category": "Tea",
+              "options": {
+                "sizes": [],
+                "temps": [
+                  "Ice",
+                  "Hot"
+                ],
+                "ices": [
+                  "Normal Ice",
+                  "Less Ice",
+                  "No Ice"
+                ],
+                "sugars": [
+                  "Normal Sugar",
+                  "Less Sugar",
+                  "No Sugar"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "isSoldOut": false,
+      "candidates": [
+        {
+          "key": "pistachioarenlatte",
+          "name": "Pistachio Aren Latte",
+          "img": "https://cdn.kopikenangan.com/public/392219eb-08e1-daf9-69d6-a12a8242e5be",
+          "isSoldOut": false,
+          "notCarried": false,
+          "isFood": false,
+          "category": "Coffee",
+          "options": {
+            "sizes": [],
+            "temps": [
+              "Ice",
+              "Hot"
+            ],
+            "ices": [
+              "Normal Ice",
+              "Less Ice",
+              "No Ice"
+            ],
+            "sugars": [
+              "Normal Sugar",
+              "Less Sugar",
+              "No Sugar"
+            ]
+          }
+        },
+        {
+          "key": "kopikenanganmantan",
+          "name": "Kopi Kenangan Mantan",
+          "img": "https://cdn.kopikenangan.com/public/da484154-47b1-a756-54a4-8b3490fb0eae",
+          "isSoldOut": false,
+          "notCarried": false,
+          "isFood": false,
+          "category": "Coffee",
+          "options": {
+            "sizes": [],
+            "temps": [
+              "Ice",
+              "Hot"
+            ],
+            "ices": [
+              "Normal Ice",
+              "Less Ice",
+              "No Ice"
+            ],
+            "sugars": [
+              "Normal Sugar",
+              "Less Sugar",
+              "No Sugar"
+            ]
+          }
+        },
+        {
+          "key": "spanishlatte",
+          "name": "Spanish Latte",
+          "img": "https://cdn.kopikenangan.com/public/e3aa23b8-278d-54a0-0769-0de6e82b4d60",
+          "isSoldOut": false,
+          "notCarried": false,
+          "isFood": false,
+          "category": "Coffee",
+          "options": {
+            "sizes": [],
+            "temps": [
+              "Ice",
+              "Hot"
+            ],
+            "ices": [
+              "Normal Ice",
+              "Less Ice",
+              "No Ice"
+            ],
+            "sugars": [
+              "Normal Sugar",
+              "Less Sugar",
+              "No Sugar"
+            ]
+          }
+        },
+        {
+          "key": "bananaamericano",
+          "name": "Banana Americano",
+          "img": "https://cdn.kopikenangan.com/ID/release/pub/kk-api-management/product/c0442198-2f86-4d81-9a55-9aaf35019b92?",
+          "isSoldOut": false,
+          "notCarried": false,
+          "isFood": false,
+          "category": "Coffee",
+          "options": {
+            "sizes": [],
+            "temps": [
+              "Ice",
+              "Hot"
+            ],
+            "ices": [
+              "Normal Ice",
+              "Less Ice",
+              "No Ice"
+            ],
+            "sugars": [
+              "Normal Sugar",
+              "Less Sugar",
+              "No Sugar"
+            ]
+          }
+        },
+        {
+          "key": "ogthaitea",
+          "name": "OG Thai Tea",
+          "img": "https://cdn.kopikenangan.com/ID/release/pub/kk-api-management/product/4f6889ec-6103-4fa0-a447-b7b3ee2742c9?",
+          "isSoldOut": false,
+          "notCarried": false,
+          "isFood": false,
+          "category": "Tea",
+          "options": {
+            "sizes": [],
+            "temps": [
+              "Ice",
+              "Hot"
+            ],
+            "ices": [
+              "Normal Ice",
+              "Less Ice",
+              "No Ice"
+            ],
+            "sugars": [
+              "Normal Sugar",
+              "Less Sugar",
+              "No Sugar"
+            ]
+          }
+        },
+        {
+          "key": "babyccino",
+          "name": "Babyccino",
+          "img": "https://cdn.kopikenangan.com/public/afd5cdf3-964b-a63a-6db2-fb8c08410c61",
+          "isSoldOut": false,
+          "notCarried": false,
+          "isFood": false,
+          "category": "Non Coffee",
+          "options": {
+            "sizes": [],
+            "temps": [
+              "Ice",
+              "Hot"
+            ],
+            "ices": [
+              "Normal Ice",
+              "Less Ice",
+              "No Ice"
+            ],
+            "sugars": [
+              "Normal Sugar",
+              "Less Sugar",
+              "No Sugar"
+            ]
+          }
+        },
+        {
+          "key": "taromilk",
+          "name": "Taro Milk",
+          "img": "https://cdn.kopikenangan.com/ID/release/pub/kk-api-management/product/d388cac3-16df-4519-9e80-f8ef633048b9?",
+          "isSoldOut": false,
+          "notCarried": false,
+          "isFood": false,
+          "category": "Non Coffee",
+          "options": {
+            "sizes": [],
+            "temps": [
+              "Ice",
+              "Hot"
+            ],
+            "ices": [
+              "Normal Ice",
+              "Less Ice",
+              "No Ice"
+            ],
+            "sugars": [
+              "Normal Sugar",
+              "Less Sugar",
+              "No Sugar"
+            ]
+          }
+        },
+        {
+          "key": "tarocloudmilktea",
+          "name": "Taro Cloud Milk Tea",
+          "img": "https://cdn.kopikenangan.com/ID/release/pub/kk-api-management/product/72c9b4d3-a487-457d-8e94-060d3aee9b1e?",
+          "isSoldOut": false,
+          "notCarried": false,
+          "isFood": false,
+          "category": "Tea",
+          "options": {
+            "sizes": [],
+            "temps": [
+              "Ice",
+              "Hot"
+            ],
+            "ices": [
+              "Normal Ice",
+              "Less Ice",
+              "No Ice"
+            ],
+            "sugars": [
+              "Normal Sugar",
+              "Less Sugar",
+              "No Sugar"
+            ]
+          }
+        },
+        {
+          "key": "pistachioarenlatte",
+          "name": "Pistachio Aren Latte",
+          "img": "https://cdn.kopikenangan.com/public/392219eb-08e1-daf9-69d6-a12a8242e5be",
+          "isSoldOut": false,
+          "notCarried": false,
+          "isFood": false,
+          "category": "Coffee",
+          "options": {
+            "sizes": [],
+            "temps": [
+              "Ice",
+              "Hot"
+            ],
+            "ices": [
+              "Normal Ice",
+              "Less Ice",
+              "No Ice"
+            ],
+            "sugars": [
+              "Normal Sugar",
+              "Less Sugar",
+              "No Sugar"
+            ]
+          }
+        },
+        {
+          "key": "kopikenanganmantan",
+          "name": "Kopi Kenangan Mantan",
+          "img": "https://cdn.kopikenangan.com/public/da484154-47b1-a756-54a4-8b3490fb0eae",
+          "isSoldOut": false,
+          "notCarried": false,
+          "isFood": false,
+          "category": "Coffee",
+          "options": {
+            "sizes": [],
+            "temps": [
+              "Ice",
+              "Hot"
+            ],
+            "ices": [
+              "Normal Ice",
+              "Less Ice",
+              "No Ice"
+            ],
+            "sugars": [
+              "Normal Sugar",
+              "Less Sugar",
+              "No Sugar"
+            ]
+          }
+        },
+        {
+          "key": "spanishlatte",
+          "name": "Spanish Latte",
+          "img": "https://cdn.kopikenangan.com/public/e3aa23b8-278d-54a0-0769-0de6e82b4d60",
+          "isSoldOut": false,
+          "notCarried": false,
+          "isFood": false,
+          "category": "Coffee",
+          "options": {
+            "sizes": [],
+            "temps": [
+              "Ice",
+              "Hot"
+            ],
+            "ices": [
+              "Normal Ice",
+              "Less Ice",
+              "No Ice"
+            ],
+            "sugars": [
+              "Normal Sugar",
+              "Less Sugar",
+              "No Sugar"
+            ]
+          }
+        },
+        {
+          "key": "bananaamericano",
+          "name": "Banana Americano",
+          "img": "https://cdn.kopikenangan.com/ID/release/pub/kk-api-management/product/c0442198-2f86-4d81-9a55-9aaf35019b92?",
+          "isSoldOut": false,
+          "notCarried": false,
+          "isFood": false,
+          "category": "Coffee",
+          "options": {
+            "sizes": [],
+            "temps": [
+              "Ice",
+              "Hot"
+            ],
+            "ices": [
+              "Normal Ice",
+              "Less Ice",
+              "No Ice"
+            ],
+            "sugars": [
+              "Normal Sugar",
+              "Less Sugar",
+              "No Sugar"
+            ]
+          }
+        },
+        {
+          "key": "ogthaitea",
+          "name": "OG Thai Tea",
+          "img": "https://cdn.kopikenangan.com/ID/release/pub/kk-api-management/product/4f6889ec-6103-4fa0-a447-b7b3ee2742c9?",
+          "isSoldOut": false,
+          "notCarried": false,
+          "isFood": false,
+          "category": "Tea",
+          "options": {
+            "sizes": [],
+            "temps": [
+              "Ice",
+              "Hot"
+            ],
+            "ices": [
+              "Normal Ice",
+              "Less Ice",
+              "No Ice"
+            ],
+            "sugars": [
+              "Normal Sugar",
+              "Less Sugar",
+              "No Sugar"
+            ]
+          }
+        },
+        {
+          "key": "babyccino",
+          "name": "Babyccino",
+          "img": "https://cdn.kopikenangan.com/public/afd5cdf3-964b-a63a-6db2-fb8c08410c61",
+          "isSoldOut": false,
+          "notCarried": false,
+          "isFood": false,
+          "category": "Non Coffee",
+          "options": {
+            "sizes": [],
+            "temps": [
+              "Ice",
+              "Hot"
+            ],
+            "ices": [
+              "Normal Ice",
+              "Less Ice",
+              "No Ice"
+            ],
+            "sugars": [
+              "Normal Sugar",
+              "Less Sugar",
+              "No Sugar"
+            ]
+          }
+        },
+        {
+          "key": "taromilk",
+          "name": "Taro Milk",
+          "img": "https://cdn.kopikenangan.com/ID/release/pub/kk-api-management/product/d388cac3-16df-4519-9e80-f8ef633048b9?",
+          "isSoldOut": false,
+          "notCarried": false,
+          "isFood": false,
+          "category": "Non Coffee",
+          "options": {
+            "sizes": [],
+            "temps": [
+              "Ice",
+              "Hot"
+            ],
+            "ices": [
+              "Normal Ice",
+              "Less Ice",
+              "No Ice"
+            ],
+            "sugars": [
+              "Normal Sugar",
+              "Less Sugar",
+              "No Sugar"
+            ]
+          }
+        },
+        {
+          "key": "tarocloudmilktea",
+          "name": "Taro Cloud Milk Tea",
+          "img": "https://cdn.kopikenangan.com/ID/release/pub/kk-api-management/product/72c9b4d3-a487-457d-8e94-060d3aee9b1e?",
+          "isSoldOut": false,
+          "notCarried": false,
+          "isFood": false,
+          "category": "Tea",
+          "options": {
+            "sizes": [],
+            "temps": [
+              "Ice",
+              "Hot"
+            ],
+            "ices": [
+              "Normal Ice",
+              "Less Ice",
+              "No Ice"
+            ],
+            "sugars": [
+              "Normal Sugar",
+              "Less Sugar",
+              "No Sugar"
+            ]
+          }
+        },
+        {
+          "key": "pistachioarenlatte",
+          "name": "Pistachio Aren Latte",
+          "img": "https://cdn.kopikenangan.com/public/392219eb-08e1-daf9-69d6-a12a8242e5be",
+          "isSoldOut": false,
+          "notCarried": false,
+          "isFood": false,
+          "category": "Coffee",
+          "options": {
+            "sizes": [],
+            "temps": [
+              "Ice",
+              "Hot"
+            ],
+            "ices": [
+              "Normal Ice",
+              "Less Ice",
+              "No Ice"
+            ],
+            "sugars": [
+              "Normal Sugar",
+              "Less Sugar",
+              "No Sugar"
+            ]
+          }
+        },
+        {
+          "key": "kopikenanganmantan",
+          "name": "Kopi Kenangan Mantan",
+          "img": "https://cdn.kopikenangan.com/public/da484154-47b1-a756-54a4-8b3490fb0eae",
+          "isSoldOut": false,
+          "notCarried": false,
+          "isFood": false,
+          "category": "Coffee",
+          "options": {
+            "sizes": [],
+            "temps": [
+              "Ice",
+              "Hot"
+            ],
+            "ices": [
+              "Normal Ice",
+              "Less Ice",
+              "No Ice"
+            ],
+            "sugars": [
+              "Normal Sugar",
+              "Less Sugar",
+              "No Sugar"
+            ]
+          }
+        },
+        {
+          "key": "spanishlatte",
+          "name": "Spanish Latte",
+          "img": "https://cdn.kopikenangan.com/public/e3aa23b8-278d-54a0-0769-0de6e82b4d60",
+          "isSoldOut": false,
+          "notCarried": false,
+          "isFood": false,
+          "category": "Coffee",
+          "options": {
+            "sizes": [],
+            "temps": [
+              "Ice",
+              "Hot"
+            ],
+            "ices": [
+              "Normal Ice",
+              "Less Ice",
+              "No Ice"
+            ],
+            "sugars": [
+              "Normal Sugar",
+              "Less Sugar",
+              "No Sugar"
+            ]
+          }
+        },
+        {
+          "key": "bananaamericano",
+          "name": "Banana Americano",
+          "img": "https://cdn.kopikenangan.com/ID/release/pub/kk-api-management/product/c0442198-2f86-4d81-9a55-9aaf35019b92?",
+          "isSoldOut": false,
+          "notCarried": false,
+          "isFood": false,
+          "category": "Coffee",
+          "options": {
+            "sizes": [],
+            "temps": [
+              "Ice",
+              "Hot"
+            ],
+            "ices": [
+              "Normal Ice",
+              "Less Ice",
+              "No Ice"
+            ],
+            "sugars": [
+              "Normal Sugar",
+              "Less Sugar",
+              "No Sugar"
+            ]
+          }
+        },
+        {
+          "key": "ogthaitea",
+          "name": "OG Thai Tea",
+          "img": "https://cdn.kopikenangan.com/ID/release/pub/kk-api-management/product/4f6889ec-6103-4fa0-a447-b7b3ee2742c9?",
+          "isSoldOut": false,
+          "notCarried": false,
+          "isFood": false,
+          "category": "Tea",
+          "options": {
+            "sizes": [],
+            "temps": [
+              "Ice",
+              "Hot"
+            ],
+            "ices": [
+              "Normal Ice",
+              "Less Ice",
+              "No Ice"
+            ],
+            "sugars": [
+              "Normal Sugar",
+              "Less Sugar",
+              "No Sugar"
+            ]
+          }
+        },
+        {
+          "key": "babyccino",
+          "name": "Babyccino",
+          "img": "https://cdn.kopikenangan.com/public/afd5cdf3-964b-a63a-6db2-fb8c08410c61",
+          "isSoldOut": false,
+          "notCarried": false,
+          "isFood": false,
+          "category": "Non Coffee",
+          "options": {
+            "sizes": [],
+            "temps": [
+              "Ice",
+              "Hot"
+            ],
+            "ices": [
+              "Normal Ice",
+              "Less Ice",
+              "No Ice"
+            ],
+            "sugars": [
+              "Normal Sugar",
+              "Less Sugar",
+              "No Sugar"
+            ]
+          }
+        },
+        {
+          "key": "taromilk",
+          "name": "Taro Milk",
+          "img": "https://cdn.kopikenangan.com/ID/release/pub/kk-api-management/product/d388cac3-16df-4519-9e80-f8ef633048b9?",
+          "isSoldOut": false,
+          "notCarried": false,
+          "isFood": false,
+          "category": "Non Coffee",
+          "options": {
+            "sizes": [],
+            "temps": [
+              "Ice",
+              "Hot"
+            ],
+            "ices": [
+              "Normal Ice",
+              "Less Ice",
+              "No Ice"
+            ],
+            "sugars": [
+              "Normal Sugar",
+              "Less Sugar",
+              "No Sugar"
+            ]
+          }
+        },
+        {
+          "key": "tarocloudmilktea",
+          "name": "Taro Cloud Milk Tea",
+          "img": "https://cdn.kopikenangan.com/ID/release/pub/kk-api-management/product/72c9b4d3-a487-457d-8e94-060d3aee9b1e?",
+          "isSoldOut": false,
+          "notCarried": false,
+          "isFood": false,
+          "category": "Tea",
+          "options": {
+            "sizes": [],
+            "temps": [
+              "Ice",
+              "Hot"
+            ],
+            "ices": [
+              "Normal Ice",
+              "Less Ice",
+              "No Ice"
+            ],
+            "sugars": [
+              "Normal Sugar",
+              "Less Sugar",
+              "No Sugar"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "key": "bundle:bundle-2cup-1snack-35",
+      "id": "bundle-2cup-1snack-35",
+      "type": "pick",
+      "name": "BUNDLING JAJAN MURCE — rabu kamis",
+      "img": "/uploads/e55e7136ff135717.jpg",
+      "meta": "1 Cup Reg + 1 Snack · 20K",
+      "desc": "Bebas pilih 1 minuman sesuai varian yang tersedia dan 1 snack roti coklat klasik dalam kemasan plastik. Tidak bisa upsize dan tidak berlaku di outlet overprice. Khusus outlet tertentu seperti stasiun, mall, dan rest area dikenakan tambahan Rp4.000 per paket.",
+      "size": "Regular",
+      "price": 20000,
+      "isBundle": true,
+      "distinct": false,
+      "slots": [
+        {
+          "label": "Minuman 1",
+          "options": [
+            {
+              "key": "pistachioarenlatte",
+              "name": "Pistachio Aren Latte",
+              "img": "https://cdn.kopikenangan.com/public/392219eb-08e1-daf9-69d6-a12a8242e5be",
+              "isSoldOut": false,
+              "notCarried": false,
+              "isFood": false,
+              "category": "Coffee",
+              "options": {
+                "sizes": [],
+                "temps": [
+                  "Ice",
+                  "Hot"
+                ],
+                "ices": [
+                  "Normal Ice",
+                  "Less Ice",
+                  "No Ice"
+                ],
+                "sugars": [
+                  "Normal Sugar",
+                  "Less Sugar",
+                  "No Sugar"
+                ]
+              }
+            },
+            {
+              "key": "kopikenanganmantan",
+              "name": "Kopi Kenangan Mantan",
+              "img": "https://cdn.kopikenangan.com/public/da484154-47b1-a756-54a4-8b3490fb0eae",
+              "isSoldOut": false,
+              "notCarried": false,
+              "isFood": false,
+              "category": "Coffee",
+              "options": {
+                "sizes": [],
+                "temps": [
+                  "Ice",
+                  "Hot"
+                ],
+                "ices": [
+                  "Normal Ice",
+                  "Less Ice",
+                  "No Ice"
+                ],
+                "sugars": [
+                  "Normal Sugar",
+                  "Less Sugar",
+                  "No Sugar"
+                ]
+              }
+            },
+            {
+              "key": "spanishlatte",
+              "name": "Spanish Latte",
+              "img": "https://cdn.kopikenangan.com/public/e3aa23b8-278d-54a0-0769-0de6e82b4d60",
+              "isSoldOut": false,
+              "notCarried": false,
+              "isFood": false,
+              "category": "Coffee",
+              "options": {
+                "sizes": [],
+                "temps": [
+                  "Ice",
+                  "Hot"
+                ],
+                "ices": [
+                  "Normal Ice",
+                  "Less Ice",
+                  "No Ice"
+                ],
+                "sugars": [
+                  "Normal Sugar",
+                  "Less Sugar",
+                  "No Sugar"
+                ]
+              }
+            },
+            {
+              "key": "bananaamericano",
+              "name": "Banana Americano",
+              "img": "https://cdn.kopikenangan.com/ID/release/pub/kk-api-management/product/c0442198-2f86-4d81-9a55-9aaf35019b92?",
+              "isSoldOut": false,
+              "notCarried": false,
+              "isFood": false,
+              "category": "Coffee",
+              "options": {
+                "sizes": [],
+                "temps": [
+                  "Ice",
+                  "Hot"
+                ],
+                "ices": [
+                  "Normal Ice",
+                  "Less Ice",
+                  "No Ice"
+                ],
+                "sugars": [
+                  "Normal Sugar",
+                  "Less Sugar",
+                  "No Sugar"
+                ]
+              }
+            },
+            {
+              "key": "ogthaitea",
+              "name": "OG Thai Tea",
+              "img": "https://cdn.kopikenangan.com/ID/release/pub/kk-api-management/product/4f6889ec-6103-4fa0-a447-b7b3ee2742c9?",
+              "isSoldOut": false,
+              "notCarried": false,
+              "isFood": false,
+              "category": "Tea",
+              "options": {
+                "sizes": [],
+                "temps": [
+                  "Ice",
+                  "Hot"
+                ],
+                "ices": [
+                  "Normal Ice",
+                  "Less Ice",
+                  "No Ice"
+                ],
+                "sugars": [
+                  "Normal Sugar",
+                  "Less Sugar",
+                  "No Sugar"
+                ]
+              }
+            },
+            {
+              "key": "babyccino",
+              "name": "Babyccino",
+              "img": "https://cdn.kopikenangan.com/public/afd5cdf3-964b-a63a-6db2-fb8c08410c61",
+              "isSoldOut": false,
+              "notCarried": false,
+              "isFood": false,
+              "category": "Non Coffee",
+              "options": {
+                "sizes": [],
+                "temps": [
+                  "Ice",
+                  "Hot"
+                ],
+                "ices": [
+                  "Normal Ice",
+                  "Less Ice",
+                  "No Ice"
+                ],
+                "sugars": [
+                  "Normal Sugar",
+                  "Less Sugar",
+                  "No Sugar"
+                ]
+              }
+            },
+            {
+              "key": "lemonblacktea",
+              "name": "Lemon Black Tea",
+              "img": "https://cdn.kopikenangan.com/public/3be29e5b-7a9d-8cb5-1d97-9667d92378f9",
+              "isSoldOut": false,
+              "notCarried": false,
+              "isFood": false,
+              "category": "Tea",
+              "options": {
+                "sizes": [],
+                "temps": [
+                  "Ice",
+                  "Hot"
+                ],
+                "ices": [
+                  "Normal Ice",
+                  "Less Ice",
+                  "No Ice"
+                ],
+                "sugars": [
+                  "Normal Sugar",
+                  "Less Sugar",
+                  "No Sugar"
+                ]
+              }
+            },
+            {
+              "key": "freshlemonade",
+              "name": "Fresh Lemonade",
+              "img": "https://cdn.kopikenangan.com/public/a68ad5fc-839b-e7b4-c502-8535f7e76e55",
+              "isSoldOut": true,
+              "notCarried": true,
+              "isFood": false,
+              "category": "Non Coffee",
+              "options": {
+                "sizes": [],
+                "temps": [
+                  "Ice",
+                  "Hot"
+                ],
+                "ices": [
+                  "Normal Ice",
+                  "Less Ice",
+                  "No Ice"
+                ],
+                "sugars": [
+                  "Normal Sugar",
+                  "Less Sugar",
+                  "No Sugar"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "label": "Snack",
+          "options": [
+            {
+              "key": "sugardonut",
+              "name": "Sugar Donut",
+              "img": "https://cdn.kopikenangan.com/public/8ee8824b-5f64-470c-57aa-d6b81a7ba9f1",
+              "isSoldOut": false,
+              "notCarried": false,
+              "isFood": true,
+              "category": "Food",
+              "options": {
+                "sizes": [],
+                "temps": [],
+                "ices": [],
+                "sugars": []
+              }
+            },
+            {
+              "key": "roticoklatklasik",
+              "name": "Roti Coklat Klasik",
+              "img": "https://cdn.kopikenangan.com/public/b10ffd87-6f6e-fb75-8a37-2b1e993bdc8a",
+              "isSoldOut": true,
+              "notCarried": true,
+              "isFood": true,
+              "category": "Food",
+              "options": {
+                "sizes": [],
+                "temps": [],
+                "ices": [],
+                "sugars": []
+              }
+            }
+          ]
+        }
+      ],
+      "isSoldOut": false,
+      "candidates": [
+        {
+          "key": "pistachioarenlatte",
+          "name": "Pistachio Aren Latte",
+          "img": "https://cdn.kopikenangan.com/public/392219eb-08e1-daf9-69d6-a12a8242e5be",
+          "isSoldOut": false,
+          "notCarried": false,
+          "isFood": false,
+          "category": "Coffee",
+          "options": {
+            "sizes": [],
+            "temps": [
+              "Ice",
+              "Hot"
+            ],
+            "ices": [
+              "Normal Ice",
+              "Less Ice",
+              "No Ice"
+            ],
+            "sugars": [
+              "Normal Sugar",
+              "Less Sugar",
+              "No Sugar"
+            ]
+          }
+        },
+        {
+          "key": "kopikenanganmantan",
+          "name": "Kopi Kenangan Mantan",
+          "img": "https://cdn.kopikenangan.com/public/da484154-47b1-a756-54a4-8b3490fb0eae",
+          "isSoldOut": false,
+          "notCarried": false,
+          "isFood": false,
+          "category": "Coffee",
+          "options": {
+            "sizes": [],
+            "temps": [
+              "Ice",
+              "Hot"
+            ],
+            "ices": [
+              "Normal Ice",
+              "Less Ice",
+              "No Ice"
+            ],
+            "sugars": [
+              "Normal Sugar",
+              "Less Sugar",
+              "No Sugar"
+            ]
+          }
+        },
+        {
+          "key": "spanishlatte",
+          "name": "Spanish Latte",
+          "img": "https://cdn.kopikenangan.com/public/e3aa23b8-278d-54a0-0769-0de6e82b4d60",
+          "isSoldOut": false,
+          "notCarried": false,
+          "isFood": false,
+          "category": "Coffee",
+          "options": {
+            "sizes": [],
+            "temps": [
+              "Ice",
+              "Hot"
+            ],
+            "ices": [
+              "Normal Ice",
+              "Less Ice",
+              "No Ice"
+            ],
+            "sugars": [
+              "Normal Sugar",
+              "Less Sugar",
+              "No Sugar"
+            ]
+          }
+        },
+        {
+          "key": "bananaamericano",
+          "name": "Banana Americano",
+          "img": "https://cdn.kopikenangan.com/ID/release/pub/kk-api-management/product/c0442198-2f86-4d81-9a55-9aaf35019b92?",
+          "isSoldOut": false,
+          "notCarried": false,
+          "isFood": false,
+          "category": "Coffee",
+          "options": {
+            "sizes": [],
+            "temps": [
+              "Ice",
+              "Hot"
+            ],
+            "ices": [
+              "Normal Ice",
+              "Less Ice",
+              "No Ice"
+            ],
+            "sugars": [
+              "Normal Sugar",
+              "Less Sugar",
+              "No Sugar"
+            ]
+          }
+        },
+        {
+          "key": "ogthaitea",
+          "name": "OG Thai Tea",
+          "img": "https://cdn.kopikenangan.com/ID/release/pub/kk-api-management/product/4f6889ec-6103-4fa0-a447-b7b3ee2742c9?",
+          "isSoldOut": false,
+          "notCarried": false,
+          "isFood": false,
+          "category": "Tea",
+          "options": {
+            "sizes": [],
+            "temps": [
+              "Ice",
+              "Hot"
+            ],
+            "ices": [
+              "Normal Ice",
+              "Less Ice",
+              "No Ice"
+            ],
+            "sugars": [
+              "Normal Sugar",
+              "Less Sugar",
+              "No Sugar"
+            ]
+          }
+        },
+        {
+          "key": "babyccino",
+          "name": "Babyccino",
+          "img": "https://cdn.kopikenangan.com/public/afd5cdf3-964b-a63a-6db2-fb8c08410c61",
+          "isSoldOut": false,
+          "notCarried": false,
+          "isFood": false,
+          "category": "Non Coffee",
+          "options": {
+            "sizes": [],
+            "temps": [
+              "Ice",
+              "Hot"
+            ],
+            "ices": [
+              "Normal Ice",
+              "Less Ice",
+              "No Ice"
+            ],
+            "sugars": [
+              "Normal Sugar",
+              "Less Sugar",
+              "No Sugar"
+            ]
+          }
+        },
+        {
+          "key": "lemonblacktea",
+          "name": "Lemon Black Tea",
+          "img": "https://cdn.kopikenangan.com/public/3be29e5b-7a9d-8cb5-1d97-9667d92378f9",
+          "isSoldOut": false,
+          "notCarried": false,
+          "isFood": false,
+          "category": "Tea",
+          "options": {
+            "sizes": [],
+            "temps": [
+              "Ice",
+              "Hot"
+            ],
+            "ices": [
+              "Normal Ice",
+              "Less Ice",
+              "No Ice"
+            ],
+            "sugars": [
+              "Normal Sugar",
+              "Less Sugar",
+              "No Sugar"
+            ]
+          }
+        },
+        {
+          "key": "freshlemonade",
+          "name": "Fresh Lemonade",
+          "img": "https://cdn.kopikenangan.com/public/a68ad5fc-839b-e7b4-c502-8535f7e76e55",
+          "isSoldOut": true,
+          "notCarried": true,
+          "isFood": false,
+          "category": "Non Coffee",
+          "options": {
+            "sizes": [],
+            "temps": [
+              "Ice",
+              "Hot"
+            ],
+            "ices": [
+              "Normal Ice",
+              "Less Ice",
+              "No Ice"
+            ],
+            "sugars": [
+              "Normal Sugar",
+              "Less Sugar",
+              "No Sugar"
+            ]
+          }
+        },
+        {
+          "key": "sugardonut",
+          "name": "Sugar Donut",
+          "img": "https://cdn.kopikenangan.com/public/8ee8824b-5f64-470c-57aa-d6b81a7ba9f1",
+          "isSoldOut": false,
+          "notCarried": false,
+          "isFood": true,
+          "category": "Food",
+          "options": {
+            "sizes": [],
+            "temps": [],
+            "ices": [],
+            "sugars": []
+          }
+        },
+        {
+          "key": "roticoklatklasik",
+          "name": "Roti Coklat Klasik",
+          "img": "https://cdn.kopikenangan.com/public/b10ffd87-6f6e-fb75-8a37-2b1e993bdc8a",
+          "isSoldOut": true,
+          "notCarried": true,
+          "isFood": true,
+          "category": "Food",
+          "options": {
+            "sizes": [],
+            "temps": [],
+            "ices": [],
+            "sugars": []
+          }
+        }
+      ]
+    },
+    {
+      "key": "bundle:bundle-2-large",
+      "id": "bundle-2-large",
+      "type": "variant",
+      "name": "BUNDLING 2 CUP LARGE",
+      "img": "/uploads/91e0cca15969313e.jpg",
+      "meta": "",
+      "desc": "Bebas pilih 2 minuman cup large sesuai varian yang tersedia, bisa pilih menu yang sama atau mix. Khusus outlet tertentu seperti stasiun, mall, dan rest area dikenakan tambahan Rp4.000 per paket.",
+      "size": "Large",
+      "price": 33000,
+      "isBundle": true,
+      "count": 2,
+      "variants": [
+        {
+          "key": "kopikenanganmantan",
+          "name": "Kopi Kenangan Mantan",
+          "img": "https://cdn.kopikenangan.com/public/da484154-47b1-a756-54a4-8b3490fb0eae",
+          "isSoldOut": false,
+          "notCarried": false,
+          "isFood": false,
+          "category": "Coffee",
+          "options": {
+            "sizes": [],
+            "temps": [
+              "Ice",
+              "Hot"
+            ],
+            "ices": [
+              "Normal Ice",
+              "Less Ice",
+              "No Ice"
+            ],
+            "sugars": [
+              "Normal Sugar",
+              "Less Sugar",
+              "No Sugar"
+            ]
+          },
+          "price": 33000
+        },
+        {
+          "key": "spanishlatte",
+          "name": "Spanish Latte",
+          "img": "https://cdn.kopikenangan.com/public/e3aa23b8-278d-54a0-0769-0de6e82b4d60",
+          "isSoldOut": false,
+          "notCarried": false,
+          "isFood": false,
+          "category": "Coffee",
+          "options": {
+            "sizes": [],
+            "temps": [
+              "Ice",
+              "Hot"
+            ],
+            "ices": [
+              "Normal Ice",
+              "Less Ice",
+              "No Ice"
+            ],
+            "sugars": [
+              "Normal Sugar",
+              "Less Sugar",
+              "No Sugar"
+            ]
+          },
+          "price": 33000
+        },
+        {
+          "key": "pistachioarenlatte",
+          "name": "Pistachio Aren Latte",
+          "img": "https://cdn.kopikenangan.com/public/392219eb-08e1-daf9-69d6-a12a8242e5be",
+          "isSoldOut": false,
+          "notCarried": false,
+          "isFood": false,
+          "category": "Coffee",
+          "options": {
+            "sizes": [],
+            "temps": [
+              "Ice",
+              "Hot"
+            ],
+            "ices": [
+              "Normal Ice",
+              "Less Ice",
+              "No Ice"
+            ],
+            "sugars": [
+              "Normal Sugar",
+              "Less Sugar",
+              "No Sugar"
+            ]
+          },
+          "price": 33000
+        },
+        {
+          "key": "butterscotcharenlatte",
+          "name": "Butterscotch Aren Latte",
+          "img": "https://cdn.kopikenangan.com/public/a1cb7272-f6e2-bb69-950d-59bc87515fd2",
+          "isSoldOut": false,
+          "notCarried": false,
+          "isFood": false,
+          "category": "Coffee",
+          "options": {
+            "sizes": [],
+            "temps": [
+              "Ice",
+              "Hot"
+            ],
+            "ices": [
+              "Normal Ice",
+              "Less Ice",
+              "No Ice"
+            ],
+            "sugars": [
+              "Normal Sugar",
+              "Less Sugar",
+              "No Sugar"
+            ]
+          },
+          "price": 33000
+        },
+        {
+          "key": "americano",
+          "name": "Americano",
+          "img": "https://cdn.kopikenangan.com/public/36155ddd-784d-a7d9-4d02-13d596417078",
+          "isSoldOut": false,
+          "notCarried": false,
+          "isFood": false,
+          "category": "Coffee",
+          "options": {
+            "sizes": [],
+            "temps": [
+              "Ice",
+              "Hot"
+            ],
+            "ices": [
+              "Normal Ice",
+              "Less Ice",
+              "No Ice"
+            ],
+            "sugars": [
+              "Normal Sugar",
+              "Less Sugar",
+              "No Sugar"
+            ]
+          },
+          "price": 33000
+        },
+        {
+          "key": "bananaamericano",
+          "name": "Banana Americano",
+          "img": "https://cdn.kopikenangan.com/ID/release/pub/kk-api-management/product/c0442198-2f86-4d81-9a55-9aaf35019b92?",
+          "isSoldOut": false,
+          "notCarried": false,
+          "isFood": false,
+          "category": "Coffee",
+          "options": {
+            "sizes": [],
+            "temps": [
+              "Ice",
+              "Hot"
+            ],
+            "ices": [
+              "Normal Ice",
+              "Less Ice",
+              "No Ice"
+            ],
+            "sugars": [
+              "Normal Sugar",
+              "Less Sugar",
+              "No Sugar"
+            ]
+          },
+          "price": 33000
+        },
+        {
+          "key": "ogthaitea",
+          "name": "OG Thai Tea",
+          "img": "https://cdn.kopikenangan.com/ID/release/pub/kk-api-management/product/4f6889ec-6103-4fa0-a447-b7b3ee2742c9?",
+          "isSoldOut": false,
+          "notCarried": false,
+          "isFood": false,
+          "category": "Tea",
+          "options": {
+            "sizes": [],
+            "temps": [
+              "Ice",
+              "Hot"
+            ],
+            "ices": [
+              "Normal Ice",
+              "Less Ice",
+              "No Ice"
+            ],
+            "sugars": [
+              "Normal Sugar",
+              "Less Sugar",
+              "No Sugar"
+            ]
+          },
+          "price": 33000
+        },
+        {
+          "key": "taromilk",
+          "name": "Taro Milk",
+          "img": "https://cdn.kopikenangan.com/ID/release/pub/kk-api-management/product/d388cac3-16df-4519-9e80-f8ef633048b9?",
+          "isSoldOut": false,
+          "notCarried": false,
+          "isFood": false,
+          "category": "Non Coffee",
+          "options": {
+            "sizes": [],
+            "temps": [
+              "Ice",
+              "Hot"
+            ],
+            "ices": [
+              "Normal Ice",
+              "Less Ice",
+              "No Ice"
+            ],
+            "sugars": [
+              "Normal Sugar",
+              "Less Sugar",
+              "No Sugar"
+            ]
+          },
+          "price": 33000
+        },
+        {
+          "key": "milodinosaurus",
+          "name": "Milo Dinosaurus",
+          "img": "https://cdn.kopikenangan.com/public/658f1737-546d-133b-ac36-aea2f524920c",
+          "isSoldOut": false,
+          "notCarried": false,
+          "isFood": false,
+          "category": "Non Coffee",
+          "options": {
+            "sizes": [],
+            "temps": [
+              "Ice",
+              "Hot"
+            ],
+            "ices": [
+              "Normal Ice",
+              "Less Ice",
+              "No Ice"
+            ],
+            "sugars": [
+              "Normal Sugar",
+              "Less Sugar",
+              "No Sugar"
+            ]
+          },
+          "price": 38000
+        },
+        {
+          "key": "kopisusublackaren",
+          "name": "Kopi Susu Black Aren",
+          "img": "https://cdn.kopikenangan.com/public/2ba99b9b-7912-397a-9fea-a21d4073a197",
+          "isSoldOut": false,
+          "notCarried": false,
+          "isFood": false,
+          "category": "Coffee",
+          "options": {
+            "sizes": [],
+            "temps": [
+              "Ice",
+              "Hot"
+            ],
+            "ices": [
+              "Normal Ice",
+              "Less Ice",
+              "No Ice"
+            ],
+            "sugars": [
+              "Normal Sugar",
+              "Less Sugar",
+              "No Sugar"
+            ]
+          },
+          "price": 38000
+        },
+        {
+          "key": "tarocloudlatte",
+          "name": "Taro Cloud Latte",
+          "img": "https://cdn.kopikenangan.com/ID/release/pub/kk-api-management/product/73af63fc-8f5c-48c0-aece-da0307e77af8?",
+          "isSoldOut": true,
+          "notCarried": true,
+          "isFood": false,
+          "category": "Coffee",
+          "options": {
+            "sizes": [],
+            "temps": [
+              "Ice",
+              "Hot"
+            ],
+            "ices": [
+              "Normal Ice",
+              "Less Ice",
+              "No Ice"
+            ],
+            "sugars": [
+              "Normal Sugar",
+              "Less Sugar",
+              "No Sugar"
+            ]
+          },
+          "price": 38000
+        }
+      ],
+      "isSoldOut": false,
+      "candidates": [
+        {
+          "sizes": [],
+          "temps": [
+            "Ice",
+            "Hot"
+          ],
+          "ices": [
+            "Normal Ice",
+            "Less Ice",
+            "No Ice"
+          ],
+          "sugars": [
+            "Normal Sugar",
+            "Less Sugar",
+            "No Sugar"
+          ]
+        },
+        {
+          "sizes": [],
+          "temps": [
+            "Ice",
+            "Hot"
+          ],
+          "ices": [
+            "Normal Ice",
+            "Less Ice",
+            "No Ice"
+          ],
+          "sugars": [
+            "Normal Sugar",
+            "Less Sugar",
+            "No Sugar"
+          ]
+        },
+        {
+          "sizes": [],
+          "temps": [
+            "Ice",
+            "Hot"
+          ],
+          "ices": [
+            "Normal Ice",
+            "Less Ice",
+            "No Ice"
+          ],
+          "sugars": [
+            "Normal Sugar",
+            "Less Sugar",
+            "No Sugar"
+          ]
+        },
+        {
+          "sizes": [],
+          "temps": [
+            "Ice",
+            "Hot"
+          ],
+          "ices": [
+            "Normal Ice",
+            "Less Ice",
+            "No Ice"
+          ],
+          "sugars": [
+            "Normal Sugar",
+            "Less Sugar",
+            "No Sugar"
+          ]
+        },
+        {
+          "sizes": [],
+          "temps": [
+            "Ice",
+            "Hot"
+          ],
+          "ices": [
+            "Normal Ice",
+            "Less Ice",
+            "No Ice"
+          ],
+          "sugars": [
+            "Normal Sugar",
+            "Less Sugar",
+            "No Sugar"
+          ]
+        },
+        {
+          "sizes": [],
+          "temps": [
+            "Ice",
+            "Hot"
+          ],
+          "ices": [
+            "Normal Ice",
+            "Less Ice",
+            "No Ice"
+          ],
+          "sugars": [
+            "Normal Sugar",
+            "Less Sugar",
+            "No Sugar"
+          ]
+        },
+        {
+          "sizes": [],
+          "temps": [
+            "Ice",
+            "Hot"
+          ],
+          "ices": [
+            "Normal Ice",
+            "Less Ice",
+            "No Ice"
+          ],
+          "sugars": [
+            "Normal Sugar",
+            "Less Sugar",
+            "No Sugar"
+          ]
+        },
+        {
+          "sizes": [],
+          "temps": [
+            "Ice",
+            "Hot"
+          ],
+          "ices": [
+            "Normal Ice",
+            "Less Ice",
+            "No Ice"
+          ],
+          "sugars": [
+            "Normal Sugar",
+            "Less Sugar",
+            "No Sugar"
+          ]
+        },
+        {
+          "sizes": [],
+          "temps": [
+            "Ice",
+            "Hot"
+          ],
+          "ices": [
+            "Normal Ice",
+            "Less Ice",
+            "No Ice"
+          ],
+          "sugars": [
+            "Normal Sugar",
+            "Less Sugar",
+            "No Sugar"
+          ]
+        },
+        {
+          "sizes": [],
+          "temps": [
+            "Ice",
+            "Hot"
+          ],
+          "ices": [
+            "Normal Ice",
+            "Less Ice",
+            "No Ice"
+          ],
+          "sugars": [
+            "Normal Sugar",
+            "Less Sugar",
+            "No Sugar"
+          ]
+        },
+        {
+          "sizes": [],
+          "temps": [
+            "Ice",
+            "Hot"
+          ],
+          "ices": [
+            "Normal Ice",
+            "Less Ice",
+            "No Ice"
+          ],
+          "sugars": [
+            "Normal Sugar",
+            "Less Sugar",
+            "No Sugar"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "bundle:bundle-3cup-premium-47",
+      "id": "bundle-3cup-premium-47",
+      "type": "variant",
+      "name": "BUNDLING 2 CUP FRAPPE REG",
+      "img": "/uploads/4ea70628064fc8b3.jpg",
+      "meta": "2 cup Large • 7 varian",
+      "desc": "Bebas pilih 2 minuman cup reguler frappe sesuai varian yang tersedia, hanya bisa pilih menu yang sama. Khusus outlet tertentu seperti stasiun, mall, dan rest area dikenakan tambahan Rp4.000 per paket.",
+      "size": "Regular",
+      "price": 35000,
+      "isBundle": true,
+      "count": 2,
+      "variants": [
+        {
+          "key": "vanillafrappe",
+          "name": "Vanilla Frappe",
+          "img": "",
+          "isSoldOut": true,
+          "notCarried": true,
+          "isFood": false,
+          "unknown": true,
+          "options": {
+            "sizes": [
+              "Regular",
+              "Large"
+            ],
+            "temps": [
+              "Ice"
+            ],
+            "ices": [
+              "Normal Ice",
+              "Less Ice",
+              "No Ice"
+            ],
+            "sugars": [
+              "Normal Sugar",
+              "Less Sugar",
+              "No Sugar"
+            ]
+          },
+          "price": 35000
+        },
+        {
+          "key": "kkmfrappe",
+          "name": "Kkm Frappe",
+          "img": "",
+          "isSoldOut": true,
+          "notCarried": true,
+          "isFood": false,
+          "unknown": true,
+          "options": {
+            "sizes": [
+              "Regular",
+              "Large"
+            ],
+            "temps": [
+              "Ice"
+            ],
+            "ices": [
+              "Normal Ice",
+              "Less Ice",
+              "No Ice"
+            ],
+            "sugars": [
+              "Normal Sugar",
+              "Less Sugar",
+              "No Sugar"
+            ]
+          },
+          "price": 35000
+        },
+        {
+          "key": "butterscotchkenanganfrappe",
+          "name": "Butterscotch Kenangan Frappe",
+          "img": "https://cdn.kopikenangan.com/public/36ac278e-5212-00b3-ce73-e347a88b0372",
+          "isSoldOut": true,
+          "notCarried": true,
+          "isFood": false,
+          "category": "Frappe",
+          "options": {
+            "sizes": [],
+            "temps": [
+              "Ice"
+            ],
+            "ices": [
+              "Normal Ice",
+              "Less Ice",
+              "No Ice"
+            ],
+            "sugars": [
+              "Normal Sugar",
+              "Less Sugar",
+              "No Sugar"
+            ]
+          },
+          "price": 38000
+        },
+        {
+          "key": "dutchchocokenanganfrappe",
+          "name": "Dutch Choco Kenangan Frappe",
+          "img": "https://cdn.kopikenangan.com/public/0bf0ec79-18a9-414f-4b7e-e50b940495bf",
+          "isSoldOut": true,
+          "notCarried": true,
+          "isFood": false,
+          "category": "Frappe",
+          "options": {
+            "sizes": [],
+            "temps": [
+              "Ice"
+            ],
+            "ices": [
+              "Normal Ice",
+              "Less Ice",
+              "No Ice"
+            ],
+            "sugars": [
+              "Normal Sugar",
+              "Less Sugar",
+              "No Sugar"
+            ]
+          },
+          "price": 38000
+        },
+        {
+          "key": "matchafrappe",
+          "name": "Matcha Frappe",
+          "img": "",
+          "isSoldOut": true,
+          "notCarried": true,
+          "isFood": false,
+          "unknown": true,
+          "options": {
+            "sizes": [
+              "Regular",
+              "Large"
+            ],
+            "temps": [
+              "Ice"
+            ],
+            "ices": [
+              "Normal Ice",
+              "Less Ice",
+              "No Ice"
+            ],
+            "sugars": [
+              "Normal Sugar",
+              "Less Sugar",
+              "No Sugar"
+            ]
+          },
+          "price": 40000
+        },
+        {
+          "key": "vanillafrappekkmfrappe",
+          "name": "Vanilla Frappe + Kkm Frappe",
+          "img": "",
+          "isSoldOut": true,
+          "notCarried": true,
+          "isFood": false,
+          "unknown": true,
+          "options": {
+            "sizes": [
+              "Regular",
+              "Large"
+            ],
+            "temps": [
+              "Ice"
+            ],
+            "ices": [
+              "Normal Ice",
+              "Less Ice",
+              "No Ice"
+            ],
+            "sugars": [
+              "Normal Sugar",
+              "Less Sugar",
+              "No Sugar"
+            ]
+          },
+          "price": 35000
+        },
+        {
+          "key": "butterscotchfrappedutchchocofrappe",
+          "name": "Butterscotch Frappe + Dutch Choco Frappe",
+          "img": "",
+          "isSoldOut": true,
+          "notCarried": true,
+          "isFood": false,
+          "unknown": true,
+          "options": {
+            "sizes": [
+              "Regular",
+              "Large"
+            ],
+            "temps": [
+              "Ice"
+            ],
+            "ices": [
+              "Normal Ice",
+              "Less Ice",
+              "No Ice"
+            ],
+            "sugars": [
+              "Normal Sugar",
+              "Less Sugar",
+              "No Sugar"
+            ]
+          },
+          "price": 35000
+        }
+      ],
+      "isSoldOut": true,
+      "candidates": [
+        {
+          "sizes": [
+            "Regular",
+            "Large"
+          ],
+          "temps": [
+            "Ice"
+          ],
+          "ices": [
+            "Normal Ice",
+            "Less Ice",
+            "No Ice"
+          ],
+          "sugars": [
+            "Normal Sugar",
+            "Less Sugar",
+            "No Sugar"
+          ]
+        },
+        {
+          "sizes": [
+            "Regular",
+            "Large"
+          ],
+          "temps": [
+            "Ice"
+          ],
+          "ices": [
+            "Normal Ice",
+            "Less Ice",
+            "No Ice"
+          ],
+          "sugars": [
+            "Normal Sugar",
+            "Less Sugar",
+            "No Sugar"
+          ]
+        },
+        {
+          "sizes": [],
+          "temps": [
+            "Ice"
+          ],
+          "ices": [
+            "Normal Ice",
+            "Less Ice",
+            "No Ice"
+          ],
+          "sugars": [
+            "Normal Sugar",
+            "Less Sugar",
+            "No Sugar"
+          ]
+        },
+        {
+          "sizes": [],
+          "temps": [
+            "Ice"
+          ],
+          "ices": [
+            "Normal Ice",
+            "Less Ice",
+            "No Ice"
+          ],
+          "sugars": [
+            "Normal Sugar",
+            "Less Sugar",
+            "No Sugar"
+          ]
+        },
+        {
+          "sizes": [
+            "Regular",
+            "Large"
+          ],
+          "temps": [
+            "Ice"
+          ],
+          "ices": [
+            "Normal Ice",
+            "Less Ice",
+            "No Ice"
+          ],
+          "sugars": [
+            "Normal Sugar",
+            "Less Sugar",
+            "No Sugar"
+          ]
+        },
+        {
+          "sizes": [
+            "Regular",
+            "Large"
+          ],
+          "temps": [
+            "Ice"
+          ],
+          "ices": [
+            "Normal Ice",
+            "Less Ice",
+            "No Ice"
+          ],
+          "sugars": [
+            "Normal Sugar",
+            "Less Sugar",
+            "No Sugar"
+          ]
+        },
+        {
+          "sizes": [
+            "Regular",
+            "Large"
+          ],
+          "temps": [
+            "Ice"
+          ],
+          "ices": [
+            "Normal Ice",
+            "Less Ice",
+            "No Ice"
+          ],
+          "sugars": [
+            "Normal Sugar",
+            "Less Sugar",
+            "No Sugar"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "bundle:bundle-2cup-2snack-37",
+      "id": "bundle-2cup-2snack-37",
+      "type": "variant",
+      "name": "BUNDLING KKM 3 CUP LARGE",
+      "img": "/uploads/552eaa72d19ef828.jpg",
+      "meta": "3 KKM LARGE • 51K",
+      "desc": "3 minuman cup large Kopi Kenangan Mantan dengan varian yang sama sesuai pilihan yang tersedia. Khusus outlet tertentu seperti stasiun, mall, dan rest area dikenakan tambahan Rp6.000 per paket.",
+      "size": "Large",
+      "price": 51000,
+      "isBundle": true,
+      "count": 2,
+      "variants": [
+        {
+          "key": "kopikenanganmantan",
+          "name": "Kopi Kenangan Mantan",
+          "img": "https://cdn.kopikenangan.com/public/da484154-47b1-a756-54a4-8b3490fb0eae",
+          "isSoldOut": false,
+          "notCarried": false,
+          "isFood": false,
+          "category": "Coffee",
+          "options": {
+            "sizes": [],
+            "temps": [
+              "Ice",
+              "Hot"
+            ],
+            "ices": [
+              "Normal Ice",
+              "Less Ice",
+              "No Ice"
+            ],
+            "sugars": [
+              "Normal Sugar",
+              "Less Sugar",
+              "No Sugar"
+            ]
+          },
+          "price": 51000
+        }
+      ],
+      "isSoldOut": false,
+      "candidates": [
+        {
+          "sizes": [],
+          "temps": [
+            "Ice",
+            "Hot"
+          ],
+          "ices": [
+            "Normal Ice",
+            "Less Ice",
+            "No Ice"
+          ],
+          "sugars": [
+            "Normal Sugar",
+            "Less Sugar",
+            "No Sugar"
+          ]
+        }
+      ]
+    }
+  ],
+  "outlet": "JKT.THAMCIT",
+  "preview": false
+}
