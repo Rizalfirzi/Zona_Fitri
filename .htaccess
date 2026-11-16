@@ -1,33 +1,68 @@
+# ==============================================================================
+# Zona Fitri - Apache / LiteSpeed Web Server Configuration (cPanel / Rumahweb)
+# ==============================================================================
+
 <IfModule mod_rewrite.c>
     RewriteEngine On
     RewriteBase /
 
-    # Prevent direct access to includes folder
-    RewriteRule ^includes/ - [F,L]
+    # 1. Block access to sensitive system directories & files
+    RewriteRule ^(includes|data|scripts|\.git|\.github)/ - [F,L]
+    RewriteRule ^(\.env|composer\.(json|lock)|package(-lock)?\.json) - [F,L]
 
-    # Serve existing files and directories directly
+    # 2. Redirect /uploads/ directly to upstream images
+    RewriteRule ^uploads/(.*)$ https://twinsjasdor.my.id/uploads/$1 [R=302,L]
+
+    # 3. Serve existing static files & directories directly
     RewriteCond %{REQUEST_FILENAME} -f [OR]
     RewriteCond %{REQUEST_FILENAME} -d
     RewriteRule ^ - [L]
 
-    # Route /api/config
+    # 4. API Endpoints Routing
     RewriteRule ^api/config/?$ api/config.php [QSA,L]
-
-    # Route /api/:brand/outlets
+    RewriteRule ^api/cron_sync/?$ api/cron_sync.php [QSA,L]
+    RewriteRule ^api/cron/sync/?$ api/cron_sync.php [QSA,L]
     RewriteRule ^api/([^/]+)/outlets/?$ api/outlets.php?brand=$1 [QSA,L]
-
-    # Route /api/:brand/menu
     RewriteRule ^api/([^/]+)/menu/?$ api/menu.php?brand=$1 [QSA,L]
-
-    # Route /api/orders
-    RewriteRule ^api/orders/?$ api/order.php [QSA,L]
-
-    # Route /api/track
+    RewriteRule ^api/([^/]+)/item/?$ api/item.php?brand=$1 [QSA,L]
+    RewriteRule ^api/orders?/?$ api/order.php [QSA,L]
     RewriteRule ^api/track/?$ api/track.php [QSA,L]
 
-    # Route Brand pages (/kopikenangan, /tomoro, /fore, /janjiw) to index.php
+    # 5. Route Brand Pages (/kopikenangan, /tomoro, /fore, /janjiw) to index.php
     RewriteRule ^(kopikenangan|tomoro|fore|janjiw|janjijiwa|jiwa)/?$ index.php?brand=$1 [QSA,L]
 
-    # Route all other requests to index.php
+    # 6. Route all other requests to index.php
     RewriteRule ^ index.php [QSA,L]
+</IfModule>
+
+# Disable Directory Browsing
+Options -Indexes
+
+# Default Encoding
+AddDefaultCharset UTF-8
+
+# Security Headers
+<IfModule mod_headers.c>
+    Header set X-Content-Type-Options "nosniff"
+    Header set X-Frame-Options "SAMEORIGIN"
+    Header set X-XSS-Protection "1; mode=block"
+</IfModule>
+
+# Performance: Compression (GZIP / Deflate)
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css application/javascript application/json application/xml image/svg+xml
+</IfModule>
+
+# Performance: Browser Caching
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType image/jpg "access plus 1 month"
+    ExpiresByType image/jpeg "access plus 1 month"
+    ExpiresByType image/gif "access plus 1 month"
+    ExpiresByType image/png "access plus 1 month"
+    ExpiresByType image/webp "access plus 1 month"
+    ExpiresByType image/svg+xml "access plus 1 month"
+    ExpiresByType text/css "access plus 1 week"
+    ExpiresByType application/javascript "access plus 1 week"
+    ExpiresByType font/woff2 "access plus 1 year"
 </IfModule>
