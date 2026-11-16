@@ -278,3 +278,4 @@ class SimpleMongo {
         return ($exitCode === 0) ? $stdout : null;
     }
 }
+

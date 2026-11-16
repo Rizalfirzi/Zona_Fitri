@@ -60,6 +60,11 @@ if ($cleanUri === '/api/orders' || $cleanUri === '/api/order') {
     exit;
 }
 
+if ($cleanUri === '/api/cron_sync' || $cleanUri === '/api/cron/sync') {
+    require __DIR__ . '/api/cron_sync.php';
+    exit;
+}
+
 if ($cleanUri === '/api/track') {
     require __DIR__ . '/api/track.php';
     exit;
