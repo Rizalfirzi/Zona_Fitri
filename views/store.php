@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <meta name="theme-color" content="#063420" />
+  <meta name="theme-color" content="#091C45" />
   <meta name="description" content="Order Kopi Kenangan, Tomoro, Fore & Janji Jiwa lebih hemat lewat Zona Fitri. Pilih outlet, pilih menu, kirim pesanan via WhatsApp." />
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Zona Fitri — Jasa Order Kopi" />
@@ -16,8 +16,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/assets/css/app.css?v=20261117" />
-  <link rel="stylesheet" href="/assets/css/store.css?v=20261117" />
+  <link rel="stylesheet" href="/assets/css/app.css?v=<?= time() ?>" />
+  <link rel="stylesheet" href="/assets/css/store.css?v=<?= time() ?>" />
   <script src="/assets/js/theme-boot.js"></script>
 </head>
 <body class="store-page">

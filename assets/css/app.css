@@ -1,43 +1,42 @@
-/* ═══════════════ ZONA FITRI — AESTHETIC EMERALD DESIGN SYSTEM ═══════════════
-   Primary: Deep Forest Emerald #062817 & #064E3B · Aksen: Vivid Mint #10B981 & #059669
-   Warm Gold Script: #F3C669 · Background: Warm Cream #FBF8F3 · Surface: Pure White #FFFFFF
+/* ═══════════════ ZONA FITRI — MODERN ROYAL NAVY DESIGN SYSTEM ═══════════════
+   Primary: Deep Royal Navy #0A192F & #133979 · Aksen: Electric Cyan #38BDF8 & #0284C7
+   Action / Success: Vivid Emerald #10B981 · Background: #F8FAFC · Surface: Pure White #FFFFFF
    Custom, aesthetic cafe ordering experience with floating shadows & smooth elevations */
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
 :root {
-  --green-deep: #062817;
-  --green-dark: #0A3D24;
-  --green-primary: #064E3B;
-  --green-mid: #059669;
-  --green-light: #10B981;
-  --green-mint: #34D399;
-  --green-ice: #ECFDF5;
-  --green-ice-subtle: #F0FDF4;
+  --navy-deep: #061126;
+  --navy-dark: #091C45;
+  --navy-primary: #0A192F;
+  --navy-mid: #133979;
+  --cyan-light: #38BDF8;
+  --cyan-mid: #0284C7;
+  --blue-accent: #2563EB;
 
-  --primary: #064E3B;
-  --primary-hover: #04382A;
+  --primary: #0A192F;
+  --primary-hover: #133979;
   --on-primary: #FFFFFF;
 
-  --accent: #10B981;
-  --accent-hover: #059669;
+  --accent: #38BDF8;
+  --accent-hover: #60A5FA;
 
-  --bg: #FBF8F3;
+  --bg: #F8FAFC;
   --surface: #FFFFFF;
-  --surface-2: #F3F4F6;
-  --cream: #FAF7F2;
+  --surface-2: #F1F5F9;
+  --cream: #F8FAFC;
 
-  --ink: #111827;
-  --heading: #062817;
-  --muted: #6B7280;
-  --faint: #9CA3AF;
+  --ink: #0F172A;
+  --heading: #0A192F;
+  --muted: #64748B;
+  --faint: #94A3B8;
 
-  --border: rgba(6, 40, 23, 0.10);
-  --border-subtle: #E5E7EB;
-  --border-focus: #10B981;
+  --border: rgba(10, 25, 47, 0.10);
+  --border-subtle: #E2E8F0;
+  --border-focus: #38BDF8;
 
   --red: #DC2626;
   --red-dark: #B91C1C;
-  --gold: #F3C669;
+  --gold: #F59E0B;
   --gold-dark: #D97706;
   --gold-soft: #FEF3C7;
 
@@ -50,11 +49,11 @@
   --danger: #EF4444;
   --danger-soft: #FEE2E2;
 
-  --shadow: 0 10px 25px -3px rgba(6, 40, 23, 0.08), 0 4px 10px -2px rgba(6, 40, 23, 0.04);
-  --shadow-sm: 0 3px 10px -1px rgba(6, 40, 23, 0.06), 0 1px 3px rgba(6, 40, 23, 0.03);
-  --shadow-xs: 0 1px 4px rgba(6, 40, 23, 0.05);
-  --shadow-btn: 0 4px 14px rgba(6, 78, 59, 0.28);
-  --shadow-glow: 0 0 25px rgba(16, 185, 129, 0.40);
+  --shadow: 0 10px 25px -3px rgba(10, 25, 47, 0.08), 0 4px 10px -2px rgba(10, 25, 47, 0.04);
+  --shadow-sm: 0 3px 10px -1px rgba(10, 25, 47, 0.06), 0 1px 3px rgba(10, 25, 47, 0.03);
+  --shadow-xs: 0 1px 4px rgba(10, 25, 47, 0.05);
+  --shadow-btn: 0 4px 14px rgba(19, 57, 121, 0.35);
+  --shadow-glow: 0 0 25px rgba(56, 189, 248, 0.45);
 
   --r-sm: 10px;
   --r-md: 14px;
@@ -181,13 +180,14 @@ button { font-family: inherit; }
 .btn:disabled { opacity: .5; cursor: not-allowed; transform: none; box-shadow: none; }
 
 .btn-primary {
-  background: linear-gradient(135deg, #064E3B 0%, #059669 100%);
+  background: linear-gradient(135deg, #0A192F 0%, #133979 100%);
   color: #FFFFFF;
-  box-shadow: var(--shadow-btn);
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  box-shadow: 0 4px 14px rgba(19, 57, 121, 0.35);
 }
 .btn-primary:hover {
-  background: linear-gradient(135deg, #04382A 0%, #047857 100%);
-  box-shadow: 0 6px 20px rgba(6, 78, 59, 0.4);
+  background: linear-gradient(135deg, #133979 0%, #2563EB 100%);
+  box-shadow: 0 6px 20px rgba(37, 99, 235, 0.45);
 }
 
 .btn-green {
@@ -394,44 +394,44 @@ button { font-family: inherit; }
   background: #ECFDF5; border: 1.5px solid #A7F3D0;
   border-radius: var(--r-md); padding: 12px; margin-top: 14px;
 }
-.order-code { font-size: 24px; font-weight: 900; letter-spacing: 1px; color: #064E3B; }
-.order-code-total { margin-top: 4px; color: #059669; }
+.order-code { font-size: 24px; font-weight: 900; letter-spacing: 1px; color: #0A192F; }
+.order-code-total { margin-top: 4px; color: #0284C7; }
 
 /* ── Floating Cart Bar ── */
 .cart-bar {
   position: fixed; bottom: 16px; left: 50%; transform: translateX(-50%); z-index: 80;
   width: min(448px, calc(100% - 28px));
   display: none; align-items: center; justify-content: space-between; gap: 10px;
-  background: linear-gradient(135deg, #062817 0%, #064E3B 100%);
+  background: linear-gradient(135deg, #0A192F 0%, #133979 100%);
   color: #FFFFFF;
-  border: 1.5px solid #10B981;
+  border: 1.5px solid #38BDF8;
   border-radius: 999px;
   padding: 11px 18px; cursor: pointer;
-  box-shadow: 0 12px 32px rgba(6, 40, 23, 0.45);
+  box-shadow: 0 12px 32px rgba(10, 25, 47, 0.55), 0 0 25px rgba(56, 189, 248, 0.35);
   font-family: inherit;
   transition: transform .15s ease, box-shadow .15s ease;
 }
 .cart-bar:hover {
   transform: translateX(-50%) translateY(-2px);
-  box-shadow: 0 16px 36px rgba(6, 40, 23, 0.55);
+  box-shadow: 0 16px 36px rgba(10, 25, 47, 0.65), 0 0 30px rgba(56, 189, 248, 0.5);
 }
 .cart-bar.show { display: flex; }
 .cart-bar.bump { animation: bump .35s var(--ease); }
 @keyframes bump { 30% { transform: translateX(-50%) scale(1.03); } }
 
 .cart-bar-left { display: flex; align-items: center; gap: 12px; }
-.cart-bar-icon { position: relative; display: grid; place-items: center; color: #A7F3D0; }
+.cart-bar-icon { position: relative; display: grid; place-items: center; color: #38BDF8; }
 .cart-bar-badge {
   position: absolute; top: -8px; right: -10px; min-width: 20px; height: 20px; padding: 0 4px;
   background: var(--red); color: #fff; border-radius: 999px; font-size: 11px; font-weight: 900;
-  display: grid; place-items: center; border: 2px solid #062817;
+  display: grid; place-items: center; border: 2px solid #0A192F;
 }
 .cart-bar-text { text-align: left; }
 .cart-bar-text b { display: block; font-size: 14.5px; color: #FFFFFF; }
-.cart-bar-text small { opacity: .8; font-size: 11.5px; color: #D1FAE5; }
+.cart-bar-text small { opacity: .85; font-size: 11.5px; color: #BAE6FD; }
 .cart-bar-right { display: flex; align-items: center; gap: 8px; }
-.cart-bar-right .price { font-size: 16px; color: #FFFFFF; }
-.cart-bar-right svg { color: #A7F3D0; }
+.cart-bar-right .price { font-size: 16px; color: #FFFFFF; font-weight: 800; }
+.cart-bar-right svg { color: #38BDF8; }
 body.has-cart { padding-bottom: 0; }
 
 .attention { animation: nudge .6s var(--ease) 2; }
