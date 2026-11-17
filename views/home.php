@@ -24,14 +24,6 @@
 <body class="home-page">
   <div class="app-container" id="splash">
 
-    <!-- Top Left Leaves & Top Right Dots -->
-    <img src="/img/splash_top_decor.png" alt="" class="decor-leaves-top" onerror="this.style.display='none';">
-    <div class="decor-dots-top" aria-hidden="true">
-      <span></span><span></span><span></span><span></span>
-      <span></span><span></span><span></span><span></span>
-      <span></span><span></span><span></span><span></span>
-    </div>
-
     <!-- Header Logo & Status Badge -->
     <div class="header">
       <div class="main-logo">
@@ -117,19 +109,14 @@
     </div>
 
     <!-- Footer Promo Section -->
-    <div class="footer-promo-row">
-      <div class="footer-promo-text">
-        <div class="footer-text">
-          Ngopi Lebih Seru<br>
-          Bersama <span>Zona Fitri</span>
-        </div>
-        <svg class="underline-svg" viewBox="0 0 200 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M5 15Q100 -5 195 15" stroke="#9eb1cf" stroke-width="3" stroke-linecap="round"/>
-        </svg>
+    <div class="footer-promo">
+      <div class="footer-text">
+        Ngopi Lebih Seru<br>
+        Bersama <span>Zona Fitri</span>
       </div>
-      <div class="footer-cup-wrap">
-        <img src="/img/coffee_cup_bottom.png" alt="Zona Fitri Coffee" class="footer-cup-img" onerror="this.style.display='none';">
-      </div>
+      <svg class="underline-svg" viewBox="0 0 200 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M5 15Q100 -5 195 15" stroke="#9eb1cf" stroke-width="3" stroke-linecap="round"/>
+      </svg>
     </div>
 
   </div>

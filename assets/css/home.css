@@ -68,38 +68,6 @@ body.home-page .sheet-backdrop {
   box-shadow: 0 0 50px rgba(0, 0, 0, 0.6);
 }
 
-/* Decorative Top Elements */
-.decor-leaves-top {
-  position: absolute;
-  top: -15px;
-  left: -25px;
-  width: 140px;
-  height: auto;
-  pointer-events: none;
-  z-index: 1;
-  opacity: 0.85;
-  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.4));
-}
-
-.decor-dots-top {
-  position: absolute;
-  top: 22px;
-  right: 20px;
-  display: grid;
-  grid-template-columns: repeat(4, 5px);
-  gap: 7px;
-  pointer-events: none;
-  z-index: 1;
-  opacity: 0.35;
-}
-
-.decor-dots-top span {
-  width: 5px;
-  height: 5px;
-  background-color: var(--accent-blue);
-  border-radius: 50%;
-}
-
 /* Top Header & Logo */
 .header {
   display: flex;
@@ -402,29 +370,21 @@ body.home-page .sheet-backdrop {
 }
 
 /* Footer Promo Section */
-.footer-promo-row {
+.footer-promo {
   position: relative;
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
   margin-top: auto;
   width: 100%;
   z-index: 2;
-  padding-top: 10px;
-}
-
-.footer-promo-text {
-  position: relative;
-  z-index: 2;
-  padding-bottom: 6px;
+  padding-top: 15px;
+  text-align: left;
 }
 
 .footer-text {
   font-family: 'Caveat', cursive;
-  font-size: 32px;
-  line-height: 1.1;
+  font-size: 34px;
+  line-height: 1.15;
   color: var(--white);
-  transform: rotate(-5deg);
+  transform: rotate(-4deg);
   text-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
 }
 
@@ -434,26 +394,10 @@ body.home-page .sheet-backdrop {
 }
 
 .underline-svg {
-  width: 150px;
-  margin-top: 5px;
-  transform: rotate(-5deg);
+  width: 160px;
+  margin-top: 4px;
+  transform: rotate(-4deg);
   display: block;
-}
-
-.footer-cup-wrap {
-  position: relative;
-  width: 135px;
-  flex-shrink: 0;
-  margin-bottom: -20px;
-  margin-right: -10px;
-  pointer-events: none;
-}
-
-.footer-cup-img {
-  width: 100%;
-  height: auto;
-  object-fit: contain;
-  filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.5));
 }
 
 /* Responsiveness on shorter mobile screens */
@@ -507,13 +451,9 @@ body.home-page .sheet-backdrop {
     font-size: 14px;
   }
   .footer-text {
-    font-size: 26px;
+    font-size: 28px;
   }
   .underline-svg {
-    width: 120px;
-  }
-  .footer-cup-wrap {
-    width: 110px;
-    margin-bottom: -15px;
+    width: 130px;
   }
 }
