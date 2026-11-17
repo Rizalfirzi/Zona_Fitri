@@ -917,7 +917,6 @@ function gridCard(item, i) {
     </div>
   </button>`;
 }
-}
 
 function handleDeepLink() {
   const p = new URLSearchParams(location.search);
