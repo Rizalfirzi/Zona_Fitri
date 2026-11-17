@@ -1,354 +1,506 @@
-/* ═══════════════ ZONA FITRI — AESTHETIC EMERALD SPLASH ═══════════════ */
-body.home-page { padding-bottom: 0; overflow: hidden; background: #04180F; }
-body.home-page .container { padding-bottom: 0; height: 100dvh; max-width: 480px; }
-body.home-page .topnav, body.home-page #fabWa { display: none !important; }
+/* ═══════════════════════════════════════════════════════════════════
+   ZONA FITRI — BERANDA ELEGAN (DARK NAVY THEME)
+   Desain presisi sesuai instruksi:
+   - Background: Dark navy blue radial gradient
+   - Teks Sekunder ("Ingat Fitri" & "PILIH BRAND KOPI"): Biru muda terang (#9eb1cf)
+   - Badge Status: Transparan gelap dengan outline tipis hijau & teks hijau terang
+   - Brand Cards: Putih solid murni dengan teks dark navy tegas & chevron
+   - Tombol CTA: Emerald green dengan outer glow halus
+   - Footer: Cursive "Ngopi Lebih Seru" putih + "Zona Fitri" biru muda + underline SVG + cup aesthetic
+   ═══════════════════════════════════════════════════════════════════ */
 
-#splash {
-  height: 100dvh;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
+:root {
+  --bg-navy-dark: #0a1122;
+  --bg-gradient: radial-gradient(circle at top center, #1b2e4f 0%, #0b1324 100%);
+  --accent-blue: #9eb1cf;
+  --badge-green: #2ecc71;
+  --btn-green: #129b5c;
+  --white: #ffffff;
+  --text-dark: #121c2d;
+}
+
+*, *::before, *::after {
+  margin: 0;
   padding: 0;
-  color: #FFFFFF;
-  text-align: center;
-  position: relative;
-  overflow: hidden;
-  background: radial-gradient(circle at 50% 25%, #0E3D26 0%, #08291A 60%, #04180F 100%);
-}
-
-/* Background decor: Leaves at top-left and gold dots at top-right */
-#splash::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 140px;
-  background-image: url('/img/splash_top_decor.png');
-  background-size: 100% auto;
-  background-repeat: no-repeat;
-  background-position: top center;
-  pointer-events: none;
-  z-index: 1;
-}
-
-.sp-content {
-  position: relative;
-  z-index: 2;
-  width: 100%;
-  max-width: 420px;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  padding: 24px 20px 0;
   box-sizing: border-box;
 }
 
-.sp-header {
+body.home-page {
+  background-color: #050811;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  min-height: 100dvh;
+  margin: 0;
+  padding: 0;
+  font-family: 'Outfit', sans-serif;
+  overflow-x: hidden;
+}
+
+/* Mobile Container Layout */
+.app-container {
+  width: 100%;
+  max-width: 414px;
+  min-height: 100vh;
+  min-height: 100dvh;
+  background: var(--bg-gradient);
+  position: relative;
+  overflow: hidden;
+  padding: 36px 20px 38px 20px;
+  color: var(--white);
   display: flex;
   flex-direction: column;
-  align-items: center;
-  width: 100%;
-  margin-top: 6px;
-}
-
-.sp-brand {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: #FFFFFF;
-  border-radius: 20px;
-  padding: 8px 24px;
-  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.35);
-  border: 1px solid rgba(255, 255, 255, 0.9);
-}
-
-.sp-status {
-  margin-top: 10px; z-index: 2; display: inline-flex; align-items: center; gap: 6px;
-  background: #007953;
-  border: 1.5px solid #10B981;
-  color: #FFFFFF;
-  padding: 5px 16px; border-radius: 999px; font-size: 11px; font-weight: 800; letter-spacing: 1px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-}
-.sp-status.open {
-  background: #007953;
-  border-color: #10B981;
-  color: #FFFFFF;
-}
-.sp-status-icon {
-  font-size: 12px; font-weight: 900;
-}
-
-#splash h2 {
-  font-size: 32px; font-weight: 800; margin-top: 8px; z-index: 2;
-  line-height: 1.1; letter-spacing: -.5px; color: #FFFFFF;
-  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-}
-.sp-sub {
-  margin-top: -4px; font-family: 'Caveat', cursive; font-size: 40px; font-weight: 700;
-  z-index: 2; color: #F3C669; letter-spacing: 0.5px;
-  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.35);
-  line-height: 1;
-}
-
-/* ── Brand Picker (4 Pill Cards) ── */
-.sp-brand-picker {
-  width: 100%;
-  max-width: 360px;
-  margin: 6px auto 0;
-  z-index: 3;
-}
-.sp-picker-label-wrap {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  margin-bottom: 8px;
-}
-.sp-picker-line {
-  flex: 1;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.25), transparent);
-}
-.sp-picker-label {
-  font-size: 11px;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  color: rgba(255, 255, 255, 0.7);
-}
-
-.sp-brand-grid {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  width: 100%;
-}
-.sp-brand-card {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
   justify-content: space-between;
-  padding: 6px 18px 6px 8px;
-  height: 60px;
-  background: linear-gradient(180deg, #FFFFFF 0%, #FBFBFC 100%);
-  border: 1px solid rgba(255, 255, 255, 0.85);
-  border-radius: 999px;
-  color: #1F2937;
-  text-decoration: none;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
-  transition: all .18s var(--ease);
-}
-.sp-brand-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.35);
-}
-.sp-brand-card:active {
-  transform: translateY(1px);
+  box-shadow: 0 0 50px rgba(0, 0, 0, 0.6);
 }
 
-.sp-card-icon-wrap {
-  width: 44px;
-  height: 44px;
-  border-radius: 14px;
-  display: grid;
-  place-items: center;
-  flex-shrink: 0;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+/* Decorative Top Elements */
+.decor-leaves-top {
+  position: absolute;
+  top: -15px;
+  left: -25px;
+  width: 140px;
+  height: auto;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.85;
+  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.4));
 }
-.sp-card-icon-wrap img {
-  width: 26px;
-  height: 26px;
+
+.decor-dots-top {
+  position: absolute;
+  top: 22px;
+  right: 20px;
+  display: grid;
+  grid-template-columns: repeat(4, 5px);
+  gap: 7px;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.35;
+}
+
+.decor-dots-top span {
+  width: 5px;
+  height: 5px;
+  background-color: var(--accent-blue);
+  border-radius: 50%;
+}
+
+/* Top Header & Logo */
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 16px;
+  position: relative;
+  z-index: 2;
+}
+
+.main-logo {
+  background: var(--white);
+  padding: 10px 36px;
+  border-radius: 50px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+  margin-bottom: 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.main-logo .logo-img {
+  height: 38px;
+  width: auto;
   object-fit: contain;
 }
-.icon-kopken {
-  background: linear-gradient(135deg, #E11D48 0%, #BE123C 100%);
-}
-.icon-tomoro {
-  background: linear-gradient(135deg, #F97316 0%, #EA580C 100%);
-}
-.icon-fore {
-  background: linear-gradient(135deg, #059669 0%, #047857 100%);
-}
-.icon-jiwa {
-  background: linear-gradient(135deg, #DC2626 0%, #B91C1C 100%);
+
+.main-logo h1 {
+  font-size: 26px;
+  color: #a39379;
+  font-weight: 500;
+  letter-spacing: -0.5px;
 }
 
-.sp-card-name {
+.main-logo h1 span {
+  color: #d82b68;
+  font-weight: 800;
+}
+
+/* Status Badge */
+.status-badge {
+  background-color: rgba(46, 204, 113, 0.12);
+  border: 1px solid rgba(46, 204, 113, 0.35);
+  color: var(--badge-green);
+  padding: 6px 18px;
+  border-radius: 20px;
+  font-size: 11.5px;
+  font-weight: 800;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.status-badge i {
+  font-size: 11px;
+  color: var(--badge-green);
+}
+
+.status-badge.closed {
+  background-color: rgba(239, 68, 68, 0.12);
+  border-color: rgba(239, 68, 68, 0.35);
+  color: #ef4444;
+}
+.status-badge.closed i {
+  color: #ef4444;
+}
+
+/* Hero Text */
+.hero-text {
+  text-align: center;
+  margin: 10px 0 18px 0;
+  position: relative;
+  z-index: 2;
+}
+
+.hero-text h2 {
+  font-size: 32px;
+  font-weight: 800;
+  margin-bottom: 0px;
+  letter-spacing: -0.5px;
+  color: var(--white);
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.35);
+}
+
+.hero-text h3 {
+  font-family: 'Caveat', cursive;
+  font-size: 38px;
+  color: var(--accent-blue);
+  font-weight: 700;
+  transform: rotate(-2deg);
+  line-height: 1.1;
+  margin-top: -2px;
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.25);
+}
+
+/* Divider */
+.divider {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 16px;
+  width: 100%;
+  position: relative;
+  z-index: 2;
+}
+
+.divider::before, .divider::after {
+  content: '';
+  flex: 1;
+  border-bottom: 1px solid rgba(158, 177, 207, 0.25);
+}
+
+.divider span {
+  padding: 0 14px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: var(--accent-blue);
+  text-transform: uppercase;
+}
+
+/* Brand List */
+.brand-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 18px;
+  width: 100%;
+  position: relative;
+  z-index: 2;
+}
+
+.brand-card {
+  background: var(--white);
+  border-radius: 50px;
+  padding: 7px 18px 7px 8px;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: var(--text-dark);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.brand-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.22);
+}
+
+.brand-card:active {
+  transform: scale(0.98);
+}
+
+.brand-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  margin-right: 14px;
+  flex-shrink: 0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+}
+
+.brand-icon img {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+}
+
+.brand-icon i {
+  color: var(--white);
+  font-size: 20px;
+}
+
+.icon-kenangan {
+  background: linear-gradient(135deg, #e33568 0%, #c41e4b 100%);
+}
+
+.icon-tomoro {
+  background: linear-gradient(135deg, #f07b32 0%, #d95e14 100%);
+}
+
+.icon-fore {
+  background: linear-gradient(135deg, #26895b 0%, #1b6843 100%);
+}
+
+.icon-jiwa {
+  background: linear-gradient(135deg, #e63140 0%, #c81d2c 100%);
+}
+
+.brand-name {
+  flex: 1;
   font-size: 15px;
   font-weight: 800;
-  letter-spacing: 0.6px;
+  letter-spacing: 0.5px;
+  color: var(--text-dark);
   text-transform: uppercase;
-  color: #1F2937;
-  flex: 1;
-  text-align: left;
-  margin-left: 14px;
-}
-.sp-card-arrow {
-  color: #374151;
-  display: grid;
-  place-items: center;
 }
 
-/* ── WhatsApp Channel Button with Glow ── */
-.sp-channel-btn-wrap {
+.brand-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-dark);
+  font-size: 14px;
+  font-weight: 900;
+  margin-left: 8px;
+  transition: transform 0.2s;
+}
+
+.brand-card:hover .brand-arrow {
+  transform: translateX(3px);
+}
+
+/* CTA Button Container */
+.cta-container {
+  width: 100%;
+  margin-bottom: 22px;
+  position: relative;
+  z-index: 2;
+}
+
+.cta-spark-wrap {
   position: relative;
   width: 100%;
-  margin-top: 10px;
 }
-.sp-wa-doodle {
+
+.cta-sparks {
   position: absolute;
   left: -14px;
-  top: 50%;
-  transform: translateY(-50%);
+  top: -4px;
+  width: 22px;
+  height: 22px;
   pointer-events: none;
+  opacity: 0.95;
 }
-.sp-channel-btn {
+
+.cta-btn {
+  background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+  border-radius: 50px;
+  padding: 13px 22px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 100%;
-  height: 54px;
-  padding: 8px 18px 8px 14px;
-  border-radius: 999px;
-  background: linear-gradient(90deg, #10B981 0%, #059669 100%);
-  color: #FFFFFF;
   text-decoration: none;
-  font-weight: 800;
+  color: var(--white);
+  font-weight: 700;
   font-size: 15.5px;
   letter-spacing: 0.3px;
-  border: 2px solid #34D399;
-  box-shadow: 0 0 20px rgba(16, 185, 129, 0.45), 0 8px 24px rgba(0, 0, 0, 0.3);
-  transition: all .18s var(--ease);
+  box-shadow: 0 8px 25px rgba(18, 155, 92, 0.35);
+  transition: transform 0.2s, box-shadow 0.2s;
+  border: none;
 }
-.sp-channel-btn:hover {
+
+.cta-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 0 26px rgba(16, 185, 129, 0.6), 0 12px 30px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 10px 30px rgba(18, 155, 92, 0.45);
 }
-.sp-wa-content {
+
+.cta-btn:active {
+  transform: scale(0.98);
+}
+
+.cta-left {
   display: flex;
   align-items: center;
   gap: 12px;
 }
-.sp-wa-icon-circle {
-  display: grid;
-  place-items: center;
-}
-.sp-wa-icon {
-  width: 24px;
-  height: 24px;
-}
-.sp-wa-divider {
-  width: 1px;
-  height: 20px;
-  background: rgba(255, 255, 255, 0.35);
-}
-.sp-wa-label {
-  font-size: 15.5px;
-  font-weight: 800;
-  color: #FFFFFF;
-}
-.sp-wa-arrow {
-  display: grid;
-  place-items: center;
-  color: #FFFFFF;
+
+.cta-left i.fa-whatsapp {
+  font-size: 22px;
 }
 
-/* ── Bottom Section with Coffee Cup Decor ── */
-.sp-bottom-decor {
-  width: 100%;
-  height: 150px;
-  margin-top: auto;
+.cta-sep {
+  opacity: 0.45;
+  font-weight: 300;
+  font-size: 16px;
+}
+
+.cta-text {
+  font-weight: 700;
+}
+
+.cta-chevron {
+  font-size: 13px;
+  opacity: 0.9;
+  transition: transform 0.2s;
+}
+
+.cta-btn:hover .cta-chevron {
+  transform: translateX(3px);
+}
+
+/* Footer Promo Section */
+.footer-promo-row {
   position: relative;
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
-}
-.sp-script-quote {
-  text-align: left;
-  font-family: 'Caveat', cursive;
-  line-height: 1.15;
-  padding-bottom: 24px;
-  padding-left: 4px;
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
-  z-index: 2;
-}
-.sp-sq-line1 { display: block; color: #FFFFFF; font-size: 22px; font-weight: 700; }
-.sp-sq-line2 { display: block; font-style: normal; color: #F3C669; font-size: 28px; font-weight: 700; }
-.sp-sq-line2 em { font-style: normal; color: #F3C669; }
-
-.sp-cup-image {
-  position: absolute;
-  right: -14px;
-  bottom: 0;
-  width: 210px;
-  pointer-events: none;
-  z-index: 1;
-}
-.sp-cup-image img {
+  margin-top: auto;
   width: 100%;
-  height: auto;
+  z-index: 2;
+  padding-top: 10px;
+}
+
+.footer-promo-text {
+  position: relative;
+  z-index: 2;
+  padding-bottom: 6px;
+}
+
+.footer-text {
+  font-family: 'Caveat', cursive;
+  font-size: 32px;
+  line-height: 1.1;
+  color: var(--white);
+  transform: rotate(-5deg);
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+}
+
+.footer-text span {
+  color: var(--accent-blue);
+  font-weight: 700;
+}
+
+.underline-svg {
+  width: 150px;
+  margin-top: 5px;
+  transform: rotate(-5deg);
   display: block;
 }
 
-/* Responsif layar pendek */
-@media (max-height: 750px) {
-  .sp-content { padding: 14px 14px 0; }
-  .sp-brand img { height: 38px !important; }
-  #splash h2 { font-size: 26px; margin-top: 4px; }
-  .sp-sub { font-size: 32px; }
-  .sp-brand-picker { margin: 4px auto 0; }
-  .sp-brand-card { height: 52px; }
-  .sp-card-icon-wrap { width: 38px; height: 38px; }
-  .sp-card-icon-wrap img { width: 22px; height: 22px; }
-  .sp-card-name { font-size: 13.5px; }
-  .sp-channel-btn { height: 48px; }
-  .sp-bottom-decor { height: 120px; }
-  .sp-cup-image { width: 170px; }
-  .sp-script-quote { padding-bottom: 16px; }
-  .sp-sq-line1 { font-size: 18px; }
-  .sp-sq-line2 { font-size: 23px; }
+.footer-cup-wrap {
+  position: relative;
+  width: 135px;
+  flex-shrink: 0;
+  margin-bottom: -20px;
+  margin-right: -10px;
+  pointer-events: none;
 }
 
-/* ── Brand Switcher Modal ── */
-#brandModal {
-  position: fixed; inset: 0; z-index: 120; display: none; align-items: center; justify-content: center;
-  padding: 20px; background: rgba(4, 24, 15, 0.75);
-  -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+.footer-cup-img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.5));
 }
-#brandModal.show { display: flex; }
-.brand-modal {
-  width: 100%; max-width: 380px; background: #FFFFFF;
-  border: 1px solid #E5E7EB;
-  border-radius: 24px;
-  box-shadow: 0 20px 50px rgba(4, 24, 15, 0.35);
-  padding: 22px 18px 20px; animation: sheetUp .24s var(--ease);
-}
-.brand-modal-head { display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 18px; }
-.brand-modal-head .logo-text { font-size: 22px; font-weight: 900; color: #064E3B; letter-spacing: -.5px; }
-.brand-modal-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-.brand-tile {
-  border: 1.5px solid #E5E7EB; border-radius: 18px; background: #FBF8F3;
-  box-shadow: var(--shadow-xs);
-  min-height: 104px; padding: 14px 10px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px;
-  font-weight: 800; font-size: 12.5px; color: #111827; text-decoration: none; cursor: pointer;
-  transition: all .16s ease;
-}
-.brand-tile:hover {
-  transform: translateY(-2px);
-  border-color: #10B981;
-  background: #ECFDF5;
-  box-shadow: 0 6px 18px rgba(16, 185, 129, 0.15);
-}
-.brand-tile img { width: 42px; height: 42px; object-fit: contain; }
-.brand-tile small { font-size: 11px; letter-spacing: .06em; font-weight: 800; color: #064E3B; }
-.brand-tile.active {
-  border-color: #064E3B;
-  background: #ECFDF5;
-  outline: 2px solid #064E3B;
+
+/* Responsiveness on shorter mobile screens */
+@media (max-height: 740px) {
+  .app-container {
+    padding: 24px 16px 25px 16px;
+  }
+  .main-logo {
+    padding: 8px 28px;
+    margin-bottom: 10px;
+  }
+  .main-logo .logo-img {
+    height: 32px;
+  }
+  .hero-text {
+    margin: 8px 0 12px 0;
+  }
+  .hero-text h2 {
+    font-size: 26px;
+  }
+  .hero-text h3 {
+    font-size: 30px;
+  }
+  .divider {
+    margin-bottom: 12px;
+  }
+  .brand-list {
+    gap: 9px;
+    margin-bottom: 15px;
+  }
+  .brand-card {
+    padding: 6px 16px 6px 6px;
+  }
+  .brand-icon {
+    width: 38px;
+    height: 38px;
+    margin-right: 12px;
+  }
+  .brand-icon img {
+    width: 20px;
+    height: 20px;
+  }
+  .brand-name {
+    font-size: 13.5px;
+  }
+  .cta-container {
+    margin-bottom: 18px;
+  }
+  .cta-btn {
+    padding: 11px 18px;
+    font-size: 14px;
+  }
+  .footer-text {
+    font-size: 26px;
+  }
+  .underline-svg {
+    width: 120px;
+  }
+  .footer-cup-wrap {
+    width: 110px;
+    margin-bottom: -15px;
+  }
 }
