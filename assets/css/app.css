@@ -478,10 +478,146 @@ body.has-cart { padding-bottom: 0; }
 /* Toast */
 .toast, #toast {
   position: fixed; bottom: 96px; left: 50%; transform: translateX(-50%) translateY(20px); z-index: 200;
-  background: #062817; color: #FFFFFF; font-weight: 700; font-size: 13.5px;
+  background: #0A192F; color: #FFFFFF; font-weight: 700; font-size: 13.5px;
   padding: 12px 22px; border-radius: 999px; opacity: 0; pointer-events: none;
   transition: opacity .2s, transform .2s; max-width: 92vw; text-align: center;
   box-shadow: 0 10px 30px rgba(4, 24, 15, 0.35);
-  border: 1px solid #10B981;
+  border: 1.5px solid #38BDF8;
+}
+.toast.show, #toast.show { opacity: 1; transform: translateX(-50%); }
+
+/* ── Sidebar Drawer (Sesuai Gambar 3) ── */
+.drawer-overlay {
+  position: fixed; inset: 0; z-index: 100;
+  background: rgba(4, 12, 28, 0.6);
+  backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
+  opacity: 0; pointer-events: none;
+  transition: opacity .25s ease;
+}
+.drawer-overlay.active {
+  opacity: 1; pointer-events: auto;
+}
+.drawer {
+  position: fixed; top: 0; bottom: 0; left: 0; z-index: 101;
+  width: min(320px, 82vw);
+  background: #FAF8F5; /* Warm aesthetic cream background seperti Gambar 3 */
+  box-shadow: 10px 0 35px rgba(0, 0, 0, 0.35);
+  transform: translateX(-100%);
+  transition: transform .28s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex; flex-direction: column;
+  padding: 0; overflow-y: auto;
+  border-right: 1px solid #E2E8F0;
+}
+.drawer.active {
+  transform: translateX(0);
+}
+.drawer-head {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 18px 20px 14px;
+  border-bottom: 1px solid #EAE5DE;
+}
+.drawer-head a { display: flex; align-items: center; }
+.drawer-close-btn, [data-drawer-close] {
+  width: 36px; height: 36px; border-radius: 8px;
+  border: 1.5px solid #262626; background: #FAF8F5;
+  display: grid; place-items: center; cursor: pointer;
+  color: #1E293B; font-size: 16px; font-weight: 800;
+  transition: all .15s ease;
+}
+.drawer-close-btn:hover, [data-drawer-close]:hover {
+  background: #EAE5DE;
+}
+.drawer-nav {
+  display: flex; flex-direction: column;
+  padding: 16px 16px 24px; gap: 4px; flex: 1;
+}
+.drawer-label {
+  font-size: 11px; font-weight: 800; text-transform: uppercase;
+  letter-spacing: 0.1em; color: #8C827A;
+  margin: 18px 8px 8px;
+}
+.drawer-link {
+  display: flex; align-items: center; gap: 12px;
+  padding: 11px 14px; border-radius: 12px;
+  font-size: 14px; font-weight: 700; color: #2D241E;
+  text-decoration: none; border: none; background: transparent;
+  cursor: pointer; text-align: left; width: 100%;
+  font-family: inherit; transition: all .16s ease;
+}
+.drawer-link:hover {
+  background: #EFE9E0;
+  color: #0F172A;
+}
+.drawer-link.active {
+  background: #E6DFD3; /* Aksen aktif seperti Gambar 3 */
+  border: 1.5px solid #D5CCC0;
+  color: #1A1410;
+  font-weight: 800;
+}
+.drawer-link svg, .drawer-link .brand-ico, .drawer-link img {
+  width: 22px; height: 22px; object-fit: contain; flex-shrink: 0;
+}
+.drawer-link span { flex: 1; }
+.drawer-badge {
+  font-size: 9px; font-weight: 800; text-transform: uppercase;
+  background: #E2E8F0; color: #64748B;
+  padding: 2px 6px; border-radius: 6px;
+}
+.drawer-foot {
+  padding: 16px 20px;
+  font-size: 11.5px; font-weight: 600; color: #A09890;
+  border-top: 1px solid #EAE5DE;
+  background: #FAF8F5;
+}
+
+/* ── Brand Switcher Modal (Titik 3 kanan atas ala Gambar 3) ── */
+#brandModal {
+  position: fixed; inset: 0; z-index: 150; display: none; align-items: center; justify-content: center;
+  padding: 20px; background: rgba(5, 15, 35, 0.75);
+  -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+  animation: fadeIn .2s ease;
+}
+#brandModal.show { display: flex; }
+.brand-modal {
+  width: 100%; max-width: 380px; background: #FFFFFF;
+  border: 1.5px solid rgba(56, 189, 248, 0.35);
+  border-radius: 24px;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.45);
+  padding: 22px 18px 24px; animation: sheetUp .24s var(--ease);
+}
+.brand-modal-head {
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 16px; padding-bottom: 12px;
+  border-bottom: 1px solid #F1F5F9;
+}
+.brand-modal-head img {
+  height: 38px; width: auto; object-fit: contain;
+}
+.brand-modal-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
+}
+.brand-tile {
+  border: 1.5px solid #CBD5E1; border-radius: 16px; background: #FFFFFF;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+  min-height: 98px; padding: 14px 10px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px;
+  text-decoration: none; cursor: pointer;
+  transition: all .16s ease;
+}
+.brand-tile:hover {
+  transform: translateY(-2px);
+  border-color: #38BDF8;
+  box-shadow: 0 6px 18px rgba(56, 189, 248, 0.25);
+}
+.brand-tile img, .brand-tile svg {
+  width: 38px; height: 38px; object-fit: contain;
+}
+.brand-tile small {
+  font-size: 11px; letter-spacing: .04em; font-weight: 800; color: #0A192F; text-transform: uppercase;
+}
+/* Active Brand Tile: Highlight border hijau neon persis Gambar 3 */
+.brand-tile.active {
+  border: 2.2px solid #00DF9A !important;
+  background: #FFFFFF !important;
+  box-shadow: 0 0 16px rgba(0, 223, 154, 0.4) !important;
 }
 .toast.show, #toast.show { opacity: 1; transform: translateX(-50%); }

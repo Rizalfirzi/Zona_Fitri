@@ -23,15 +23,21 @@
 <body class="store-page">
   <a class="skip-link" href="#menu">Langsung ke menu</a>
   <div class="container">
-    <!-- Brand Top Bar (Back button, Logo, Brand Name, 3-dots, and floating iced cup decor) -->
+    <!-- Brand Top Bar (Back button, Menu button, Logo, Brand Name, 3-dots) -->
     <nav class="store-brand-bar">
-      <div class="store-header-cup-decor" aria-hidden="true"></div>
-      <a href="/" class="brand-back-btn" id="brandBackBtn" aria-label="Kembali ke beranda">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+      <a href="/" class="brand-back-btn" id="brandBackBtn" aria-label="Kembali ke beranda" title="Kembali ke beranda">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
           <path d="M19 12H5M12 19l-7-7 7-7"/>
         </svg>
       </a>
-      <div class="brand-header-info">
+      <button class="icon-btn brand-menu-btn" id="drawerBtn" aria-label="Buka navigasi menu" title="Menu">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+      </button>
+      <div class="brand-header-info" id="brandHeaderInfo">
         <div class="brand-header-logo-wrap">
           <img id="brandHeaderLogo" src="" alt="" class="brand-header-logo" />
         </div>
@@ -101,9 +107,7 @@
     <main class="menu" id="menu" aria-live="polite" tabindex="-1"></main>
 
     <div class="menu-source" id="menuSource"></div>
-    
-    <!-- Footer dekorasi ombak khas Zona Fitri seperti Gambar 2 -->
-    <footer class="store-foot" id="storeFoot"></footer>
+    <footer class="store-footer-text" style="text-align:center;padding:16px 14px 30px;font-size:11.5px;color:#94A3B8;">&copy; <?= date('Y') ?> Zona Fitri · Jasa titip order kopi</footer>
 
     <!-- Banner status outlet tutup -->
     <div class="outlet-closed-bar hidden" id="outletClosedBar">

@@ -117,6 +117,7 @@ function applyBrand() {
 
 function wireStatic() {
   $('#drawerBtn')?.addEventListener('click', openDrawer);
+  $('#brandHeaderInfo')?.addEventListener('click', openDrawer);
   $('#themeBtn')?.addEventListener('click', toggleTheme);
   $('#wifiBtn')?.addEventListener('click', openWifi);
   $('#cartBar').addEventListener('click', openCart);

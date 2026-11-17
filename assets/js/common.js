@@ -381,33 +381,67 @@ export function closeDrawer(fromPop = false) {
 }
 
 export function renderDrawer(cfg, activeBrand = null) {
+  if ($('#drawer')) return;
   const wrap = document.createElement('div');
+  const brands = (cfg.brands && cfg.brands.length) ? cfg.brands : [
+    { id: 'kopken', name: 'Kopi Kenangan', slug: 'kopikenangan', logo: '/img/brands/kopken.png' },
+    { id: 'tomoro', name: 'Tomoro Coffee', slug: 'tomoro', logo: '/img/brands/tomoro.png' },
+    { id: 'fore', name: 'Fore Coffee', slug: 'fore', logo: '/img/brands/fore.png' },
+    { id: 'jiwa', name: 'Janji Jiwa', slug: 'janjiw', logo: '/img/brands/jiwa.png' }
+  ];
+
   wrap.innerHTML = `
     <div class="drawer-overlay" id="drawerOverlay"></div>
     <aside class="drawer" id="drawer" aria-label="Navigasi">
       <div class="drawer-head">
-        <a href="/">${logoHtml(cfg)}</a>
-        <button class="icon-btn" data-drawer-close aria-label="Tutup menu">${icons.close}</button>
+        <a href="/" style="display:flex;align-items:center;text-decoration:none;">
+          <img src="/img/brand/zonafitri-logo.png" alt="${esc(cfg.storeName || 'Zona Fitri')}" style="height:32px;width:auto;object-fit:contain;" />
+        </a>
+        <button class="drawer-close-btn" data-drawer-close aria-label="Tutup menu">✕</button>
       </div>
       <nav class="drawer-nav">
-        <a href="/" class="drawer-link ${activeBrand ? '' : 'active'}">${icons.home}<span>Beranda</span></a>
-        <div class="drawer-label eyebrow">Order kopi</div>
-        ${cfg.brands
+        <a href="/" class="drawer-link ${activeBrand ? '' : 'active'}">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          <span>Beranda</span>
+        </a>
+
+        <div class="drawer-label eyebrow">ORDER KOPI</div>
+        ${brands
           .map(
-            (b) => `<a href="/${b.slug}" class="drawer-link ${activeBrand === b.id ? 'active' : ''}">
+            (b) => `<a href="/${b.slug}" class="drawer-link ${activeBrand === b.id || activeBrand === b.slug ? 'active' : ''}">
               <img class="brand-ico" src="${esc(b.logo)}" alt=""><span>${esc(b.name)}</span></a>`,
           )
           .join('')}
-        <div class="drawer-label eyebrow">Bantuan</div>
-        <button class="drawer-link" data-action="howto">${icons.help}<span>Cara order</span></button>
-        <button class="drawer-link" data-action="about">${icons.info}<span>Tentang kami</span></button>
-        <button class="drawer-link" data-action="cs">${icons.chat}<span>Chat admin</span></button>
+        <a href="javascript:void(0)" class="drawer-link" onclick="alert('Pemesanan CHAGEE segera hadir di Zona Fitri!')">
+          <svg width="22" height="22" viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="17" fill="#C11F2E"/><path d="M20 9c-4 0-7 3-7 7 0 5 7 15 7 15s7-10 7-15c0-4-3-7-7-7zm0 10.5c-2 0-3.5-1.5-3.5-3.5s1.5-3.5 3.5-3.5 3.5 1.5 3.5 3.5-1.5 3.5-3.5 3.5z" fill="#FFF"/></svg>
+          <span>CHAGEE</span>
+          <small class="drawer-badge">Segera</small>
+        </a>
+        <a href="javascript:void(0)" class="drawer-link" onclick="alert('Pemesanan Starbucks segera hadir di Zona Fitri!')">
+          <svg width="22" height="22" viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="17" fill="#006241"/><circle cx="20" cy="20" r="14" stroke="#FFF" stroke-width="1.5"/><path d="M20 12l1.8 3.8 4.2.6-3 3 0.7 4.2-3.7-2-3.7 2 0.7-4.2-3-3 4.2-.6z" fill="#FFF"/></svg>
+          <span>Starbucks</span>
+          <small class="drawer-badge">Segera</small>
+        </a>
+
+        <div class="drawer-label eyebrow">BANTUAN</div>
+        <button class="drawer-link" data-action="howto">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          <span>Cara order</span>
+        </button>
+        <button class="drawer-link" data-action="about">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+          <span>Tentang kami</span>
+        </button>
+        <button class="drawer-link" data-action="cs" style="color:#059669;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+          <span>Chat admin</span>
+        </button>
       </nav>
-      <div class="drawer-foot">&copy; ${new Date().getFullYear()} ${esc(cfg.storeName)}</div>
+      <div class="drawer-foot">&copy; ${new Date().getFullYear()} ${esc(cfg.storeName || 'Zona Fitri')}</div>
     </aside>`;
   document.body.append(...wrap.children);
-  $('#drawerOverlay').addEventListener('click', () => closeDrawer());
-  $('[data-drawer-close]').addEventListener('click', () => closeDrawer());
+  $('#drawerOverlay')?.addEventListener('click', () => closeDrawer());
+  $('[data-drawer-close]')?.addEventListener('click', () => closeDrawer());
 }
 
 /** Logo lockup: logo Zona Fitri resmi. */

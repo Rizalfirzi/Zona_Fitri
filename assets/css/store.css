@@ -8,8 +8,8 @@ body.store-page .container { padding-bottom: 0; background: #F8FAFC; }
 .store-brand-bar {
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 16px 16px 24px;
+  gap: 8px;
+  padding: 14px 12px 22px;
   background: linear-gradient(180deg, #091C45 0%, #133979 100%);
   border-bottom-left-radius: 28px;
   border-bottom-right-radius: 28px;
@@ -20,40 +20,30 @@ body.store-page .container { padding-bottom: 0; background: #F8FAFC; }
   box-shadow: 0 8px 26px rgba(9, 28, 69, 0.45), 0 0 30px rgba(56, 189, 248, 0.2);
 }
 
-.store-header-cup-decor {
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 180px;
-  height: 100%;
-  background-image: url('/img/store_header_cup.png');
-  background-repeat: no-repeat;
-  background-position: top right;
-  background-size: contain;
-  pointer-events: none;
-  z-index: 1;
-}
-
-.brand-back-btn, .brand-header-info, .brand-dots-btn {
+.brand-back-btn, .brand-menu-btn, .brand-header-info, .brand-dots-btn {
   position: relative;
   z-index: 2;
 }
 
-.brand-back-btn {
-  width: 40px; height: 40px; border-radius: 50%;
+.brand-back-btn, .brand-menu-btn {
+  width: 36px; height: 36px; border-radius: 50%;
   background: #FFFFFF;
-  border: 1px solid rgba(56, 189, 248, 0.3);
+  border: 1.5px solid rgba(56, 189, 248, 0.35);
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
   display: grid; place-items: center; color: #0A192F;
   text-decoration: none; flex-shrink: 0; cursor: pointer; transition: all .16s ease;
 }
-.brand-back-btn svg { stroke: #0A192F; }
-.brand-back-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 18px rgba(56, 189, 248, 0.4); }
-.brand-back-btn:active { transform: translateY(1px); }
+.brand-back-btn svg, .brand-menu-btn svg { stroke: #0A192F; }
+.brand-back-btn:hover, .brand-menu-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(56, 189, 248, 0.4);
+  border-color: #38BDF8;
+}
+.brand-back-btn:active, .brand-menu-btn:active { transform: translateY(1px); }
 
-.brand-header-info { display: flex; align-items: center; gap: 10px; flex: 1; min-width: 0; }
+.brand-header-info { display: flex; align-items: center; gap: 8px; flex: 1; min-width: 0; cursor: pointer; }
 .brand-header-logo-wrap {
-  width: 40px; height: 40px; border-radius: 50%;
+  width: 36px; height: 36px; border-radius: 50%;
   background: #FFFFFF;
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2), 0 0 12px rgba(56, 189, 248, 0.35);
   display: grid; place-items: center; padding: 2px;
@@ -64,27 +54,29 @@ body.store-page .container { padding-bottom: 0; background: #F8FAFC; }
 }
 .brand-header-text { display: flex; flex-direction: column; min-width: 0; }
 .brand-header-name {
-  font-size: 17px; font-weight: 800; color: #FFFFFF; line-height: 1.2;
+  font-size: 15.5px; font-weight: 800; color: #FFFFFF; line-height: 1.2;
   margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
   text-shadow: 0 2px 8px rgba(0,0,0,0.35);
 }
 .brand-header-sub {
-  font-size: 11.5px; color: #BAE6FD; font-weight: 500;
+  font-size: 11px; color: #BAE6FD; font-weight: 500;
   white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
 
 .brand-dots-btn {
-  width: 40px; height: 40px; border-radius: 50%;
+  width: 36px; height: 36px; border-radius: 50%;
   background: #FFFFFF;
-  border: 1px solid rgba(56, 189, 248, 0.3);
-  color: #0A192F; font-size: 18px; font-weight: 900;
+  border: 1.5px solid rgba(56, 189, 248, 0.35);
+  color: #0A192F; font-size: 17px; font-weight: 900;
   cursor: pointer; display: grid; place-items: center;
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
+  flex-shrink: 0;
   transition: all .16s ease;
 }
 .brand-dots-btn:hover {
   transform: translateY(-1px);
   box-shadow: 0 6px 18px rgba(56, 189, 248, 0.4);
+  border-color: #38BDF8;
 }
 
 /* ── Outlet Section (Card with Rounded Border) ── */
@@ -399,16 +391,7 @@ body.store-page .container { padding-bottom: 0; background: #F8FAFC; }
 .bundle-from { font-size: 10px; color: #64748B; }
 .bundle-from .price { font-size: 12.5px; font-weight: 800; color: #0284C7; }
 
-/* ── Store Footer Banner ── */
-.store-foot {
-  margin-top: 24px;
-  width: 100%;
-  height: 120px;
-  background-image: url('/img/store_bottom_decor.png');
-  background-size: 100% auto;
-  background-repeat: no-repeat;
-  background-position: bottom center;
-}
+
 
 /* Responsif */
 @media (max-width: 360px) {
