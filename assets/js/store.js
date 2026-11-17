@@ -723,9 +723,9 @@ function renderCats() {
   if (S.activeCat !== 'all' && !cats.some((c) => c.id === S.activeCat)) {
     S.activeCat = 'all';
   }
-  const allPill = `<button class="cat-pill ${S.activeCat === 'all' ? 'active' : ''}" role="tab" data-cat="all"><span>Semua</span></button>`;
+  const allPill = `<button class="cat-pill ${S.activeCat === 'all' ? 'active' : ''}" role="tab" data-cat="all"><span class="cat-pill-ico">☕</span><span>Semua</span></button>`;
   const pills = cats.map(
-    (c) => `<button class="cat-pill ${S.activeCat === c.id ? 'active' : ''}" role="tab" data-cat="${esc(c.id)}"><span>${esc(c.name)}</span></button>`
+    (c) => `<button class="cat-pill ${S.activeCat === c.id ? 'active' : ''}" role="tab" data-cat="${esc(c.id)}">${catIcon(c.name)}<span>${esc(c.name)}</span></button>`
   );
   catBar.innerHTML = [allPill, ...pills].join('');
 }
@@ -830,6 +830,7 @@ function rowCard(item) {
         ${item.normalPrice && item.normalPrice > item.price ? `<span class="price-normal">${formatRp(item.normalPrice)}</span>` : ''}
         <div class="row-price-bottom">
           <span class="price">${formatRp(item.price)}</span>
+          <span class="size-pill">R ˅</span>
           ${badge && !item.isSoldOut ? `<span class="save-badge">${esc(badge)}</span>` : ''}
         </div>
       </div>

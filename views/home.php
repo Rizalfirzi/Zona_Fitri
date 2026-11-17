@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <meta name="theme-color" content="#0F1E36" />
+  <meta name="theme-color" content="#062817" />
   <meta name="description" content="Zona Fitri — jasa order Kopi Kenangan, Tomoro Coffee, Fore Coffee & Janji Jiwa. Lebih hemat, pesan langsung via WhatsApp." />
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Zona Fitri — Jasa Order Kopi" />
@@ -16,8 +16,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/assets/css/app.css" />
-  <link rel="stylesheet" href="/assets/css/home.css" />
+  <link rel="stylesheet" href="/assets/css/app.css?v=20261117" />
+  <link rel="stylesheet" href="/assets/css/home.css?v=20261117" />
   <script src="/assets/js/theme-boot.js"></script>
 </head>
 <body class="home-page">
@@ -33,51 +33,99 @@
 
     <div id="closedBanner"></div>
 
-    <!-- Splash tampilan pilih brand dengan tema Modern Navy -->
+    <!-- Splash tampilan pilih brand dengan tema Aesthetic Emerald Coffee -->
     <section id="splash" data-mode="malam">
       <div class="sp-content">
         <div class="sp-header">
           <div class="sp-brand">
-            <img src="/img/brand/zonafitri-logo.png" alt="Zona Fitri" style="height:48px;width:auto;object-fit:contain;" />
+            <img src="/img/brand/zonafitri-logo.png" alt="Zona Fitri" style="height:44px;width:auto;object-fit:contain;" />
           </div>
-          <div class="sp-status" id="spStatus"><span class="sp-dot"></span><span id="spStatusText">SEDANG BUKA</span></div>
+          <div class="sp-status" id="spStatus">
+            <span class="sp-status-icon">✓</span>
+            <span id="spStatusText">SEDANG BUKA</span>
+          </div>
           <h2 id="spTitle">Mau Ngopi?</h2>
           <p class="sp-sub" id="spSub">Ingat Fitri</p>
         </div>
 
         <!-- Direct Brand Picker di Halaman Awal -->
         <div class="sp-brand-picker">
-          <span class="sp-picker-label">PILIH BRAND KOPI</span>
+          <div class="sp-picker-label-wrap">
+            <span class="sp-picker-line"></span>
+            <span class="sp-picker-label">PILIH BRAND KOPI</span>
+            <span class="sp-picker-line"></span>
+          </div>
+
           <div class="sp-brand-grid">
-            <a href="/kopikenangan" class="sp-brand-card">
-              <img src="/img/brands/kopken.png" alt="Kopi Kenangan" />
-              <span>KOPI KENANGAN</span>
+            <a href="/kopikenangan" class="sp-brand-card sp-card-kopken">
+              <div class="sp-card-icon-wrap icon-kopken">
+                <img src="/img/brands/kopken_white.png" alt="Kopi Kenangan" />
+              </div>
+              <span class="sp-card-name">KOPI KENANGAN</span>
+              <span class="sp-card-arrow">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+              </span>
             </a>
-            <a href="/tomoro" class="sp-brand-card">
-              <img src="/img/brands/tomoro.png" alt="Tomoro Coffee" />
-              <span>TOMORO COFFEE</span>
+
+            <a href="/tomoro" class="sp-brand-card sp-card-tomoro">
+              <div class="sp-card-icon-wrap icon-tomoro">
+                <img src="/img/brands/tomoro_white.png" alt="Tomoro Coffee" />
+              </div>
+              <span class="sp-card-name">TOMORO COFFEE</span>
+              <span class="sp-card-arrow">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+              </span>
             </a>
-            <a href="/fore" class="sp-brand-card">
-              <img src="/img/brands/fore.png" alt="Fore Coffee" />
-              <span>FORE COFFEE</span>
+
+            <a href="/fore" class="sp-brand-card sp-card-fore">
+              <div class="sp-card-icon-wrap icon-fore">
+                <img src="/img/brands/fore_white.png" alt="Fore Coffee" />
+              </div>
+              <span class="sp-card-name">FORE COFFEE</span>
+              <span class="sp-card-arrow">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+              </span>
             </a>
-            <a href="/janjiw" class="sp-brand-card">
-              <img src="/img/brands/jiwa.png" alt="Janji Jiwa" />
-              <span>JANJI JIWA</span>
+
+            <a href="/janjiw" class="sp-brand-card sp-card-jiwa">
+              <div class="sp-card-icon-wrap icon-jiwa">
+                <img src="/img/brands/jiwa_white.png" alt="Janji Jiwa" />
+              </div>
+              <span class="sp-card-name">JANJI JIWA</span>
+              <span class="sp-card-arrow">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+              </span>
             </a>
           </div>
 
-          <!-- Tombol Gabung Saluran WA dipindahkan ke bawah brand card sesuai Gambar 3 -->
-          <a class="sp-channel-btn" id="spWa" href="https://whatsapp.com/channel/0029VbAzAXsI1rcbcchmmj2F" target="_blank" rel="noopener">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5a8.5 8.5 0 0 0-7.3 12.8L3.5 20.5l4.3-1.1A8.5 8.5 0 1 0 12 3.5z"/><path d="M9 8.8c.2-.5.4-.5.6-.5l.5.1 1 2.4c.1.2 0 .4-.1.6l-.5.5c.4.8 1 1.5 1.9 2l.6-.5c.2-.2.4-.2.6-.1l2.3 1.1c.2.1.3.3.3.5-.1.9-.6 1.7-1.4 1.9-.7.2-1.5.1-2.7-.4a12.6 12.6 0 0 1-4.5-4c-.6-1-.8-1.9-.6-2.7.1-.5.5-.8 1-1z" fill="currentColor" stroke="none"/></g></svg>
-            <span>Gabung Saluran</span>
-          </a>
+          <!-- Tombol Gabung Saluran WA -->
+          <div class="sp-channel-btn-wrap">
+            <span class="sp-wa-doodle" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#FACC15" stroke-width="2.5" stroke-linecap="round"><path d="M5 12H1M7 6L3 3M12 4V1"/></svg>
+            </span>
+            <a class="sp-channel-btn" id="spWa" href="https://whatsapp.com/channel/0029VbAzAXsI1rcbcchmmj2F" target="_blank" rel="noopener">
+              <div class="sp-wa-content">
+                <span class="sp-wa-icon-circle">
+                  <svg class="sp-wa-icon" viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5a8.5 8.5 0 0 0-7.3 12.8L3.5 20.5l4.3-1.1A8.5 8.5 0 1 0 12 3.5z"/><path d="M9 8.8c.2-.5.4-.5.6-.5l.5.1 1 2.4c.1.2 0 .4-.1.6l-.5.5c.4.8 1 1.5 1.9 2l.6-.5c.2-.2.4-.2.6-.1l2.3 1.1c.2.1.3.3.3.5-.1.9-.6 1.7-1.4 1.9-.7.2-1.5.1-2.7-.4a12.6 12.6 0 0 1-4.5-4c-.6-1-.8-1.9-.6-2.7.1-.5.5-.8 1-1z" fill="currentColor" stroke="none"/></g></svg>
+                </span>
+                <span class="sp-wa-divider"></span>
+                <span class="sp-wa-label">Gabung Saluran</span>
+              </div>
+              <span class="sp-wa-arrow">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+              </span>
+            </a>
+          </div>
         </div>
 
-        <div class="sp-building-spacer"></div>
-
-        <div class="sp-bottom">
-          <div class="sp-url"><span>‹</span><span id="spHost">zonafitrinet.my.id</span><span>•••</span></div>
+        <div class="sp-bottom-decor">
+          <div class="sp-script-quote">
+            <span class="sp-sq-line1">Ngopi Lebih Seru</span>
+            <span class="sp-sq-line2">Bersama <em>Zona Fitri</em></span>
+          </div>
+          <div class="sp-cup-image">
+            <img src="/img/coffee_cup_bottom.png" alt="Zona Fitri Coffee" />
+          </div>
         </div>
       </div>
     </section>
@@ -141,7 +189,7 @@
     </div>
   </div>
 
-  <!-- Pilih brand ala video (tombol Order Sekarang) -->
+  <!-- Pilih brand modal -->
   <div id="brandModal">
     <div class="brand-modal">
       <div class="brand-modal-head">
@@ -151,7 +199,7 @@
     </div>
   </div>
 
-  <script type="module" src="/assets/js/home.js?v=12tomororedpricefix"></script>
+  <script type="module" src="/assets/js/home.js?v=20261117"></script>
   <script src="/assets/js/nufs.js" defer></script>
 </body>
 </html>

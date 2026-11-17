@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <meta name="theme-color" content="#0F1E36" />
+  <meta name="theme-color" content="#063420" />
   <meta name="description" content="Order Kopi Kenangan, Tomoro, Fore & Janji Jiwa lebih hemat lewat Zona Fitri. Pilih outlet, pilih menu, kirim pesanan via WhatsApp." />
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Zona Fitri — Jasa Order Kopi" />
@@ -15,23 +15,26 @@
   <link rel="apple-touch-icon" href="/img/brand/zonafitri-logo.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/assets/css/app.css?v=12tomororedpricefix" />
-  <link rel="stylesheet" href="/assets/css/store.css?v=12tomororedpricefix" />
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/assets/css/app.css?v=20261117" />
+  <link rel="stylesheet" href="/assets/css/store.css?v=20261117" />
   <script src="/assets/js/theme-boot.js"></script>
 </head>
 <body class="store-page">
   <a class="skip-link" href="#menu">Langsung ke menu</a>
   <div class="container">
-    <!-- Brand Top Bar (Back button, Logo, Brand Name, 3-dots) -->
+    <!-- Brand Top Bar (Back button, Logo, Brand Name, 3-dots, and floating iced cup decor) -->
     <nav class="store-brand-bar">
+      <div class="store-header-cup-decor" aria-hidden="true"></div>
       <a href="/" class="brand-back-btn" id="brandBackBtn" aria-label="Kembali ke beranda">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
           <path d="M19 12H5M12 19l-7-7 7-7"/>
         </svg>
       </a>
       <div class="brand-header-info">
-        <img id="brandHeaderLogo" src="" alt="" class="brand-header-logo" />
+        <div class="brand-header-logo-wrap">
+          <img id="brandHeaderLogo" src="" alt="" class="brand-header-logo" />
+        </div>
         <div class="brand-header-text">
           <h1 id="brandHeaderName" class="brand-header-name">Kopi Kenangan</h1>
           <span class="brand-header-sub">Pesan langsung via WhatsApp</span>
@@ -42,7 +45,7 @@
 
     <div id="closedBanner"></div>
 
-    <!-- Inline Outlet Picker ala video -->
+    <!-- Inline Outlet Picker ala Image 2 -->
     <div class="outlet-section" id="outletSection">
       <div class="os-header">
         <div class="os-header-left">
@@ -59,7 +62,7 @@
         <button type="button" class="os-clear hidden" id="inlineOutletClear" aria-label="Bersihkan">✕</button>
       </div>
       <div class="os-chip hidden" id="inlineOutletChip" title="Klik untuk ganti outlet">
-        <span class="os-chip-text">📍 Outlet: <b id="inlineOutletChipName"></b></span>
+        <span class="os-chip-text"><span class="os-check-icon">✓</span> Outlet: <b id="inlineOutletChipName"></b></span>
         <button type="button" id="inlineOutletChipRemove" aria-label="Ganti outlet" title="Ganti outlet">✕ Ganti</button>
       </div>
       <div class="os-dropdown hidden" id="inlineOutletDropdown" role="listbox"></div>
@@ -68,8 +71,12 @@
     <!-- Mode toggle 2 tab (Menu & Bundling Promo) -->
     <div class="menu-toolbar" id="menuToolbar">
       <div class="mode-seg-3" id="modeSeg" role="tablist" aria-label="Jenis menu">
-        <button type="button" class="mode-tab active" data-mode="single">Menu</button>
-        <button type="button" class="mode-tab" data-mode="bundle">Bundling Promo</button>
+        <button type="button" class="mode-tab active" data-mode="single">
+          <span class="mode-ico">☕</span> Menu
+        </button>
+        <button type="button" class="mode-tab" data-mode="bundle">
+          <span class="mode-ico">🏷️</span> Bundling Promo
+        </button>
       </div>
 
       <!-- Menu search & categories (khusus mode Menu) -->
@@ -77,22 +84,28 @@
         <div class="menu-search">
           <span class="search-ico">🔍</span>
           <input type="search" id="menuSearch" autocomplete="off" enterkeyhint="search" placeholder="Cari menu…" aria-label="Cari menu" />
+          <span class="search-filter-icon" aria-hidden="true">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#6B7280" stroke-width="2" stroke-linecap="round"><path d="M4 21v-7M4 10V3M12 21v-9M12 8V3M20 21v-5M20 12V3M1 14h6M9 8h6M17 16h6"/></svg>
+          </span>
           <button type="button" class="search-clear hidden" id="menuSearchClear">✕</button>
         </div>
         <div class="cat-bar" id="catBar" role="tablist" aria-label="Kategori menu"></div>
       </div>
 
       <div class="outlet-floating-pill hidden" id="outletFloatingPill">
-        📍 Outlet: <span id="outletFloatingName"></span>
+        <span>☕ Outlet: <span id="outletFloatingName"></span></span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg>
       </div>
     </div>
 
     <main class="menu" id="menu" aria-live="polite" tabindex="-1"></main>
 
     <div class="menu-source" id="menuSource"></div>
+    
+    <!-- Footer dekorasi ombak khas Zona Fitri seperti Gambar 2 -->
     <footer class="store-foot" id="storeFoot"></footer>
 
-    <!-- Banner status outlet tutup ala video -->
+    <!-- Banner status outlet tutup -->
     <div class="outlet-closed-bar hidden" id="outletClosedBar">
       <span class="oc-closed-dot"></span> Outlet sedang tutup, pemesanan tidak tersedia
     </div>
@@ -120,7 +133,7 @@
     </div>
   </div>
 
-  <!-- Category picker sheet ("select" kategori) -->
+  <!-- Category picker sheet -->
   <div class="sheet-backdrop" id="catSheet">
     <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="catSheetTitle">
       <div class="sheet-handle"></div>
@@ -224,7 +237,7 @@
     </div>
   </div>
 
-  <!-- Brand switcher ala video -->
+  <!-- Brand switcher modal -->
   <div id="brandModal">
     <div class="brand-modal">
       <div class="brand-modal-head">
@@ -234,7 +247,7 @@
     </div>
   </div>
 
-  <script type="module" src="/assets/js/store.js?v=12tomororedpricefix"></script>
+  <script type="module" src="/assets/js/store.js?v=20261117"></script>
   <script src="/assets/js/nufs.js" defer></script>
 </body>
 </html>
