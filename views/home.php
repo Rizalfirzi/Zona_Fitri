@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <meta name="theme-color" content="#0a1122" />
-  <meta name="description" content="Zona Fitri — Jasa Order Kopi Kenangan, Tomoro Coffee, Fore Coffee & Janji Jiwa. Lebih hemat, pesan langsung via WhatsApp." />
+  <meta name="theme-color" content="#0F1E36" />
+  <meta name="description" content="Zona Fitri — jasa order Kopi Kenangan, Tomoro Coffee, Fore Coffee & Janji Jiwa. Lebih hemat, pesan langsung via WhatsApp." />
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Zona Fitri — Jasa Order Kopi" />
   <meta property="og:description" content="Kopi Kenangan, Tomoro, Fore & Janji Jiwa lebih hemat. Pesan langsung via WhatsApp." />
@@ -15,113 +15,222 @@
   <link rel="apple-touch-icon" href="/img/brand/zonafitri-logo.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@500;600;700;800;900&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/assets/css/app.css?v=<?= time() ?>" />
   <link rel="stylesheet" href="/assets/css/home.css?v=<?= time() ?>" />
   <script src="/assets/js/theme-boot.js"></script>
 </head>
 <body class="home-page">
-  <div class="app-container" id="splash">
-
-    <!-- Header Logo & Status Badge -->
-    <div class="header">
-      <div class="main-logo">
-        <img src="/img/brand/zonafitri-logo.png" alt="zona fitri" class="logo-img" onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
-        <h1 style="display:none;">zona<span>fitri</span></h1>
+  <a class="skip-link" href="#menu">Langsung ke menu</a>
+  <div class="container">
+    <nav class="topnav">
+      <a href="/" id="navBrand" aria-label="Beranda"></a>
+      <div class="topnav-actions">
+        <button class="icon-btn" id="themeBtn" aria-label="Ganti tema"></button>
+        <button class="icon-btn" id="drawerBtn" aria-label="Buka menu"></button>
       </div>
-      <div class="status-badge" id="spStatus">
-        <i class="fa-solid fa-circle-check"></i> <span id="spStatusText">SEDANG BUKA</span>
+    </nav>
+
+    <div id="closedBanner"></div>
+
+    <!-- Splash tampilan pilih brand dengan tema Modern Navy -->
+    <section id="splash" data-mode="malam">
+      <!-- Background Ambient Glow & Wave -->
+      <div class="sp-bg-glow top-left" aria-hidden="true"></div>
+      <div class="sp-bg-wave" aria-hidden="true"></div>
+      
+      <!-- Top-right corner dot grid -->
+      <div class="sp-dot-grid top-right" aria-hidden="true">
+        <span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span>
       </div>
-    </div>
 
-    <!-- Hero Text -->
-    <div class="hero-text">
-      <h2 id="spTitle">Mau Ngopi?</h2>
-      <h3 id="spSub">Ingat Fitri</h3>
-    </div>
-
-    <!-- Divider -->
-    <div class="divider">
-      <span>PILIH BRAND KOPI</span>
-    </div>
-
-    <!-- Brand Cards List -->
-    <div class="brand-list">
-      <a href="/kopikenangan" class="brand-card">
-        <div class="brand-icon icon-kenangan">
-          <img src="/img/brands/kopken_white.png" alt="" onerror="this.onerror=null;this.replaceWith(document.createElement('i')).className='fa-solid fa-heart';">
-        </div>
-        <div class="brand-name">KOPI KENANGAN</div>
-        <div class="brand-arrow">
-          <i class="fa-solid fa-chevron-right"></i>
-        </div>
-      </a>
-
-      <a href="/tomoro" class="brand-card">
-        <div class="brand-icon icon-tomoro">
-          <img src="/img/brands/tomoro_white.png" alt="" onerror="this.onerror=null;this.replaceWith(document.createElement('i')).className='fa-solid fa-cat';">
-        </div>
-        <div class="brand-name">TOMORO COFFEE</div>
-        <div class="brand-arrow">
-          <i class="fa-solid fa-chevron-right"></i>
-        </div>
-      </a>
-
-      <a href="/fore" class="brand-card">
-        <div class="brand-icon icon-fore">
-          <img src="/img/brands/fore_white.png" alt="" onerror="this.onerror=null;this.replaceWith(document.createElement('i')).className='fa-brands fa-pagelines';">
-        </div>
-        <div class="brand-name">FORE COFFEE</div>
-        <div class="brand-arrow">
-          <i class="fa-solid fa-chevron-right"></i>
-        </div>
-      </a>
-
-      <a href="/janjiw" class="brand-card">
-        <div class="brand-icon icon-jiwa">
-          <img src="/img/brands/jiwa_white.png" alt="" onerror="this.onerror=null;this.replaceWith(document.createElement('i')).className='fa-solid fa-mug-hot';">
-        </div>
-        <div class="brand-name">JANJI JIWA</div>
-        <div class="brand-arrow">
-          <i class="fa-solid fa-chevron-right"></i>
-        </div>
-      </a>
-    </div>
-
-    <!-- CTA Button (Gabung Saluran WhatsApp) -->
-    <div class="cta-container">
-      <div class="cta-spark-wrap">
-        <svg class="cta-sparks" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="2.5" stroke-linecap="round">
-          <line x1="12" y1="2" x2="12" y2="6"></line>
-          <line x1="4" y1="12" x2="8" y2="10"></line>
-          <line x1="5" y1="19" x2="9" y2="15"></line>
-        </svg>
-        <a href="https://whatsapp.com/channel/0029VbAzAXsI1rcbcchmmj2F" target="_blank" rel="noopener" class="cta-btn" id="spWa">
-          <span class="cta-left">
-            <i class="fa-brands fa-whatsapp"></i>
-            <span class="cta-sep">|</span>
-            <span class="cta-text">Gabung Saluran</span>
-          </span>
-          <i class="fa-solid fa-chevron-right cta-chevron"></i>
-        </a>
+      <!-- Bottom-right corner dot grid -->
+      <div class="sp-dot-grid bottom-right" aria-hidden="true">
+        <span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span><span></span>
       </div>
-    </div>
 
-    <!-- Footer Promo Section -->
-    <div class="footer-promo">
-      <div class="footer-text">
-        Ngopi Lebih Seru<br>
-        Bersama <span>Zona Fitri</span>
+      <!-- Glowing flare points -->
+      <div class="sp-flare f1" aria-hidden="true"></div>
+      <div class="sp-flare f2" aria-hidden="true"></div>
+
+      <div class="sp-content">
+        <!-- Top Logo Card (White Pill with Outer Glow) -->
+        <div class="sp-brand-card-top">
+          <img src="/img/brand/zonafitri-logo.png" alt="Zona Fitri" class="sp-brand-img" />
+        </div>
+
+        <!-- Status Sedang Buka Pill -->
+        <div class="sp-status open" id="spStatus">
+          <span class="sp-dot"></span>
+          <span id="spStatusText">SEDANG BUKA</span>
+        </div>
+
+        <!-- Hero Title & Tagline with Glowing Horizontal Accent Lines -->
+        <div class="sp-header">
+          <h2 id="spTitle" class="sp-main-title">Mau Ngopi?</h2>
+          <div class="sp-sub-wrap">
+            <span class="sp-sub-line left"></span>
+            <p class="sp-sub" id="spSub">Ingat Fitri</p>
+            <span class="sp-sub-line right"></span>
+          </div>
+        </div>
+
+        <!-- Direct Brand Picker di Halaman Awal -->
+        <div class="sp-brand-picker">
+          <div class="sp-section-divider">
+            <span class="sp-sparkle">✦</span>
+            <span class="sp-picker-label">PILIH BRAND KOPI</span>
+            <span class="sp-sparkle">✦</span>
+          </div>
+
+          <div class="sp-brand-grid">
+            <a href="/kopikenangan" class="sp-brand-card" title="Pesan Kopi Kenangan">
+              <div class="brand-icon-box">
+                <img src="/img/brands/kopken.png" alt="Kopi Kenangan" />
+              </div>
+              <span class="brand-label">KOPI KENANGAN</span>
+              <div class="brand-arrow">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M9 18l6-6-6-6"/>
+                </svg>
+              </div>
+            </a>
+
+            <a href="/tomoro" class="sp-brand-card" title="Pesan Tomoro Coffee">
+              <div class="brand-icon-box">
+                <img src="/img/brands/tomoro.png" alt="Tomoro Coffee" />
+              </div>
+              <span class="brand-label">TOMORO COFFEE</span>
+              <div class="brand-arrow">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M9 18l6-6-6-6"/>
+                </svg>
+              </div>
+            </a>
+
+            <a href="/fore" class="sp-brand-card" title="Pesan Fore Coffee">
+              <div class="brand-icon-box">
+                <img src="/img/brands/fore.png" alt="Fore Coffee" />
+              </div>
+              <span class="brand-label">FORE COFFEE</span>
+              <div class="brand-arrow">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M9 18l6-6-6-6"/>
+                </svg>
+              </div>
+            </a>
+
+            <a href="/janjiw" class="sp-brand-card" title="Pesan Janji Jiwa">
+              <div class="brand-icon-box">
+                <img src="/img/brands/jiwa.png" alt="Janji Jiwa" />
+              </div>
+              <span class="brand-label">JANJI JIWA</span>
+              <div class="brand-arrow">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M9 18l6-6-6-6"/>
+                </svg>
+              </div>
+            </a>
+          </div>
+
+          <!-- Tombol Gabung Saluran WA dengan Dash Accents (Tanpa Bagian Localhost) -->
+          <div class="sp-channel-container">
+            <div class="sp-dash-accent left" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#34D399" stroke-width="3" stroke-linecap="round">
+                <path d="M6 17l5-10M12 17l5-10"/>
+              </svg>
+            </div>
+            <a class="sp-channel-btn" id="spWa" href="https://whatsapp.com/channel/0029VbAzAXsI1rcbcchmmj2F" target="_blank" rel="noopener">
+              <svg class="wa-ico" viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5a8.5 8.5 0 0 0-7.3 12.8L3.5 20.5l4.3-1.1A8.5 8.5 0 1 0 12 3.5z"/><path d="M9 8.8c.2-.5.4-.5.6-.5l.5.1 1 2.4c.1.2 0 .4-.1.6l-.5.5c.4.8 1 1.5 1.9 2l.6-.5c.2-.2.4-.2.6-.1l2.3 1.1c.2.1.3.3.3.5-.1.9-.6 1.7-1.4 1.9-.7.2-1.5.1-2.7-.4a12.6 12.6 0 0 1-4.5-4c-.6-1-.8-1.9-.6-2.7.1-.5.5-.8 1-1z" fill="currentColor" stroke="none"/></g></svg>
+              <span>Gabung Saluran</span>
+            </a>
+            <div class="sp-dash-accent right" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#34D399" stroke-width="3" stroke-linecap="round">
+                <path d="M7 7l5 10M13 7l5 10"/>
+              </svg>
+            </div>
+          </div>
+        </div>
       </div>
-      <svg class="underline-svg" viewBox="0 0 200 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M5 15Q100 -5 195 15" stroke="#9eb1cf" stroke-width="3" stroke-linecap="round"/>
-      </svg>
-    </div>
+    </section>
 
+    <section class="hero" aria-roledescription="carousel" aria-label="Info utama">
+      <div class="hero-track" id="heroTrack"></div>
+      <div class="hero-dots" id="heroDots"></div>
+    </section>
+
+    <section class="section featured" id="menu" aria-labelledby="menuTitle">
+      <div class="eyebrow">Menu favorit</div>
+      <h2 class="section-title" id="menuTitle">Mau ngopi apa hari ini?</h2>
+      <div class="brand-tabs" id="brandTabs" role="tablist" aria-label="Pilih brand"></div>
+      <div class="prod-grid" id="prodGrid" role="tabpanel" aria-live="polite"></div>
+      <a class="btn btn-outline btn-block see-all" id="seeAllBtn" href="/kopikenangan">Lihat semua menu</a>
+    </section>
+
+    <section class="section bundles-sec hidden" id="bundlesSec" aria-labelledby="bundlesTitle">
+      <div class="feat-head"><div><div class="eyebrow">Lebih hemat</div><h2 class="section-title" id="bundlesTitle">Promo bundling</h2></div>
+        <a class="link-btn" id="bundlesAll" href="/kopikenangan">Lihat semua</a></div>
+      <div class="track" id="bundleTrack"></div>
+    </section>
+
+    <section class="perks" id="perks" aria-label="Keunggulan"></section>
+
+    <section class="section" aria-labelledby="howTitle">
+      <div class="eyebrow">Cara order</div>
+      <h2 class="section-title" id="howTitle">Empat langkah, tanpa install aplikasi</h2>
+      <div class="timeline">
+        <div class="tl-step"><span class="tl-num">1</span><div><h4>Pilih brand & outlet</h4><p>Pilih outlet tujuan pesanan. Menu, harga & stok mengikuti outlet itu.</p></div></div>
+        <div class="tl-step"><span class="tl-num">2</span><div><h4>Pilih menu</h4><p>Atur ukuran, Ice/Hot, gula & es, atau ambil paket bundling yang lebih hemat.</p></div></div>
+        <div class="tl-step"><span class="tl-num">3</span><div><h4>Kirim lewat WhatsApp</h4><p>Rincian pesanan otomatis terformat & terkirim ke admin.</p></div></div>
+        <div class="tl-step"><span class="tl-num">4</span><div><h4>Bayar, pesanan diorderkan</h4><p>Admin kirim info pembayaran. Setelah lunas, pesananmu langsung diorderkan ke outlet.</p></div></div>
+      </div>
+    </section>
+
+    <section class="cta" aria-labelledby="ctaTitle">
+      <div class="eyebrow">Butuh bantuan?</div>
+      <h2 id="ctaTitle">Ada pertanyaan soal pesanan?</h2>
+      <p>Admin siap bantu lewat WhatsApp — dari tanya menu sampai cek pesanan.</p>
+      <button class="btn btn-primary" data-action="cs" id="ctaBtn">Chat admin</button>
+    </section>
+
+    <footer class="foot" id="foot"></footer>
   </div>
 
-  <!-- Realtime Shop Status & WA Channel Sync Helper -->
-  <script src="/assets/js/nufs.js?v=<?= time() ?>" defer></script>
+  <button class="fab-wa" data-action="cs" aria-label="Chat admin via WhatsApp" id="fabWa"></button>
+
+  <!-- Cart (carts are kept per brand; this shows all of them) -->
+  <a class="cart-bar" id="cartBar" href="#" aria-label="Lihat keranjang">
+    <span class="cart-bar-left"><span class="cart-bar-icon" id="cartBarIcon"><span class="cart-bar-badge" id="cartBadge">0</span></span>
+      <span class="cart-bar-text"><b id="cartBarQty">0 item</b><small id="cartBarOutlet"></small></span></span>
+    <span class="cart-bar-right"><span class="price" id="cartBarTotal">Rp0</span><span id="cartBarChevron"></span></span>
+  </a>
+  <div class="sheet-backdrop" id="cartsSheet">
+    <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="cartsTitle">
+      <div class="sheet-handle"></div>
+      <div class="sheet-head"><div><div class="eyebrow">Keranjang</div><h3 class="sheet-title" id="cartsTitle">Lanjut checkout</h3><div class="sheet-sub">Keranjang dipisah per brand karena outletnya beda.</div></div>
+        <button class="close-btn" data-close="cartsSheet" aria-label="Tutup" id="cartsClose"></button></div>
+      <div id="cartsList"></div>
+    </div>
+  </div>
+
+  <!-- Pilih brand ala video (tombol Order Sekarang) -->
+  <div id="brandModal">
+    <div class="brand-modal">
+      <div class="brand-modal-head">
+        <img src="/img/brand/zonafitri-logo.png" alt="Zona Fitri" style="height:38px;width:auto;object-fit:contain;" />
+      </div>
+      <div class="brand-modal-grid" id="brandModalGrid"></div>
+    </div>
+  </div>
+
+  <script type="module" src="/assets/js/home.js?v=12tomororedpricefix"></script>
+  <script src="/assets/js/nufs.js" defer></script>
 </body>
 </html>
