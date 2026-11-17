@@ -14,15 +14,11 @@ $cleanUri = '/' . trim((string)$uri, '/');
 // 1. Static asset fallback protection (if requested through index.php)
 if (preg_match('#\.(png|webp|jpe?g|svg|ico|gif|css|js|map|woff2?|ttf|eot)$#i', $uri)) {
     if (preg_match('#^/uploads/#', $uri)) {
-        header("Location: https://tixandcoffee.developerngantuk.my.id{$uri}", true, 302);
+        header("Location: https://twinsjasdor.my.id{$uri}", true, 302);
         exit;
     }
     if (preg_match('#^/img/#', $uri)) {
         header("Location: https://ridstore.developerngantuk.my.id{$uri}", true, 302);
-        exit;
-    }
-    if (preg_match('#^/uploads/#', $uri)) {
-        header("Location: https://tixandcoffee.developerngantuk.my.id{$uri}", true, 302);
         exit;
     }
     http_response_code(404);
@@ -34,6 +30,11 @@ if (preg_match('#\.(png|webp|jpe?g|svg|ico|gif|css|js|map|woff2?|ttf|eot)$#i', $
 // 2. Direct API Routing (flawless even when running without router.php)
 if ($cleanUri === '/api/config') {
     require __DIR__ . '/api/config.php';
+    exit;
+}
+
+if ($cleanUri === '/api/health' || $cleanUri === '/health') {
+    require __DIR__ . '/api/health.php';
     exit;
 }
 
