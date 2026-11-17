@@ -485,12 +485,3 @@ body.has-cart { padding-bottom: 0; }
   border: 1px solid #10B981;
 }
 .toast.show, #toast.show { opacity: 1; transform: translateX(-50%); }
-
-/* Drawer & rogue element global protection */
-.drawer,
-.drawer-overlay,
-aside#drawer,
-div#drawerOverlay {
-  display: none !important;
-}
-

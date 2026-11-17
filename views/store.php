@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <meta name="theme-color" content="#0a1122" />
+  <meta name="theme-color" content="#063420" />
   <meta name="description" content="Order Kopi Kenangan, Tomoro, Fore & Janji Jiwa lebih hemat lewat Zona Fitri. Pilih outlet, pilih menu, kirim pesanan via WhatsApp." />
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Zona Fitri — Jasa Order Kopi" />
@@ -16,15 +16,16 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/assets/css/app.css?v=<?= time() ?>" />
-  <link rel="stylesheet" href="/assets/css/store.css?v=<?= time() ?>" />
+  <link rel="stylesheet" href="/assets/css/app.css?v=20261117" />
+  <link rel="stylesheet" href="/assets/css/store.css?v=20261117" />
   <script src="/assets/js/theme-boot.js"></script>
 </head>
 <body class="store-page">
   <a class="skip-link" href="#menu">Langsung ke menu</a>
   <div class="container">
-    <!-- Brand Top Bar (Back button, Logo, Brand Name, 3-dots) -->
+    <!-- Brand Top Bar (Back button, Logo, Brand Name, 3-dots, and floating iced cup decor) -->
     <nav class="store-brand-bar">
+      <div class="store-header-cup-decor" aria-hidden="true"></div>
       <a href="/" class="brand-back-btn" id="brandBackBtn" aria-label="Kembali ke beranda">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
           <path d="M19 12H5M12 19l-7-7 7-7"/>
@@ -100,6 +101,9 @@
     <main class="menu" id="menu" aria-live="polite" tabindex="-1"></main>
 
     <div class="menu-source" id="menuSource"></div>
+    
+    <!-- Footer dekorasi ombak khas Zona Fitri seperti Gambar 2 -->
+    <footer class="store-foot" id="storeFoot"></footer>
 
     <!-- Banner status outlet tutup -->
     <div class="outlet-closed-bar hidden" id="outletClosedBar">
