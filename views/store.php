@@ -23,27 +23,20 @@
 <body class="store-page">
   <a class="skip-link" href="#menu">Langsung ke menu</a>
   <div class="container">
-    <!-- Brand Top Bar (Back button, Menu button, Logo, Brand Name, 3-dots) -->
+    <!-- Brand Top Bar (Back button, Logo, Brand Name, 3-dots) Sesuai Gambar 2 -->
     <nav class="store-brand-bar">
       <a href="/" class="brand-back-btn" id="brandBackBtn" aria-label="Kembali ke beranda" title="Kembali ke beranda">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
           <path d="M19 12H5M12 19l-7-7 7-7"/>
         </svg>
       </a>
-      <button class="icon-btn brand-menu-btn" id="drawerBtn" aria-label="Buka navigasi menu" title="Menu">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
-          <line x1="3" y1="12" x2="21" y2="12"></line>
-          <line x1="3" y1="6" x2="21" y2="6"></line>
-          <line x1="3" y1="18" x2="21" y2="18"></line>
-        </svg>
-      </button>
       <div class="brand-header-info" id="brandHeaderInfo">
         <div class="brand-header-logo-wrap">
           <img id="brandHeaderLogo" src="" alt="" class="brand-header-logo" />
         </div>
         <div class="brand-header-text">
           <h1 id="brandHeaderName" class="brand-header-name">Kopi Kenangan</h1>
-          <span class="brand-header-sub">Pesan langsung via WhatsApp</span>
+          <span class="brand-header-sub">Pesan Langsung via WhatsApp</span>
         </div>
       </div>
       <button class="icon-btn brand-dots-btn" id="brandBtn" aria-label="Pilih brand lain" title="Ganti brand">•••</button>
@@ -51,52 +44,51 @@
 
     <div id="closedBanner"></div>
 
-    <!-- Inline Outlet Picker ala Image 2 -->
+    <!-- Outlet Section (2-Column Card) Sesuai Gambar 2 -->
     <div class="outlet-section" id="outletSection">
-      <div class="os-header">
-        <div class="os-header-left">
-          <span class="os-pin">📍</span>
-          <span class="os-title">PILIH OUTLET</span>
+      <div class="os-col-left">
+        <img src="/img/outlet_preview_cup.png" alt="Cup Preview" class="os-cup-thumb" />
+      </div>
+      <div class="os-col-right">
+        <div class="os-header">
+          <span class="os-title">📍 PILIH OUTLET</span>
+          <button type="button" class="os-near-btn" id="inlineOutletNearMe" title="Cari outlet terdekat dari lokasi saya">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+            <span>Terdekat</span>
+          </button>
         </div>
-        <button type="button" class="os-near-btn" id="inlineOutletNearMe" title="Cari outlet terdekat dari lokasi saya">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg>
-          <span>Terdekat</span>
-        </button>
-      </div>
-      <div class="os-input-wrap" id="outletInputWrap">
-        <input type="text" id="inlineOutletInput" placeholder="Ketik nama kota atau gerai..." autocomplete="off" enterkeyhint="search" />
-        <button type="button" class="os-clear hidden" id="inlineOutletClear" aria-label="Bersihkan">✕</button>
-      </div>
-      <div class="os-chip hidden" id="inlineOutletChip" title="Klik untuk ganti outlet">
-        <span class="os-chip-text"><span class="os-check-icon">✓</span> Outlet: <b id="inlineOutletChipName"></b></span>
-        <button type="button" id="inlineOutletChipRemove" aria-label="Ganti outlet" title="Ganti outlet">✕ Ganti</button>
+        <div class="os-input-wrap" id="outletInputWrap">
+          <input type="text" id="inlineOutletInput" placeholder="📍 Ganti outlet (saat ini: Bandung Electronic Center)..." autocomplete="off" enterkeyhint="search" />
+          <span class="os-input-chevron">⌵</span>
+          <button type="button" class="os-clear hidden" id="inlineOutletClear" aria-label="Bersihkan">✕</button>
+        </div>
+        <div class="os-chip hidden" id="inlineOutletChip" title="Klik untuk ganti outlet">
+          <span class="os-chip-text"><span class="os-chip-ico">🏪</span> Outlet: <b id="inlineOutletChipName"></b></span>
+          <button type="button" id="inlineOutletChipRemove" aria-label="Ganti outlet" title="Ganti outlet">⇄ Ganti</button>
+        </div>
       </div>
       <div class="os-dropdown hidden" id="inlineOutletDropdown" role="listbox"></div>
     </div>
 
-    <!-- Mode toggle 2 tab (Menu & Bundling Promo) -->
+    <!-- Promo WhatsApp Banner Sesuai Gambar 2 -->
+    <a href="https://whatsapp.com/channel/0029VbAzAXsI1rcbcchmmj2F" target="_blank" rel="noopener" class="store-promo-banner" aria-label="Ngopi Lebih Mudah di WhatsApp!">
+      <img src="/img/banner_wa_promo.png" alt="Ngopi Lebih Mudah di WhatsApp! Pesan cepat, praktis, tanpa ribet." class="spb-banner-img" />
+    </a>
+
+    <!-- Menu Toolbar (Search & Category Pills) Sesuai Gambar 2 -->
     <div class="menu-toolbar" id="menuToolbar">
-      <div class="mode-seg-3" id="modeSeg" role="tablist" aria-label="Jenis menu">
-        <button type="button" class="mode-tab active" data-mode="single">
-          <span class="mode-ico">☕</span> Menu
-        </button>
-        <button type="button" class="mode-tab" data-mode="bundle">
-          <span class="mode-ico">🏷️</span> Bundling Promo
-        </button>
+      <!-- Search input dengan icon filter -->
+      <div class="menu-search">
+        <span class="search-ico">🔍</span>
+        <input type="search" id="menuSearch" autocomplete="off" enterkeyhint="search" placeholder="Cari menu Kopi Kenangan…" aria-label="Cari menu" />
+        <span class="search-filter-icon" aria-hidden="true" title="Filter menu">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#6B7280" stroke-width="2" stroke-linecap="round"><path d="M4 21v-7M4 10V3M12 21v-9M12 8V3M20 21v-5M20 12V3M1 14h6M9 8h6M17 16h6"/></svg>
+        </span>
+        <button type="button" class="search-clear hidden" id="menuSearchClear">✕</button>
       </div>
 
-      <!-- Menu search & categories (khusus mode Menu) -->
-      <div class="mode-single-controls" id="modeSingleControls">
-        <div class="menu-search">
-          <span class="search-ico">🔍</span>
-          <input type="search" id="menuSearch" autocomplete="off" enterkeyhint="search" placeholder="Cari menu…" aria-label="Cari menu" />
-          <span class="search-filter-icon" aria-hidden="true">
-            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#6B7280" stroke-width="2" stroke-linecap="round"><path d="M4 21v-7M4 10V3M12 21v-9M12 8V3M20 21v-5M20 12V3M1 14h6M9 8h6M17 16h6"/></svg>
-          </span>
-          <button type="button" class="search-clear hidden" id="menuSearchClear">✕</button>
-        </div>
-        <div class="cat-bar" id="catBar" role="tablist" aria-label="Kategori menu"></div>
-      </div>
+      <!-- Kategori Pills Bar (Semua, Kopi, Non-Kopi, Teh, Frappé) -->
+      <div class="cat-bar" id="catBar" role="tablist" aria-label="Kategori menu"></div>
 
       <div class="outlet-floating-pill hidden" id="outletFloatingPill">
         <span>☕ Outlet: <span id="outletFloatingName"></span></span>
@@ -251,7 +243,7 @@
     </div>
   </div>
 
-  <script type="module" src="/assets/js/store.js?v=20261117"></script>
+  <script type="module" src="/assets/js/store.js?v=<?= time() ?>"></script>
   <script src="/assets/js/nufs.js" defer></script>
 </body>
 </html>

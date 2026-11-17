@@ -33,132 +33,148 @@
 
     <div id="closedBanner"></div>
 
-    <!-- Splash tampilan pilih brand dengan tema Modern Navy -->
+    <!-- Splash tampilan pilih brand dengan tema Modern Navy Sesuai Desain Baru -->
     <section id="splash" data-mode="malam">
       <!-- Background Ambient Glow & Wave -->
       <div class="sp-bg-glow top-left" aria-hidden="true"></div>
       <div class="sp-bg-wave" aria-hidden="true"></div>
-      
-      <!-- Top-right corner dot grid -->
-      <div class="sp-dot-grid top-right" aria-hidden="true">
-        <span></span><span></span><span></span><span></span>
-        <span></span><span></span><span></span><span></span>
-        <span></span><span></span><span></span><span></span>
-        <span></span><span></span><span></span><span></span>
+
+      <!-- Top Section (Logo, Status, Title + Hero Cup) -->
+      <div class="sp-hero-top">
+        <div class="sp-hero-left">
+          <!-- Top Logo Card (White Pill with Outer Glow) -->
+          <div class="sp-brand-card-top">
+            <img src="/img/brand/zonafitri-logo.png" alt="Zona Fitri" class="sp-brand-img" />
+          </div>
+
+          <!-- Status Sedang Buka Pill -->
+          <div class="sp-status open" id="spStatus">
+            <span class="sp-dot"></span>
+            <span id="spStatusText">Sedang Buka</span>
+          </div>
+
+          <!-- Hero Title & Tagline with Cyan Curved Underline -->
+          <div class="sp-header">
+            <h2 id="spTitle" class="sp-main-title">Mau Ngopi?</h2>
+            <div class="sp-sub-wrap">
+              <span class="sp-sub" id="spSub">Ingat <span class="sp-sub-accent">Fitri<svg class="sp-curved-line" viewBox="0 0 76 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 9C24 2 54 2 74 8" stroke="#38BDF8" stroke-width="3.5" stroke-linecap="round"/></svg></span></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3D Coffee Cup on Top-Right -->
+        <div class="sp-hero-cup">
+          <img src="/img/hero_cup_splash.png" alt="Zona Fitri Coffee Cup" class="sp-cup-img" />
+        </div>
       </div>
 
-      <!-- Bottom-right corner dot grid -->
-      <div class="sp-dot-grid bottom-right" aria-hidden="true">
-        <span></span><span></span><span></span><span></span><span></span>
-        <span></span><span></span><span></span><span></span><span></span>
-        <span></span><span></span><span></span><span></span><span></span>
-        <span></span><span></span><span></span><span></span><span></span>
-        <span></span><span></span><span></span><span></span><span></span>
+      <!-- Wave Curve Divider -->
+      <div class="sp-wave-divider" aria-hidden="true">
+        <svg viewBox="0 0 480 48" preserveAspectRatio="none">
+          <path d="M0,0 C160,42 320,42 480,0 L480,48 L0,48 Z" fill="#F8FAFC"/>
+        </svg>
       </div>
 
-      <!-- Glowing flare points -->
-      <div class="sp-flare f1" aria-hidden="true"></div>
-      <div class="sp-flare f2" aria-hidden="true"></div>
-
-      <div class="sp-content">
-        <!-- Top Logo Card (White Pill with Outer Glow) -->
-        <div class="sp-brand-card-top">
-          <img src="/img/brand/zonafitri-logo.png" alt="Zona Fitri" class="sp-brand-img" />
+      <!-- Main Lower Section with Brand Cards -->
+      <div class="sp-body">
+        <div class="sp-section-divider">
+          <span class="sp-divider-line"></span>
+          <div class="sp-divider-label">
+            <span class="sp-divider-ico">☕</span>
+            <span class="sp-picker-label">Pilih Brand Kopi</span>
+          </div>
+          <span class="sp-divider-line"></span>
         </div>
 
-        <!-- Status Sedang Buka Pill -->
-        <div class="sp-status open" id="spStatus">
-          <span class="sp-dot"></span>
-          <span id="spStatusText">SEDANG BUKA</span>
-        </div>
-
-        <!-- Hero Title & Tagline with Glowing Horizontal Accent Lines -->
-        <div class="sp-header">
-          <h2 id="spTitle" class="sp-main-title">Mau Ngopi?</h2>
-          <div class="sp-sub-wrap">
-            <span class="sp-sub-line left"></span>
-            <p class="sp-sub" id="spSub">Ingat Fitri</p>
-            <span class="sp-sub-line right"></span>
-          </div>
-        </div>
-
-        <!-- Direct Brand Picker di Halaman Awal -->
-        <div class="sp-brand-picker">
-          <div class="sp-section-divider">
-            <span class="sp-sparkle">✦</span>
-            <span class="sp-picker-label">PILIH BRAND KOPI</span>
-            <span class="sp-sparkle">✦</span>
-          </div>
-
-          <div class="sp-brand-grid">
-            <a href="/kopikenangan" class="sp-brand-card" title="Pesan Kopi Kenangan">
-              <div class="brand-icon-box">
-                <img src="/img/brands/kopken.png" alt="Kopi Kenangan" />
-              </div>
-              <span class="brand-label">KOPI KENANGAN</span>
-              <div class="brand-arrow">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M9 18l6-6-6-6"/>
-                </svg>
-              </div>
-            </a>
-
-            <a href="/tomoro" class="sp-brand-card" title="Pesan Tomoro Coffee">
-              <div class="brand-icon-box">
-                <img src="/img/brands/tomoro.png" alt="Tomoro Coffee" />
-              </div>
-              <span class="brand-label">TOMORO COFFEE</span>
-              <div class="brand-arrow">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M9 18l6-6-6-6"/>
-                </svg>
-              </div>
-            </a>
-
-            <a href="/fore" class="sp-brand-card" title="Pesan Fore Coffee">
-              <div class="brand-icon-box">
-                <img src="/img/brands/fore.png" alt="Fore Coffee" />
-              </div>
-              <span class="brand-label">FORE COFFEE</span>
-              <div class="brand-arrow">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M9 18l6-6-6-6"/>
-                </svg>
-              </div>
-            </a>
-
-            <a href="/janjiw" class="sp-brand-card" title="Pesan Janji Jiwa">
-              <div class="brand-icon-box">
-                <img src="/img/brands/jiwa.png" alt="Janji Jiwa" />
-              </div>
-              <span class="brand-label">JANJI JIWA</span>
-              <div class="brand-arrow">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M9 18l6-6-6-6"/>
-                </svg>
-              </div>
-            </a>
-          </div>
-
-          <!-- Tombol Gabung Saluran WA dengan Dash Accents (Tanpa Bagian Localhost) -->
-          <div class="sp-channel-container">
-            <div class="sp-dash-accent left" aria-hidden="true">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#34D399" stroke-width="3" stroke-linecap="round">
-                <path d="M6 17l5-10M12 17l5-10"/>
+        <div class="sp-brand-grid">
+          <!-- Kopi Kenangan -->
+          <a href="/kopikenangan" class="sp-brand-card card-kopken" title="Pesan Kopi Kenangan">
+            <div class="sp-card-pastel pastel-pink" aria-hidden="true"></div>
+            <div class="brand-icon-box">
+              <img src="/img/brands/kopken.png" alt="Kopi Kenangan" />
+            </div>
+            <div class="brand-info">
+              <span class="brand-name">Kopi Kenangan</span>
+              <span class="brand-tagline">Untuk kamu, yang selalu spesial</span>
+            </div>
+            <div class="brand-arrow">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M9 18l6-6-6-6"/>
               </svg>
             </div>
-            <a class="sp-channel-btn" id="spWa" href="https://whatsapp.com/channel/0029VbAzAXsI1rcbcchmmj2F" target="_blank" rel="noopener">
-              <svg class="wa-ico" viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5a8.5 8.5 0 0 0-7.3 12.8L3.5 20.5l4.3-1.1A8.5 8.5 0 1 0 12 3.5z"/><path d="M9 8.8c.2-.5.4-.5.6-.5l.5.1 1 2.4c.1.2 0 .4-.1.6l-.5.5c.4.8 1 1.5 1.9 2l.6-.5c.2-.2.4-.2.6-.1l2.3 1.1c.2.1.3.3.3.5-.1.9-.6 1.7-1.4 1.9-.7.2-1.5.1-2.7-.4a12.6 12.6 0 0 1-4.5-4c-.6-1-.8-1.9-.6-2.7.1-.5.5-.8 1-1z" fill="currentColor" stroke="none"/></g></svg>
+          </a>
+
+          <!-- Tomoro Coffee -->
+          <a href="/tomoro" class="sp-brand-card card-tomoro" title="Pesan Tomoro Coffee">
+            <div class="sp-card-pastel pastel-peach" aria-hidden="true"></div>
+            <div class="brand-icon-box">
+              <img src="/img/brands/tomoro.png" alt="Tomoro Coffee" />
+            </div>
+            <div class="brand-info">
+              <span class="brand-name">Tomoro Coffee</span>
+              <span class="brand-tagline">Good Coffee, Good Mood</span>
+            </div>
+            <div class="brand-arrow">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M9 18l6-6-6-6"/>
+              </svg>
+            </div>
+          </a>
+
+          <!-- Fore Coffee -->
+          <a href="/fore" class="sp-brand-card card-fore" title="Pesan Fore Coffee">
+            <div class="sp-card-pastel pastel-mint" aria-hidden="true"></div>
+            <div class="brand-icon-box">
+              <img src="/img/brands/fore.png" alt="Fore Coffee" />
+            </div>
+            <div class="brand-info">
+              <span class="brand-name">Fore Coffee</span>
+              <span class="brand-tagline">Live Green, Live Better</span>
+            </div>
+            <div class="brand-arrow">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M9 18l6-6-6-6"/>
+              </svg>
+            </div>
+          </a>
+
+          <!-- Janji Jiwa -->
+          <a href="/janjiw" class="sp-brand-card card-jiwa" title="Pesan Janji Jiwa">
+            <div class="sp-card-pastel pastel-coral" aria-hidden="true"></div>
+            <div class="brand-icon-box">
+              <img src="/img/brands/jiwa.png" alt="Janji Jiwa" />
+            </div>
+            <div class="brand-info">
+              <span class="brand-name">Janji Jiwa</span>
+              <span class="brand-tagline">Teman Sejati di Setiap Cerita</span>
+            </div>
+            <div class="brand-arrow">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M9 18l6-6-6-6"/>
+              </svg>
+            </div>
+          </a>
+        </div>
+
+        <!-- Tombol Gabung Saluran (Deep Blue Capsule Button) -->
+        <div class="sp-channel-container">
+          <a class="sp-channel-btn" id="spWa" href="https://whatsapp.com/channel/0029VbAzAXsI1rcbcchmmj2F" target="_blank" rel="noopener">
+            <div class="sp-channel-left">
+              <svg class="sp-channel-ico" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                <circle cx="12" cy="10" r="3"></circle>
+              </svg>
               <span>Gabung Saluran</span>
-            </a>
-            <div class="sp-dash-accent right" aria-hidden="true">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#34D399" stroke-width="3" stroke-linecap="round">
-                <path d="M7 7l5 10M13 7l5 10"/>
-              </svg>
             </div>
-          </div>
+            <svg class="sp-channel-chevron" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M9 18l6-6-6-6"/>
+            </svg>
+          </a>
         </div>
       </div>
+
+      <!-- Bottom Decorative Curve -->
+      <div class="sp-footer-decor" aria-hidden="true"></div>
     </section>
 
     <section class="hero" aria-roledescription="carousel" aria-label="Info utama">
@@ -230,7 +246,7 @@
     </div>
   </div>
 
-  <script type="module" src="/assets/js/home.js?v=12tomororedpricefix"></script>
+  <script type="module" src="/assets/js/home.js?v=<?= time() ?>"></script>
   <script src="/assets/js/nufs.js" defer></script>
 </body>
 </html>

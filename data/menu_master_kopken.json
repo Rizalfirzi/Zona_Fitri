@@ -11,12 +11,14 @@
       "name": "Coffee",
       "kind": "item",
       "items": [
+        "tarocloudlatte",
         "koreanbananalatte",
         "bananaamericano",
-        "ogarenspeculooslatte",
         "duashotogaren",
-        "pistachioarenlatte",
+        "mochacaramel",
         "cafemaltlatte",
+        "ogarenspeculooslatte",
+        "pistachioarenlatte",
         "kopikenanganmantan",
         "caramellatte",
         "caramelmacchiato",
@@ -31,7 +33,6 @@
         "americano",
         "cappuccino",
         "latte",
-        "tarocloudlatte",
         "oatsidelatte",
         "oatsidekopikenanganmantan"
       ]
@@ -128,6 +129,51 @@
   ],
   "items": [
     {
+      "key": "mochacaramel",
+      "id": "mochacaramel",
+      "code": "9918231",
+      "name": "Mocha Caramel",
+      "category": "Coffee",
+      "sourceCategory": "Kopi",
+      "img": "/img/menu/kopken_mochacaramel.png",
+      "desc": "Paduan kopi espresso kenangan dengan saus caramel manis gurih dan cokelat lezat.",
+      "price": 17000,
+      "largePrice": 23000,
+      "normalPrice": 26000,
+      "outletPrice": 26000,
+      "largeBase": 32000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": false,
+      "isSpecial": false,
+      "noLarge": false,
+      "options": {
+        "sizes": [
+          "Regular",
+          "Large"
+        ],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      },
+      "tag": ""
+    },
+    {
       "key": "koreanbananalatte",
       "id": "koreanbananalatte",
       "code": "1778661",
@@ -136,7 +182,7 @@
       "sourceCategory": "Kopi",
       "img": "https://cdn.kopikenangan.com/ID/release/pub/kk-api-management/product/abf8f929-2d72-42ef-a05d-ebeadec7bb75?",
       "desc": "",
-      "price": 16500,
+      "price": 15500,
       "largePrice": 22500,
       "normalPrice": 23000,
       "outletPrice": 23000,
@@ -181,7 +227,7 @@
       "sourceCategory": "Kopi",
       "img": "https://cdn.kopikenangan.com/ID/release/pub/kk-api-management/product/c0442198-2f86-4d81-9a55-9aaf35019b92?",
       "desc": "",
-      "price": 14500,
+      "price": 13500,
       "largePrice": 20500,
       "normalPrice": 19000,
       "outletPrice": 19000,
@@ -271,7 +317,7 @@
       "sourceCategory": "Kopi",
       "img": "https://cdn.kopikenangan.com/ID/release/pub/kk-api-management/product/7c81b141-162c-4d41-8285-674283926e56?",
       "desc": "",
-      "price": 17500,
+      "price": 16000,
       "largePrice": 23500,
       "normalPrice": 25000,
       "outletPrice": 25000,
@@ -356,7 +402,7 @@
       "key": "cafemaltlatte",
       "id": "cafemaltlatte",
       "code": "9764593",
-      "name": "Cafe Malt Latte",
+      "name": "Cafe Muli Latte",
       "category": "Coffee",
       "sourceCategory": "Kopi",
       "img": "https://cdn.kopikenangan.com/public/4c582a52-fbc8-2d9e-0007-f6a1c0b5fed6",
@@ -1080,7 +1126,7 @@
       "sourceCategory": "Kopi",
       "img": "https://cdn.kopikenangan.com/ID/release/pub/kk-api-management/product/73af63fc-8f5c-48c0-aece-da0307e77af8?",
       "desc": "",
-      "price": 16000,
+      "price": 15000,
       "largePrice": 22000,
       "normalPrice": 22000,
       "outletPrice": 22000,

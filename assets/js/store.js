@@ -375,6 +375,26 @@ function wireStatic() {
     setCategory(o.dataset.cat);
   });
   $('#menu')?.addEventListener('click', (e) => {
+    const fav = e.target.closest('.row-fav-btn');
+    if (fav) {
+      e.preventDefault();
+      e.stopPropagation();
+      const key = fav.dataset.fav;
+      const favs = store.get('jo_favs', []) || [];
+      const idx = favs.indexOf(key);
+      if (idx === -1) {
+        favs.push(key);
+        fav.classList.add('active');
+        fav.textContent = '♥';
+        toast('Ditambahkan ke favorit');
+      } else {
+        favs.splice(idx, 1);
+        fav.classList.remove('active');
+        fav.textContent = '♡';
+      }
+      store.set('jo_favs', favs);
+      return;
+    }
     const el = e.target.closest('[data-key]');
     if (el) openItem(el.dataset.key);
   });
@@ -587,7 +607,7 @@ function renderOutletCard() {
     if (chip) chip.classList.remove('hidden');
     if (chipName) chipName.textContent = o.name;
     if (inlineInput) {
-      inlineInput.placeholder = `Ganti outlet (saat ini: ${o.name})…`;
+      inlineInput.placeholder = `📍 Ganti outlet (saat ini: ${o.name})…`;
     }
     if (floatPill) {
       floatPill.classList.remove('hidden');
@@ -599,7 +619,7 @@ function renderOutletCard() {
   } else {
     if (chip) chip.classList.add('hidden');
     if (inlineInput) {
-      inlineInput.placeholder = 'Ketik nama kota atau gerai...';
+      inlineInput.placeholder = '📍 Cari atau pilih outlet...';
     }
     if (floatPill) floatPill.classList.add('hidden');
     if (closedBar) closedBar.classList.add('hidden');
@@ -708,6 +728,28 @@ function setMode(mode, scroll) {
   }
 }
 
+function catNamePretty(name) {
+  const n = String(name || '').toLowerCase();
+  if (/non.?(coffee|kopi)/.test(n)) return 'Non-Kopi';
+  if (/coffee|kopi/.test(n)) return 'Kopi';
+  if (/tea|teh/.test(n)) return 'Teh';
+  if (/frappe/.test(n)) return 'Frappé';
+  if (/food|roti|toast|snack/.test(n)) return 'Roti & Toast';
+  if (/bundl|paket|promo/.test(n)) return 'Bundling Promo';
+  return name;
+}
+
+function catEmoji(name) {
+  const n = String(name || '').toLowerCase();
+  if (/non.?(coffee|kopi)/.test(n)) return '🧃';
+  if (/coffee|kopi/.test(n)) return '☕';
+  if (/tea|teh/.test(n)) return '🍃';
+  if (/frappe/.test(n)) return '❄️';
+  if (/food|roti|toast/.test(n)) return '🥪';
+  if (/bundl|paket|promo/.test(n)) return '🏷️';
+  return '☕';
+}
+
 function renderCats() {
   const catBar = $('#catBar');
   if (!catBar) return;
@@ -726,7 +768,7 @@ function renderCats() {
   }
   const allPill = `<button class="cat-pill ${S.activeCat === 'all' ? 'active' : ''}" role="tab" data-cat="all"><span class="cat-pill-ico">☕</span><span>Semua</span></button>`;
   const pills = cats.map(
-    (c) => `<button class="cat-pill ${S.activeCat === c.id ? 'active' : ''}" role="tab" data-cat="${esc(c.id)}">${catIcon(c.name)}<span>${esc(c.name)}</span></button>`
+    (c) => `<button class="cat-pill ${S.activeCat === c.id ? 'active' : ''}" role="tab" data-cat="${esc(c.id)}"><span class="cat-pill-ico">${catEmoji(c.name)}</span><span>${esc(catNamePretty(c.name))}</span></button>`
   );
   catBar.innerHTML = [allPill, ...pills].join('');
 }
@@ -815,24 +857,24 @@ function priceHtml(item) {
 }
 
 function rowCard(item) {
-  const save = item.normalPrice && item.normalPrice > item.price ? Math.round((1 - item.price / item.normalPrice) * 100) : 0;
-  const badge = item.discountLabel ? `Diskon ${item.discountLabel.replace(/^-/, '')}` : save >= 5 ? `-${save}%` : '';
+  const favs = store.get('jo_favs', []) || [];
+  const isFav = favs.includes(item.key);
   const tagHtml = item.isSoldOut
-    ? '<span class="badge badge-sold">Tidak tersedia</span>'
-    : (item.tag ? `<span class="badge">${esc(item.tag)}</span>` : '<span class="badge badge-new">NEW</span>');
+    ? '<span class="badge badge-sold">Habis</span>'
+    : '<span class="badge badge-new">NEW</span>';
 
   return `<button class="row ${item.isSoldOut ? 'sold' : ''}" data-key="${esc(item.key)}" aria-label="${esc(item.name)}, ${formatRp(item.price)}${item.isSoldOut ? ', tidak tersedia' : ''}">
+    <div class="row-top">
+      <div class="row-tags">${tagHtml}</div>
+      <span class="row-fav-btn ${isFav ? 'active' : ''}" data-fav="${esc(item.key)}" aria-label="Favorit">${isFav ? '♥' : '♡'}</span>
+    </div>
     ${thumb(item)}
-    <div class="row-tags">${tagHtml}</div>
     <div class="row-body">
       <div class="row-name">${esc(item.name)}</div>
-      ${item.desc ? `<div class="row-desc">${esc(item.desc)}</div>` : ''}
       <div class="row-price">
         ${item.normalPrice && item.normalPrice > item.price ? `<span class="price-normal">${formatRp(item.normalPrice)}</span>` : ''}
         <div class="row-price-bottom">
           <span class="price">${formatRp(item.price)}</span>
-          <span class="size-pill">R ˅</span>
-          ${badge && !item.isSoldOut ? `<span class="save-badge">${esc(badge)}</span>` : ''}
         </div>
       </div>
     </div>
@@ -841,6 +883,8 @@ function rowCard(item) {
 }
 
 function gridCard(item, i) {
+  const favs = store.get('jo_favs', []) || [];
+  const isFav = favs.includes(item.key);
   const imgUrl = fixImg(item?.img);
   const art = item.isBundle && !imgUrl
     ? bundleCollage(item)
@@ -849,30 +893,30 @@ function gridCard(item, i) {
       : `<img class="ph-logo" src="${esc(S.brand.logo)}" alt="">`;
   const meta = item.isBundle ? item.desc || item.badge || `${item.slots} menu ${item.size}` : item.desc;
   const tagHtml = item.isSoldOut
-    ? '<span class="badge badge-sold">Tidak tersedia</span>'
-    : (item.tag ? `<span class="badge">${esc(item.tag)}</span>` : item.isBundle && item.badge ? `<span class="badge">${esc(item.badge)}</span>` : '');
+    ? '<span class="badge badge-sold">Habis</span>'
+    : (item.tag ? `<span class="badge">${esc(item.tag)}</span>` : item.isBundle && item.badge ? `<span class="badge">${esc(item.badge)}</span>` : '<span class="badge badge-new">NEW</span>');
 
   const normalPrice = item.normalPrice || (item.outletPrice && item.outletPrice > item.price ? item.outletPrice : null);
-  const save = normalPrice && normalPrice > item.price ? Math.round((1 - item.price / normalPrice) * 100) : 0;
-  const badge = item.discountLabel ? `Diskon ${item.discountLabel.replace(/^-/, '')}` : save >= 5 ? `-${save}%` : '';
 
   return `<button class="gcard ${item.isBundle ? 'bundle-gcard' : ''} ${item.isSoldOut ? 'sold' : ''}" data-key="${esc(item.key)}">
-    <div class="gcard-art">${art}${tagHtml}</div>
+    <div class="row-top">
+      <div class="row-tags">${tagHtml}</div>
+      <span class="row-fav-btn ${isFav ? 'active' : ''}" data-fav="${esc(item.key)}" aria-label="Favorit">${isFav ? '♥' : '♡'}</span>
+    </div>
+    <div class="gcard-art">${art}</div>
     <div class="gcard-body"><div class="gcard-name">${esc(item.name)}</div>${meta ? `<div class="gcard-meta">${esc(meta)}</div>` : ''}
       <div class="gcard-foot">
         <div class="row-price">
           ${normalPrice && normalPrice > item.price ? `<span class="price-normal">${formatRp(normalPrice)}</span>` : ''}
           <div class="row-price-bottom">
-            ${item.isBundle && (item.priceVaries || item.fromPrice > item.price)
-              ? `<span class="bundle-from">${item.priceVaries ? '<small>mulai</small> ' : ''}<span class="price">${formatRp(item.fromPrice || item.price)}</span></span>`
-              : `<span class="price">${formatRp(item.isBundle ? item.fromPrice ?? item.price : item.price)}</span>`}
-            ${badge && !item.isSoldOut ? `<span class="save-badge">${esc(badge)}</span>` : ''}
+            <span class="price">${formatRp(item.isBundle ? item.fromPrice ?? item.price : item.price)}</span>
           </div>
         </div>
         ${item.isSoldOut ? '' : `<span class="add-btn" aria-hidden="true">${icons.plus}</span>`}
       </div>
     </div>
   </button>`;
+}
 }
 
 function handleDeepLink() {
