@@ -59,7 +59,6 @@ async function init() {
     return;
   }
   applyBrand();
-  renderDrawer(S.cfg, S.brandId);
   mountInfoSheets(S.cfg, S.brand);
   wireStatic();
   watchNavScroll();
