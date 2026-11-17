@@ -22,7 +22,7 @@
   <script src="/assets/js/theme-boot.js"></script>
 </head>
 <body class="home-page">
-  <div class="app-container">
+  <div class="app-container" id="splash">
 
     <!-- Top Left Leaves & Top Right Dots -->
     <img src="/img/splash_top_decor.png" alt="" class="decor-leaves-top" onerror="this.style.display='none';">
@@ -134,21 +134,7 @@
 
   </div>
 
-  <!-- Hidden background modules compatibility container for home.js / nufs.js -->
-  <div style="display:none;" aria-hidden="true">
-    <nav class="topnav"><a href="/" id="navBrand"></a><button id="themeBtn"></button><button id="drawerBtn"></button></nav>
-    <div id="closedBanner"></div>
-    <div id="heroTrack"></div><div id="heroDots"></div>
-    <div id="brandTabs"></div><div id="prodGrid"></div><a id="seeAllBtn"></a>
-    <div id="bundlesSec"><div id="bundleTrack"></div><a id="bundlesAll"></a></div>
-    <div id="perks"></div><button id="ctaBtn"></button><footer id="foot"></footer><button id="fabWa"></button>
-    <a id="cartBar"><span id="cartBarIcon"></span><span id="cartBadge"></span><span id="cartBarQty"></span><span id="cartBarOutlet"></span><span id="cartBarTotal"></span><span id="cartBarChevron"></span></a>
-    <div id="cartsSheet"><button id="cartsClose"></button><div id="cartsList"></div></div>
-    <div id="brandModal"><div id="brandModalGrid"></div></div>
-    <span id="spHost"></span>
-  </div>
-
-  <script type="module" src="/assets/js/home.js?v=<?= time() ?>"></script>
+  <!-- Realtime Shop Status & WA Channel Sync Helper -->
   <script src="/assets/js/nufs.js?v=<?= time() ?>" defer></script>
 </body>
 </html>

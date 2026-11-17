@@ -38,6 +38,19 @@ body.home-page {
   overflow-x: hidden;
 }
 
+/* Ensure ONLY .app-container is visible and centered on home page */
+body.home-page > *:not(.app-container) {
+  display: none !important;
+}
+
+body.home-page #drawer,
+body.home-page #drawerOverlay,
+body.home-page .drawer,
+body.home-page .drawer-overlay,
+body.home-page .sheet-backdrop {
+  display: none !important;
+}
+
 /* Mobile Container Layout */
 .app-container {
   width: 100%;
