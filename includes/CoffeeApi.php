@@ -75,7 +75,7 @@ class CoffeeApi
         $cached = $this->getCache($cacheKey, $this->outletsTtl);
         if ($cached !== null) {
             foreach ($cached['outlets'] as &$o) {
-                $o = $this->evaluateOutletHours($o);
+                $o = $this->evaluateOutletHours($o, $brand);
             }
             unset($o);
             return $cached;
@@ -105,7 +105,7 @@ class CoffeeApi
             }
 
             foreach ($mongoOutlets as &$o) {
-                $o = $this->evaluateOutletHours($o);
+                $o = $this->evaluateOutletHours($o, $brand);
             }
             unset($o);
 
@@ -222,7 +222,7 @@ class CoffeeApi
 
             // Evaluate operating hours for each outlet
             foreach ($outlets as &$outlet) {
-                $outlet = $this->evaluateOutletHours($outlet);
+                $outlet = $this->evaluateOutletHours($outlet, $brand);
             }
             unset($outlet);
 
@@ -242,7 +242,7 @@ class CoffeeApi
         // Fallback to local catalog if remote API is unreachable
         $fallback = $this->getFallbackOutlets($brand, $query, $lat, $lng);
         foreach ($fallback as &$o) {
-            $o = $this->evaluateOutletHours($o);
+            $o = $this->evaluateOutletHours($o, $brand);
         }
         unset($o);
 
@@ -1489,10 +1489,54 @@ class CoffeeApi
     }
 
     /**
-     * Evaluate outlet operating hours based on Asia/Jakarta (WIB) time
+     * Default high-resolution cafe outlet image based on brand
      */
-    public function evaluateOutletHours(array $outlet): array
+    public function getDefaultOutletImage(string $brand = 'kopken'): string
     {
+        switch ($this->normalizeBrand($brand)) {
+            case 'kopken':
+                return 'https://cdn.kopikenangan.com/public/cf8b6835-e066-4a73-7f08-4803716d2d4c';
+            case 'fore':
+                return 'https://static.fore.coffee/store_image/AEONTanjungBarat-181121.jpg';
+            case 'tomoro':
+                return 'https://images.unsplash.com/photo-1554118811-1e0d58224f24?q=80&w=400&auto=format&fit=crop';
+            case 'jiwa':
+                return 'https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?q=80&w=400&auto=format&fit=crop';
+            default:
+                return 'https://images.unsplash.com/photo-1554118811-1e0d58224f24?q=80&w=400&auto=format&fit=crop';
+        }
+    }
+
+    /**
+     * Normalize outlet image URL
+     */
+    public function normalizeOutletImage(array $outlet, string $brand = 'kopken'): array
+    {
+        if (empty($outlet['img'])) {
+            if (!empty($outlet['image'])) {
+                $outlet['img'] = $outlet['image'];
+            } elseif (!empty($outlet['photo'])) {
+                $outlet['img'] = $outlet['photo'];
+            }
+        }
+        if (!empty($outlet['img']) && strpos($outlet['img'], 'http') !== 0) {
+            if (str_starts_with($outlet['img'], '/')) {
+                $outlet['img'] = 'https://twinsjasdor.my.id' . $outlet['img'];
+            }
+        }
+        if (empty($outlet['img'])) {
+            $outlet['img'] = $this->getDefaultOutletImage($outlet['brand'] ?? $brand);
+        }
+        return $outlet;
+    }
+
+    /**
+     * Evaluate outlet operating hours based on Asia/Jakarta (WIB) time and ensure outlet image
+     */
+    public function evaluateOutletHours(array $outlet, string $brand = 'kopken'): array
+    {
+        $outlet = $this->normalizeOutletImage($outlet, $brand);
+
         if (isset($outlet['isOpen']) && is_bool($outlet['isOpen']) && !empty($outlet['statusText'])) {
             return $outlet;
         }

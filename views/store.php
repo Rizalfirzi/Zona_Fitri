@@ -47,7 +47,7 @@
     <!-- Outlet Section (2-Column Card) Sesuai Gambar 2 -->
     <div class="outlet-section" id="outletSection">
       <div class="os-col-left">
-        <img src="/img/outlet_preview_cup.png" alt="Cup Preview" class="os-cup-thumb" />
+        <img id="osOutletThumb" src="https://cdn.kopikenangan.com/public/cf8b6835-e066-4a73-7f08-4803716d2d4c" alt="Foto Outlet" class="os-cup-thumb" onerror="this.onerror=null;this.src='/img/outlet_preview_cup.png'" />
       </div>
       <div class="os-col-right">
         <div class="os-header">

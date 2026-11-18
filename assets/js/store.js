@@ -65,6 +65,25 @@ async function init() {
   watchNavScroll();
   S.cart = store.get(K.cart(), []) || [];
   S.outlet = store.get(K.outlet(), null);
+  if (!S.outlet) {
+    if (S.brandId === 'kopken') {
+      S.outlet = {
+        code: 'BDG.ELCENTER',
+        name: 'Bandung Electronic Center',
+        address: 'Bandung Electronic Center, Unit LU S-07, Jl. Purnawarman No.13-15',
+        isOpen: true,
+        canOrder: true,
+        statusText: 'Buka',
+        hours: '10:00 - 20:30',
+        img: 'https://cdn.kopikenangan.com/public/cf8b6835-e066-4a73-7f08-4803716d2d4c',
+        manual: false,
+      };
+      store.set(K.outlet(), S.outlet);
+    }
+  } else if (!S.outlet.img) {
+    S.outlet.img = getOutletPhotoUrl(S.outlet, S.brandId);
+    store.set(K.outlet(), S.outlet);
+  }
   restoreCustomer();
   renderOutletCard();
   updateCartBar();
@@ -166,17 +185,23 @@ function wireStatic() {
       const html = S.outletResults.slice(0, 15).map((o, idx) => {
         const closed = !o.isOpen || !o.canOrder;
         const dist = o.distanceKm != null ? `<span class="od-dist">📍 ${Number(o.distanceKm).toFixed(1)} km</span>` : '';
+        const thumb = o.img || getOutletPhotoUrl(o, S.brandId);
         return `<div class="od-item" data-idx="${idx}">
-          <div class="od-head">
-            <span class="od-name">${esc(o.name)}</span>
-            <div class="od-tags">
-              ${dist}
-              ${closed ? '<span class="od-tutup">TUTUP</span>' : ''}
+          <div style="display:flex;gap:10px;align-items:flex-start;">
+            <img src="${thumb}" alt="" style="width:42px;height:42px;border-radius:10px;object-fit:cover;flex-shrink:0;background:#e0f2fe;border:1px solid #bae6fd;" onerror="this.onerror=null;this.src='/img/outlet_preview_cup.png'" />
+            <div style="flex:1;min-width:0;">
+              <div class="od-head">
+                <span class="od-name">${esc(o.name)}</span>
+                <div class="od-tags">
+                  ${dist}
+                  ${closed ? '<span class="od-tutup">TUTUP</span>' : ''}
+                </div>
+              </div>
+              <div class="od-type">${esc(o.type || o.category || 'Shop House')}</div>
+              <div class="od-addr">${esc(o.address || '')}</div>
+              ${closed ? '<div class="od-closed-msg">⛔ Outlet tutup — tidak bisa dipesan</div>' : ''}
             </div>
           </div>
-          <div class="od-type">${esc(o.type || o.category || 'Shop House')}</div>
-          <div class="od-addr">${esc(o.address || '')}</div>
-          ${closed ? '<div class="od-closed-msg">⛔ Outlet tutup — tidak bisa dipesan</div>' : ''}
         </div>`;
       }).join('');
       inlineDropdown.innerHTML = (isGeo ? '<div class="od-geo-header">⚡ Outlet terdekat dari lokasimu:</div>' : '') + manualHtml + html;
@@ -563,11 +588,32 @@ function nearestOutlets() {
   );
 }
 
+function getOutletPhotoUrl(outlet, brandId) {
+  if (outlet && (outlet.img || outlet.image || outlet.photo)) {
+    return outlet.img || outlet.image || outlet.photo;
+  }
+  const b = brandId || S.brandId || 'kopken';
+  if (b === 'kopken') {
+    return 'https://cdn.kopikenangan.com/public/cf8b6835-e066-4a73-7f08-4803716d2d4c';
+  }
+  if (b === 'fore') {
+    return 'https://static.fore.coffee/store_image/AEONTanjungBarat-181121.jpg';
+  }
+  if (b === 'tomoro') {
+    return 'https://images.unsplash.com/photo-1554118811-1e0d58224f24?q=80&w=400&auto=format&fit=crop';
+  }
+  if (b === 'jiwa') {
+    return 'https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?q=80&w=400&auto=format&fit=crop';
+  }
+  return '/img/outlet_preview_cup.png';
+}
+
 async function selectOutlet(o) {
   if (!o) return;
+  const photo = o.img || o.image || o.photo || getOutletPhotoUrl(o, S.brandId);
   S.outlet = {
     code: o.code, name: o.name, address: o.address, isOpen: o.isOpen, canOrder: o.canOrder,
-    statusText: o.statusText, hours: o.hours, manual: Boolean(o.manual),
+    statusText: o.statusText, hours: o.hours, img: photo, manual: Boolean(o.manual),
   };
   store.set(K.outlet(), S.outlet);
   closeSheet('outletSheet');
@@ -599,9 +645,19 @@ function renderOutletCard() {
   const floatPill = $('#outletFloatingPill');
   const floatName = $('#outletFloatingName');
   const closedBar = $('#outletClosedBar');
+  const thumbImg = $('#osOutletThumb') || $('.os-cup-thumb');
 
   // Kotak search outlet SELALU terlihat agar pelanggan tidak bingung mencari outlet
   if (wrap) wrap.classList.remove('hidden');
+
+  // Update foto outlet di kartu outlet sesuai gerai yang dipilih
+  if (thumbImg) {
+    const photoUrl = o?.img || getOutletPhotoUrl(o, S.brandId);
+    if (photoUrl && thumbImg.src !== photoUrl) {
+      thumbImg.src = photoUrl;
+    }
+    thumbImg.alt = o && o.name ? `Foto Outlet ${o.name}` : 'Foto Outlet';
+  }
 
   if (o && o.name) {
     if (chip) chip.classList.remove('hidden');
