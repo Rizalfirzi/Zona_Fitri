@@ -28,13 +28,21 @@ $status['master_files'] = [];
 foreach ($brands as $b) {
     $menuFile = "{$dataDir}/menu_master_{$b}.json";
     $outletsFile = "{$dataDir}/outlets_master_{$b}.json";
+    $outletsCount = 0;
+    if (file_exists($outletsFile)) {
+        $arr = json_decode((string)file_get_contents($outletsFile), true);
+        if (is_array($arr)) $outletsCount = count($arr);
+    }
     $status['master_files'][$b] = [
+        'outlets_count' => $outletsCount,
         'menu_exists' => file_exists($menuFile),
         'menu_last_modified' => file_exists($menuFile) ? date('c', filemtime($menuFile)) : null,
         'outlets_exists' => file_exists($outletsFile),
         'outlets_last_modified' => file_exists($outletsFile) ? date('c', filemtime($outletsFile)) : null,
     ];
 }
+
+$status['total_outlets'] = array_sum(array_column($status['master_files'], 'outlets_count'));
 
 $status['sources'] = [
     'https://twinsjasdor.my.id',
