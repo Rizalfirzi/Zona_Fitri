@@ -1217,66 +1217,28 @@ class CoffeeApi
 
         // If Kopken, add client specific Bundling packages
         if ($brand === 'kopken' && (!empty($candidates1719) || !empty($candidates19Drinks))) {
-            // Collect frappe candidates for 2 Frappe Bundle
-            $candidatesFrappe = [];
-            foreach ($items as $fItem) {
-                if (preg_match('/frappe/i', ($fItem['name'] ?? '') . ' ' . ($fItem['key'] ?? ''))) {
-                    $candidatesFrappe[] = [
-                        'key' => $fItem['key'],
-                        'name' => $fItem['name'],
-                        'img' => $fItem['img'],
-                        'category' => 'Frappé',
-                        'isSoldOut' => !empty($fItem['isSoldOut']),
-                        'outletPrice' => (int) ($fItem['outletPrice'] ?? $fItem['normalPrice'] ?? 28000),
-                        'bundlePrice' => 18000,
-                        'premium' => 0,
-                        'options' => $fItem['options'] ?? [],
-                    ];
-                }
-            }
-
             $bundling4pcs = [
                 'key' => 'zf-b-4pcs-35k',
                 'id' => 'zf-b-4pcs-35k',
                 'name' => 'Bundling 4 Pcs (Rp35.000)',
                 'category' => 'Promo & Combo',
                 'desc' => '2 Minuman Reguler (menu 17k–19k) + 2 Roti Coklat Klasik (Total 4 item)',
-                'img' => '/assets/img/bundling/PAKET HEMAT 3 ITEM.jpeg',
+                'img' => '/img/bundling-4pcs-35k.png',
                 'price' => 35000,
                 'normalPrice' => 58000,
                 'isBundle' => true,
                 'slots' => 2,
                 'fixedItems' => ['2 Roti Coklat Klasik'],
-                'badge' => 'Pilih 1 Varian • Regular + Food',
-                'tag' => 'PAKET HEMAT 35.000',
+                'tag' => '4 Pcs',
                 'group' => 'Bundling 4 Pcs (2 Minuman + 2 Roti)',
                 'candidates' => !empty($candidates1719Drinks) ? $candidates1719Drinks : $candidates1719,
-                'isSoldOut' => false,
-            ];
-
-            $bundlingFrappe = [
-                'key' => 'zf-b-2frappe-36k',
-                'id' => 'zf-b-2frappe-36k',
-                'name' => '2 Frappé (Rp36.000)',
-                'category' => 'Promo & Combo',
-                'desc' => 'Pilih 2 menu frappe reguler favoritmu (Dutch Choco, Butterscotch, Matcha, dll)',
-                'img' => '/assets/img/bundling/PAKET BUNDLING 2 FRAPPE.jpeg',
-                'price' => 36000,
-                'normalPrice' => 56000,
-                'isBundle' => true,
-                'slots' => 2,
-                'size' => 'Reguler',
-                'badge' => 'Pilih 2 Menu • Regular',
-                'tag' => '2 FRAPPE 36.000',
-                'group' => '2 Frappe Reguler',
-                'candidates' => !empty($candidatesFrappe) ? $candidatesFrappe : $candidates1719Drinks,
                 'isSoldOut' => false,
             ];
 
             $bundling3 = [
                 'key' => 'zf-b-3-35k',
                 'id' => 'zf-b-3-35k',
-                'name' => 'Bundling 3 Cup Reguler (Rp35.000)',
+                'name' => 'Bundling 3 Cup (Rp35.000)',
                 'category' => 'Promo & Combo',
                 'desc' => 'Pilih 3 menu dari semua menu harga asli 17.000 & 19.000 (termasuk menu food)',
                 'img' => '/img/bundling-3-cup-reguler.png',
@@ -1284,8 +1246,7 @@ class CoffeeApi
                 'normalPrice' => 54000,
                 'isBundle' => true,
                 'slots' => 3,
-                'badge' => 'Pilih 3 Menu • Regular + Food',
-                'tag' => '3 CUP REGULER',
+                'tag' => '3 Cup',
                 'group' => 'Bundling 3 (Food & Drinks)',
                 'candidates' => $candidates1719,
                 'isSoldOut' => false,
@@ -1294,17 +1255,16 @@ class CoffeeApi
             $bundlingLarge2 = [
                 'key' => 'zf-b-large2-32k',
                 'id' => 'zf-b-large2-32k',
-                'name' => 'Bundling Large 2 (Rp32.000)',
+                'name' => 'Bundling 2 Large (Rp32.000)',
                 'category' => 'Promo & Combo',
-                'desc' => 'Pilih 2 cup Large dari menu reguler 19.000 (Kenangan Mantan, Spanish, Pistachio Aren, Banana Americano, dll. Khusus minuman)',
-                'img' => '/assets/img/bundling/PAKET BUNDLING 2 CUP LARGE.jpeg',
+                'desc' => 'Pilih 2 cup Large dari menu reguler 19.000 (Kenangan Mantan, Spanish, Pistachio Aren, Banana Americano, dll)',
+                'img' => '/img/bundling-2-cup-large.png',
                 'price' => 32000,
                 'normalPrice' => 52000,
                 'isBundle' => true,
                 'slots' => 2,
                 'size' => 'Large',
-                'badge' => 'Pilih 2 Menu • Large',
-                'tag' => '2 CUP LARGE',
+                'tag' => '2 Large',
                 'group' => 'Bundling 2 Large',
                 'candidates' => $candidates19Drinks,
                 'isSoldOut' => false,
@@ -1312,14 +1272,14 @@ class CoffeeApi
 
             // Remove existing bundles and replace with client bundles
             $items = array_values(array_filter($items, fn($i) => empty($i['isBundle'])));
-            array_unshift($items, $bundling4pcs, $bundlingFrappe, $bundling3, $bundlingLarge2);
+            array_unshift($items, $bundling4pcs, $bundling3, $bundlingLarge2);
 
             $cats = $menuData['categories'] ?? [];
             $bundleCat = [
                 'id' => 'bundle-promo-bundling',
                 'name' => 'Promo & Combo',
                 'kind' => 'bundle',
-                'items' => ['zf-b-4pcs-35k', 'zf-b-2frappe-36k', 'zf-b-3-35k', 'zf-b-large2-32k'],
+                'items' => ['zf-b-4pcs-35k', 'zf-b-3-35k', 'zf-b-large2-32k'],
             ];
             $cats = array_values(array_filter($cats, fn($c) => ($c['kind'] ?? '') !== 'bundle'));
             array_unshift($cats, $bundleCat);

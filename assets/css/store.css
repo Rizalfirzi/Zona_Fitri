@@ -635,43 +635,112 @@ body.store-page .container { padding-bottom: 0; background: #F8FAFC; }
 .bundle-from { font-size: 10px; color: #64748B; }
 .bundle-from .price { font-size: 12.5px; font-weight: 800; color: #0284C7; }
 
-/* Bundling Card Top Pill Sesuai Gambar 2 */
-.bundle-top-pill {
-  position: absolute;
-  top: 6px;
-  left: 6px;
-  right: 6px;
-  z-index: 3;
-  background: linear-gradient(135deg, #F472B6 0%, #FB7185 100%);
-  color: #FFFFFF;
-  font-size: 8.5px;
-  font-weight: 800;
-  padding: 3px 6px;
-  border-radius: 999px;
-  text-align: center;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  box-shadow: 0 2px 5px rgba(244, 114, 182, 0.4);
-}
 .badge-bundle {
-  background: #FDF2F8 !important;
-  color: #BE185D !important;
-  border: 1px solid #FBCFE8 !important;
+  background: #E0F2FE !important;
+  color: #0369A1 !important;
+  border: 1px solid #BAE6FD !important;
   font-weight: 800 !important;
 }
-.bundle-gcard {
-  border-color: #FCE7F3 !important;
+
+/* ── Bundling Sheet Slots & Candidate Grid ── */
+.bundle-fixed {
+  display: none;
+  background: #F0FDF4; border: 1.5px solid #BBF7D0; border-radius: 12px;
+  padding: 9px 14px; margin-top: 10px; font-size: 13px; font-weight: 700; color: #166534;
 }
-.bundle-gcard:hover {
-  border-color: #F472B6 !important;
-  box-shadow: 0 8px 22px rgba(190, 24, 93, 0.12) !important;
+.bundle-fixed:not(:empty) { display: flex; align-items: center; gap: 8px; }
+.bundle-fixed:not(:empty)::before { content: "🎁"; font-size: 15px; }
+
+.bundle-slots { display: flex; flex-direction: column; gap: 8px; margin-top: 12px; }
+.bundle-slot {
+  display: flex; align-items: center; gap: 10px; background: #FFFFFF;
+  border: 1.5px solid #E2E8F0; border-radius: 14px; padding: 10px 14px;
+  cursor: pointer; font-family: inherit; color: #0F172A; text-align: left;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04); transition: all .15s ease;
 }
-.bundle-gcard .add-btn {
-  background: linear-gradient(135deg, #F43F5E 0%, #E11D48 100%) !important;
+.bundle-slot:hover { border-color: #CBD5E1; }
+.bundle-slot.active { background: #EFF6FF; border-color: #0052CC; box-shadow: 0 0 0 2px rgba(0, 82, 204, 0.15); }
+.bundle-slot.filled { border-color: #10B981; }
+.slot-num {
+  width: 28px; height: 28px; flex: 0 0 28px; border-radius: 50%;
+  background: #0A192F; color: #FFFFFF; font-weight: 800; font-size: 12px; display: grid; place-items: center;
 }
-.bundle-gcard .add-btn:hover {
-  background: #BE185D !important;
+.slot-name { font-weight: 700; font-size: 13px; color: #0F172A; }
+.slot-opts { font-size: 11px; color: #64748B; }
+
+.bundle-grid-title { font-size: 14px; font-weight: 800; color: #0F172A; margin: 16px 0 10px; }
+.bundle-price, #bundleSheet .bundle-price { display: none !important; }
+
+.bundle-total-bar {
+  display: flex; align-items: center; justify-content: space-between;
+  background: #F8FAFC; border: 1.5px solid #E2E8F0; border-radius: 14px;
+  padding: 10px 14px; margin: 12px 0 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+}
+.bundle-total-bar .btb-label { font-size: 13px; font-weight: 700; color: #0F172A; }
+.bundle-total-bar .btb-price { font-size: 16px; font-weight: 900; color: #0052CC; }
+
+.bundle-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  max-height: 290px;
+  overflow-y: auto;
+  padding: 2px 2px 10px;
+}
+.bcand {
+  background: #FFFFFF;
+  border: 1.5px solid #E2E8F0;
+  border-radius: 12px;
+  overflow: hidden;
+  cursor: pointer;
+  font-family: inherit;
+  color: #0F172A;
+  padding: 8px 4px 6px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  transition: transform .1s, border-color .15s, box-shadow .15s;
+}
+.bcand:hover { border-color: #93C5FD; }
+.bcand:active { transform: scale(0.97); }
+.bcand.picked {
+  border-color: #0052CC !important;
+  box-shadow: 0 0 0 2px rgba(0, 82, 204, 0.3) !important;
+  background: #EFF6FF !important;
+}
+.bcand.sold {
+  background: #F8FAFC !important;
+  border-color: #E2E8F0 !important;
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.bcand img {
+  width: 58px;
+  height: 58px;
+  object-fit: contain;
+  margin-bottom: 4px;
+  display: block;
+}
+.bcand-name {
+  font-size: 10.5px;
+  font-weight: 700;
+  line-height: 1.25;
+  color: #0F172A;
+  min-height: 26px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  padding: 0 2px;
+}
+.bcand-price { display: none !important; }
+.bcand-sold {
+  font-size: 9px;
+  font-weight: 700;
+  color: #EF4444;
+  margin-top: 2px;
 }
 
 

@@ -947,18 +947,14 @@ function gridCard(item, i) {
     : imgUrl
       ? `<img src="${esc(imgUrl)}" alt="${esc(item.name)}" loading="lazy" referrerpolicy="no-referrer" onerror="this.onerror=null;this.src='${esc(S.brand.logo)}';this.classList.add('ph-logo');">`
       : `<img class="ph-logo" src="${esc(S.brand.logo)}" alt="">`;
-  const meta = item.desc || (item.isBundle ? item.badge || `${item.slots} menu ${item.size || ''}` : '');
-  const topPill = item.isBundle && item.badge
-    ? `<div class="bundle-top-pill">${esc(item.badge)}</div>`
-    : '';
+  const meta = item.desc || (item.isBundle ? `${item.slots} menu ${item.size || ''}` : '');
   const tagHtml = item.isSoldOut
     ? '<span class="badge badge-sold">Habis</span>'
-    : (item.tag ? `<span class="badge ${item.isBundle ? 'badge-bundle' : ''}">${esc(item.tag)}</span>` : item.isBundle && item.badge ? `<span class="badge badge-bundle">${esc(item.badge)}</span>` : '<span class="badge badge-new">NEW</span>');
+    : (item.tag ? `<span class="badge ${item.isBundle ? 'badge-bundle' : 'badge-new'}">${esc(item.tag)}</span>` : '<span class="badge badge-new">NEW</span>');
 
   const normalPrice = item.normalPrice || (item.outletPrice && item.outletPrice > item.price ? item.outletPrice : null);
 
   return `<button class="gcard ${item.isBundle ? 'bundle-gcard' : ''} ${item.isSoldOut ? 'sold' : ''}" data-key="${esc(item.key)}">
-    ${topPill}
     <div class="row-top">
       <div class="row-tags">${tagHtml}</div>
       <span class="row-fav-btn ${isFav ? 'active' : ''}" data-fav="${esc(item.key)}" aria-label="Favorit">${isFav ? '♥' : '♡'}</span>
@@ -969,7 +965,7 @@ function gridCard(item, i) {
         <div class="row-price">
           ${normalPrice && normalPrice > item.price ? `<span class="price-normal">${formatRp(normalPrice)}</span>` : ''}
           <div class="row-price-bottom">
-            <span class="price">${item.isBundle ? '<small style="font-size:9.5px;font-weight:700;color:#94A3B8;">MULAI </small>' : ''}${formatRp(item.isBundle ? item.fromPrice ?? item.price : item.price)}</span>
+            <span class="price">${formatRp(item.isBundle ? item.fromPrice ?? item.price : item.price)}</span>
           </div>
         </div>
         ${item.isSoldOut ? '<span class="badge badge-sold" style="margin-left:auto;">Habis</span>' : `<span class="add-btn" aria-hidden="true">${icons.plus}</span>`}
@@ -1463,7 +1459,6 @@ function renderBundle() {
         <span class="slot-txt">
           <span class="slot-name">
             ${esc(s ? s.name : `Menu ${i + 1}`)}
-            ${itemPrice ? `<b class="slot-price">(${formatRp(itemPrice)})</b>` : ''}
           </span>
           <span class="slot-opts">${esc(s ? optionText(s.choices) : 'Belum dipilih')}</span>
         </span>
@@ -1480,11 +1475,8 @@ function renderBundle() {
   }
   $('#bundleGrid').innerHTML = candidates
     .map((c) => {
-      const p = getCandidatePrice(b, c);
       const isPicked = picked === c.key;
-      const priceHtml = c.isSoldOut
-        ? '<span class="bcand-sold">Tidak tersedia</span>'
-        : p != null ? `<span class="bcand-price">${formatRp(p)}</span>` : '';
+      const priceHtml = c.isSoldOut ? '<span class="bcand-sold">Habis</span>' : '';
 
       const cImg = fixImg(c.img);
       return `<button class="bcand ${c.isSoldOut ? 'sold' : ''} ${isPicked ? 'picked' : ''}" data-key="${esc(c.key)}" ${c.isSoldOut ? 'disabled' : ''}>
