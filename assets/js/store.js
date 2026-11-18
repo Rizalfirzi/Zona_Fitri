@@ -1799,7 +1799,7 @@ function checkout() {
   saveCart();
   $('#cartNote').value = '';
   closeSheet('cartSheet');
-  $('#sentCode').textContent = order.code;
+  if ($('#sentCode')) $('#sentCode').textContent = order.code;
   $('#sentTotal').textContent = `Total ${formatRp(totals.total)}`;
   $('#sentWaLink').href = link;
   $('#sentWaLink').innerHTML = `${icons.wa} Buka WhatsApp lagi`;

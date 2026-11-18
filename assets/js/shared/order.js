@@ -143,11 +143,7 @@ export function optionText(opts) {
 }
 
 export const DEFAULT_WA_HEADER = '── .✦ FORMAT ORDER ZONA FITRI✦.──';
-export const DEFAULT_WA_FOOTER = [
-  '> > Setelah Format ini dikirim, segera melakukan Payment melalui QRIS',
-  '> Proses orderan Prioritas (5-20 Menit)',
-  '> ISI FORMAT ? WAJIB FIX ORDER',
-].join('\n');
+export const DEFAULT_WA_FOOTER = '';
 
 /**
  * WhatsApp order message, in the shop's "FORMAT ORDER ZONA FITRI" layout.
@@ -180,7 +176,6 @@ export function buildWaMessage(order) {
   out.push(`Total Qty : ${totalQty} item`);
   out.push(`Total : ${formatRp(order.total)}`);
   if (order.note) out.push(`Catatan : ${order.note}`);
-  if (order.code) out.push(`Kode Order : ${order.code}`);
   const footer = order.footer == null ? DEFAULT_WA_FOOTER : order.footer;
   if (footer) {
     out.push('');

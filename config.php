@@ -70,7 +70,7 @@ $config = [
         'pickup_time' => true,
 
         'wa_header' => '── .✦ FORMAT ORDER ZONA FITRI✦.──',
-        'wa_footer' => "> > Setelah Format ini dikirim, segera melakukan Payment melalui QRIS\n> Proses orderan Prioritas (5-20 Menit)\n> ISI FORMAT ? WAJIB FIX ORDER",
+        'wa_footer' => '',
 
         'home' => [
             'stats' => [

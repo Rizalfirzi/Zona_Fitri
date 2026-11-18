@@ -224,8 +224,8 @@
     <div class="dialog" role="alertdialog" aria-modal="true" aria-labelledby="sentTitle">
       <div class="dialog-icon ok" id="sentIcon"></div>
       <h3 class="dialog-title" id="sentTitle">Pesanan terkirim ke WhatsApp</h3>
-      <p class="dialog-text">Lanjutkan chat dengan admin untuk konfirmasi & pembayaran. Simpan kode pesananmu.</p>
-      <div class="order-code-box"><div class="eyebrow">Kode pesanan</div><div class="order-code" id="sentCode"></div><div class="order-code-total price" id="sentTotal"></div></div>
+      <p class="dialog-text">Lanjutkan chat dengan admin untuk konfirmasi & pembayaran.</p>
+      <div class="order-code-box"><div class="order-code" id="sentCode" style="display:none"></div><div class="order-code-total price" id="sentTotal" style="font-size:18px;font-weight:800;color:#0A192F;"></div></div>
       <div style="display:flex;flex-direction:column;gap:10px">
         <a class="btn btn-primary btn-block" id="sentWaLink" target="_blank" rel="noopener">Buka WhatsApp lagi</a>
         <button class="btn btn-soft btn-block" data-close="sentModal">Selesai</button>

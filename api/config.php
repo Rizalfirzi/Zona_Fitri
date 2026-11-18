@@ -34,7 +34,7 @@ try {
             'hours' => '07:00 - 22:00 WIB'
         ]),
         'waHeader' => config('store.wa_header', '── .✦ FORMAT ORDER ZONA FITRI✦.──'),
-        'waFooter' => config('store.wa_footer', "> > Setelah Format ini dikirim, segera melakukan Payment melalui QRIS\n> Proses orderan Prioritas (5-20 Menit)\n> ISI FORMAT ? WAJIB FIX ORDER"),
+        'waFooter' => config('store.wa_footer', ''),
         'pickupTime' => (bool) config('store.pickup_time', true),
         'home' => config('store.home', []),
         'csCategories' => config('store.cs_categories', []),

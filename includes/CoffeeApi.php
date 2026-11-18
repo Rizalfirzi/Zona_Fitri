@@ -1651,7 +1651,6 @@ class CoffeeApi
         $footer = (string) config('wa_format.footer', '');
 
         $waMessage = "{$header}\n";
-        $waMessage .= "Kode Pesanan: *{$orderCode}*\n";
         $waMessage .= "Brand: *{$brandName}*\n";
         $waMessage .= "Outlet: *{$order['outletName']}*\n";
         $waMessage .= "Nama Pemesan: *{$order['customerName']}*\n";

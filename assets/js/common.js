@@ -124,7 +124,7 @@ export const FALLBACK_CONFIG = {
   admins: [{ name: 'Admin Zona Fitri', phone: '628973034455' }],
   shop: { open: true, reason: '', hours: '07:00 - 22:00 WIB' },
   waHeader: '── .✦ FORMAT ORDER ZONA FITRI✦.──',
-  waFooter: "> > Setelah Format ini dikirim, segera melakukan Payment melalui QRIS\n> Proses orderan Prioritas (5-20 Menit)\n> ISI FORMAT ? WAJIB FIX ORDER",
+  waFooter: '',
   pickupTime: true,
   home: {
     stats: [
