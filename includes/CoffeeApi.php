@@ -288,6 +288,21 @@ class CoffeeApi
             return $this->formatMenuStats($cached, $brand, $outletCode);
         }
 
+        // 1. Direct fast load from MongoDB Atlas Master Database ('zona_fitri') ala Kedai Kyuti
+        // Super cepat (< 50ms), zero dependency ke upstream, membebaskan Vercel dari limit Serverless!
+        if (!$forceRefresh) {
+            $mongoMenu = $this->mongo->getMenu($brand);
+            if (!empty($mongoMenu) && !empty($mongoMenu['items'])) {
+                $mongoMenu['brand'] = $brand;
+                $mongoMenu['outletCode'] = $outletCode;
+                $mongoMenu['source'] = 'mongodb';
+                $mongoMenu['live'] = true;
+                $result = $this->formatMenuStats($mongoMenu, $brand, $outletCode);
+                $this->setCache($cacheKey, $result);
+                return $result;
+            }
+        }
+
         // Primary API request: pass outlet parameter for live outlet-specific pricing (Big Outlet / Mall / Rest Area / Stasiun) and stock
         $url = $this->primaryBaseUrl . "/{$brand}/menu";
         $requestParams = $outletCode !== '' ? ['outlet' => $outletCode] : [];

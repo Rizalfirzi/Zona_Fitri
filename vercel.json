@@ -50,6 +50,14 @@
       "dest": "/api/health.php"
     },
     {
+      "src": "/api/sync_status",
+      "dest": "/api/sync_status.php"
+    },
+    {
+      "src": "/api/sync/status",
+      "dest": "/api/sync_status.php"
+    },
+    {
       "src": "/api/cron_sync",
       "dest": "/api/cron_sync.php"
     },

@@ -38,6 +38,11 @@ if ($cleanUri === '/api/health' || $cleanUri === '/health') {
     exit;
 }
 
+if ($cleanUri === '/api/sync_status' || $cleanUri === '/api/sync/status') {
+    require __DIR__ . '/api/sync_status.php';
+    exit;
+}
+
 if (preg_match('#^/api/([a-zA-Z0-9_-]+)/outlets$#', $cleanUri, $m)) {
     $_GET['brand'] = $m[1];
     require __DIR__ . '/api/outlets.php';
