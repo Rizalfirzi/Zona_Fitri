@@ -12,9 +12,6 @@ header('Content-Type: application/json; charset=UTF-8');
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: GET, OPTIONS');
 header('Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With');
-header('Cache-Control: no-store, no-cache, must-revalidate, max-age=0');
-header('Pragma: no-cache');
-header('Expires: 0');
 
 if (($_SERVER['REQUEST_METHOD'] ?? '') === 'OPTIONS') {
     exit(0);
@@ -22,6 +19,19 @@ if (($_SERVER['REQUEST_METHOD'] ?? '') === 'OPTIONS') {
 
 require_once __DIR__ . '/../config.php';
 require_once __DIR__ . '/../includes/CoffeeApi.php';
+
+$forceRefresh = (isset($_GET['refresh']) && in_array(strtolower((string)$_GET['refresh']), ['1', 'true', 'yes'], true))
+    || !empty($_GET['t']);
+
+if ($forceRefresh) {
+    header('Cache-Control: no-cache, no-store, must-revalidate');
+    header('Pragma: no-cache');
+    header('Expires: 0');
+} else {
+    // Vercel Edge CDN Cache: Menghilangkan 99% Fast Origin Transfer & Function Duration
+    // Cache di Edge server selama 30 detik, tetap segar dengan stale-while-revalidate
+    header('Cache-Control: public, s-maxage=30, max-age=10, stale-while-revalidate=180');
+}
 
 try {
     $api = new CoffeeApi();

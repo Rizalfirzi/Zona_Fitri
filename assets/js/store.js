@@ -700,7 +700,7 @@ function renderOutletCard() {
 }
 
 // ═══════════════ MENU ═══════════════
-async function loadMenu() {
+async function loadMenu(forceRefresh = false) {
   const menuEl = $('#menu');
   if (!menuEl) return;
 
@@ -712,7 +712,7 @@ async function loadMenu() {
   try {
     const qs = [];
     if (code) qs.push(`outlet=${encodeURIComponent(code)}`);
-    qs.push(`t=${Date.now()}`);
+    if (forceRefresh) qs.push('refresh=1');
     S.menu = await api(`/api/${S.brandId}/menu?${qs.join('&')}`);
     if (S.menu && Array.isArray(S.menu.items)) {
       for (const it of S.menu.items) {
