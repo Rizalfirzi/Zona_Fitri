@@ -117,7 +117,7 @@ $config = [
     'pricing' => [
         'kopken' => [
             'percent' => 50,
-            'add' => 4000,
+            'add' => 4500, // Client revision: fee 4,5k (+4500) per cup
             'largeAdd' => 5000, // upsize +5k
         ],
         'tomoro' => [

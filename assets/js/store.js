@@ -763,7 +763,7 @@ async function loadMenu(forceRefresh = false) {
 }
 
 const modeOf = (cat) => (cat.kind === 'bundle' ? 'bundle' : 'single');
-const visibleCats = () => (S.menu?.categories || []).filter((c) => modeOf(c) === S.mode);
+const visibleCats = () => (S.menu?.categories || []);
 
 function setMode(mode, scroll) {
   S.mode = mode;
@@ -786,23 +786,23 @@ function setMode(mode, scroll) {
 
 function catNamePretty(name) {
   const n = String(name || '').toLowerCase();
+  if (/bundl|paket|promo|combo/.test(n)) return 'Promo & Combo';
   if (/non.?(coffee|kopi)/.test(n)) return 'Non-Kopi';
   if (/coffee|kopi/.test(n)) return 'Kopi';
   if (/tea|teh/.test(n)) return 'Teh';
   if (/frappe/.test(n)) return 'Frappé';
   if (/food|roti|toast|snack/.test(n)) return 'Roti & Toast';
-  if (/bundl|paket|promo/.test(n)) return 'Bundling Promo';
   return name;
 }
 
 function catEmoji(name) {
   const n = String(name || '').toLowerCase();
+  if (/bundl|paket|promo|combo/.test(n)) return '🎁';
   if (/non.?(coffee|kopi)/.test(n)) return '🧃';
   if (/coffee|kopi/.test(n)) return '☕';
   if (/tea|teh/.test(n)) return '🍃';
   if (/frappe/.test(n)) return '❄️';
   if (/food|roti|toast/.test(n)) return '🥪';
-  if (/bundl|paket|promo/.test(n)) return '🏷️';
   return '☕';
 }
 
@@ -947,14 +947,18 @@ function gridCard(item, i) {
     : imgUrl
       ? `<img src="${esc(imgUrl)}" alt="${esc(item.name)}" loading="lazy" referrerpolicy="no-referrer" onerror="this.onerror=null;this.src='${esc(S.brand.logo)}';this.classList.add('ph-logo');">`
       : `<img class="ph-logo" src="${esc(S.brand.logo)}" alt="">`;
-  const meta = item.isBundle ? item.desc || item.badge || `${item.slots} menu ${item.size}` : item.desc;
+  const meta = item.desc || (item.isBundle ? item.badge || `${item.slots} menu ${item.size || ''}` : '');
+  const topPill = item.isBundle && item.badge
+    ? `<div class="bundle-top-pill">${esc(item.badge)}</div>`
+    : '';
   const tagHtml = item.isSoldOut
     ? '<span class="badge badge-sold">Habis</span>'
-    : (item.tag ? `<span class="badge">${esc(item.tag)}</span>` : item.isBundle && item.badge ? `<span class="badge">${esc(item.badge)}</span>` : '<span class="badge badge-new">NEW</span>');
+    : (item.tag ? `<span class="badge ${item.isBundle ? 'badge-bundle' : ''}">${esc(item.tag)}</span>` : item.isBundle && item.badge ? `<span class="badge badge-bundle">${esc(item.badge)}</span>` : '<span class="badge badge-new">NEW</span>');
 
   const normalPrice = item.normalPrice || (item.outletPrice && item.outletPrice > item.price ? item.outletPrice : null);
 
   return `<button class="gcard ${item.isBundle ? 'bundle-gcard' : ''} ${item.isSoldOut ? 'sold' : ''}" data-key="${esc(item.key)}">
+    ${topPill}
     <div class="row-top">
       <div class="row-tags">${tagHtml}</div>
       <span class="row-fav-btn ${isFav ? 'active' : ''}" data-fav="${esc(item.key)}" aria-label="Favorit">${isFav ? '♥' : '♡'}</span>
@@ -965,10 +969,10 @@ function gridCard(item, i) {
         <div class="row-price">
           ${normalPrice && normalPrice > item.price ? `<span class="price-normal">${formatRp(normalPrice)}</span>` : ''}
           <div class="row-price-bottom">
-            <span class="price">${formatRp(item.isBundle ? item.fromPrice ?? item.price : item.price)}</span>
+            <span class="price">${item.isBundle ? '<small style="font-size:9.5px;font-weight:700;color:#94A3B8;">MULAI </small>' : ''}${formatRp(item.isBundle ? item.fromPrice ?? item.price : item.price)}</span>
           </div>
         </div>
-        ${item.isSoldOut ? '' : `<span class="add-btn" aria-hidden="true">${icons.plus}</span>`}
+        ${item.isSoldOut ? '<span class="badge badge-sold" style="margin-left:auto;">Habis</span>' : `<span class="add-btn" aria-hidden="true">${icons.plus}</span>`}
       </div>
     </div>
   </button>`;

@@ -390,6 +390,24 @@ body.store-page .container { padding-bottom: 0; background: #F8FAFC; }
   box-shadow: 0 3px 10px rgba(19, 57, 121, 0.35);
 }
 .cat-pill.active svg { stroke: #FFFFFF; }
+.cat-pill[data-cat*="bundle"],
+.cat-pill[data-cat*="promo"] {
+  background: #FDF2F8;
+  border-color: #FBCFE8;
+  color: #BE185D;
+}
+.cat-pill[data-cat*="bundle"]:hover,
+.cat-pill[data-cat*="promo"]:hover {
+  border-color: #F472B6;
+  color: #9D174D;
+}
+.cat-pill[data-cat*="bundle"].active,
+.cat-pill[data-cat*="promo"].active {
+  background: linear-gradient(135deg, #BE185D 0%, #E11D48 100%);
+  border-color: #F43F5E;
+  color: #FFFFFF;
+  box-shadow: 0 3px 10px rgba(190, 24, 93, 0.35);
+}
 
 /* Floating Outlet Pill */
 .outlet-floating-pill {
@@ -616,6 +634,45 @@ body.store-page .container { padding-bottom: 0; background: #F8FAFC; }
 .gcard-foot { margin-top: auto; }
 .bundle-from { font-size: 10px; color: #64748B; }
 .bundle-from .price { font-size: 12.5px; font-weight: 800; color: #0284C7; }
+
+/* Bundling Card Top Pill Sesuai Gambar 2 */
+.bundle-top-pill {
+  position: absolute;
+  top: 6px;
+  left: 6px;
+  right: 6px;
+  z-index: 3;
+  background: linear-gradient(135deg, #F472B6 0%, #FB7185 100%);
+  color: #FFFFFF;
+  font-size: 8.5px;
+  font-weight: 800;
+  padding: 3px 6px;
+  border-radius: 999px;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  box-shadow: 0 2px 5px rgba(244, 114, 182, 0.4);
+}
+.badge-bundle {
+  background: #FDF2F8 !important;
+  color: #BE185D !important;
+  border: 1px solid #FBCFE8 !important;
+  font-weight: 800 !important;
+}
+.bundle-gcard {
+  border-color: #FCE7F3 !important;
+}
+.bundle-gcard:hover {
+  border-color: #F472B6 !important;
+  box-shadow: 0 8px 22px rgba(190, 24, 93, 0.12) !important;
+}
+.bundle-gcard .add-btn {
+  background: linear-gradient(135deg, #F43F5E 0%, #E11D48 100%) !important;
+}
+.bundle-gcard .add-btn:hover {
+  background: #BE185D !important;
+}
 
 
 

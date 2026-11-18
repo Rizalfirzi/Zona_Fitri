@@ -115,22 +115,6 @@
             id: 'jiwa',
             name: 'JANJI JIWA',
             icon: '<img src="/img/brands/jiwa.png" style="width:38px;height:38px;object-fit:contain;" alt="Janji Jiwa">'
-          },
-          {
-            slug: 'chagee',
-            id: 'chagee',
-            name: 'CHAGEE',
-            icon: '<svg width="36" height="36" viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="17" fill="#C11F2E"/><path d="M20 9c-4 0-7 3-7 7 0 5 7 15 7 15s7-10 7-15c0-4-3-7-7-7zm0 10.5c-2 0-3.5-1.5-3.5-3.5s1.5-3.5 3.5-3.5 3.5 1.5 3.5 3.5-1.5 3.5-3.5 3.5z" fill="#FFF"/></svg>',
-            isComingSoon: true,
-            msg: 'Pemesanan CHAGEE segera hadir di Zona Fitri!'
-          },
-          {
-            slug: 'starbucks',
-            id: 'starbucks',
-            name: 'STARBUCKS',
-            icon: '<svg width="36" height="36" viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="17" fill="#006241"/><circle cx="20" cy="20" r="14" stroke="#FFF" stroke-width="1.5"/><path d="M20 12l1.8 3.8 4.2.6-3 3 0.7 4.2-3.7-2-3.7 2 0.7-4.2-3-3 4.2-.6z" fill="#FFF"/></svg>',
-            isComingSoon: true,
-            msg: 'Pemesanan Starbucks segera hadir di Zona Fitri!'
           }
         ];
         grid.innerHTML = items.map(function (b) {

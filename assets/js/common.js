@@ -140,7 +140,7 @@ export const FALLBACK_CONFIG = {
     { id: 'other', label: 'Lainnya', hint: 'Pertanyaan lain' }
   ],
   pricing: {
-    kopken: { largeUpsize: 5000, juwaraBeans: 2000, oatside: 2000, fee: 5000 },
+    kopken: { percent: 50, add: 4500, fee: 4500, largeUpsize: 5000, juwaraBeans: 2000, oatside: 2000 },
     tomoro: { fee: 5000 },
     fore: { fee: 5000 },
     jiwa: { percent: 50, maxDiscount: 20000, fee: 10000 }
@@ -412,16 +412,6 @@ export function renderDrawer(cfg, activeBrand = null) {
               <img class="brand-ico" src="${esc(b.logo)}" alt=""><span>${esc(b.name)}</span></a>`,
           )
           .join('')}
-        <a href="javascript:void(0)" class="drawer-link" onclick="alert('Pemesanan CHAGEE segera hadir di Zona Fitri!')">
-          <svg width="22" height="22" viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="17" fill="#C11F2E"/><path d="M20 9c-4 0-7 3-7 7 0 5 7 15 7 15s7-10 7-15c0-4-3-7-7-7zm0 10.5c-2 0-3.5-1.5-3.5-3.5s1.5-3.5 3.5-3.5 3.5 1.5 3.5 3.5-1.5 3.5-3.5 3.5z" fill="#FFF"/></svg>
-          <span>CHAGEE</span>
-          <small class="drawer-badge">Segera</small>
-        </a>
-        <a href="javascript:void(0)" class="drawer-link" onclick="alert('Pemesanan Starbucks segera hadir di Zona Fitri!')">
-          <svg width="22" height="22" viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="17" fill="#006241"/><circle cx="20" cy="20" r="14" stroke="#FFF" stroke-width="1.5"/><path d="M20 12l1.8 3.8 4.2.6-3 3 0.7 4.2-3.7-2-3.7 2 0.7-4.2-3-3 4.2-.6z" fill="#FFF"/></svg>
-          <span>Starbucks</span>
-          <small class="drawer-badge">Segera</small>
-        </a>
 
         <div class="drawer-label eyebrow">BANTUAN</div>
         <button class="drawer-link" data-action="howto">
