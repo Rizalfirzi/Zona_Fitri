@@ -1,24 +1,22 @@
-name: Realtime Sync to MongoDB Atlas
+name: Sync Multi-Brand Coffee Data to MongoDB Atlas
 
 on:
   schedule:
     # Run every 5 minutes
     - cron: '*/5 * * * *'
-  workflow_dispatch:
+  workflow_dispatch: # Allows manual trigger from GitHub UI anytime
 
-permissions:
-  contents: write
+concurrency:
+  group: sync-multi-brand-coffee
+  cancel-in-progress: true
 
 jobs:
-  sync:
+  sync-database:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
+    timeout-minutes: 10
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -30,18 +28,13 @@ jobs:
           python -m pip install --upgrade pip
           pip install pymongo dnspython
 
-      - name: Run Multi-Brand MongoDB Sync
+      - name: Run Multi-Brand Sync to MongoDB Atlas
         env:
+          PYTHONUNBUFFERED: "1"
           MONGODB_URI: ${{ secrets.MONGODB_URI || 'mongodb+srv://technologyswamp_db_user:EmmGSARebSpWS0Sw@cluster-utama.eyzthyo.mongodb.net/zona_fitri?retryWrites=true&w=majority' }}
+          MONGODB_DATABASE: ${{ secrets.MONGODB_DATABASE || 'zona_fitri' }}
         run: |
           python scripts/sync_mongodb.py
 
-      - name: Commit updated snapshots (optional)
-        continue-on-error: true
-        run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "github-actions[bot]"
-          git add data/
-          git diff --quiet && git diff --staged --quiet || (git commit -m "chore(sync): update master database snapshots [skip ci] [skip vercel]" && git push)
 
 
