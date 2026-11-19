@@ -770,7 +770,9 @@ async function loadMenu(forceRefresh = false) {
           : 'Stok diperbarui manual oleh admin.');
     }
   } catch (err) {
-    menuEl.innerHTML = `<div class="menu-empty"><b>Menu belum bisa dimuat</b>${esc(err.message)}<br><button class="btn btn-primary" id="retryMenu">Coba lagi</button></div>`;
+    const rawMsg = err?.message || String(err);
+    const errText = rawMsg && rawMsg !== '[object Object]' ? rawMsg : 'Koneksi ke server terputus. Silakan coba lagi.';
+    menuEl.innerHTML = `<div class="menu-empty"><b>Menu belum bisa dimuat</b>${esc(errText)}<br><button class="btn btn-primary" id="retryMenu">Coba lagi</button></div>`;
     $('#retryMenu')?.addEventListener('click', loadMenu);
   } finally {
     menuEl.style.opacity = '';

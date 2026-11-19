@@ -109,7 +109,13 @@ export async function api(path, opts = {}) {
   } catch {
     /* non-JSON */
   }
-  if (!res.ok) throw new Error(data?.error || `HTTP ${res.status}`);
+  let errMsg = `HTTP ${res.status}`;
+  if (data?.error) {
+    errMsg = typeof data.error === 'object'
+      ? (data.error.message || data.error.code || JSON.stringify(data.error))
+      : String(data.error);
+  }
+  if (!res.ok) throw new Error(errMsg);
   if (data === null) throw new Error(`Respon bukan JSON valid: ${path}`);
   return data;
 }

@@ -30,12 +30,12 @@ $config = [
         'database' => (getenv('MONGODB_DATABASE') && getenv('MONGODB_DATABASE') !== 'kyuti') ? getenv('MONGODB_DATABASE') : 'zona_fitri',
     ],
 
-    // Primary Upstream Live APIs (Multi-Source Stealth Handshake)
+    // Primary Upstream Live APIs
     'api_base_url' => 'https://twinsjasdor.my.id/api',
-    'api_backup_url' => 'https://tixandcoffee.developerngantuk.my.id/api',
-    'api_tertiary_url' => 'https://ridstore.developerngantuk.my.id/api',
-    'api_quaternary_url' => 'https://tyaastore.my.id/api',
-    'api_timeout' => 8,
+    'api_backup_url' => '',
+    'api_tertiary_url' => '',
+    'api_quaternary_url' => '',
+    'api_timeout' => 2, // 2s strict timeout for ultra-fast response & instant fallback
 
     // Cache TTL Settings (in seconds)
     'cache_ttl' => [
