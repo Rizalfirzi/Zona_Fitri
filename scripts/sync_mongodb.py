@@ -125,8 +125,10 @@ class ZonaFitriMongoSync:
         if os.path.exists(local_out_file):
             try:
                 with open(local_out_file, "r", encoding="utf-8") as f:
-                    master_outlets = json.load(f)
-                    for o in master_outlets:
+                    master_raw = json.load(f)
+                master_outlets = master_raw.get("outlets", []) if isinstance(master_raw, dict) else master_raw
+                for o in master_outlets:
+                    if isinstance(o, dict):
                         c = o.get("code")
                         if c:
                             all_outlets[c] = o

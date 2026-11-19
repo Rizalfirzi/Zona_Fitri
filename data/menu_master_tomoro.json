@@ -156,19 +156,19 @@
   ],
   "items": [
     {
-      "key": "caramelcheeselatte",
-      "id": "caramelcheeselatte",
+      "key": "chocomontblanc",
+      "id": "chocomontblanc",
       "code": "",
-      "name": "Caramel Cheese Latte",
-      "category": "Milk Based Coffee",
-      "sourceCategory": "Milk Based Coffee",
-      "img": "/img/menu/tomoro/caramelcheeselatte.webp",
+      "name": "Choco Mont Blanc",
+      "category": "Mont Blanc Series",
+      "sourceCategory": "Mont Blanc Series",
+      "img": "",
       "desc": "",
-      "price": 19000,
+      "price": 20000,
       "largePrice": null,
-      "normalPrice": 26000,
-      "outletPrice": 26000,
-      "customPrice": true,
+      "normalPrice": 29000,
+      "outletPrice": 29000,
+      "customPrice": false,
       "discount": null,
       "discountLabel": "",
       "largeNormal": null,
@@ -193,104 +193,19 @@
       "tag": ""
     },
     {
-      "key": "dinomitemangofrappe",
-      "id": "dinomitemangofrappe",
+      "key": "mochamontblanc",
+      "id": "mochamontblanc",
       "code": "",
-      "name": "Dino-mite Mango Frappe",
-      "category": "Cheese x Nailoong Series",
-      "sourceCategory": "Cheese x Nailoong Series",
-      "img": "/uploads/53a2f913b0e18b46.jpg",
+      "name": "Mocha Mont Blanc",
+      "category": "Mont Blanc Series",
+      "sourceCategory": "Mont Blanc Series",
+      "img": "",
       "desc": "",
-      "price": 18500,
+      "price": 20000,
       "largePrice": null,
-      "normalPrice": 26000,
-      "outletPrice": 26000,
-      "customPrice": true,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
-      "isSoldOut": false,
-      "notCarried": false,
-      "isFood": false,
-      "isSpecial": true,
-      "noLarge": false,
-      "options": {
-        "sizes": [
-          "Small"
-        ],
-        "temps": [
-          "Ice"
-        ],
-        "ices": [
-          "Normal Ice",
-          "Less Ice",
-          "No Ice"
-        ],
-        "sugars": [
-          "Normal Sugar",
-          "Less Sugar",
-          "No Sugar"
-        ]
-      },
-      "tag": ""
-    },
-    {
-      "key": "dinomitecloudtea",
-      "id": "dinomitecloudtea",
-      "code": "",
-      "name": "Dino-mite Cloud Tea",
-      "category": "Cheese x Nailoong Series",
-      "sourceCategory": "Cheese x Nailoong Series",
-      "img": "/uploads/34060f989d18afb1.jpg",
-      "desc": "",
-      "price": 17500,
-      "largePrice": null,
-      "normalPrice": 24000,
-      "outletPrice": 24000,
-      "customPrice": true,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
-      "isSoldOut": false,
-      "notCarried": false,
-      "isFood": false,
-      "isSpecial": false,
-      "noLarge": false,
-      "options": {
-        "sizes": [
-          "Small"
-        ],
-        "temps": [
-          "Ice",
-          "Hot"
-        ],
-        "ices": [
-          "Normal Ice",
-          "Less Ice",
-          "No Ice"
-        ],
-        "sugars": [
-          "Normal Sugar",
-          "Less Sugar",
-          "No Sugar"
-        ]
-      },
-      "tag": ""
-    },
-    {
-      "key": "caffeamericano",
-      "id": "caffeamericano",
-      "code": "",
-      "name": "Caffe Americano",
-      "category": "Black Coffee",
-      "sourceCategory": "Black Coffee",
-      "img": "/img/menu/tomoro/caffeamericano.webp",
-      "desc": "",
-      "price": 15000,
-      "largePrice": null,
-      "normalPrice": 18000,
-      "outletPrice": 18000,
-      "customPrice": true,
+      "normalPrice": 28000,
+      "outletPrice": 28000,
+      "customPrice": false,
       "discount": null,
       "discountLabel": "",
       "largeNormal": null,
@@ -307,23 +222,285 @@
           "Ice"
         ],
         "ices": [],
-        "sugars": []
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar"
+        ]
       },
       "tag": ""
     },
     {
-      "key": "brevelatte",
-      "id": "brevelatte",
+      "key": "mastersoeamericano",
+      "id": "mastersoeamericano",
       "code": "",
-      "name": "Breve Latte",
-      "category": "Milk Based Coffee",
-      "sourceCategory": "Milk Based Coffee",
-      "img": "/img/menu/tomoro/brevelatte.webp",
+      "name": "Master S.O.E - Americano",
+      "category": "Master S.O.E Series",
+      "sourceCategory": "Master S.O.E Series",
+      "img": "",
+      "desc": "",
+      "price": 20000,
+      "largePrice": null,
+      "normalPrice": 28000,
+      "outletPrice": 28000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": false,
+      "isSpecial": false,
+      "noLarge": false,
+      "options": {
+        "sizes": [
+          "Regular"
+        ],
+        "temps": [
+          "Ice"
+        ],
+        "ices": [],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar"
+        ]
+      },
+      "tag": ""
+    },
+    {
+      "key": "mastersoelatte",
+      "id": "mastersoelatte",
+      "code": "",
+      "name": "Master S.O.E - Latte",
+      "category": "Master S.O.E Series",
+      "sourceCategory": "Master S.O.E Series",
+      "img": "",
       "desc": "",
       "price": 21000,
       "largePrice": null,
       "normalPrice": 30000,
       "outletPrice": 30000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": false,
+      "isSpecial": false,
+      "noLarge": false,
+      "options": {
+        "sizes": [
+          "Regular"
+        ],
+        "temps": [
+          "Ice"
+        ],
+        "ices": [],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar"
+        ]
+      },
+      "tag": ""
+    },
+    {
+      "key": "mastersoebrevelatte",
+      "id": "mastersoebrevelatte",
+      "code": "",
+      "name": "Master S.O.E - Breve Latte",
+      "category": "Master S.O.E Series",
+      "sourceCategory": "Master S.O.E Series",
+      "img": "",
+      "desc": "",
+      "price": 23000,
+      "largePrice": null,
+      "normalPrice": 35000,
+      "outletPrice": 35000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": false,
+      "isSpecial": false,
+      "noLarge": false,
+      "options": {
+        "sizes": [
+          "Regular"
+        ],
+        "temps": [
+          "Ice"
+        ],
+        "ices": [],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar"
+        ]
+      },
+      "tag": ""
+    },
+    {
+      "key": "tripledubaipistachiochocolate",
+      "id": "tripledubaipistachiochocolate",
+      "code": "",
+      "name": "Triple Dubai Pistachio Chocolate",
+      "category": "Triple Pistachio Series",
+      "sourceCategory": "Triple Pistachio Series",
+      "img": "",
+      "desc": "",
+      "price": 22000,
+      "largePrice": null,
+      "normalPrice": 32000,
+      "outletPrice": 32000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": false,
+      "isSpecial": false,
+      "noLarge": false,
+      "options": {
+        "sizes": [
+          "Regular"
+        ],
+        "temps": [
+          "Ice"
+        ],
+        "ices": [],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar"
+        ]
+      },
+      "tag": ""
+    },
+    {
+      "key": "triplepistachiolatte",
+      "id": "triplepistachiolatte",
+      "code": "",
+      "name": "Triple Pistachio Latte",
+      "category": "Triple Pistachio Series",
+      "sourceCategory": "Triple Pistachio Series",
+      "img": "",
+      "desc": "",
+      "price": 20000,
+      "largePrice": null,
+      "normalPrice": 29000,
+      "outletPrice": 29000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": false,
+      "isSpecial": false,
+      "noLarge": false,
+      "options": {
+        "sizes": [
+          "Regular"
+        ],
+        "temps": [
+          "Ice"
+        ],
+        "ices": [],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar"
+        ]
+      },
+      "tag": ""
+    },
+    {
+      "key": "triplepistachiomatcha",
+      "id": "triplepistachiomatcha",
+      "code": "",
+      "name": "Triple Pistachio Matcha",
+      "category": "Triple Pistachio Series",
+      "sourceCategory": "Triple Pistachio Series",
+      "img": "",
+      "desc": "",
+      "price": 22000,
+      "largePrice": null,
+      "normalPrice": 32000,
+      "outletPrice": 32000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": false,
+      "isSpecial": false,
+      "noLarge": false,
+      "options": {
+        "sizes": [
+          "Regular"
+        ],
+        "temps": [
+          "Ice"
+        ],
+        "ices": [],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar"
+        ]
+      },
+      "tag": ""
+    },
+    {
+      "key": "tomoroarenlatte",
+      "id": "tomoroarenlatte",
+      "code": "",
+      "name": "TOMORO Aren Latte",
+      "category": "Tomoro Signature",
+      "sourceCategory": "Tomoro Signature",
+      "img": "/img/menu/tomoro/tomoroarenlatte.webp",
+      "desc": "",
+      "price": 16000,
+      "largePrice": null,
+      "normalPrice": 21000,
+      "outletPrice": 21000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": false,
+      "isSpecial": false,
+      "noLarge": false,
+      "options": {
+        "sizes": [
+          "Regular"
+        ],
+        "temps": [
+          "Ice"
+        ],
+        "ices": [],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar"
+        ]
+      },
+      "tag": ""
+    },
+    {
+      "key": "matchalatte",
+      "id": "matchalatte",
+      "code": "",
+      "name": "Matcha Latte",
+      "category": "Tomoro Signature",
+      "sourceCategory": "Tomoro Signature",
+      "img": "/img/menu/tomoro/matchalatte.webp",
+      "desc": "",
+      "price": 19000,
+      "largePrice": null,
+      "normalPrice": 27000,
+      "outletPrice": 27000,
       "customPrice": true,
       "discount": null,
       "discountLabel": "",
@@ -386,6 +563,114 @@
       "tag": ""
     },
     {
+      "key": "caffeamericano",
+      "id": "caffeamericano",
+      "code": "",
+      "name": "Caffe Americano",
+      "category": "Black Coffee",
+      "sourceCategory": "Black Coffee",
+      "img": "/img/menu/tomoro/caffeamericano.webp",
+      "desc": "",
+      "price": 15000,
+      "largePrice": null,
+      "normalPrice": 18000,
+      "outletPrice": 18000,
+      "customPrice": true,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": false,
+      "isSpecial": false,
+      "noLarge": false,
+      "options": {
+        "sizes": [
+          "Regular"
+        ],
+        "temps": [
+          "Ice"
+        ],
+        "ices": [],
+        "sugars": []
+      },
+      "tag": ""
+    },
+    {
+      "key": "strawberryamericano",
+      "id": "strawberryamericano",
+      "code": "",
+      "name": "Strawberry Americano",
+      "category": "Black Coffee",
+      "sourceCategory": "Black Coffee",
+      "img": "/img/menu/tomoro/strawberryamericano.webp",
+      "desc": "",
+      "price": 15000,
+      "largePrice": null,
+      "normalPrice": 19000,
+      "outletPrice": 19000,
+      "customPrice": true,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": false,
+      "isSpecial": false,
+      "noLarge": false,
+      "options": {
+        "sizes": [
+          "Regular"
+        ],
+        "temps": [
+          "Ice"
+        ],
+        "ices": [],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar"
+        ]
+      },
+      "tag": ""
+    },
+    {
+      "key": "peachamericano",
+      "id": "peachamericano",
+      "code": "",
+      "name": "Peach Americano",
+      "category": "Black Coffee",
+      "sourceCategory": "Black Coffee",
+      "img": "/img/menu/tomoro/peachamericano.webp",
+      "desc": "",
+      "price": 15000,
+      "largePrice": null,
+      "normalPrice": 19000,
+      "outletPrice": 19000,
+      "customPrice": true,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": false,
+      "isSpecial": false,
+      "noLarge": false,
+      "options": {
+        "sizes": [
+          "Regular"
+        ],
+        "temps": [
+          "Ice"
+        ],
+        "ices": [],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar"
+        ]
+      },
+      "tag": ""
+    },
+    {
       "key": "kopisusuaren",
       "id": "kopisusuaren",
       "code": "",
@@ -423,19 +708,167 @@
       "tag": ""
     },
     {
-      "key": "caffemocha",
-      "id": "caffemocha",
+      "key": "tomorococonutlatte",
+      "id": "tomorococonutlatte",
       "code": "",
-      "name": "Caffe Mocha",
+      "name": "TOMORO Coconut Latte",
       "category": "Milk Based Coffee",
       "sourceCategory": "Milk Based Coffee",
-      "img": "/img/menu/tomoro/caffemocca.webp",
+      "img": "/img/menu/tomoro/tomorococonutlatte.webp",
+      "desc": "",
+      "price": 17000,
+      "largePrice": null,
+      "normalPrice": 23000,
+      "outletPrice": 23000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": false,
+      "isSpecial": false,
+      "noLarge": false,
+      "options": {
+        "sizes": [
+          "Regular"
+        ],
+        "temps": [
+          "Ice"
+        ],
+        "ices": [],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar"
+        ]
+      },
+      "tag": ""
+    },
+    {
+      "key": "tomorooatlatte",
+      "id": "tomorooatlatte",
+      "code": "",
+      "name": "TOMORO Oat Latte",
+      "category": "Milk Based Coffee",
+      "sourceCategory": "Milk Based Coffee",
+      "img": "/img/menu/tomoro/tomorooatlatte.webp",
       "desc": "",
       "price": 18000,
       "largePrice": null,
-      "normalPrice": 25000,
-      "outletPrice": 25000,
+      "normalPrice": 24000,
+      "outletPrice": 24000,
       "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": false,
+      "isSpecial": false,
+      "noLarge": false,
+      "options": {
+        "sizes": [
+          "Regular"
+        ],
+        "temps": [
+          "Ice"
+        ],
+        "ices": [],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar"
+        ]
+      },
+      "tag": ""
+    },
+    {
+      "key": "caramelmacchiato",
+      "id": "caramelmacchiato",
+      "code": "",
+      "name": "Caramel Macchiato",
+      "category": "Milk Based Coffee",
+      "sourceCategory": "Milk Based Coffee",
+      "img": "/img/menu/tomoro/caramelmacchiato.webp",
+      "desc": "",
+      "price": 19000,
+      "largePrice": null,
+      "normalPrice": 26000,
+      "outletPrice": 26000,
+      "customPrice": true,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": false,
+      "isSpecial": false,
+      "noLarge": false,
+      "options": {
+        "sizes": [
+          "Regular"
+        ],
+        "temps": [
+          "Ice"
+        ],
+        "ices": [],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar"
+        ]
+      },
+      "tag": ""
+    },
+    {
+      "key": "caramelmacchiatosaltedcloud",
+      "id": "caramelmacchiatosaltedcloud",
+      "code": "",
+      "name": "Caramel Macchiato Salted Cloud",
+      "category": "Milk Based Coffee",
+      "sourceCategory": "Milk Based Coffee",
+      "img": "",
+      "desc": "",
+      "price": 20000,
+      "largePrice": null,
+      "normalPrice": 29000,
+      "outletPrice": 29000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": false,
+      "isSpecial": false,
+      "noLarge": false,
+      "options": {
+        "sizes": [
+          "Regular"
+        ],
+        "temps": [
+          "Ice"
+        ],
+        "ices": [],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar"
+        ]
+      },
+      "tag": ""
+    },
+    {
+      "key": "caramelcheeselatte",
+      "id": "caramelcheeselatte",
+      "code": "",
+      "name": "Caramel Cheese Latte",
+      "category": "Milk Based Coffee",
+      "sourceCategory": "Milk Based Coffee",
+      "img": "/img/menu/tomoro/caramelcheeselatte.webp",
+      "desc": "",
+      "price": 19000,
+      "largePrice": null,
+      "normalPrice": 26000,
+      "outletPrice": 26000,
+      "customPrice": true,
       "discount": null,
       "discountLabel": "",
       "largeNormal": null,
@@ -497,62 +930,19 @@
       "tag": ""
     },
     {
-      "key": "seasaltcloudmatchalatte",
-      "id": "seasaltcloudmatchalatte",
+      "key": "caffemocha",
+      "id": "caffemocha",
       "code": "",
-      "name": "Sea Salt Cloud Matcha Latte",
-      "category": "Cloud Series",
-      "sourceCategory": "Cloud Series",
-      "img": "/uploads/2ba2b158a66122f1.jpg",
-      "desc": "",
-      "price": 20000,
-      "largePrice": null,
-      "normalPrice": 30000,
-      "outletPrice": 30000,
-      "customPrice": true,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
-      "isSoldOut": false,
-      "notCarried": false,
-      "isFood": false,
-      "isSpecial": false,
-      "noLarge": false,
-      "options": {
-        "sizes": [
-          "Small"
-        ],
-        "temps": [
-          "Ice",
-          "Hot"
-        ],
-        "ices": [
-          "Normal Ice",
-          "Less Ice",
-          "No Ice"
-        ],
-        "sugars": [
-          "Normal Sugar",
-          "Less Sugar",
-          "No Sugar"
-        ]
-      },
-      "tag": ""
-    },
-    {
-      "key": "cheesecloudlatte",
-      "id": "cheesecloudlatte",
-      "code": "",
-      "name": "Cheese Cloud Latte",
+      "name": "Caffe Mocha",
       "category": "Milk Based Coffee",
       "sourceCategory": "Milk Based Coffee",
-      "img": "/img/menu/tomoro/cheesecloudlatte.webp",
+      "img": "/img/menu/tomoro/caffemocca.webp",
       "desc": "",
-      "price": 19000,
+      "price": 18000,
       "largePrice": null,
-      "normalPrice": 26000,
-      "outletPrice": 26000,
-      "customPrice": true,
+      "normalPrice": 25000,
+      "outletPrice": 25000,
+      "customPrice": false,
       "discount": null,
       "discountLabel": "",
       "largeNormal": null,
@@ -577,18 +967,18 @@
       "tag": ""
     },
     {
-      "key": "caramelmacchiato",
-      "id": "caramelmacchiato",
+      "key": "brevelatte",
+      "id": "brevelatte",
       "code": "",
-      "name": "Caramel Macchiato",
+      "name": "Breve Latte",
       "category": "Milk Based Coffee",
       "sourceCategory": "Milk Based Coffee",
-      "img": "/img/menu/tomoro/caramelmacchiato.webp",
+      "img": "/img/menu/tomoro/brevelatte.webp",
       "desc": "",
-      "price": 19000,
+      "price": 21000,
       "largePrice": null,
-      "normalPrice": 26000,
-      "outletPrice": 26000,
+      "normalPrice": 30000,
+      "outletPrice": 30000,
       "customPrice": true,
       "discount": null,
       "discountLabel": "",
@@ -725,347 +1115,18 @@
       "tag": ""
     },
     {
-      "key": "tomorococonutlatte",
-      "id": "tomorococonutlatte",
+      "key": "cheesecloudlatte",
+      "id": "cheesecloudlatte",
       "code": "",
-      "name": "TOMORO Coconut Latte",
+      "name": "Cheese Cloud Latte",
       "category": "Milk Based Coffee",
       "sourceCategory": "Milk Based Coffee",
-      "img": "/img/menu/tomoro/tomorococonutlatte.webp",
-      "desc": "",
-      "price": 17000,
-      "largePrice": null,
-      "normalPrice": 23000,
-      "outletPrice": 23000,
-      "customPrice": false,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
-      "isSoldOut": false,
-      "notCarried": false,
-      "isFood": false,
-      "isSpecial": false,
-      "noLarge": false,
-      "options": {
-        "sizes": [
-          "Regular"
-        ],
-        "temps": [
-          "Ice"
-        ],
-        "ices": [],
-        "sugars": [
-          "Normal Sugar",
-          "Less Sugar"
-        ]
-      },
-      "tag": ""
-    },
-    {
-      "key": "manukaoatlatte",
-      "id": "manukaoatlatte",
-      "code": "",
-      "name": "Manuka Oat Latte",
-      "category": "Flavored Latte",
-      "sourceCategory": "Flavored Latte",
-      "img": "/uploads/66b87f02d019f142.jpg",
-      "desc": "",
-      "price": 21000,
-      "largePrice": null,
-      "normalPrice": 30000,
-      "outletPrice": 30000,
-      "customPrice": true,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
-      "isSoldOut": false,
-      "notCarried": false,
-      "isFood": false,
-      "isSpecial": false,
-      "noLarge": false,
-      "options": {
-        "sizes": [
-          "Small"
-        ],
-        "temps": [
-          "Ice",
-          "Hot"
-        ],
-        "ices": [
-          "Normal Ice",
-          "Less Ice",
-          "No Ice"
-        ],
-        "sugars": [
-          "Normal Sugar",
-          "Less Sugar",
-          "No Sugar"
-        ]
-      },
-      "tag": ""
-    },
-    {
-      "key": "matchafrappe",
-      "id": "matchafrappe",
-      "code": "",
-      "name": "Matcha Frappe",
-      "category": "Frappee",
-      "sourceCategory": "Frappee",
-      "img": "/uploads/3624ed332ebc9fa1.jpg",
+      "img": "/img/menu/tomoro/cheesecloudlatte.webp",
       "desc": "",
       "price": 19000,
       "largePrice": null,
-      "normalPrice": 27000,
-      "outletPrice": 27000,
-      "customPrice": true,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
-      "isSoldOut": false,
-      "notCarried": false,
-      "isFood": false,
-      "isSpecial": true,
-      "noLarge": false,
-      "options": {
-        "sizes": [
-          "Small"
-        ],
-        "temps": [
-          "Ice"
-        ],
-        "ices": [
-          "Normal Ice",
-          "Less Ice",
-          "No Ice"
-        ],
-        "sugars": [
-          "Normal Sugar",
-          "Less Sugar",
-          "No Sugar"
-        ]
-      },
-      "tag": ""
-    },
-    {
-      "key": "chocolatefrappe",
-      "id": "chocolatefrappe",
-      "code": "",
-      "name": "Chocolate Frappe",
-      "category": "Frappee",
-      "sourceCategory": "Frappee",
-      "img": "/uploads/2dcd1bf29dd06ba5.jpg",
-      "desc": "",
-      "price": 17500,
-      "largePrice": null,
-      "normalPrice": 24000,
-      "outletPrice": 24000,
-      "customPrice": true,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
-      "isSoldOut": false,
-      "notCarried": false,
-      "isFood": false,
-      "isSpecial": true,
-      "noLarge": false,
-      "options": {
-        "sizes": [
-          "Small"
-        ],
-        "temps": [
-          "Ice"
-        ],
-        "ices": [
-          "Normal Ice",
-          "Less Ice",
-          "No Ice"
-        ],
-        "sugars": [
-          "Normal Sugar",
-          "Less Sugar",
-          "No Sugar"
-        ]
-      },
-      "tag": ""
-    },
-    {
-      "key": "strawberryjasminesmoothie",
-      "id": "strawberryjasminesmoothie",
-      "code": "",
-      "name": "Strawberry Jasmine Smoothie",
-      "category": "Frappe",
-      "sourceCategory": "Frappe",
-      "img": "/img/menu/tomoro/strawberryjasminetea.webp",
-      "desc": "",
-      "price": 15000,
-      "largePrice": null,
-      "normalPrice": 19000,
-      "outletPrice": 19000,
-      "customPrice": false,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
-      "isSoldOut": true,
-      "notCarried": false,
-      "isFood": false,
-      "isSpecial": true,
-      "noLarge": false,
-      "options": {
-        "sizes": [
-          "Regular"
-        ],
-        "temps": [
-          "Ice"
-        ],
-        "ices": [],
-        "sugars": [
-          "Normal Sugar",
-          "Less Sugar"
-        ]
-      },
-      "tag": ""
-    },
-    {
-      "key": "peachcoconutfrappe",
-      "id": "peachcoconutfrappe",
-      "code": "",
-      "name": "Peach Coconut Frappe",
-      "category": "Frappee",
-      "sourceCategory": "Frappee",
-      "img": "/uploads/e8057791a3e366c6.jpg",
-      "desc": "",
-      "price": 15500,
-      "largePrice": null,
-      "normalPrice": 19000,
-      "outletPrice": 19000,
-      "customPrice": true,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
-      "isSoldOut": false,
-      "notCarried": false,
-      "isFood": false,
-      "isSpecial": true,
-      "noLarge": false,
-      "options": {
-        "sizes": [
-          "Small"
-        ],
-        "temps": [
-          "Ice"
-        ],
-        "ices": [
-          "Normal Ice",
-          "Less Ice",
-          "No Ice"
-        ],
-        "sugars": [
-          "Normal Sugar",
-          "Less Sugar",
-          "No Sugar"
-        ]
-      },
-      "tag": ""
-    },
-    {
-      "key": "strawberrymatchalatte",
-      "id": "strawberrymatchalatte",
-      "code": "",
-      "name": "Strawberry Matcha Latte",
-      "category": "Matcha Series",
-      "sourceCategory": "Matcha Series",
-      "img": "/uploads/51302e185bb5fe0d.jpg",
-      "desc": "",
-      "price": 19000,
-      "largePrice": null,
-      "normalPrice": 30000,
-      "outletPrice": 30000,
-      "customPrice": true,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
-      "isSoldOut": false,
-      "notCarried": false,
-      "isFood": false,
-      "isSpecial": false,
-      "noLarge": false,
-      "options": {
-        "sizes": [
-          "Small"
-        ],
-        "temps": [
-          "Ice",
-          "Hot"
-        ],
-        "ices": [
-          "Normal Ice",
-          "Less Ice",
-          "No Ice"
-        ],
-        "sugars": [
-          "Normal Sugar",
-          "Less Sugar",
-          "No Sugar"
-        ]
-      },
-      "tag": ""
-    },
-    {
-      "key": "matchajasminemilktea",
-      "id": "matchajasminemilktea",
-      "code": "",
-      "name": "Matcha Jasmine Milk Tea",
-      "category": "Matcha Series",
-      "sourceCategory": "Matcha Series",
-      "img": "/uploads/3853c3288c373298.jpg",
-      "desc": "",
-      "price": 17000,
-      "largePrice": null,
-      "normalPrice": 23000,
-      "outletPrice": 23000,
-      "customPrice": true,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
-      "isSoldOut": false,
-      "notCarried": false,
-      "isFood": false,
-      "isSpecial": false,
-      "noLarge": false,
-      "options": {
-        "sizes": [
-          "Small"
-        ],
-        "temps": [
-          "Ice",
-          "Hot"
-        ],
-        "ices": [
-          "Normal Ice",
-          "Less Ice",
-          "No Ice"
-        ],
-        "sugars": [
-          "Normal Sugar",
-          "Less Sugar",
-          "No Sugar"
-        ]
-      },
-      "tag": ""
-    },
-    {
-      "key": "matchalatte",
-      "id": "matchalatte",
-      "code": "",
-      "name": "Matcha Latte",
-      "category": "Tomoro Signature",
-      "sourceCategory": "Tomoro Signature",
-      "img": "/img/menu/tomoro/matchalatte.webp",
-      "desc": "",
-      "price": 19000,
-      "largePrice": null,
-      "normalPrice": 27000,
-      "outletPrice": 27000,
+      "normalPrice": 26000,
+      "outletPrice": 26000,
       "customPrice": true,
       "discount": null,
       "discountLabel": "",
@@ -1128,179 +1189,13 @@
       "tag": ""
     },
     {
-      "key": "pristine",
-      "id": "pristine",
+      "key": "matchastrawberrylatte",
+      "id": "matchastrawberrylatte",
       "code": "",
-      "name": "Pristine",
-      "category": "Merchandise",
-      "sourceCategory": "Merchandise",
-      "img": "/img/menu/tomoro/caffeamericano.webp",
-      "desc": "",
-      "price": 11000,
-      "largePrice": null,
-      "normalPrice": null,
-      "outletPrice": 10000,
-      "customPrice": false,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
-      "isSoldOut": false,
-      "notCarried": false,
-      "isFood": false,
-      "isSpecial": false,
-      "noLarge": false,
-      "options": {
-        "sizes": [
-          "Regular"
-        ],
-        "temps": [
-          "Ice"
-        ],
-        "ices": [],
-        "sugars": [
-          "Normal Sugar",
-          "Less Sugar"
-        ]
-      },
-      "tag": ""
-    },
-    {
-      "key": "seasaltcloudchocolate",
-      "id": "seasaltcloudchocolate",
-      "code": "",
-      "name": "Sea Salt Cloud Chocolate",
-      "category": "Non Coffee",
-      "sourceCategory": "Non Coffee",
-      "img": "/uploads/b1b7336fe0108d1c.jpg",
-      "desc": "",
-      "price": 19000,
-      "largePrice": null,
-      "normalPrice": 28000,
-      "outletPrice": 28000,
-      "customPrice": true,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
-      "isSoldOut": false,
-      "notCarried": false,
-      "isFood": false,
-      "isSpecial": false,
-      "noLarge": false,
-      "options": {
-        "sizes": [
-          "Small"
-        ],
-        "temps": [
-          "Ice",
-          "Hot"
-        ],
-        "ices": [
-          "Normal Ice",
-          "Less Ice",
-          "No Ice"
-        ],
-        "sugars": [
-          "Normal Sugar",
-          "Less Sugar",
-          "No Sugar"
-        ]
-      },
-      "tag": ""
-    },
-    {
-      "key": "chocolate",
-      "id": "chocolate",
-      "code": "",
-      "name": "Chocolate",
-      "category": "Non Coffee",
-      "sourceCategory": "Non Coffee",
-      "img": "/uploads/723b07d4b3dd5f03.jpg",
-      "desc": "",
-      "price": 19000,
-      "largePrice": null,
-      "normalPrice": 24000,
-      "outletPrice": 24000,
-      "customPrice": true,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
-      "isSoldOut": false,
-      "notCarried": false,
-      "isFood": false,
-      "isSpecial": false,
-      "noLarge": false,
-      "options": {
-        "sizes": [
-          "Small"
-        ],
-        "temps": [
-          "Ice",
-          "Hot"
-        ],
-        "ices": [
-          "Normal Ice",
-          "Less Ice",
-          "No Ice"
-        ],
-        "sugars": [
-          "Normal Sugar",
-          "Less Sugar",
-          "No Sugar"
-        ]
-      },
-      "tag": ""
-    },
-    {
-      "key": "chocooatlatte",
-      "id": "chocooatlatte",
-      "code": "",
-      "name": "Choco Oat Latte",
-      "category": "Non Coffee",
-      "sourceCategory": "Non Coffee",
-      "img": "/uploads/c7390c346deba8bd.jpg",
-      "desc": "",
-      "price": 19500,
-      "largePrice": null,
-      "normalPrice": 28000,
-      "outletPrice": 28000,
-      "customPrice": true,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
-      "isSoldOut": false,
-      "notCarried": false,
-      "isFood": false,
-      "isSpecial": false,
-      "noLarge": false,
-      "options": {
-        "sizes": [
-          "Small"
-        ],
-        "temps": [
-          "Ice",
-          "Hot"
-        ],
-        "ices": [
-          "Normal Ice",
-          "Less Ice",
-          "No Ice"
-        ],
-        "sugars": [
-          "Normal Sugar",
-          "Less Sugar",
-          "No Sugar"
-        ]
-      },
-      "tag": ""
-    },
-    {
-      "key": "hojichaoatlatte",
-      "id": "hojichaoatlatte",
-      "code": "",
-      "name": "Hojicha Oat Latte",
-      "category": "Tea Series",
-      "sourceCategory": "Tea Series",
-      "img": "/img/menu/tomoro/hojichaoatlatte.webp",
+      "name": "Matcha Strawberry Latte",
+      "category": "Flavoured Drinks",
+      "sourceCategory": "Flavoured Drinks",
+      "img": "",
       "desc": "",
       "price": 21000,
       "largePrice": null,
@@ -1331,97 +1226,171 @@
       "tag": ""
     },
     {
-      "key": "peachoolongmilktea",
-      "id": "peachoolongmilktea",
+      "key": "chocolatesignature",
+      "id": "chocolatesignature",
       "code": "",
-      "name": "Peach Oolong Milk Tea",
-      "category": "Tea Series",
-      "sourceCategory": "Tea Series",
-      "img": "/img/menu/tomoro/peachoolongmilktea.webp",
+      "name": "Chocolate Signature",
+      "category": "Flavoured Drinks",
+      "sourceCategory": "Flavoured Drinks",
+      "img": "",
       "desc": "",
-      "price": 15000,
+      "price": 18000,
       "largePrice": null,
-      "normalPrice": 19000,
-      "outletPrice": 19000,
-      "customPrice": true,
+      "normalPrice": 24000,
+      "outletPrice": 24000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": false,
+      "isSpecial": false,
+      "noLarge": false,
+      "options": {
+        "sizes": [
+          "Regular"
+        ],
+        "temps": [
+          "Ice"
+        ],
+        "ices": [],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar"
+        ]
+      },
+      "tag": ""
+    },
+    {
+      "key": "chocolateoatlatte",
+      "id": "chocolateoatlatte",
+      "code": "",
+      "name": "Chocolate Oat Latte",
+      "category": "Flavoured Drinks",
+      "sourceCategory": "Flavoured Drinks",
+      "img": "",
+      "desc": "",
+      "price": 19000,
+      "largePrice": null,
+      "normalPrice": 27000,
+      "outletPrice": 27000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": false,
+      "isSpecial": false,
+      "noLarge": false,
+      "options": {
+        "sizes": [
+          "Regular"
+        ],
+        "temps": [
+          "Ice"
+        ],
+        "ices": [],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar"
+        ]
+      },
+      "tag": ""
+    },
+    {
+      "key": "chocolatecheesecloud",
+      "id": "chocolatecheesecloud",
+      "code": "",
+      "name": "Chocolate Cheese Cloud",
+      "category": "Flavoured Drinks",
+      "sourceCategory": "Flavoured Drinks",
+      "img": "",
+      "desc": "",
+      "price": 19000,
+      "largePrice": null,
+      "normalPrice": 27000,
+      "outletPrice": 27000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": false,
+      "isSpecial": false,
+      "noLarge": false,
+      "options": {
+        "sizes": [
+          "Regular"
+        ],
+        "temps": [
+          "Ice"
+        ],
+        "ices": [],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar"
+        ]
+      },
+      "tag": ""
+    },
+    {
+      "key": "chocolatesaltedcloud",
+      "id": "chocolatesaltedcloud",
+      "code": "",
+      "name": "Chocolate Salted Cloud",
+      "category": "Flavoured Drinks",
+      "sourceCategory": "Flavoured Drinks",
+      "img": "",
+      "desc": "",
+      "price": 19000,
+      "largePrice": null,
+      "normalPrice": 27000,
+      "outletPrice": 27000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": false,
+      "isSpecial": false,
+      "noLarge": false,
+      "options": {
+        "sizes": [
+          "Regular"
+        ],
+        "temps": [
+          "Ice"
+        ],
+        "ices": [],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar"
+        ]
+      },
+      "tag": ""
+    },
+    {
+      "key": "matchasaltedcloud",
+      "id": "matchasaltedcloud",
+      "code": "",
+      "name": "Matcha Salted Cloud",
+      "category": "Flavoured Drinks",
+      "sourceCategory": "Flavoured Drinks",
+      "img": "",
+      "desc": "",
+      "price": 21000,
+      "largePrice": null,
+      "normalPrice": 30000,
+      "outletPrice": 30000,
+      "customPrice": false,
       "discount": null,
       "discountLabel": "",
       "largeNormal": null,
       "isSoldOut": true,
-      "notCarried": false,
-      "isFood": false,
-      "isSpecial": false,
-      "noLarge": false,
-      "options": {
-        "sizes": [
-          "Regular"
-        ],
-        "temps": [
-          "Ice"
-        ],
-        "ices": [],
-        "sugars": [
-          "Normal Sugar",
-          "Less Sugar"
-        ]
-      },
-      "tag": ""
-    },
-    {
-      "key": "strawberryamericano",
-      "id": "strawberryamericano",
-      "code": "",
-      "name": "Strawberry Americano",
-      "category": "Black Coffee",
-      "sourceCategory": "Black Coffee",
-      "img": "/img/menu/tomoro/strawberryamericano.webp",
-      "desc": "",
-      "price": 15000,
-      "largePrice": null,
-      "normalPrice": 19000,
-      "outletPrice": 19000,
-      "customPrice": true,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
-      "isSoldOut": false,
-      "notCarried": false,
-      "isFood": false,
-      "isSpecial": false,
-      "noLarge": false,
-      "options": {
-        "sizes": [
-          "Regular"
-        ],
-        "temps": [
-          "Ice"
-        ],
-        "ices": [],
-        "sugars": [
-          "Normal Sugar",
-          "Less Sugar"
-        ]
-      },
-      "tag": ""
-    },
-    {
-      "key": "peachamericano",
-      "id": "peachamericano",
-      "code": "",
-      "name": "Peach Americano",
-      "category": "Black Coffee",
-      "sourceCategory": "Black Coffee",
-      "img": "/img/menu/tomoro/peachamericano.webp",
-      "desc": "",
-      "price": 15000,
-      "largePrice": null,
-      "normalPrice": 19000,
-      "outletPrice": 19000,
-      "customPrice": true,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
-      "isSoldOut": false,
       "notCarried": false,
       "isFood": false,
       "isSpecial": false,
@@ -1516,190 +1485,18 @@
       "tag": ""
     },
     {
-      "key": "lemonadeamericano",
-      "id": "lemonadeamericano",
+      "key": "hojichaoatlatte",
+      "id": "hojichaoatlatte",
       "code": "",
-      "name": "Lemonade Americano",
-      "category": "Refreshing Series",
-      "sourceCategory": "Refreshing Series",
-      "img": "/uploads/ad0248a28a7f726c.jpg",
+      "name": "Hojicha Oat Latte",
+      "category": "Tea Series",
+      "sourceCategory": "Tea Series",
+      "img": "/img/menu/tomoro/hojichaoatlatte.webp",
       "desc": "",
-      "price": 15500,
+      "price": 21000,
       "largePrice": null,
-      "normalPrice": 20000,
-      "outletPrice": 20000,
-      "customPrice": true,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
-      "isSoldOut": false,
-      "notCarried": false,
-      "isFood": false,
-      "isSpecial": false,
-      "noLarge": false,
-      "options": {
-        "sizes": [
-          "Small"
-        ],
-        "temps": [
-          "Ice",
-          "Hot"
-        ],
-        "ices": [
-          "Normal Ice",
-          "Less Ice",
-          "No Ice"
-        ],
-        "sugars": [
-          "Normal Sugar",
-          "Less Sugar",
-          "No Sugar"
-        ]
-      },
-      "tag": ""
-    },
-    {
-      "key": "pinkpoplemonade",
-      "id": "pinkpoplemonade",
-      "code": "",
-      "name": "Pink Pop Lemonade",
-      "category": "Refreshing Series",
-      "sourceCategory": "Refreshing Series",
-      "img": "/uploads/ad51d6b5c72ed82e.jpg",
-      "desc": "",
-      "price": 19500,
-      "largePrice": null,
-      "normalPrice": 28000,
-      "outletPrice": 28000,
-      "customPrice": true,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
-      "isSoldOut": false,
-      "notCarried": false,
-      "isFood": false,
-      "isSpecial": false,
-      "noLarge": false,
-      "options": {
-        "sizes": [
-          "Small"
-        ],
-        "temps": [
-          "Ice",
-          "Hot"
-        ],
-        "ices": [
-          "Normal Ice",
-          "Less Ice",
-          "No Ice"
-        ],
-        "sugars": [
-          "Normal Sugar",
-          "Less Sugar",
-          "No Sugar"
-        ]
-      },
-      "tag": ""
-    },
-    {
-      "key": "pinkpoplemontea",
-      "id": "pinkpoplemontea",
-      "code": "",
-      "name": "Pink Pop Lemon Tea",
-      "category": "Refreshing Series",
-      "sourceCategory": "Refreshing Series",
-      "img": "/uploads/c5baebc2c1269812.jpg",
-      "desc": "",
-      "price": 14000,
-      "largePrice": null,
-      "normalPrice": 17000,
-      "outletPrice": 17000,
-      "customPrice": true,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
-      "isSoldOut": false,
-      "notCarried": false,
-      "isFood": false,
-      "isSpecial": false,
-      "noLarge": false,
-      "options": {
-        "sizes": [
-          "Small"
-        ],
-        "temps": [
-          "Ice",
-          "Hot"
-        ],
-        "ices": [
-          "Normal Ice",
-          "Less Ice",
-          "No Ice"
-        ],
-        "sugars": [
-          "Normal Sugar",
-          "Less Sugar",
-          "No Sugar"
-        ]
-      },
-      "tag": ""
-    },
-    {
-      "key": "grapefruitamericano",
-      "id": "grapefruitamericano",
-      "code": "",
-      "name": "Grapefruit Americano",
-      "category": "Refreshing Series",
-      "sourceCategory": "Refreshing Series",
-      "img": "/uploads/3c964bfda0725316.jpg",
-      "desc": "",
-      "price": 15500,
-      "largePrice": null,
-      "normalPrice": 20000,
-      "outletPrice": 20000,
-      "customPrice": true,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
-      "isSoldOut": false,
-      "notCarried": false,
-      "isFood": false,
-      "isSpecial": false,
-      "noLarge": false,
-      "options": {
-        "sizes": [
-          "Small"
-        ],
-        "temps": [
-          "Ice",
-          "Hot"
-        ],
-        "ices": [
-          "Normal Ice",
-          "Less Ice",
-          "No Ice"
-        ],
-        "sugars": [
-          "Normal Sugar",
-          "Less Sugar",
-          "No Sugar"
-        ]
-      },
-      "tag": ""
-    },
-    {
-      "key": "tomoroarenlatte",
-      "id": "tomoroarenlatte",
-      "code": "",
-      "name": "TOMORO Aren Latte",
-      "category": "Tomoro Signature",
-      "sourceCategory": "Tomoro Signature",
-      "img": "/img/menu/tomoro/tomoroarenlatte.webp",
-      "desc": "",
-      "price": 16000,
-      "largePrice": null,
-      "normalPrice": 21000,
-      "outletPrice": 21000,
+      "normalPrice": 30000,
+      "outletPrice": 30000,
       "customPrice": false,
       "discount": null,
       "discountLabel": "",
@@ -1725,19 +1522,93 @@
       "tag": ""
     },
     {
-      "key": "seasaltcloudcaramelmacchiato",
-      "id": "seasaltcloudcaramelmacchiato",
+      "key": "peachoolongmilktea",
+      "id": "peachoolongmilktea",
       "code": "",
-      "name": "Sea Salt Cloud Caramel Macchiato",
-      "category": "Tomoro Signature",
-      "sourceCategory": "Tomoro Signature",
-      "img": "/uploads/00951dc21d075ed1.jpg",
+      "name": "Peach Oolong Milk Tea",
+      "category": "Tea Series",
+      "sourceCategory": "Tea Series",
+      "img": "/img/menu/tomoro/peachoolongmilktea.webp",
       "desc": "",
-      "price": 20000,
+      "price": 15000,
       "largePrice": null,
-      "normalPrice": 30000,
-      "outletPrice": 30000,
+      "normalPrice": 19000,
+      "outletPrice": 19000,
       "customPrice": true,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": true,
+      "notCarried": false,
+      "isFood": false,
+      "isSpecial": false,
+      "noLarge": false,
+      "options": {
+        "sizes": [
+          "Regular"
+        ],
+        "temps": [
+          "Ice"
+        ],
+        "ices": [],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar"
+        ]
+      },
+      "tag": ""
+    },
+    {
+      "key": "strawberryjasminesmoothie",
+      "id": "strawberryjasminesmoothie",
+      "code": "",
+      "name": "Strawberry Jasmine Smoothie",
+      "category": "Frappe",
+      "sourceCategory": "Frappe",
+      "img": "/img/menu/tomoro/strawberryjasminetea.webp",
+      "desc": "",
+      "price": 15000,
+      "largePrice": null,
+      "normalPrice": 19000,
+      "outletPrice": 19000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": true,
+      "notCarried": false,
+      "isFood": false,
+      "isSpecial": true,
+      "noLarge": false,
+      "options": {
+        "sizes": [
+          "Regular"
+        ],
+        "temps": [
+          "Ice"
+        ],
+        "ices": [],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar"
+        ]
+      },
+      "tag": ""
+    },
+    {
+      "key": "1ltomoroarenlatte",
+      "id": "1ltomoroarenlatte",
+      "code": "",
+      "name": "1L TOMORO Aren Latte",
+      "category": "1l Bottle",
+      "sourceCategory": "1l Bottle",
+      "img": "",
+      "desc": "",
+      "price": 51000,
+      "largePrice": null,
+      "normalPrice": 90000,
+      "outletPrice": 90000,
+      "customPrice": false,
       "discount": null,
       "discountLabel": "",
       "largeNormal": null,
@@ -1748,33 +1619,430 @@
       "noLarge": false,
       "options": {
         "sizes": [
-          "Small"
+          "1 Liter"
         ],
-        "temps": [
-          "Ice",
-          "Hot"
-        ],
-        "ices": [
-          "Normal Ice",
-          "Less Ice",
-          "No Ice"
-        ],
+        "temps": [],
+        "ices": [],
         "sugars": [
           "Normal Sugar",
-          "Less Sugar",
-          "No Sugar"
+          "Less Sugar"
         ]
       },
       "tag": ""
     },
     {
-      "key": "tomorooatlatte",
-      "id": "tomorooatlatte",
+      "key": "1lchocolate",
+      "id": "1lchocolate",
       "code": "",
-      "name": "TOMORO Oat Latte",
-      "category": "Milk Based Coffee",
-      "sourceCategory": "Milk Based Coffee",
-      "img": "/img/menu/tomoro/tomorooatlatte.webp",
+      "name": "1L Chocolate",
+      "category": "1l Bottle",
+      "sourceCategory": "1l Bottle",
+      "img": "",
+      "desc": "",
+      "price": 51000,
+      "largePrice": null,
+      "normalPrice": 90000,
+      "outletPrice": 90000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": false,
+      "isSpecial": false,
+      "noLarge": false,
+      "options": {
+        "sizes": [
+          "1 Liter"
+        ],
+        "temps": [],
+        "ices": [],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar"
+        ]
+      },
+      "tag": ""
+    },
+    {
+      "key": "1lkopisusuaren",
+      "id": "1lkopisusuaren",
+      "code": "",
+      "name": "1L Kopi Susu Aren",
+      "category": "1l Bottle",
+      "sourceCategory": "1l Bottle",
+      "img": "",
+      "desc": "",
+      "price": 43000,
+      "largePrice": null,
+      "normalPrice": 75000,
+      "outletPrice": 75000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": false,
+      "isSpecial": false,
+      "noLarge": false,
+      "options": {
+        "sizes": [
+          "1 Liter"
+        ],
+        "temps": [],
+        "ices": [],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar"
+        ]
+      },
+      "tag": ""
+    },
+    {
+      "key": "1lmatchalatte",
+      "id": "1lmatchalatte",
+      "code": "",
+      "name": "1L Matcha Latte",
+      "category": "1l Bottle",
+      "sourceCategory": "1l Bottle",
+      "img": "",
+      "desc": "",
+      "price": 56000,
+      "largePrice": null,
+      "normalPrice": 100000,
+      "outletPrice": 100000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": false,
+      "isSpecial": false,
+      "noLarge": false,
+      "options": {
+        "sizes": [
+          "1 Liter"
+        ],
+        "temps": [],
+        "ices": [],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar"
+        ]
+      },
+      "tag": ""
+    },
+    {
+      "key": "eggtart",
+      "id": "eggtart",
+      "code": "",
+      "name": "Egg Tart",
+      "category": "Food",
+      "sourceCategory": "Food",
+      "img": "",
+      "desc": "",
+      "price": 17000,
+      "largePrice": null,
+      "normalPrice": 23000,
+      "outletPrice": 23000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": true,
+      "isSpecial": true,
+      "noLarge": false,
+      "options": {
+        "sizes": [],
+        "temps": [],
+        "ices": [],
+        "sugars": []
+      },
+      "tag": ""
+    },
+    {
+      "key": "buttercroissant",
+      "id": "buttercroissant",
+      "code": "",
+      "name": "Butter Croissant",
+      "category": "Food",
+      "sourceCategory": "Food",
+      "img": "",
+      "desc": "",
+      "price": 14000,
+      "largePrice": null,
+      "normalPrice": 16000,
+      "outletPrice": 16000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": true,
+      "isSpecial": true,
+      "noLarge": false,
+      "options": {
+        "sizes": [],
+        "temps": [],
+        "ices": [],
+        "sugars": []
+      },
+      "tag": ""
+    },
+    {
+      "key": "chocodanish",
+      "id": "chocodanish",
+      "code": "",
+      "name": "Choco Danish",
+      "category": "Food",
+      "sourceCategory": "Food",
+      "img": "",
+      "desc": "",
+      "price": 15000,
+      "largePrice": null,
+      "normalPrice": 18000,
+      "outletPrice": 18000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": true,
+      "isSpecial": true,
+      "noLarge": false,
+      "options": {
+        "sizes": [],
+        "temps": [],
+        "ices": [],
+        "sugars": []
+      },
+      "tag": ""
+    },
+    {
+      "key": "cinnamonroll",
+      "id": "cinnamonroll",
+      "code": "",
+      "name": "Cinnamon Roll",
+      "category": "Food",
+      "sourceCategory": "Food",
+      "img": "",
+      "desc": "",
+      "price": 16000,
+      "largePrice": null,
+      "normalPrice": 20000,
+      "outletPrice": 20000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": true,
+      "isSpecial": true,
+      "noLarge": false,
+      "options": {
+        "sizes": [],
+        "temps": [],
+        "ices": [],
+        "sugars": []
+      },
+      "tag": ""
+    },
+    {
+      "key": "cheesebagel",
+      "id": "cheesebagel",
+      "code": "",
+      "name": "Cheese Bagel",
+      "category": "Food",
+      "sourceCategory": "Food",
+      "img": "",
+      "desc": "",
+      "price": 17000,
+      "largePrice": null,
+      "normalPrice": 22000,
+      "outletPrice": 22000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": true,
+      "isSpecial": true,
+      "noLarge": false,
+      "options": {
+        "sizes": [],
+        "temps": [],
+        "ices": [],
+        "sugars": []
+      },
+      "tag": ""
+    },
+    {
+      "key": "blueberrycheesesourdough",
+      "id": "blueberrycheesesourdough",
+      "code": "",
+      "name": "Blueberry & Cheese Sourdough",
+      "category": "Food",
+      "sourceCategory": "Food",
+      "img": "",
+      "desc": "",
+      "price": 17000,
+      "largePrice": null,
+      "normalPrice": 22000,
+      "outletPrice": 22000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": true,
+      "isSpecial": true,
+      "noLarge": false,
+      "options": {
+        "sizes": [],
+        "temps": [],
+        "ices": [],
+        "sugars": []
+      },
+      "tag": ""
+    },
+    {
+      "key": "cheesybeefpanini",
+      "id": "cheesybeefpanini",
+      "code": "",
+      "name": "Cheesy Beef Panini",
+      "category": "Food",
+      "sourceCategory": "Food",
+      "img": "",
+      "desc": "",
+      "price": 19000,
+      "largePrice": null,
+      "normalPrice": 26000,
+      "outletPrice": 26000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": true,
+      "isSpecial": true,
+      "noLarge": false,
+      "options": {
+        "sizes": [],
+        "temps": [],
+        "ices": [],
+        "sugars": []
+      },
+      "tag": ""
+    },
+    {
+      "key": "smokedchickenonionsandwich",
+      "id": "smokedchickenonionsandwich",
+      "code": "",
+      "name": "Smoked Chicken Onion Sandwich",
+      "category": "Food",
+      "sourceCategory": "Food",
+      "img": "",
+      "desc": "",
+      "price": 19000,
+      "largePrice": null,
+      "normalPrice": 26000,
+      "outletPrice": 26000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": true,
+      "isSpecial": true,
+      "noLarge": false,
+      "options": {
+        "sizes": [],
+        "temps": [],
+        "ices": [],
+        "sugars": []
+      },
+      "tag": ""
+    },
+    {
+      "key": "bananamuffin",
+      "id": "bananamuffin",
+      "code": "",
+      "name": "Banana Muffin",
+      "category": "Food",
+      "sourceCategory": "Food",
+      "img": "",
+      "desc": "",
+      "price": 17000,
+      "largePrice": null,
+      "normalPrice": 22000,
+      "outletPrice": 22000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": true,
+      "isSpecial": true,
+      "noLarge": false,
+      "options": {
+        "sizes": [],
+        "temps": [],
+        "ices": [],
+        "sugars": []
+      },
+      "tag": ""
+    },
+    {
+      "key": "chocomuffin",
+      "id": "chocomuffin",
+      "code": "",
+      "name": "Choco Muffin",
+      "category": "Food",
+      "sourceCategory": "Food",
+      "img": "",
+      "desc": "",
+      "price": 17000,
+      "largePrice": null,
+      "normalPrice": 22000,
+      "outletPrice": 22000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
+      "isSoldOut": false,
+      "notCarried": false,
+      "isFood": true,
+      "isSpecial": true,
+      "noLarge": false,
+      "options": {
+        "sizes": [],
+        "temps": [],
+        "ices": [],
+        "sugars": []
+      },
+      "tag": ""
+    },
+    {
+      "key": "matcharaspberrybagel",
+      "id": "matcharaspberrybagel",
+      "code": "",
+      "name": "Matcha Raspberry Bagel",
+      "category": "Food",
+      "sourceCategory": "Food",
+      "img": "",
       "desc": "",
       "price": 18000,
       "largePrice": null,
@@ -1784,6 +2052,36 @@
       "discount": null,
       "discountLabel": "",
       "largeNormal": null,
+      "isSoldOut": true,
+      "notCarried": false,
+      "isFood": true,
+      "isSpecial": true,
+      "noLarge": false,
+      "options": {
+        "sizes": [],
+        "temps": [],
+        "ices": [],
+        "sugars": []
+      },
+      "tag": ""
+    },
+    {
+      "key": "pristine",
+      "id": "pristine",
+      "code": "",
+      "name": "Pristine",
+      "category": "Merchandise",
+      "sourceCategory": "Merchandise",
+      "img": "/img/menu/tomoro/caffeamericano.webp",
+      "desc": "",
+      "price": 11000,
+      "largePrice": null,
+      "normalPrice": null,
+      "outletPrice": 10000,
+      "customPrice": false,
+      "discount": null,
+      "discountLabel": "",
+      "largeNormal": null,
       "isSoldOut": false,
       "notCarried": false,
       "isFood": false,
@@ -1803,54 +2101,12 @@
         ]
       },
       "tag": ""
-    },
-    {
-      "key": "cheesecloudchocolate",
-      "id": "cheesecloudchocolate",
-      "code": "",
-      "name": "Cheese Cloud Chocolate",
-      "category": "Tomoro Signature",
-      "sourceCategory": "Tomoro Signature",
-      "img": "/uploads/9d18cb1a08135cfc.jpg",
-      "desc": "",
-      "price": 18000,
-      "largePrice": null,
-      "normalPrice": 26000,
-      "outletPrice": 26000,
-      "customPrice": true,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
-      "isSoldOut": false,
-      "notCarried": false,
-      "isFood": false,
-      "isSpecial": false,
-      "noLarge": false,
-      "options": {
-        "sizes": [
-          "Small"
-        ],
-        "temps": [
-          "Ice",
-          "Hot"
-        ],
-        "ices": [
-          "Normal Ice",
-          "Less Ice",
-          "No Ice"
-        ],
-        "sugars": [
-          "Normal Sugar",
-          "Less Sugar",
-          "No Sugar"
-        ]
-      },
-      "tag": ""
     }
   ],
   "satuan": [],
   "seliter": [],
   "bundles": [],
-  "outlet": "TOM-TNG-001",
-  "preview": false
+  "outlet": null,
+  "preview": true,
+  "updatedAt": "2026-11-19T14:58:31.281780"
 }

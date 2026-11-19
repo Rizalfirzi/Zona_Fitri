@@ -806,8 +806,7 @@ function catNamePretty(name) {
   if (/coffee|kopi/.test(n)) return 'Kopi';
   if (/tea|teh/.test(n)) return 'Teh';
   if (/frappe/.test(n)) return 'Kenangan Frappé';
-  if (/toast/.test(n)) return 'Kenangan Toast';
-  if (/food|roti|snack|pastry|bakery/.test(n)) return 'Food & Bakery';
+  if (/food|toast|roti|snack|pastry|bakery/.test(n)) return 'Food';
   return name;
 }
 
@@ -818,8 +817,7 @@ function catEmoji(name) {
   if (/coffee|kopi/.test(n)) return '☕';
   if (/tea|teh/.test(n)) return '🍃';
   if (/frappe/.test(n)) return '❄️';
-  if (/toast/.test(n)) return '🍞';
-  if (/food|roti/.test(n)) return '🥐';
+  if (/food|toast|roti|snack|pastry|bakery/.test(n)) return '🥐';
   return '☕';
 }
 

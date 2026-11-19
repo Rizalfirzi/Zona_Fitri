@@ -40,7 +40,7 @@ $config = [
     // Cache TTL Settings (in seconds)
     'cache_ttl' => [
         'outlets' => 1800,  // 30 minutes for outlets list
-        'menu' => 3,        // 3 seconds for live real-time stock
+        'menu' => 20,       // 20 seconds for live outlet-specific stock
     ],
 
     // Store & Admin Branding

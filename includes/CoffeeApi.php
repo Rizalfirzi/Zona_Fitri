@@ -288,9 +288,9 @@ class CoffeeApi
             return $this->formatMenuStats($cached, $brand, $outletCode);
         }
 
-        // 1. Direct fast load from MongoDB Atlas Master Database ('zona_fitri') ala Kedai Kyuti
-        // Super cepat (< 50ms), zero dependency ke upstream, membebaskan Vercel dari limit Serverless!
-        if (!$forceRefresh) {
+        // 1. Direct fast load from MongoDB Atlas Master Database ('zona_fitri') if no specific outlet requested
+        // When an outlet is specified, we fetch real-time outlet stock from upstream (twinsjasdor)
+        if (!$forceRefresh && empty($outletCode)) {
             $mongoMenu = $this->mongo->getMenu($brand);
             if (!empty($mongoMenu) && !empty($mongoMenu['items'])) {
                 $this->applyClientPricingAndBundling($mongoMenu, $brand);
@@ -329,6 +329,21 @@ class CoffeeApi
             $response = $this->httpRequest($url, []);
             if (!$response || empty($response['items'])) {
                 $response = $this->httpRequest($this->backupBaseUrl . "/{$brand}/menu", []);
+            }
+        }
+
+        // Fallback to MongoDB Atlas Master Database if upstream unavailable
+        if (!$response || empty($response['items'])) {
+            $mongoMenu = $this->mongo->getMenu($brand);
+            if (!empty($mongoMenu) && !empty($mongoMenu['items'])) {
+                $this->applyClientPricingAndBundling($mongoMenu, $brand);
+                $mongoMenu['brand'] = $brand;
+                $mongoMenu['outletCode'] = $outletCode;
+                $mongoMenu['source'] = 'mongodb_fallback';
+                $mongoMenu['live'] = true;
+                $result = $this->formatMenuStats($mongoMenu, $brand, $outletCode);
+                $this->setCache($cacheKey, $result);
+                return $result;
             }
         }
 
@@ -566,8 +581,8 @@ class CoffeeApi
         // Apply Zona Fitri client pricing formulas and live-stock bundling
         $this->applyClientPricingAndBundling($menuData, $brand);
 
-        // Client request: Kategori Kopi Kenangan disinkronkan sesuai Aplikasi Resmi (Gambar 1):
-        // Promo & Combo (Bundling), Kopi, Non-Kopi, Kenangan Frappe, Kenangan Toast, Food, Tea
+        // Client request: Kategori Kopi Kenangan disinkronkan sesuai Aplikasi Resmi (Gambar 1) & twinsjasdor.my.id:
+        // Promo & Combo (Bundling), Kopi, Non-Kopi, Kenangan Frappe, Tea, Food
         if ($brand === 'kopken' && isset($menuData['items']) && is_array($menuData['items'])) {
             $catBuckets = [
                 'bundle' => [],
@@ -575,7 +590,6 @@ class CoffeeApi
                 'non-kopi' => [],
                 'tea' => [],
                 'frappe' => [],
-                'toast' => [],
                 'food' => [],
             ];
 
@@ -599,13 +613,10 @@ class CoffeeApi
                 if (str_contains($c, 'frappe') || str_contains($n, 'frappe')) {
                     $it['category'] = 'Kenangan Frappe';
                     $catBuckets['frappe'][] = $k;
-                } elseif (str_contains($c, 'toast') || str_contains($n, 'toast')) {
-                    $it['category'] = 'Kenangan Toast';
-                    $catBuckets['toast'][] = $k;
                 } elseif (in_array($k, $teaKeys, true) || (str_contains($c, 'tea') || (str_contains($n, 'tea') && !str_contains($n, 'coffee') && !str_contains($n, 'latte')))) {
                     $it['category'] = 'Tea';
                     $catBuckets['tea'][] = $k;
-                } elseif (str_contains($c, 'food') || preg_match('/croissant|bagel|donut|muffin|panini|pastry|cookie|bread|roti|bun|bungeoppang|mie|spaghetti|canele|cromboloni|pie|danish/i', $n)) {
+                } elseif (str_contains($c, 'food') || str_contains($c, 'toast') || str_contains($n, 'toast') || preg_match('/croissant|bagel|donut|muffin|panini|pastry|cookie|bread|roti|bun|bungeoppang|mie|spaghetti|canele|cromboloni|pie|danish/i', $n)) {
                     $it['category'] = 'Food';
                     $catBuckets['food'][] = $k;
                 } elseif (str_contains($c, 'non') || preg_match('/coklat|choco|milo|taro|oreo|lemonade|susu/i', $n)) {
@@ -634,7 +645,6 @@ class CoffeeApi
                 ['id' => 'item-non-kopi', 'name' => 'Non-Kopi', 'kind' => 'item', 'items' => array_values(array_unique($catBuckets['non-kopi']))],
                 ['id' => 'item-kenangan-frappe', 'name' => 'Kenangan Frappe', 'kind' => 'item', 'items' => $catBuckets['frappe']],
                 ['id' => 'item-tea', 'name' => 'Tea', 'kind' => 'item', 'items' => array_values(array_unique($catBuckets['tea']))],
-                ['id' => 'item-kenangan-toast', 'name' => 'Kenangan Toast', 'kind' => 'item', 'items' => array_values(array_unique($catBuckets['toast']))],
                 ['id' => 'item-food', 'name' => 'Food', 'kind' => 'item', 'items' => array_values(array_unique($catBuckets['food']))],
             ];
         }
