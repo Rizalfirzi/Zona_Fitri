@@ -178,8 +178,12 @@ function wireStatic() {
           inlineDropdown.classList.remove('hidden');
           return;
         }
-        inlineDropdown.innerHTML = '<div style="padding:14px;color:#888;font-size:13px;text-align:center;">Tidak ada outlet yang cocok</div>';
-        inlineDropdown.classList.remove('hidden');
+        if (q) {
+          inlineDropdown.innerHTML = '<div style="padding:14px;color:#888;font-size:13px;text-align:center;">Tidak ada outlet yang cocok</div>';
+          inlineDropdown.classList.remove('hidden');
+        } else {
+          inlineDropdown.classList.add('hidden');
+        }
         return;
       }
       const html = S.outletResults.slice(0, 15).map((o, idx) => {
@@ -790,8 +794,9 @@ function catNamePretty(name) {
   if (/non.?(coffee|kopi)/.test(n)) return 'Non-Kopi';
   if (/coffee|kopi/.test(n)) return 'Kopi';
   if (/tea|teh/.test(n)) return 'Teh';
-  if (/frappe/.test(n)) return 'Frappé';
-  if (/food|roti|toast|snack/.test(n)) return 'Roti & Toast';
+  if (/frappe/.test(n)) return 'Kenangan Frappé';
+  if (/toast/.test(n)) return 'Kenangan Toast';
+  if (/food|roti|snack|pastry|bakery/.test(n)) return 'Food & Bakery';
   return name;
 }
 
@@ -802,7 +807,8 @@ function catEmoji(name) {
   if (/coffee|kopi/.test(n)) return '☕';
   if (/tea|teh/.test(n)) return '🍃';
   if (/frappe/.test(n)) return '❄️';
-  if (/food|roti|toast/.test(n)) return '🥪';
+  if (/toast/.test(n)) return '🍞';
+  if (/food|roti/.test(n)) return '🥐';
   return '☕';
 }
 

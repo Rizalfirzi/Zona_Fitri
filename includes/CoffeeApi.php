@@ -566,128 +566,77 @@ class CoffeeApi
         // Apply Zona Fitri client pricing formulas and live-stock bundling
         $this->applyClientPricingAndBundling($menuData, $brand);
 
-        // Client request: Kategori Kopi Kenangan disinkronkan real-time: Kopi, Non-Kopi, Tea, Frappe, Food
-        if ($brand === 'kopken' && isset($menuData['categories']) && is_array($menuData['categories'])) {
+        // Client request: Kategori Kopi Kenangan disinkronkan sesuai Aplikasi Resmi (Gambar 1):
+        // Promo & Combo (Bundling), Kopi, Non-Kopi, Kenangan Frappe, Kenangan Toast, Food, Tea
+        if ($brand === 'kopken' && isset($menuData['items']) && is_array($menuData['items'])) {
+            $catBuckets = [
+                'bundle' => [],
+                'kopi' => [],
+                'non-kopi' => [],
+                'tea' => [],
+                'frappe' => [],
+                'toast' => [],
+                'food' => [],
+            ];
+
             $teaKeys = [
                 'tarocloudmilktea', 'ogthaitea', 'thaitealoaded', 
                 'hazelnutchocomilktea', 'lemonblacktea', 'kenanganmilktea',
-                'earlgreytea', 'earlgreymilktea', 'raspberryhibiscus'
+                'earlgreytea', 'earlgreymilktea', 'earlgreymilkteaboba', 'milkteaboba', 'raspberryhibiscus'
             ];
 
-            // Normalize item categories
-            if (!empty($menuData['items']) && is_array($menuData['items'])) {
-                foreach ($menuData['items'] as &$it) {
-                    $k = strtolower(trim((string)($it['key'] ?? '')));
-                    $c = strtolower(trim((string)($it['category'] ?? '')));
-                    $n = strtolower(trim((string)($it['name'] ?? '')));
+            foreach ($menuData['items'] as &$it) {
+                $k = strtolower(trim((string)($it['key'] ?? '')));
+                $c = strtolower(trim((string)($it['category'] ?? '')));
+                $n = strtolower(trim((string)($it['name'] ?? '')));
 
-                    if (in_array($k, $teaKeys, true) || (str_contains($c, 'non') && str_contains($n, 'tea'))) {
-                        $it['category'] = 'Tea';
-                    } elseif ($c === 'coffee' || $c === 'kopi') {
-                        $it['category'] = 'Kopi';
-                    } elseif ($c === 'non coffee' || $c === 'non-kopi' || $c === 'nonkopi') {
-                        $it['category'] = 'Non-Kopi';
-                    } elseif (str_contains($c, 'frappe')) {
-                        $it['category'] = 'Frappe';
-                    } elseif (str_contains($c, 'food') || str_contains($c, 'toast') || str_contains($c, 'bakery')) {
-                        $it['category'] = 'Food';
-                    }
-                }
-                unset($it);
-            }
-
-            $newCats = [];
-            foreach ($menuData['categories'] as $cat) {
-                $cId = strtolower(trim((string)($cat['id'] ?? '')));
-                $cName = strtolower(trim((string)($cat['name'] ?? '')));
-
-                if ($cId === 'bundle-promo-bundling' || ($cat['kind'] ?? '') === 'bundle') {
-                    $cat['name'] = 'Promo & Combo';
-                    $newCats[] = $cat;
+                if (!empty($it['isBundle'])) {
+                    $it['category'] = 'Promo & Combo';
+                    $catBuckets['bundle'][] = $k;
                     continue;
                 }
 
-                if ($cId === 'item-coffee' || $cName === 'coffee' || $cName === 'kopi') {
-                    $cat['id'] = 'item-kopi';
-                    $cat['name'] = 'Kopi';
-                    $cat['kind'] = 'item';
-                    $newCats[] = $cat;
-                    continue;
-                }
-
-                if ($cId === 'item-non-coffee' || $cName === 'non coffee' || $cName === 'non-kopi') {
-                    $nonKopiItems = [];
-                    $teaItems = [];
-                    foreach ($cat['items'] ?? [] as $k) {
-                        $kLower = strtolower($k);
-                        if (in_array($kLower, $teaKeys, true) || str_contains($kLower, 'tea')) {
-                            $teaItems[] = $k;
-                        } else {
-                            $nonKopiItems[] = $k;
-                        }
-                    }
-                    $newCats[] = [
-                        'id' => 'item-non-kopi',
-                        'name' => 'Non-Kopi',
-                        'kind' => 'item',
-                        'items' => array_values($nonKopiItems),
-                    ];
-                    if (!empty($teaItems)) {
-                        $newCats[] = [
-                            'id' => 'item-tea',
-                            'name' => 'Tea',
-                            'kind' => 'item',
-                            'items' => array_values($teaItems),
-                        ];
-                    }
-                    continue;
-                }
-
-                if (str_contains($cId, 'tea') || str_contains($cName, 'tea')) {
-                    $cat['id'] = 'item-tea';
-                    $cat['name'] = 'Tea';
-                    $cat['kind'] = 'item';
-                    $newCats[] = $cat;
-                    continue;
-                }
-
-                if (str_contains($cId, 'frappe') || str_contains($cName, 'frappe')) {
-                    $cat['id'] = 'item-frappe';
-                    $cat['name'] = 'Frappe';
-                    $cat['kind'] = 'item';
-                    $newCats[] = $cat;
-                    continue;
-                }
-
-                if (str_contains($cId, 'food') || str_contains($cName, 'food')) {
-                    $cat['id'] = 'item-food';
-                    $cat['name'] = 'Food';
-                    $cat['kind'] = 'item';
-                    $newCats[] = $cat;
-                    continue;
-                }
-
-                $newCats[] = $cat;
-            }
-
-            // Deduplicate categories by ID
-            $mergedCats = [];
-            $catIndexMap = [];
-            foreach ($newCats as $cat) {
-                $id = $cat['id'];
-                if (isset($catIndexMap[$id])) {
-                    $idx = $catIndexMap[$id];
-                    foreach ($cat['items'] ?? [] as $itKey) {
-                        if (!in_array($itKey, $mergedCats[$idx]['items'], true)) {
-                            $mergedCats[$idx]['items'][] = $itKey;
-                        }
-                    }
+                if (str_contains($c, 'frappe') || str_contains($n, 'frappe')) {
+                    $it['category'] = 'Kenangan Frappe';
+                    $catBuckets['frappe'][] = $k;
+                } elseif (str_contains($c, 'toast') || str_contains($n, 'toast')) {
+                    $it['category'] = 'Kenangan Toast';
+                    $catBuckets['toast'][] = $k;
+                } elseif (in_array($k, $teaKeys, true) || (str_contains($c, 'tea') || (str_contains($n, 'tea') && !str_contains($n, 'coffee') && !str_contains($n, 'latte')))) {
+                    $it['category'] = 'Tea';
+                    $catBuckets['tea'][] = $k;
+                } elseif (str_contains($c, 'food') || preg_match('/croissant|bagel|donut|muffin|panini|pastry|cookie|bread|roti|bun|bungeoppang|mie|spaghetti|canele|cromboloni|pie|danish/i', $n)) {
+                    $it['category'] = 'Food';
+                    $catBuckets['food'][] = $k;
+                } elseif (str_contains($c, 'non') || preg_match('/coklat|choco|milo|taro|oreo|lemonade|susu/i', $n)) {
+                    $it['category'] = 'Non-Kopi';
+                    $catBuckets['non-kopi'][] = $k;
                 } else {
-                    $catIndexMap[$id] = count($mergedCats);
-                    $mergedCats[] = $cat;
+                    $it['category'] = 'Kopi';
+                    $catBuckets['kopi'][] = $k;
                 }
             }
-            $menuData['categories'] = $mergedCats;
+            unset($it);
+
+            // Urutkan Kenangan Frappe persis seperti Gambar 1: Butterscotch, Matcha, Mantan, Vanilla, Dutch Choco, Choco Caramel
+            $desiredFrappeOrder = [
+                'butterscotchkenanganfrappe', 'matchakenanganfrappe', 'kopikenanganmantanfrappe',
+                'vanillakenanganfrappe', 'dutchchocokenanganfrappe', 'chococaramelfrappe'
+            ];
+            $catBuckets['frappe'] = array_values(array_unique(array_merge(
+                array_intersect($desiredFrappeOrder, $catBuckets['frappe']),
+                $catBuckets['frappe']
+            )));
+
+            $menuData['categories'] = [
+                ['id' => 'bundle-promo-bundling', 'name' => 'Promo & Combo', 'kind' => 'bundle', 'items' => !empty($catBuckets['bundle']) ? $catBuckets['bundle'] : ['zf-b-4pcs-35k', 'zf-b-3-35k', 'zf-b-large2-32k']],
+                ['id' => 'item-kopi', 'name' => 'Kopi', 'kind' => 'item', 'items' => array_values(array_unique($catBuckets['kopi']))],
+                ['id' => 'item-non-kopi', 'name' => 'Non-Kopi', 'kind' => 'item', 'items' => array_values(array_unique($catBuckets['non-kopi']))],
+                ['id' => 'item-kenangan-frappe', 'name' => 'Kenangan Frappe', 'kind' => 'item', 'items' => $catBuckets['frappe']],
+                ['id' => 'item-tea', 'name' => 'Tea', 'kind' => 'item', 'items' => array_values(array_unique($catBuckets['tea']))],
+                ['id' => 'item-kenangan-toast', 'name' => 'Kenangan Toast', 'kind' => 'item', 'items' => array_values(array_unique($catBuckets['toast']))],
+                ['id' => 'item-food', 'name' => 'Food', 'kind' => 'item', 'items' => array_values(array_unique($catBuckets['food']))],
+            ];
         }
 
         // Client request v2: Sinkronisasi Tomoro (Siwalankerto & kategori Signature/Classic)
