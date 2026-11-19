@@ -24,6 +24,9 @@ class SimpleMongo {
         if (function_exists('config') && config('mongodb.database')) {
             $this->database = config('mongodb.database');
         }
+        if ($this->database === 'kyuti') {
+            $this->database = 'zona_fitri';
+        }
 
         if (extension_loaded('mongodb')) {
             try {

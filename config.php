@@ -27,7 +27,7 @@ $config = [
     // =========================================================================
     'mongodb' => [
         'uri' => getenv('MONGODB_URI') ?: 'mongodb+srv://technologyswamp_db_user:EmmGSARebSpWS0Sw@cluster-utama.eyzthyo.mongodb.net/zona_fitri?retryWrites=true&w=majority',
-        'database' => getenv('MONGODB_DATABASE') ?: 'zona_fitri',
+        'database' => (getenv('MONGODB_DATABASE') && getenv('MONGODB_DATABASE') !== 'kyuti') ? getenv('MONGODB_DATABASE') : 'zona_fitri',
     ],
 
     // Primary Upstream Live APIs (Multi-Source Stealth Handshake)

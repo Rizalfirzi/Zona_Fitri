@@ -638,5 +638,20 @@
     "name": "Banjar, Banjar",
     "statusText": "Tersedia",
     "updated_at": "2026-11-18T05:08:26.940000"
+  },
+  {
+    "brand": "jiwa",
+    "code": "JJ-JMB-676",
+    "name": "Janji Jiwa Jilid 676 Jombang",
+    "address": "Jl. KH. A. Dahlan No. 18, Jombatan, Kec. Jombang, Kabupaten Jombang, Jawa Timur 61419",
+    "city": "Jombang",
+    "category": "Shop House",
+    "hours": "08:00 - 21:30",
+    "isOpen": true,
+    "canOrder": true,
+    "statusText": "Buka",
+    "lat": -7.54921,
+    "lng": 112.23689,
+    "phone": "0812 9876 5432"
   }
 ]

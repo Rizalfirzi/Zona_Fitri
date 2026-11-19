@@ -115,41 +115,88 @@ class ZonaFitriMongoSync:
         all_outlets = {}
         all_menus = {}
         sample_menu_full = None
+        data_dir = os.path.join(os.path.dirname(__file__), "..", "data")
 
-        # Check existing data/outlets_tomoro.json for Tomoro comprehensive list
-        if brand == "tomoro":
-            tomoro_file = os.path.join(os.path.dirname(__file__), "..", "data", "outlets_tomoro.json")
-            if os.path.exists(tomoro_file):
-                try:
-                    with open(tomoro_file, "r", encoding="utf-8") as f:
-                        t_data = json.load(f)
-                        for o in t_data:
-                            c = o.get("code")
-                            if c:
-                                all_outlets[c] = o
-                except Exception:
-                    pass
+        # 1. Preload master outlets from local snapshot
+        local_out_file = os.path.join(data_dir, f"outlets_master_{brand}.json")
+        if not os.path.exists(local_out_file) and brand == "tomoro":
+            local_out_file = os.path.join(data_dir, "outlets_tomoro.json")
 
-        # Fetch from sources in order of preference
+        if os.path.exists(local_out_file):
+            try:
+                with open(local_out_file, "r", encoding="utf-8") as f:
+                    master_outlets = json.load(f)
+                    for o in master_outlets:
+                        c = o.get("code")
+                        if c:
+                            all_outlets[c] = o
+                print(f"  [+] Loaded {len(all_outlets)} base outlets from local {os.path.basename(local_out_file)}")
+            except Exception as e:
+                print(f"  [!] Error loading local outlets for {brand}: {e}")
+
+        # Preload outlets already in MongoDB to preserve all existing data
+        try:
+            for o in self.outlets_col.find({"brand": brand}):
+                c = o.get("code")
+                if c and c not in all_outlets:
+                    o.pop("_id", None)
+                    all_outlets[c] = o
+        except Exception:
+            pass
+
+        # 2. Preload master menu from local snapshot
+        local_menu_file = os.path.join(data_dir, f"menu_master_{brand}.json")
+        if os.path.exists(local_menu_file):
+            try:
+                with open(local_menu_file, "r", encoding="utf-8") as f:
+                    m_data = json.load(f)
+                    if isinstance(m_data, dict):
+                        sample_menu_full = m_data
+                        for it in m_data.get("items", []):
+                            k = it.get("key") or it.get("id") or it.get("name")
+                            if k:
+                                all_menus[k] = it
+                    print(f"  [+] Loaded {len(all_menus)} base menu items from local {os.path.basename(local_menu_file)}")
+            except Exception as e:
+                print(f"  [!] Error loading local menu for {brand}: {e}")
+
+        # Preload menu items already in MongoDB to preserve full catalogue
+        try:
+            for m in self.menus_col.find({"brand": brand}):
+                k = m.get("key") or m.get("id") or m.get("name")
+                if k and k not in all_menus:
+                    m.pop("_id", None)
+                    all_menus[k] = m
+        except Exception:
+            pass
+
+        # 3. Fetch live updates from upstream sources
         for src in SOURCES:
             outlets, menu_full = self.fetch_from_source(src, brand)
             if outlets:
                 for o in outlets:
                     code = o.get("code")
-                    if code and code not in all_outlets:
-                        all_outlets[code] = o
+                    if code:
+                        if code in all_outlets:
+                            all_outlets[code].update(o)
+                        else:
+                            all_outlets[code] = o
 
             if menu_full and menu_full.get("items"):
                 if sample_menu_full is None:
                     sample_menu_full = menu_full
-                for it in menu_full["items"]:
-                    key = it.get("key") or it.get("id")
-                    if key and key not in all_menus:
-                        all_menus[key] = it
+                else:
+                    # Update categories if upstream provides more
+                    if menu_full.get("categories"):
+                        sample_menu_full["categories"] = menu_full["categories"]
 
-            if len(all_outlets) > 20 and len(all_menus) > 20:
-                # Successfully retrieved sufficient data
-                break
+                for it in menu_full["items"]:
+                    key = it.get("key") or it.get("id") or it.get("name")
+                    if key:
+                        if key in all_menus:
+                            all_menus[key].update(it)
+                        else:
+                            all_menus[key] = it
 
         outlets_list = list(all_outlets.values())
         menu_list = list(all_menus.values())
@@ -169,7 +216,7 @@ class ZonaFitriMongoSync:
         if menu_list:
             ops = []
             for m in menu_list:
-                key = m.get("key") or m.get("id")
+                key = m.get("key") or m.get("id") or m.get("name")
                 doc = {**m, "brand": brand, "updated_at": now}
                 ops.append(UpdateOne({"brand": brand, "key": str(key)}, {"$set": doc}, upsert=True))
             res = self.menus_col.bulk_write(ops)
@@ -188,7 +235,6 @@ class ZonaFitriMongoSync:
             )
 
         # Export local JSON snapshots to data/
-        data_dir = os.path.join(os.path.dirname(__file__), "..", "data")
         os.makedirs(data_dir, exist_ok=True)
 
         if outlets_list:
