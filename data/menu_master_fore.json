@@ -1,3144 +1,3144 @@
 {
-  "brand": "fore",
-  "extras": [],
-  "live": false,
-  "isClosed": false,
-  "source": "fore.coffee catalogue (tanpa info stok)",
-  "premium": false,
-  "categories": [
-    {
-      "id": "item-the-unexpected-twist",
-      "name": "The Unexpected Twist",
-      "kind": "item",
-      "items": [
-        "saltedspanishlatte",
-        "crunchycereallatte"
-      ]
-    },
-    {
-      "id": "item-favorite-choice",
-      "name": "Favorite Choice",
-      "kind": "item",
-      "items": [
-        "sunrisemontblack",
-        "starrycano"
-      ]
-    },
-    {
-      "id": "item-fore-signature",
-      "name": "Fore Signature",
-      "kind": "item",
-      "items": [
-        "kopidaritani",
-        "butterscotchseasaltlatte",
-        "buttercreamlatte",
-        "arenlatte",
-        "pandanlatte"
-      ]
-    },
-    {
-      "id": "item-coffee",
-      "name": "Coffee",
-      "kind": "item",
-      "items": [
-        "dirtymatchapresso",
-        "maltylatte",
-        "bumilatte",
-        "cappuccino",
-        "doubleicedshakenlatte",
-        "caflatte",
-        "nuttyoatlatte",
-        "buttercreamtiramisulatte",
-        "espresso",
-        "caramelpralinemacchiato"
-      ]
-    },
-    {
-      "id": "item-americano-series",
-      "name": "Americano Series",
-      "kind": "item",
-      "items": [
-        "americano",
-        "manukaamericano",
-        "triplepeachamericano",
-        "berrymanukaamericano"
-      ]
-    },
-    {
-      "id": "item-non-coffee",
-      "name": "Non Coffee",
-      "kind": "item",
-      "items": [
-        "matchabuttersaltcream",
-        "darkchocolate",
-        "almondchoco",
-        "matchagreentea"
-      ]
-    },
-    {
-      "id": "item-fore-junior",
-      "name": "Fore Junior",
-      "kind": "item",
-      "items": [
-        "butterscotchmilkcrumble",
-        "vanillaocrumbs",
-        "chococaramelcloud",
-        "chococookieshake"
-      ]
-    },
-    {
-      "id": "item-fore-deli",
-      "name": "Fore Deli",
-      "kind": "item",
-      "items": [
-        "saltbread",
-        "beefomelettetoast",
-        "mushroomtrufflesandwich",
-        "rollcakecheesepandan",
-        "rollcakepeanutbutterjam",
-        "rollcakemocha",
-        "beefmentaisandwich",
-        "cheesytunasandwich",
-        "chickenteriyakisandwich",
-        "smokedbeefcheesesandwich",
-        "blueberrycheesemuffin",
-        "chocomeltmuffin",
-        "triplecheesedanish",
-        "almondcroissant",
-        "bananachocolatecake",
-        "buttercroissant",
-        "painauchocolat",
-        "kouignamann"
-      ]
-    },
-    {
-      "id": "item-refresher",
-      "name": "Refresher",
-      "kind": "item",
-      "items": [
-        "sunnycitrusjasmine",
-        "cocopeachfusion"
-      ]
-    },
-    {
-      "id": "item-tea",
-      "name": "Tea",
-      "kind": "item",
-      "items": [
-        "englishbreakfast",
-        "greenteajasmine",
-        "purechamomile",
-        "greenteamint"
-      ]
-    },
-    {
-      "id": "item-others",
-      "name": "Others",
-      "kind": "item",
-      "items": [
-        "mineralwater"
-      ]
-    }
-  ],
-  "items": [
-    {
-      "key": "crunchycereallatte",
-      "id": "crunchycereallatte",
-      "code": "",
-      "name": "Crunchy Cereal Latte",
-      "category": "The Unexpected Twist",
-      "sourceCategory": "The Unexpected Twist",
-      "img": "https://static.fore.coffee/product/Crunchy%20Cereal%20Latte_Iced_2e0973cadc2ef0a0.jpg",
-      "desc": "Perpaduan kopi susu sereal dengan rasa manis gurih, dilengkapi taburan cornflakes renyah.",
-      "price": 29000,
-      "largePrice": 34000,
-      "normalPrice": 35000,
-      "outletPrice": 35000,
-      "largeBase": 40000,
-      "customPrice": false,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
-      "isSoldOut": false,
-      "notCarried": false,
-      "isFood": false,
-      "isSpecial": false,
-      "noLarge": false,
-      "options": {
-        "sizes": [
-          "Regular",
-          "Large"
-        ],
-        "temps": [
-          "Ice",
-          "Hot"
-        ],
-        "ices": [
-          "Normal Ice",
-          "Less Ice",
-          "No Ice",
-          "Extra Ice"
-        ],
-        "sugars": [
-          "Normal Sugar",
-          "Less Sugar"
-        ]
-      },
-      "tag": ""
-    },
-    {
-      "key": "saltedspanishlatte",
-      "id": "saltedspanishlatte",
-      "code": "",
-      "name": "Salted Spanish Latte",
-      "category": "The Unexpected Twist",
-      "sourceCategory": "The Unexpected Twist",
-      "img": "https://static.fore.coffee/product/Salted%20Spanish%20Latte_Iced_acf3d0a409dea32f.jpg",
-      "desc": "Kopi susu Spanish dengan sentuhan gurih manis yang lembut di tiap tegukan.",
-      "price": 26000,
-      "largePrice": 31000,
-      "normalPrice": 31000,
-      "outletPrice": 31000,
-      "largeBase": 36000,
-      "customPrice": false,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
-      "isSoldOut": false,
-      "notCarried": false,
-      "isFood": false,
-      "isSpecial": false,
-      "noLarge": false,
-      "options": {
-        "sizes": [
-          "Regular",
-          "Large"
-        ],
-        "temps": [
-          "Ice",
-          "Hot"
-        ],
-        "ices": [
-          "Normal Ice",
-          "Less Ice",
-          "No Ice",
-          "Extra Ice"
-        ],
-        "sugars": [
-          "Normal Sugar",
-          "Less Sugar"
-        ]
-      },
-      "tag": ""
-    },
-    {
-      "key": "sunrisemontblack",
-      "id": "sunrisemontblack",
-      "code": "",
-      "name": "Sunrise Mont-Black",
-      "category": "Favorite Choice",
-      "sourceCategory": "Favorite Choice",
-      "img": "https://static.fore.coffee/product/Thumbnail_%20_Sunrise%20Mont%20Black%20_895fa9ff36dedba9.jpg",
-      "desc": "Americano dengan sentuhan rasa jeruk dilengkapi dengan krim yang lembut.",
-      "price": 28000,
-      "largePrice": 33000,
-      "normalPrice": 33000,
-      "outletPrice": 33000,
-      "largeBase": 38000,
-      "customPrice": false,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
-      "isSoldOut": false,
-      "notCarried": false,
-      "isFood": false,
-      "isSpecial": false,
-      "noLarge": false,
-      "options": {
-        "sizes": [
-          "Regular",
-          "Large"
-        ],
-        "temps": [
-          "Ice"
-        ],
-        "ices": [
-          "Normal Ice",
-          "Less Ice",
-          "No Ice",
-          "Extra Ice"
-        ],
-        "sugars": [
-          "Normal Sugar",
-          "Less Sugar"
-        ]
-      },
-      "tag": ""
-    },
-    {
-      "key": "starrycano",
-      "id": "starrycano",
-      "code": "",
-      "name": "Starrycano",
-      "category": "Favorite Choice",
-      "sourceCategory": "Favorite Choice",
-      "img": "https://static.fore.coffee/product/Starrycano%20(1).jpg",
-      "desc": "Kopi Americano yang bold bercampuran dengan belimbing dan apel, menambah rasa dan sensasi dinamis yang segar untuk si “Jiwa Petualang”",
-      "price": 28000,
-      "largePrice": 33000,
-      "normalPrice": 33000,
-      "outletPrice": 33000,
-      "largeBase": 38000,
-      "customPrice": false,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
-      "isSoldOut": false,
-      "notCarried": false,
-      "isFood": false,
-      "isSpecial": false,
-      "noLarge": false,
-      "options": {
-        "sizes": [
-          "Regular",
-          "Large"
-        ],
-        "temps": [
-          "Ice"
-        ],
-        "ices": [
-          "Normal Ice",
-          "Less Ice",
-          "No Ice",
-          "Extra Ice"
-        ],
-        "sugars": [
-          "Normal Sugar",
-          "Less Sugar"
-        ]
-      },
-      "tag": ""
-    },
-    {
-      "key": "caramelpralinecoffeeiceblended",
-      "id": "caramelpralinecoffeeiceblended",
-      "code": "",
-      "name": "Caramel Praline Coffee  Ice Blended",
-      "category": "Ice Blended",
-      "sourceCategory": "Ice Blended",
-      "img": "https://static.fore.coffee/product/Caramel%20Praline%20Coffee%20Ice%20Blended.jpg",
-      "desc": "Ice blended latte dengan saus Praline dan karamel.",
-      "price": 28000,
-      "largePrice": 36000,
-      "normalPrice": 34000,
-      "outletPrice": 34000,
-      "largeBase": 41000,
-      "customPrice": true,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
-      "isSoldOut": false,
-      "notCarried": false,
-      "isFood": false,
-      "isSpecial": true,
-      "noLarge": false,
-      "options": {
-        "sizes": [
-          "Regular",
-          "Large"
-        ],
-        "temps": [
-          "Ice"
-        ],
-        "ices": [
-          "Normal Ice",
-          "Less Ice",
-          "No Ice"
-        ],
-        "sugars": [
-          "Normal Sugar",
-          "Less Sugar",
-          "No Sugar"
-        ]
-      },
-      "tag": ""
-    },
-    {
-      "key": "matchaiceblended",
-      "id": "matchaiceblended",
-      "code": "",
-      "name": "Matcha Ice Blended",
-      "category": "Ice Blended",
-      "sourceCategory": "Ice Blended",
-      "img": "https://static.fore.coffee/product/Matcha%20Ice%20Blended.jpg",
-      "desc": "Paduan Creamy Matcha khas Fore Coffee, susu segar, dengan es, pas untuk menyejukkan harimu!",
-      "price": 29000,
-      "largePrice": 37000,
-      "normalPrice": 34000,
-      "outletPrice": 34000,
-      "largeBase": 41000,
-      "customPrice": true,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
-      "isSoldOut": false,
-      "notCarried": false,
-      "isFood": false,
-      "isSpecial": true,
-      "noLarge": false,
-      "options": {
-        "sizes": [
-          "Regular",
-          "Large"
-        ],
-        "temps": [
-          "Ice"
-        ],
-        "ices": [
-          "Normal Ice",
-          "Less Ice",
-          "No Ice"
-        ],
-        "sugars": [
-          "Normal Sugar",
-          "Less Sugar",
-          "No Sugar"
-        ]
-      },
-      "tag": ""
-    },
-    {
-      "key": "strawberryiceblended",
-      "id": "strawberryiceblended",
-      "code": "",
-      "name": "Strawberry Ice Blended",
-      "category": "Ice Blended",
-      "sourceCategory": "Ice Blended",
-      "img": "https://static.fore.coffee/product/Strawberry%20Ice%20Blended.jpg",
-      "desc": "Manisnya strawberry bertemu dengan susu dan es dilapisi dengan strawberry puree.",
-      "price": 29000,
-      "largePrice": 37000,
-      "normalPrice": 34000,
-      "outletPrice": 34000,
-      "largeBase": 41000,
-      "customPrice": true,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
-      "isSoldOut": false,
-      "notCarried": false,
-      "isFood": false,
-      "isSpecial": true,
-      "noLarge": false,
-      "options": {
-        "sizes": [
-          "Regular",
-          "Large"
-        ],
-        "temps": [
-          "Ice"
-        ],
-        "ices": [
-          "Normal Ice",
-          "Less Ice",
-          "No Ice"
-        ],
-        "sugars": [
-          "Normal Sugar",
-          "Less Sugar",
-          "No Sugar"
-        ]
-      },
-      "tag": ""
-    },
-    {
-      "key": "chocolateiceblended",
-      "id": "chocolateiceblended",
-      "code": "",
-      "name": "Chocolate Ice Blended",
-      "category": "Ice Blended",
-      "sourceCategory": "Ice Blended",
-      "img": "https://static.fore.coffee/product/Chocolate%20Ice%20Blended.jpg",
-      "desc": "Ice blended cokelat spesial dengan susu pilihan",
-      "price": 32000,
-      "largePrice": 40000,
-      "normalPrice": 37000,
-      "outletPrice": 37000,
-      "largeBase": 44000,
-      "customPrice": true,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
-      "isSoldOut": false,
-      "notCarried": false,
-      "isFood": false,
-      "isSpecial": true,
-      "noLarge": false,
-      "options": {
-        "sizes": [
-          "Regular",
-          "Large"
-        ],
-        "temps": [
-          "Ice"
-        ],
-        "ices": [
-          "Normal Ice",
-          "Less Ice",
-          "No Ice"
-        ],
-        "sugars": [
-          "Normal Sugar",
-          "Less Sugar",
-          "No Sugar"
-        ]
-      },
-      "tag": ""
-    },
-    {
-      "key": "kopidaritani",
-      "id": "kopidaritani",
-      "code": "",
-      "name": "Kopi Dari Tani",
-      "category": "Fore Signature",
-      "sourceCategory": "Fore Signature",
-      "img": "https://static.fore.coffee/product/Kopi%20dari%20Tani%20(1)_f54155c1c7a1d234.jpg",
-      "desc": "Paduan rasa dan aroma kopi Indonesia yang kuat bercampur dengan gula aren khas nusantara",
-      "price": 25000,
-      "largePrice": 30000,
-      "normalPrice": 29000,
-      "outletPrice": 29000,
-      "largeBase": 34000,
-      "customPrice": false,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
-      "isSoldOut": false,
-      "notCarried": false,
-      "isFood": false,
-      "isSpecial": false,
-      "noLarge": false,
-      "options": {
-        "sizes": [
-          "Regular",
-          "Large"
-        ],
-        "temps": [
-          "Ice"
-        ],
-        "ices": [
-          "Normal Ice",
-          "Less Ice",
-          "No Ice",
-          "Extra Ice"
-        ],
-        "sugars": [
-          "Normal Sugar",
-          "Less Sugar"
-        ]
-      },
-      "tag": ""
-    },
-    {
-      "key": "butterscotchseasaltlatte",
-      "id": "butterscotchseasaltlatte",
-      "code": "",
-      "name": "Butterscotch Sea Salt Latte",
-      "category": "Fore Signature",
-      "sourceCategory": "Fore Signature",
-      "img": "https://static.fore.coffee/product/Butterscotch%20Sea%20Salt%20Latte%20(1)_b6cce4a2413c5920.jpg",
-      "desc": "Perpaduan butterscotch dan espresso house blend dengan topping cream sea salt yang lembut di atasnya",
-      "price": 31000,
-      "largePrice": 36000,
-      "normalPrice": 37000,
-      "outletPrice": 37000,
-      "largeBase": 45000,
-      "customPrice": false,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
-      "isSoldOut": false,
-      "notCarried": false,
-      "isFood": false,
-      "isSpecial": false,
-      "noLarge": false,
-      "options": {
-        "sizes": [
-          "Regular",
-          "Large"
-        ],
-        "temps": [
-          "Ice"
-        ],
-        "ices": [
-          "Normal Ice",
-          "Less Ice",
-          "No Ice",
-          "Extra Ice"
-        ],
-        "sugars": [
-          "Normal Sugar",
-          "Less Sugar"
-        ]
-      },
-      "tag": ""
-    },
-    {
-      "key": "buttercreamlatte",
-      "id": "buttercreamlatte",
-      "code": "",
-      "name": "Buttercream Latte",
-      "category": "Fore Signature",
-      "sourceCategory": "Fore Signature",
-      "img": "https://static.fore.coffee/product/Buttercream%20Latte.jpg",
-      "desc": "Nikmatnya Buttercream Coffee sebagai topping  kopi susu karamel",
-      "price": 31000,
-      "largePrice": 36000,
-      "normalPrice": 37000,
-      "outletPrice": 37000,
-      "largeBase": 42000,
-      "customPrice": false,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
-      "isSoldOut": false,
-      "notCarried": false,
-      "isFood": false,
-      "isSpecial": false,
-      "noLarge": false,
-      "options": {
-        "sizes": [
-          "Regular",
-          "Large"
-        ],
-        "temps": [
-          "Ice"
-        ],
-        "ices": [
-          "Normal Ice",
-          "Less Ice",
-          "No Ice",
-          "Extra Ice"
-        ],
-        "sugars": [
-          "Normal Sugar",
-          "Less Sugar"
-        ]
-      },
-      "tag": ""
-    },
-    {
-      "key": "arenlatte",
-      "id": "arenlatte",
-      "code": "",
-      "name": "Aren Latte",
-      "category": "Fore Signature",
-      "sourceCategory": "Fore Signature",
-      "img": "https://static.fore.coffee/product/Aren%20Latte%20(2)_661d2790d334836a.jpg",
-      "desc": "Rasa alami gula aren berpadu sempurna dengan espresso premium. Menu terlaris Fore Coffee",
-      "price": 28000,
-      "largePrice": 33000,
-      "normalPrice": 33000,
-      "outletPrice": 33000,
-      "largeBase": 38000,
-      "customPrice": false,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
-      "isSoldOut": false,
-      "notCarried": false,
-      "isFood": false,
-      "isSpecial": false,
-      "noLarge": false,
-      "options": {
-        "sizes": [
-          "Regular",
-          "Large"
-        ],
-        "temps": [
-          "Ice",
-          "Hot"
-        ],
-        "ices": [
-          "Normal Ice",
-          "Less Ice",
-          "No Ice",
-          "Extra Ice"
-        ],
-        "sugars": [
-          "Normal Sugar",
-          "Less Sugar"
-        ]
-      },
-      "tag": ""
-    },
-    {
-      "key": "pandanlatte",
-      "id": "pandanlatte",
-      "code": "",
-      "name": "Pandan Latte",
-      "category": "Fore Signature",
-      "sourceCategory": "Fore Signature",
-      "img": "https://static.fore.coffee/product/Pandan%20Latte.jpg",
-      "desc": "Latte dengan rasa dan aroma unik dari ekstrak pandan alami khas Fore Coffee",
-      "price": 28000,
-      "largePrice": 33000,
-      "normalPrice": 33000,
-      "outletPrice": 33000,
-      "largeBase": 38000,
-      "customPrice": false,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
-      "isSoldOut": false,
-      "notCarried": false,
-      "isFood": false,
-      "isSpecial": false,
-      "noLarge": false,
-      "options": {
-        "sizes": [
-          "Regular",
-          "Large"
-        ],
-        "temps": [
-          "Ice",
-          "Hot"
-        ],
-        "ices": [
-          "Normal Ice",
-          "Less Ice",
-          "No Ice",
-          "Extra Ice"
-        ],
-        "sugars": [
-          "Normal Sugar",
-          "Less Sugar"
-        ]
-      },
-      "tag": ""
-    },
-    {
-      "key": "dirtymatchapresso",
-      "id": "dirtymatchapresso",
-      "code": "",
-      "name": "Dirty Matchapresso",
-      "category": "Coffee",
-      "sourceCategory": "Coffee",
-      "img": "https://static.fore.coffee/product/Dirty-Matchapresso-ID.jpg",
-      "desc": "Kombinasi matcha dan espresso yang bold, satukan dua dunia untuk bangkitkan semangatmu!",
-      "price": 29000,
-      "largePrice": 34000,
-      "normalPrice": 35000,
-      "outletPrice": 35000,
-      "largeBase": 40000,
-      "customPrice": false,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
-      "isSoldOut": false,
-      "notCarried": false,
-      "isFood": false,
-      "isSpecial": false,
-      "noLarge": false,
-      "options": {
-        "sizes": [
-          "Regular",
-          "Large"
-        ],
-        "temps": [
-          "Ice"
-        ],
-        "ices": [
-          "Normal Ice",
-          "Less Ice",
-          "No Ice",
-          "Extra Ice"
-        ],
-        "sugars": [
-          "Normal Sugar",
-          "Less Sugar"
-        ]
-      },
-      "tag": ""
-    },
-    {
-      "key": "maltylatte",
-      "id": "maltylatte",
-      "code": "",
-      "name": "Malty Latte",
-      "category": "Coffee",
-      "sourceCategory": "Coffee",
-      "img": "https://static.fore.coffee/product/Malty%20Latte%20(1).jpg",
-      "desc": "Sang legenda Traditional Latte berpadu dengan manisnya karamel, menambah pengalaman rasa creamy dan nutty, yang berkesan di hati.",
-      "price": 26000,
-      "largePrice": 31000,
-      "normalPrice": 31000,
-      "outletPrice": 31000,
-      "largeBase": 36000,
-      "customPrice": false,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
-      "isSoldOut": false,
-      "notCarried": false,
-      "isFood": false,
-      "isSpecial": false,
-      "noLarge": false,
-      "options": {
-        "sizes": [
-          "Regular",
-          "Large"
-        ],
-        "temps": [
-          "Ice"
-        ],
-        "ices": [
-          "Normal Ice",
-          "Less Ice",
-          "No Ice",
-          "Extra Ice"
-        ],
-        "sugars": [
-          "Normal Sugar",
-          "Less Sugar"
-        ]
-      },
-      "tag": ""
-    },
-    {
-      "key": "bumilatte",
-      "id": "bumilatte",
-      "code": "",
-      "name": "Bumi Latte",
-      "category": "Coffee",
-      "sourceCategory": "Coffee",
-      "img": "https://static.fore.coffee/product/Bumi%20Latte.jpg",
-      "desc": "Sensasi lembut dan legit dari saus karamel dan butterscotch yang khas berpadu dengan kopi autentik Indonesia",
-      "price": 25000,
-      "largePrice": 30000,
-      "normalPrice": 29000,
-      "outletPrice": 29000,
-      "largeBase": 34000,
-      "customPrice": false,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
-      "isSoldOut": false,
-      "notCarried": false,
-      "isFood": false,
-      "isSpecial": false,
-      "noLarge": false,
-      "options": {
-        "sizes": [
-          "Regular",
-          "Large"
-        ],
-        "temps": [
-          "Ice"
-        ],
-        "ices": [
-          "Normal Ice",
-          "Less Ice",
-          "No Ice",
-          "Extra Ice"
-        ],
-        "sugars": [
-          "Normal Sugar",
-          "Less Sugar"
-        ]
-      },
-      "tag": ""
-    },
-    {
-      "key": "cappuccino",
-      "id": "cappuccino",
-      "code": "",
-      "name": "Cappuccino",
-      "category": "Coffee",
-      "sourceCategory": "Coffee",
-      "img": "https://static.fore.coffee/product/Cappuccino3.jpg",
-      "desc": "Paduan Espresso, susu hangat, dan lapisan foam tebal di atasnya tanpa gula tambahan.",
-      "price": 28000,
-      "largePrice": 33000,
-      "normalPrice": 33000,
-      "outletPrice": 33000,
-      "largeBase": 40000,
-      "customPrice": false,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
-      "isSoldOut": false,
-      "notCarried": false,
-      "isFood": false,
-      "isSpecial": false,
-      "noLarge": false,
-      "options": {
-        "sizes": [
-          "Regular",
-          "Large"
-        ],
-        "temps": [
-          "Ice",
-          "Hot"
-        ],
-        "ices": [
-          "Normal Ice",
-          "Less Ice",
-          "No Ice",
-          "Extra Ice"
-        ],
-        "sugars": [
-          "Normal Sugar",
-          "Less Sugar"
-        ]
-      },
-      "tag": ""
-    },
-    {
-      "key": "doubleicedshakenlatte",
-      "id": "doubleicedshakenlatte",
-      "code": "",
-      "name": "Double Iced Shaken Latte",
-      "category": "Coffee",
-      "sourceCategory": "Coffee",
-      "img": "https://static.fore.coffee/product/Double-Iced-Shaken-Latte-new.jpg",
-      "desc": "Paduan klasik 2 shot espresso dengan susu dan krim",
-      "price": 30000,
-      "largePrice": 35000,
-      "normalPrice": 36000,
-      "outletPrice": 36000,
-      "largeBase": 41000,
-      "customPrice": false,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
-      "isSoldOut": false,
-      "notCarried": false,
-      "isFood": false,
-      "isSpecial": true,
-      "noLarge": false,
-      "options": {
-        "sizes": [
-          "Regular",
-          "Large"
-        ],
-        "temps": [
-          "Ice"
-        ],
-        "ices": [
-          "Normal Ice",
-          "Less Ice",
-          "No Ice",
-          "Extra Ice"
-        ],
-        "sugars": [
-          "Normal Sugar",
-          "Less Sugar"
-        ]
-      },
-      "tag": ""
-    },
-    {
-      "key": "caflatte",
-      "id": "caflatte",
-      "code": "",
-      "name": "Café Latte",
-      "category": "Coffee",
-      "sourceCategory": "Coffee",
-      "img": "https://static.fore.coffee/product/Cafe%CC%81%20Latte.jpg",
-      "desc": "Paduan espresso dengan susu sapi pilihan dan sedikit foam tanpa gula tambahan.",
-      "price": 28000,
-      "largePrice": 33000,
-      "normalPrice": 33000,
-      "outletPrice": 33000,
-      "largeBase": 38000,
-      "customPrice": false,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
-      "isSoldOut": false,
-      "notCarried": false,
-      "isFood": false,
-      "isSpecial": false,
-      "noLarge": false,
-      "options": {
-        "sizes": [
-          "Regular",
-          "Large"
-        ],
-        "temps": [
-          "Ice",
-          "Hot"
-        ],
-        "ices": [
-          "Normal Ice",
-          "Less Ice",
-          "No Ice",
-          "Extra Ice"
-        ],
-        "sugars": [
-          "Normal Sugar",
-          "Less Sugar"
-        ]
-      },
-      "tag": ""
-    },
-    {
-      "key": "nuttyoatlatte",
-      "id": "nuttyoatlatte",
-      "code": "",
-      "name": "Nutty Oat Latte",
-      "category": "Coffee",
-      "sourceCategory": "Coffee",
-      "img": "https://static.fore.coffee/product/Nutty%20Oat%20Latte.jpg",
-      "desc": "Espresso dari biji kopi khas nusantara dipadukan susu oat gluten-free dan sensasi nutty dari hazelnut.",
-      "price": 35000,
-      "largePrice": 40000,
-      "normalPrice": 42000,
-      "outletPrice": 42000,
-      "largeBase": 47000,
-      "customPrice": false,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
-      "isSoldOut": false,
-      "notCarried": false,
-      "isFood": false,
-      "isSpecial": false,
-      "noLarge": false,
-      "options": {
-        "sizes": [
-          "Regular",
-          "Large"
-        ],
-        "temps": [
-          "Ice"
-        ],
-        "ices": [
-          "Normal Ice",
-          "Less Ice",
-          "No Ice",
-          "Extra Ice"
-        ],
-        "sugars": [
-          "Normal Sugar",
-          "Less Sugar"
-        ]
-      },
-      "tag": ""
-    },
-    {
-      "key": "buttercreamtiramisulatte",
-      "id": "buttercreamtiramisulatte",
-      "code": "",
-      "name": "Buttercream Tiramisu Latte",
-      "category": "Coffee",
-      "sourceCategory": "Coffee",
-      "img": "https://static.fore.coffee/product/Buttercream%20Tiramisu%20Latte4.jpg",
-      "desc": "Lembutnya Buttercream Tiramisu sebagai topping kopi susu praline",
-      "price": 31000,
-      "largePrice": 36000,
-      "normalPrice": 37000,
-      "outletPrice": 37000,
-      "largeBase": 42000,
-      "customPrice": false,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
-      "isSoldOut": false,
-      "notCarried": false,
-      "isFood": false,
-      "isSpecial": false,
-      "noLarge": false,
-      "options": {
-        "sizes": [
-          "Regular",
-          "Large"
-        ],
-        "temps": [
-          "Ice"
-        ],
-        "ices": [
-          "Normal Ice",
-          "Less Ice",
-          "No Ice",
-          "Extra Ice"
-        ],
-        "sugars": [
-          "Normal Sugar",
-          "Less Sugar"
-        ]
-      },
-      "tag": ""
-    },
-    {
-      "key": "espresso",
-      "id": "espresso",
-      "code": "",
-      "name": "Espresso",
-      "category": "Coffee",
-      "sourceCategory": "Coffee",
-      "img": "https://static.fore.coffee/product/Espresso.jpg",
-      "desc": "Ekstrak biji kopi Arabika murni tanpa campuran",
-      "price": 20000,
-      "largePrice": null,
-      "normalPrice": 23000,
-      "outletPrice": 23000,
-      "customPrice": false,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
-      "isSoldOut": false,
-      "notCarried": false,
-      "isFood": false,
-      "isSpecial": false,
-      "noLarge": false,
-      "options": {
-        "sizes": [
-          "Regular"
-        ],
-        "temps": [
-          "Hot"
-        ],
-        "ices": [],
-        "sugars": []
-      },
-      "tag": ""
-    },
-    {
-      "key": "caramelpralinemacchiato",
-      "id": "caramelpralinemacchiato",
-      "code": "",
-      "name": "Caramel Praline Macchiato",
-      "category": "Coffee",
-      "sourceCategory": "Coffee",
-      "img": "https://static.fore.coffee/product/Caramel-Praline-Macchiato-new.jpg",
-      "desc": "Latte dengan saus Praline dan karamel dengan rasa dan aroma manis.",
-      "price": 31000,
-      "largePrice": 36000,
-      "normalPrice": 37000,
-      "outletPrice": 37000,
-      "largeBase": 42000,
-      "customPrice": false,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
-      "isSoldOut": false,
-      "notCarried": false,
-      "isFood": false,
-      "isSpecial": false,
-      "noLarge": false,
-      "options": {
-        "sizes": [
-          "Regular",
-          "Large"
-        ],
-        "temps": [
-          "Ice",
-          "Hot"
-        ],
-        "ices": [
-          "Normal Ice",
-          "Less Ice",
-          "No Ice",
-          "Extra Ice"
-        ],
-        "sugars": [
-          "Normal Sugar",
-          "Less Sugar"
-        ]
-      },
-      "tag": ""
-    },
-    {
-      "key": "americano",
-      "id": "americano",
-      "code": "",
-      "name": "Americano",
-      "category": "Americano Series",
-      "sourceCategory": "Americano Series",
-      "img": "https://static.fore.coffee/product/Americano_c14433f402033bfc.jpg",
-      "desc": "Espresso shot yang dicampur dengan segelas air menghadirkan karakter, aroma, dan rasa yang ideal.",
-      "price": 23000,
-      "largePrice": 28000,
-      "normalPrice": 26000,
-      "outletPrice": 26000,
-      "largeBase": 31000,
-      "customPrice": false,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
-      "isSoldOut": false,
-      "notCarried": false,
-      "isFood": false,
-      "isSpecial": false,
-      "noLarge": false,
-      "options": {
-        "sizes": [
-          "Regular",
-          "Large"
-        ],
-        "temps": [
-          "Ice",
-          "Hot"
-        ],
-        "ices": [
-          "Normal Ice",
-          "Less Ice",
-          "No Ice",
-          "Extra Ice"
-        ],
-        "sugars": []
-      },
-      "tag": ""
-    },
-    {
-      "key": "manukaamericano",
-      "id": "manukaamericano",
-      "code": "",
-      "name": "Manuka Americano",
-      "category": "Americano Series",
-      "sourceCategory": "Americano Series",
-      "img": "https://static.fore.coffee/product/Manuka-Americano-New.jpg",
-      "desc": "Americano dengan madu Manuka yang pas untuk jadi energy booster",
-      "price": 28000,
-      "largePrice": 33000,
-      "normalPrice": 33000,
-      "outletPrice": 33000,
-      "largeBase": 38000,
-      "customPrice": false,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
-      "isSoldOut": false,
-      "notCarried": false,
-      "isFood": false,
-      "isSpecial": false,
-      "noLarge": false,
-      "options": {
-        "sizes": [
-          "Regular",
-          "Large"
-        ],
-        "temps": [
-          "Ice",
-          "Hot"
-        ],
-        "ices": [
-          "Normal Ice",
-          "Less Ice",
-          "No Ice",
-          "Extra Ice"
-        ],
-        "sugars": [
-          "Normal Sugar",
-          "Less Sugar"
-        ]
-      },
-      "tag": ""
-    },
-    {
-      "key": "triplepeachamericano",
-      "id": "triplepeachamericano",
-      "code": "",
-      "name": "Triple Peach  Americano",
-      "category": "Americano Series",
-      "sourceCategory": "Americano Series",
-      "img": "https://static.fore.coffee/product/Triple-Peach-Americano-New.jpg",
-      "desc": "Peach coffee perpaduan rasa kopi,  tiga jenis buah peach dan aroma elderflower yang menciptakan sensasi kopi yang segar dan harmonis.",
-      "price": 28000,
-      "largePrice": 33000,
-      "normalPrice": 33000,
-      "outletPrice": 33000,
-      "largeBase": 38000,
-      "customPrice": false,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
-      "isSoldOut": false,
-      "notCarried": false,
-      "isFood": false,
-      "isSpecial": false,
-      "noLarge": false,
-      "options": {
-        "sizes": [
-          "Regular",
-          "Large"
-        ],
-        "temps": [
-          "Ice"
-        ],
-        "ices": [
-          "Normal Ice",
-          "Less Ice",
-          "No Ice",
-          "Extra Ice"
-        ],
-        "sugars": [
-          "Normal Sugar",
-          "Less Sugar"
-        ]
-      },
-      "tag": ""
-    },
-    {
-      "key": "berrymanukaamericano",
-      "id": "berrymanukaamericano",
-      "code": "",
-      "name": "Berry Manuka  Americano",
-      "category": "Americano Series",
-      "sourceCategory": "Americano Series",
-      "img": "https://static.fore.coffee/product/Berry%20Manuka%20Americano%20(3)_0e751080265ef9f6.jpg",
-      "desc": "Perpaduan rasa Stroberi dan Manuka dengan Classic Blend Fore yang menyegarkan",
-      "price": 29000,
-      "largePrice": 34000,
-      "normalPrice": 35000,
-      "outletPrice": 35000,
-      "largeBase": 40000,
-      "customPrice": false,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
-      "isSoldOut": false,
-      "notCarried": false,
-      "isFood": false,
-      "isSpecial": false,
-      "noLarge": false,
-      "options": {
-        "sizes": [
-          "Regular",
-          "Large"
-        ],
-        "temps": [
-          "Ice"
-        ],
-        "ices": [
-          "Normal Ice",
-          "Less Ice",
-          "No Ice",
-          "Extra Ice"
-        ],
-        "sugars": [
-          "Normal Sugar",
-          "Less Sugar"
-        ]
-      },
-      "tag": ""
-    },
-    {
-      "key": "matchabuttersaltcream",
-      "id": "matchabuttersaltcream",
-      "code": "",
-      "name": "Matcha Butter Salt Cream",
-      "category": "Non Coffee",
-      "sourceCategory": "Non Coffee",
-      "img": "https://static.fore.coffee/product/Matcha-Buttersalt-Cream-ID.jpg",
-      "desc": "Perpaduan matcha dengan krim Butter Salt yang populer dan memanjakan di setiap tegukan.",
-      "price": 29000,
-      "largePrice": 34000,
-      "normalPrice": 35000,
-      "outletPrice": 35000,
-      "largeBase": 40000,
-      "customPrice": false,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
-      "isSoldOut": false,
-      "notCarried": false,
-      "isFood": false,
-      "isSpecial": false,
-      "noLarge": false,
-      "options": {
-        "sizes": [
-          "Regular",
-          "Large"
-        ],
-        "temps": [
-          "Ice"
-        ],
-        "ices": [
-          "Normal Ice",
-          "Less Ice",
-          "No Ice",
-          "Extra Ice"
-        ],
-        "sugars": [
-          "Normal Sugar",
-          "Less Sugar"
-        ]
-      },
-      "tag": ""
-    },
-    {
-      "key": "darkchocolate",
-      "id": "darkchocolate",
-      "code": "",
-      "name": "Dark Chocolate",
-      "category": "Non Coffee",
-      "sourceCategory": "Non Coffee",
-      "img": "https://static.fore.coffee/product/Dark%20Chocolate.jpg",
-      "desc": "Dibuat dari 100% dark chocolate dan paduan susu yang nikmat",
-      "price": 31000,
-      "largePrice": 36000,
-      "normalPrice": 37000,
-      "outletPrice": 37000,
-      "largeBase": 42000,
-      "customPrice": false,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
-      "isSoldOut": false,
-      "notCarried": false,
-      "isFood": false,
-      "isSpecial": false,
-      "noLarge": false,
-      "options": {
-        "sizes": [
-          "Regular",
-          "Large"
-        ],
-        "temps": [
-          "Ice",
-          "Hot"
-        ],
-        "ices": [
-          "Normal Ice",
-          "Less Ice",
-          "No Ice",
-          "Extra Ice"
-        ],
-        "sugars": [
-          "Normal Sugar",
-          "Less Sugar"
-        ]
-      },
-      "tag": ""
-    },
-    {
-      "key": "almondchoco",
-      "id": "almondchoco",
-      "code": "",
-      "name": "Almond Choco",
-      "category": "Non Coffee",
-      "sourceCategory": "Non Coffee",
-      "img": "https://static.fore.coffee/product/Almond%20Chocolate.jpg",
-      "desc": "Cokelat klasik dari Fore Coffee yang dipadu dengan susu almond. Sebuah definisi comfort drink yang sesungguhnya.",
-      "price": 35000,
-      "largePrice": 40000,
-      "normalPrice": 42000,
-      "outletPrice": 42000,
-      "largeBase": 47000,
-      "customPrice": false,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
-      "isSoldOut": false,
-      "notCarried": false,
-      "isFood": false,
-      "isSpecial": false,
-      "noLarge": false,
-      "options": {
-        "sizes": [
-          "Regular",
-          "Large"
-        ],
-        "temps": [
-          "Ice",
-          "Hot"
-        ],
-        "ices": [
-          "Normal Ice",
-          "Less Ice",
-          "No Ice",
-          "Extra Ice"
-        ],
-        "sugars": [
-          "Normal Sugar",
-          "Less Sugar"
-        ]
-      },
-      "tag": ""
-    },
-    {
-      "key": "matchagreentea",
-      "id": "matchagreentea",
-      "code": "",
-      "name": "Matcha Green Tea",
-      "category": "Non Coffee",
-      "sourceCategory": "Non Coffee",
-      "img": "https://static.fore.coffee/product/Matcha%20Latte.jpg",
-      "desc": "Bubuk matcha spesial Fore yang lembut dan creamy berpadu dengan susu segar",
-      "price": 31000,
-      "largePrice": 36000,
-      "normalPrice": 37000,
-      "outletPrice": 37000,
-      "largeBase": 42000,
-      "customPrice": false,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
-      "isSoldOut": false,
-      "notCarried": false,
-      "isFood": false,
-      "isSpecial": false,
-      "noLarge": false,
-      "options": {
-        "sizes": [
-          "Regular",
-          "Large"
-        ],
-        "temps": [
-          "Ice",
-          "Hot"
-        ],
-        "ices": [
-          "Normal Ice",
-          "Less Ice",
-          "No Ice",
-          "Extra Ice"
-        ],
-        "sugars": [
-          "Normal Sugar",
-          "Less Sugar"
-        ]
-      },
-      "tag": ""
-    },
-    {
-      "key": "classicmilo",
-      "id": "classicmilo",
-      "code": "",
-      "name": "Classic Milo",
-      "category": "Non Coffee",
-      "sourceCategory": "Non Coffee",
-      "img": "https://static.fore.coffee/product/Iced%20Milo.jpg",
-      "desc": "Minuman klasik cokelat dengan rasa malt dengan saus creamy dan susu creamy",
-      "price": 21000,
-      "largePrice": 29000,
-      "normalPrice": 25000,
-      "outletPrice": 25000,
-      "largeBase": 32000,
-      "customPrice": true,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
-      "isSoldOut": false,
-      "notCarried": false,
-      "isFood": false,
-      "isSpecial": false,
-      "noLarge": false,
-      "options": {
-        "sizes": [
-          "Regular",
-          "Large"
-        ],
-        "temps": [
-          "Ice",
-          "Hot"
-        ],
-        "ices": [
-          "Normal Ice",
-          "Less Ice",
-          "No Ice"
-        ],
-        "sugars": [
-          "Normal Sugar",
-          "Less Sugar",
-          "No Sugar"
-        ]
-      },
-      "tag": ""
-    },
-    {
-      "key": "chococookieshake",
-      "id": "chococookieshake",
-      "code": "",
-      "name": "Choco Cookie Shake",
-      "category": "Fore Junior",
-      "sourceCategory": "Fore Junior",
-      "img": "https://static.fore.coffee/product/chococookieshake-.jpg",
-      "desc": "Rasa cokelat istimewa untuk momen manis dan penuh petualangan.",
-      "price": 28000,
-      "largePrice": null,
-      "normalPrice": 33000,
-      "outletPrice": 33000,
-      "customPrice": false,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
-      "isSoldOut": true,
-      "notCarried": false,
-      "isFood": false,
-      "isSpecial": true,
-      "noLarge": false,
-      "options": {
-        "sizes": [
-          "Regular"
-        ],
-        "temps": [
-          "Ice"
-        ],
-        "ices": [
-          "Normal Ice",
-          "Less Ice",
-          "No Ice",
-          "Extra Ice"
-        ],
-        "sugars": [
-          "Normal Sugar",
-          "Less Sugar"
-        ]
-      },
-      "tag": ""
-    },
-    {
-      "key": "butterscotchmilkcrumble",
-      "id": "butterscotchmilkcrumble",
-      "code": "",
-      "name": "Butterscotch Milk Crumble",
-      "category": "Fore Junior",
-      "sourceCategory": "Fore Junior",
-      "img": "https://static.fore.coffee/product/butterscotchmilk-crumble.jpg",
-      "desc": "Butterscotch dengan paduan caramel, susu dengan sea salt cream dan caramel crumble sebagai topping.",
-      "price": 28000,
-      "largePrice": null,
-      "normalPrice": 33000,
-      "outletPrice": 33000,
-      "customPrice": false,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
-      "isSoldOut": false,
-      "notCarried": false,
-      "isFood": false,
-      "isSpecial": false,
-      "noLarge": false,
-      "options": {
-        "sizes": [
-          "Regular"
-        ],
-        "temps": [
-          "Ice"
-        ],
-        "ices": [
-          "Normal Ice",
-          "Less Ice",
-          "No Ice",
-          "Extra Ice"
-        ],
-        "sugars": [
-          "Normal Sugar",
-          "Less Sugar"
-        ]
-      },
-      "tag": ""
-    },
-    {
-      "key": "vanillaocrumbs",
-      "id": "vanillaocrumbs",
-      "code": "",
-      "name": "Vanilla O' Crumbs",
-      "category": "Fore Junior",
-      "sourceCategory": "Fore Junior",
-      "img": "https://static.fore.coffee/product/vanillaocrumbs-.jpg",
-      "desc": "Perpaduan vanilla, butterscotch dan susu dilengkapi dengan saus karamel juga topping oreo yang gurih diatasnya",
-      "price": 28000,
-      "largePrice": null,
-      "normalPrice": 33000,
-      "outletPrice": 33000,
-      "customPrice": false,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
-      "isSoldOut": false,
-      "notCarried": false,
-      "isFood": false,
-      "isSpecial": false,
-      "noLarge": false,
-      "options": {
-        "sizes": [
-          "Regular"
-        ],
-        "temps": [
-          "Ice"
-        ],
-        "ices": [
-          "Normal Ice",
-          "Less Ice",
-          "No Ice",
-          "Extra Ice"
-        ],
-        "sugars": [
-          "Normal Sugar",
-          "Less Sugar"
-        ]
-      },
-      "tag": ""
-    },
-    {
-      "key": "chococaramelcloud",
-      "id": "chococaramelcloud",
-      "code": "",
-      "name": "Choco Caramel Cloud",
-      "category": "Fore Junior",
-      "sourceCategory": "Fore Junior",
-      "img": "https://static.fore.coffee/product/choco-caramelcloud.jpg",
-      "desc": "Nikmatnya cream salted caramel dengan paduan dark chocolate yang cocok untuk ceriakan hari",
-      "price": 28000,
-      "largePrice": null,
-      "normalPrice": 33000,
-      "outletPrice": 33000,
-      "customPrice": false,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
-      "isSoldOut": false,
-      "notCarried": false,
-      "isFood": false,
-      "isSpecial": false,
-      "noLarge": false,
-      "options": {
-        "sizes": [
-          "Regular"
-        ],
-        "temps": [
-          "Ice"
-        ],
-        "ices": [
-          "Normal Ice",
-          "Less Ice",
-          "No Ice",
-          "Extra Ice"
-        ],
-        "sugars": [
-          "Normal Sugar",
-          "Less Sugar"
-        ]
-      },
-      "tag": ""
-    },
-    {
-      "key": "crunchycereallatte1l",
-      "id": "crunchycereallatte1l",
-      "code": "",
-      "name": "Crunchy Cereal Latte 1L",
-      "category": "FOREveryone 1L",
-      "sourceCategory": "FOREveryone 1L",
-      "img": "https://static.fore.coffee/product/Crunchy%20Cereal%20Latte_RTD_f024951197d2cefb.jpg",
-      "desc": "Perpaduan kopi susu sereal dengan rasa manis gurih, dilengkapi taburan cornflakes renyah.",
-      "price": 89000,
-      "largePrice": null,
-      "normalPrice": 109000,
-      "outletPrice": 109000,
-      "customPrice": true,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
-      "isSoldOut": false,
-      "notCarried": false,
-      "isFood": false,
-      "isSpecial": false,
-      "noLarge": false,
-      "options": {
-        "sizes": [
-          "1 Liter"
-        ],
-        "temps": [],
-        "ices": [],
-        "sugars": [
-          "Normal Sugar",
-          "Less Sugar",
-          "No Sugar"
-        ]
-      },
-      "tag": ""
-    },
-    {
-      "key": "saltedspanishlatte1l",
-      "id": "saltedspanishlatte1l",
-      "code": "",
-      "name": "Salted Spanish Latte 1L",
-      "category": "FOREveryone 1L",
-      "sourceCategory": "FOREveryone 1L",
-      "img": "https://static.fore.coffee/product/Salted%20Spanish%20Latte_RTD_98192c7d0a4b586a.jpg",
-      "desc": "Kopi susu Spanish dengan sentuhan gurih manis yang lembut di tiap tegukan.",
-      "price": 75000,
-      "largePrice": null,
-      "normalPrice": 90000,
-      "outletPrice": 90000,
-      "customPrice": true,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
-      "isSoldOut": false,
-      "notCarried": false,
-      "isFood": false,
-      "isSpecial": false,
-      "noLarge": false,
-      "options": {
-        "sizes": [
-          "1 Liter"
-        ],
-        "temps": [],
-        "ices": [],
-        "sugars": [
-          "Normal Sugar",
-          "Less Sugar",
-          "No Sugar"
-        ]
-      },
-      "tag": ""
-    },
-    {
-      "key": "cocopeachfusion1l",
-      "id": "cocopeachfusion1l",
-      "code": "",
-      "name": "Coco Peach Fusion 1L",
-      "category": "FOREveryone 1L",
-      "sourceCategory": "FOREveryone 1L",
-      "img": "https://static.fore.coffee/product/Coco%20Peach%20RTD.jpg",
-      "desc": "Rasa segar dari peach, lychee, orange citrus, dan air kelapa",
-      "price": 74000,
-      "largePrice": null,
-      "normalPrice": 89000,
-      "outletPrice": 89000,
-      "customPrice": true,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
-      "isSoldOut": false,
-      "notCarried": false,
-      "isFood": false,
-      "isSpecial": false,
-      "noLarge": false,
-      "options": {
-        "sizes": [
-          "1 Liter"
-        ],
-        "temps": [],
-        "ices": [],
-        "sugars": [
-          "Normal Sugar",
-          "Less Sugar",
-          "No Sugar"
-        ]
-      },
-      "tag": ""
-    },
-    {
-      "key": "kopidaritani1l",
-      "id": "kopidaritani1l",
-      "code": "",
-      "name": "Kopi Dari Tani 1L",
-      "category": "FOREveryone 1L",
-      "sourceCategory": "FOREveryone 1L",
-      "img": "https://static.fore.coffee/product/Kopi%20Dari%20Tani%20RTD%20(1).jpg",
-      "desc": "Paduan rasa dan aroma kopi autentik Indonesia yang kuat dalan ukuran 1L.",
-      "price": 74000,
-      "largePrice": null,
-      "normalPrice": 89000,
-      "outletPrice": 89000,
-      "customPrice": true,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
-      "isSoldOut": false,
-      "notCarried": false,
-      "isFood": false,
-      "isSpecial": false,
-      "noLarge": false,
-      "options": {
-        "sizes": [
-          "1 Liter"
-        ],
-        "temps": [],
-        "ices": [],
-        "sugars": [
-          "Normal Sugar",
-          "Less Sugar",
-          "No Sugar"
-        ]
-      },
-      "tag": ""
-    },
-    {
-      "key": "bumilatte1l",
-      "id": "bumilatte1l",
-      "code": "",
-      "name": "Bumi Latte 1L",
-      "category": "FOREveryone 1L",
-      "sourceCategory": "FOREveryone 1L",
-      "img": "https://static.fore.coffee/product/Bumi%20Latte%20RTD.jpg",
-      "desc": "Sensasi lembut dan legit Bumi Latte hadir dalam ukuran 1L untuk sempurnakan kebersamaan!",
-      "price": 74000,
-      "largePrice": null,
-      "normalPrice": 89000,
-      "outletPrice": 89000,
-      "customPrice": true,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
-      "isSoldOut": false,
-      "notCarried": false,
-      "isFood": false,
-      "isSpecial": false,
-      "noLarge": false,
-      "options": {
-        "sizes": [
-          "1 Liter"
-        ],
-        "temps": [],
-        "ices": [],
-        "sugars": [
-          "Normal Sugar",
-          "Less Sugar",
-          "No Sugar"
-        ]
-      },
-      "tag": ""
-    },
-    {
-      "key": "darkchocolate1l",
-      "id": "darkchocolate1l",
-      "code": "",
-      "name": "Dark Chocolate 1L",
-      "category": "FOREveryone 1L",
-      "sourceCategory": "FOREveryone 1L",
-      "img": "https://static.fore.coffee/product/Dark%20Choco%20RTD.jpg",
-      "desc": "Dibuat dari 100% dark chocolate dan paduan susu yang nikmat",
-      "price": 89000,
-      "largePrice": null,
-      "normalPrice": 109000,
-      "outletPrice": 109000,
-      "customPrice": true,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
-      "isSoldOut": false,
-      "notCarried": false,
-      "isFood": false,
-      "isSpecial": false,
-      "noLarge": false,
-      "options": {
-        "sizes": [
-          "1 Liter"
-        ],
-        "temps": [],
-        "ices": [],
-        "sugars": [
-          "Normal Sugar",
-          "Less Sugar",
-          "No Sugar"
-        ]
-      },
-      "tag": ""
-    },
-    {
-      "key": "butterscotchseasaltlatte1l",
-      "id": "butterscotchseasaltlatte1l",
-      "code": "",
-      "name": "Butterscotch Sea Salt Latte 1L",
-      "category": "FOREveryone 1L",
-      "sourceCategory": "FOREveryone 1L",
-      "img": "https://static.fore.coffee/product/BSL%20RTD.jpg",
-      "desc": "Butterscotch Sea Salt Latte Fore Coffee yang disukai banyak orang hadir dalam botol 1L.",
-      "price": 104000,
-      "largePrice": null,
-      "normalPrice": 129000,
-      "outletPrice": 129000,
-      "customPrice": true,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
-      "isSoldOut": false,
-      "notCarried": false,
-      "isFood": false,
-      "isSpecial": false,
-      "noLarge": false,
-      "options": {
-        "sizes": [
-          "1 Liter"
-        ],
-        "temps": [],
-        "ices": [],
-        "sugars": [
-          "Normal Sugar",
-          "Less Sugar",
-          "No Sugar"
-        ]
-      },
-      "tag": ""
-    },
-    {
-      "key": "arenlatte1l",
-      "id": "arenlatte1l",
-      "code": "",
-      "name": "Aren Latte 1L",
-      "category": "FOREveryone 1L",
-      "sourceCategory": "FOREveryone 1L",
-      "img": "https://static.fore.coffee/product/Aren%20Latte%20RTD.jpg",
-      "desc": "Nikmatnya latte dengan gula aren khas Indonesia hadir dalam ukuran 1L.",
-      "price": 81500,
-      "largePrice": null,
-      "normalPrice": 99000,
-      "outletPrice": 99000,
-      "customPrice": true,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
-      "isSoldOut": false,
-      "notCarried": false,
-      "isFood": false,
-      "isSpecial": false,
-      "noLarge": false,
-      "options": {
-        "sizes": [
-          "1 Liter"
-        ],
-        "temps": [],
-        "ices": [],
-        "sugars": [
-          "Normal Sugar",
-          "Less Sugar",
-          "No Sugar"
-        ]
-      },
-      "tag": ""
-    },
-    {
-      "key": "caramelpralinemacchiato1l",
-      "id": "caramelpralinemacchiato1l",
-      "code": "",
-      "name": "Caramel Praline Macchiato 1L",
-      "category": "FOREveryone 1L",
-      "sourceCategory": "FOREveryone 1L",
-      "img": "https://static.fore.coffee/product/Caramel%20Praline%20RTD.jpg",
-      "desc": "Latte praline bercampur karamel dalam ukuran 1L.",
-      "price": 89000,
-      "largePrice": null,
-      "normalPrice": 109000,
-      "outletPrice": 109000,
-      "customPrice": true,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
-      "isSoldOut": false,
-      "notCarried": false,
-      "isFood": false,
-      "isSpecial": false,
-      "noLarge": false,
-      "options": {
-        "sizes": [
-          "1 Liter"
-        ],
-        "temps": [],
-        "ices": [],
-        "sugars": [
-          "Normal Sugar",
-          "Less Sugar",
-          "No Sugar"
-        ]
-      },
-      "tag": ""
-    },
-    {
-      "key": "pandanlatte1l",
-      "id": "pandanlatte1l",
-      "code": "",
-      "name": "Pandan Latte 1L",
-      "category": "FOREveryone 1L",
-      "sourceCategory": "FOREveryone 1L",
-      "img": "https://static.fore.coffee/product/Pandan%20Latte%20RTD.jpg",
-      "desc": "Latte dengan aroma dan rasa pandan yang istimewa dari Fore Coffee dalam ukuran 1L.",
-      "price": 81500,
-      "largePrice": null,
-      "normalPrice": 99000,
-      "outletPrice": 99000,
-      "customPrice": true,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
-      "isSoldOut": false,
-      "notCarried": false,
-      "isFood": false,
-      "isSpecial": false,
-      "noLarge": false,
-      "options": {
-        "sizes": [
-          "1 Liter"
-        ],
-        "temps": [],
-        "ices": [],
-        "sugars": [
-          "Normal Sugar",
-          "Less Sugar",
-          "No Sugar"
-        ]
-      },
-      "tag": ""
-    },
-    {
-      "key": "caflatte1l",
-      "id": "caflatte1l",
-      "code": "",
-      "name": "Café Latte 1L",
-      "category": "FOREveryone 1L",
-      "sourceCategory": "FOREveryone 1L",
-      "img": "https://static.fore.coffee/product/Cafe%20Latte%20RTD.jpg",
-      "desc": "Latte tanpa gula dalam ukuran 1L yang pas untuk menemani momen kumpul bersama.",
-      "price": 81500,
-      "largePrice": null,
-      "normalPrice": 99000,
-      "outletPrice": 99000,
-      "customPrice": true,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
-      "isSoldOut": false,
-      "notCarried": false,
-      "isFood": false,
-      "isSpecial": false,
-      "noLarge": false,
-      "options": {
-        "sizes": [
-          "1 Liter"
-        ],
-        "temps": [],
-        "ices": [],
-        "sugars": [
-          "Normal Sugar",
-          "Less Sugar",
-          "No Sugar"
-        ]
-      },
-      "tag": ""
-    },
-    {
-      "key": "nuttyoatlatte1l",
-      "id": "nuttyoatlatte1l",
-      "code": "",
-      "name": "Nutty Oat Latte 1L",
-      "category": "FOREveryone 1L",
-      "sourceCategory": "FOREveryone 1L",
-      "img": "https://static.fore.coffee/product/Nutty%20Oat%20Latte%20RTD.jpg",
-      "desc": "Latte dengan susu oat yang nikmat dalam ukuran 1L.",
-      "price": 111500,
-      "largePrice": null,
-      "normalPrice": 139000,
-      "outletPrice": 139000,
-      "customPrice": true,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
-      "isSoldOut": false,
-      "notCarried": false,
-      "isFood": false,
-      "isSpecial": false,
-      "noLarge": false,
-      "options": {
-        "sizes": [
-          "1 Liter"
-        ],
-        "temps": [],
-        "ices": [],
-        "sugars": [
-          "Normal Sugar",
-          "Less Sugar",
-          "No Sugar"
-        ]
-      },
-      "tag": ""
-    },
-    {
-      "key": "almondchoco1l",
-      "id": "almondchoco1l",
-      "code": "",
-      "name": "Almond Choco 1L",
-      "category": "FOREveryone 1L",
-      "sourceCategory": "FOREveryone 1L",
-      "img": "https://static.fore.coffee/product/Almond%20Choco%20RTD.jpg",
-      "desc": "Cokelat klasik dengan susu almond dalam ukuran 1L yang pas untuk dinikmati bersama keluarga!",
-      "price": 111500,
-      "largePrice": null,
-      "normalPrice": 139000,
-      "outletPrice": 139000,
-      "customPrice": true,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
-      "isSoldOut": false,
-      "notCarried": false,
-      "isFood": false,
-      "isSpecial": false,
-      "noLarge": false,
-      "options": {
-        "sizes": [
-          "1 Liter"
-        ],
-        "temps": [],
-        "ices": [],
-        "sugars": [
-          "Normal Sugar",
-          "Less Sugar",
-          "No Sugar"
-        ]
-      },
-      "tag": ""
-    },
-    {
-      "key": "matchagreentea1l",
-      "id": "matchagreentea1l",
-      "code": "",
-      "name": "Matcha Green Tea 1L",
-      "category": "FOREveryone 1L",
-      "sourceCategory": "FOREveryone 1L",
-      "img": "https://static.fore.coffee/product/Matcha%20Latte%20RTD.jpg",
-      "desc": "Nikmatnya teh hijau berkualitas yang dipadukan dengan susu creamy untuk persediaan di rumah!",
-      "price": 89000,
-      "largePrice": null,
-      "normalPrice": 109000,
-      "outletPrice": 109000,
-      "customPrice": true,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
-      "isSoldOut": false,
-      "notCarried": false,
-      "isFood": false,
-      "isSpecial": false,
-      "noLarge": false,
-      "options": {
-        "sizes": [
-          "1 Liter"
-        ],
-        "temps": [],
-        "ices": [],
-        "sugars": [
-          "Normal Sugar",
-          "Less Sugar",
-          "No Sugar"
-        ]
-      },
-      "tag": ""
-    },
-    {
-      "key": "beefomelettetoast",
-      "id": "beefomelettetoast",
-      "code": "",
-      "name": "Beef & Omelette Toast",
-      "category": "Fore Deli",
-      "sourceCategory": "Fore Deli",
-      "img": "https://static.fore.coffee/product/Thumbnail%20App%20SFPC.jpg",
-      "desc": "Perpaduan smoked beef, telur omelet, dan keju cheddar dalam English muffin yang khas dan lembut",
-      "price": 35000,
-      "largePrice": null,
-      "normalPrice": 42000,
-      "outletPrice": 42000,
-      "customPrice": false,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
-      "isSoldOut": false,
-      "notCarried": false,
-      "isFood": true,
-      "isSpecial": true,
-      "noLarge": false,
-      "options": {
-        "sizes": [],
-        "temps": [],
-        "ices": [],
-        "sugars": []
-      },
-      "tag": ""
-    },
-    {
-      "key": "mushroomtrufflesandwich",
-      "id": "mushroomtrufflesandwich",
-      "code": "",
-      "name": "Mushroom Truffle Sandwich",
-      "category": "Fore Deli",
-      "sourceCategory": "Fore Deli",
-      "img": "https://static.fore.coffee/product/mushroomsandwich.jpg",
-      "desc": "Sandwich dengan roti taburan parsley, jamur, saus truffle dan keju cheddar",
-      "price": 39000,
-      "largePrice": null,
-      "normalPrice": 48000,
-      "outletPrice": 48000,
-      "customPrice": false,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
-      "isSoldOut": false,
-      "notCarried": false,
-      "isFood": true,
-      "isSpecial": true,
-      "noLarge": false,
-      "options": {
-        "sizes": [],
-        "temps": [],
-        "ices": [],
-        "sugars": []
-      },
-      "tag": ""
-    },
-    {
-      "key": "rollcakecheesepandan",
-      "id": "rollcakecheesepandan",
-      "code": "",
-      "name": "Roll Cake Cheese Pandan",
-      "category": "Fore Deli",
-      "sourceCategory": "Fore Deli",
-      "img": "https://static.fore.coffee/product/Pandan-Roll-Cake-ID.jpg",
-      "desc": "Bolu gulung pandan yang lembut dengan krim vanilla dan taburan keju parut",
-      "price": 28000,
-      "largePrice": null,
-      "normalPrice": 33000,
-      "outletPrice": 33000,
-      "customPrice": false,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
-      "isSoldOut": false,
-      "notCarried": false,
-      "isFood": true,
-      "isSpecial": true,
-      "noLarge": false,
-      "options": {
-        "sizes": [],
-        "temps": [],
-        "ices": [],
-        "sugars": []
-      },
-      "tag": ""
-    },
-    {
-      "key": "rollcakepeanutbutterjam",
-      "id": "rollcakepeanutbutterjam",
-      "code": "",
-      "name": "Roll Cake Peanut Butter & Jam",
-      "category": "Fore Deli",
-      "sourceCategory": "Fore Deli",
-      "img": "https://static.fore.coffee/product/PBnJ-Roll-Cake-ID.jpg",
-      "desc": "Bolu gulung vanila yang lembut dengan selai kacang dan selai stroberi",
-      "price": 28000,
-      "largePrice": null,
-      "normalPrice": 33000,
-      "outletPrice": 33000,
-      "customPrice": false,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
-      "isSoldOut": false,
-      "notCarried": false,
-      "isFood": true,
-      "isSpecial": true,
-      "noLarge": false,
-      "options": {
-        "sizes": [],
-        "temps": [],
-        "ices": [],
-        "sugars": []
-      },
-      "tag": ""
-    },
-    {
-      "key": "rollcakemocha",
-      "id": "rollcakemocha",
-      "code": "",
-      "name": "Roll Cake Mocha",
-      "category": "Fore Deli",
-      "sourceCategory": "Fore Deli",
-      "img": "https://static.fore.coffee/product/Moccha-Roll-Cake-ID.jpg",
-      "desc": "Bolu gulung coklat yang lembut dengan krim mocha dan taburan meses.",
-      "price": 28000,
-      "largePrice": null,
-      "normalPrice": 33000,
-      "outletPrice": 33000,
-      "customPrice": false,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
-      "isSoldOut": false,
-      "notCarried": false,
-      "isFood": true,
-      "isSpecial": true,
-      "noLarge": false,
-      "options": {
-        "sizes": [],
-        "temps": [],
-        "ices": [],
-        "sugars": []
-      },
-      "tag": ""
-    },
-    {
-      "key": "beefmentaisandwich",
-      "id": "beefmentaisandwich",
-      "code": "",
-      "name": "Beef  Mentai Sandwich",
-      "category": "Fore Deli",
-      "sourceCategory": "Fore Deli",
-      "img": "https://static.fore.coffee/product/Creamy%20Beef%20Mentai%20Sandwich.png",
-      "desc": "Sandwich dengan potongan daging, saus mentai, keju cheddar merah, dan paprika merah",
-      "price": 37000,
-      "largePrice": null,
-      "normalPrice": 45000,
-      "outletPrice": 45000,
-      "customPrice": false,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
-      "isSoldOut": false,
-      "notCarried": false,
-      "isFood": true,
-      "isSpecial": true,
-      "noLarge": false,
-      "options": {
-        "sizes": [],
-        "temps": [],
-        "ices": [],
-        "sugars": []
-      },
-      "tag": ""
-    },
-    {
-      "key": "cakalangquiche",
-      "id": "cakalangquiche",
-      "code": "",
-      "name": "Cakalang Quiche",
-      "category": "Fore Deli",
-      "sourceCategory": "Fore Deli",
-      "img": "https://static.fore.coffee/product/Cakalang%20Quiche.png",
-      "desc": "Pie gurih dengan isian ikan cakalang, telur, krim, dan keju",
-      "price": 30000,
-      "largePrice": null,
-      "normalPrice": 36000,
-      "outletPrice": 36000,
-      "customPrice": true,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
-      "isSoldOut": false,
-      "notCarried": false,
-      "isFood": true,
-      "isSpecial": true,
-      "noLarge": false,
-      "options": {
-        "sizes": [],
-        "temps": [],
-        "ices": [],
-        "sugars": []
-      },
-      "tag": ""
-    },
-    {
-      "key": "painautiramisu",
-      "id": "painautiramisu",
-      "code": "",
-      "name": "Pain au Tiramisu",
-      "category": "Fore Deli",
-      "sourceCategory": "Fore Deli",
-      "img": "https://static.fore.coffee/product/Pain%20au%20Tiramisu.png",
-      "desc": "Pastry dengan isian almond paste rasa tiramisu dan topping cocoa crumble",
-      "price": 30000,
-      "largePrice": null,
-      "normalPrice": 36000,
-      "outletPrice": 36000,
-      "customPrice": true,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
-      "isSoldOut": false,
-      "notCarried": false,
-      "isFood": true,
-      "isSpecial": true,
-      "noLarge": false,
-      "options": {
-        "sizes": [],
-        "temps": [],
-        "ices": [],
-        "sugars": []
-      },
-      "tag": ""
-    },
-    {
-      "key": "cheesytunasandwich",
-      "id": "cheesytunasandwich",
-      "code": "",
-      "name": "Cheesy Tuna Sandwich",
-      "category": "Fore Deli",
-      "sourceCategory": "Fore Deli",
-      "img": "https://static.fore.coffee/product/Cheesy%20Tuna%20Sandwich.png",
-      "desc": "Sandwich dengan roti taburan wijen hitam, tuna mayo, saus tartar, keju mozzarella, keju cheddar merah, bawang bombay dan paprika hijau.",
-      "price": 37000,
-      "largePrice": null,
-      "normalPrice": 45000,
-      "outletPrice": 45000,
-      "customPrice": false,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
-      "isSoldOut": false,
-      "notCarried": false,
-      "isFood": true,
-      "isSpecial": true,
-      "noLarge": false,
-      "options": {
-        "sizes": [],
-        "temps": [],
-        "ices": [],
-        "sugars": []
-      },
-      "tag": ""
-    },
-    {
-      "key": "chickenteriyakisandwich",
-      "id": "chickenteriyakisandwich",
-      "code": "",
-      "name": "Chicken Teriyaki Sandwich",
-      "category": "Fore Deli",
-      "sourceCategory": "Fore Deli",
-      "img": "https://static.fore.coffee/product/Chicken%20Teriyaki%20Sandwich.png",
-      "desc": "Sandwich dengan roti taburan wijen putih, ayam bumbu teriyaki, mayonnaise teriyaki, keju cheddar, dan bawang bombay",
-      "price": 37000,
-      "largePrice": null,
-      "normalPrice": 45000,
-      "outletPrice": 45000,
-      "customPrice": false,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
-      "isSoldOut": false,
-      "notCarried": false,
-      "isFood": true,
-      "isSpecial": true,
-      "noLarge": false,
-      "options": {
-        "sizes": [],
-        "temps": [],
-        "ices": [],
-        "sugars": []
-      },
-      "tag": ""
-    },
-    {
-      "key": "smokedbeefcheesesandwich",
-      "id": "smokedbeefcheesesandwich",
-      "code": "",
-      "name": "Smoked Beef & Cheese Sandwich",
-      "category": "Fore Deli",
-      "sourceCategory": "Fore Deli",
-      "img": "https://static.fore.coffee/product/Smoked%20Beef%20&%20Cheese%20Sandwich.png",
-      "desc": "Sandwich dengan roti focaccia taburan parsley, smoked beef, keju mozzarella, keju red cheddar, mayonnaise dan bawang bombay.",
-      "price": 37000,
-      "largePrice": null,
-      "normalPrice": 45000,
-      "outletPrice": 45000,
-      "customPrice": false,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
-      "isSoldOut": false,
-      "notCarried": false,
-      "isFood": true,
-      "isSpecial": true,
-      "noLarge": false,
-      "options": {
-        "sizes": [],
-        "temps": [],
-        "ices": [],
-        "sugars": []
-      },
-      "tag": ""
-    },
-    {
-      "key": "blueberrycheesemuffin",
-      "id": "blueberrycheesemuffin",
-      "code": "",
-      "name": "Blueberry Cheese Muffin",
-      "category": "Fore Deli",
-      "sourceCategory": "Fore Deli",
-      "img": "https://static.fore.coffee/product/Blueberry%20Cheese%20Muffin.png",
-      "desc": "Bolu padat rasa vanilla dengan isian krim keju bluberi dan topping crumble",
-      "price": 35000,
-      "largePrice": null,
-      "normalPrice": 42000,
-      "outletPrice": 42000,
-      "customPrice": false,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
-      "isSoldOut": false,
-      "notCarried": false,
-      "isFood": true,
-      "isSpecial": true,
-      "noLarge": false,
-      "options": {
-        "sizes": [],
-        "temps": [],
-        "ices": [],
-        "sugars": []
-      },
-      "tag": ""
-    },
-    {
-      "key": "chocomeltmuffin",
-      "id": "chocomeltmuffin",
-      "code": "",
-      "name": "Choco Melt Muffin",
-      "category": "Fore Deli",
-      "sourceCategory": "Fore Deli",
-      "img": "https://static.fore.coffee/product/Choco%20Melt%20Muffin.png",
-      "desc": "Bolu padat rasa coklat dengan isian coklat yang meleleh dan topping coklat chips",
-      "price": 35000,
-      "largePrice": null,
-      "normalPrice": 42000,
-      "outletPrice": 42000,
-      "customPrice": false,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
-      "isSoldOut": false,
-      "notCarried": false,
-      "isFood": true,
-      "isSpecial": true,
-      "noLarge": false,
-      "options": {
-        "sizes": [],
-        "temps": [],
-        "ices": [],
-        "sugars": []
-      },
-      "tag": ""
-    },
-    {
-      "key": "triplecheesedanish",
-      "id": "triplecheesedanish",
-      "code": "",
-      "name": "Triple Cheese Danish",
-      "category": "Fore Deli",
-      "sourceCategory": "Fore Deli",
-      "img": "https://static.fore.coffee/product/Triple%20Cheese%20Danish.jpg",
-      "desc": "Danish dengan isian krim keju",
-      "price": 35000,
-      "largePrice": null,
-      "normalPrice": 42000,
-      "outletPrice": 42000,
-      "customPrice": false,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
-      "isSoldOut": false,
-      "notCarried": false,
-      "isFood": true,
-      "isSpecial": true,
-      "noLarge": false,
-      "options": {
-        "sizes": [],
-        "temps": [],
-        "ices": [],
-        "sugars": []
-      },
-      "tag": ""
-    },
-    {
-      "key": "almondcroissant",
-      "id": "almondcroissant",
-      "code": "",
-      "name": "Almond Croissant",
-      "category": "Fore Deli",
-      "sourceCategory": "Fore Deli",
-      "img": "https://static.fore.coffee/product/Almond%20Croissant%20-1.jpg",
-      "desc": "Croissant dengan taburan gula halus dan potongan almond",
-      "price": 35000,
-      "largePrice": null,
-      "normalPrice": 42000,
-      "outletPrice": 42000,
-      "customPrice": false,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
-      "isSoldOut": false,
-      "notCarried": false,
-      "isFood": true,
-      "isSpecial": true,
-      "noLarge": false,
-      "options": {
-        "sizes": [],
-        "temps": [],
-        "ices": [],
-        "sugars": []
-      },
-      "tag": ""
-    },
-    {
-      "key": "bananachocolatecake",
-      "id": "bananachocolatecake",
-      "code": "",
-      "name": "Banana Chocolate Cake",
-      "category": "Fore Deli",
-      "sourceCategory": "Fore Deli",
-      "img": "https://static.fore.coffee/product/thumbbbb.jpg",
-      "desc": "Bolu dengan paduan pisang dan coklat",
-      "price": 28000,
-      "largePrice": null,
-      "normalPrice": 33000,
-      "outletPrice": 33000,
-      "customPrice": false,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
-      "isSoldOut": false,
-      "notCarried": false,
-      "isFood": true,
-      "isSpecial": true,
-      "noLarge": false,
-      "options": {
-        "sizes": [],
-        "temps": [],
-        "ices": [],
-        "sugars": []
-      },
-      "tag": ""
-    },
-    {
-      "key": "cempedakcake",
-      "id": "cempedakcake",
-      "code": "",
-      "name": "Cempedak Cake",
-      "category": "Fore Deli",
-      "sourceCategory": "Fore Deli",
-      "img": "https://static.fore.coffee/product/cempedak-80.jpg",
-      "desc": "Bolu dengan potongan cempedak",
-      "price": 23000,
-      "largePrice": null,
-      "normalPrice": 27000,
-      "outletPrice": 27000,
-      "customPrice": true,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
-      "isSoldOut": false,
-      "notCarried": false,
-      "isFood": true,
-      "isSpecial": true,
-      "noLarge": false,
-      "options": {
-        "sizes": [],
-        "temps": [],
-        "ices": [],
-        "sugars": []
-      },
-      "tag": ""
-    },
-    {
-      "key": "buttercroissant",
-      "id": "buttercroissant",
-      "code": "",
-      "name": "Butter Croissant",
-      "category": "Fore Deli",
-      "sourceCategory": "Fore Deli",
-      "img": "https://static.fore.coffee/product/Butter%20Croissant%20_-80.jpg",
-      "desc": "Pastry dengan rasa dan aroma butter",
-      "price": 25000,
-      "largePrice": null,
-      "normalPrice": 29000,
-      "outletPrice": 29000,
-      "customPrice": false,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
-      "isSoldOut": false,
-      "notCarried": false,
-      "isFood": true,
-      "isSpecial": true,
-      "noLarge": false,
-      "options": {
-        "sizes": [],
-        "temps": [],
-        "ices": [],
-        "sugars": []
-      },
-      "tag": ""
-    },
-    {
-      "key": "painauchocolat",
-      "id": "painauchocolat",
-      "code": "",
-      "name": "Pain au Chocolat",
-      "category": "Fore Deli",
-      "sourceCategory": "Fore Deli",
-      "img": "https://static.fore.coffee/product/painauchocolat2403.jpg",
-      "desc": "Pastry  dengan isi coklat di dalamnya",
-      "price": 28000,
-      "largePrice": null,
-      "normalPrice": 33000,
-      "outletPrice": 33000,
-      "customPrice": false,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
-      "isSoldOut": false,
-      "notCarried": false,
-      "isFood": true,
-      "isSpecial": true,
-      "noLarge": false,
-      "options": {
-        "sizes": [],
-        "temps": [],
-        "ices": [],
-        "sugars": []
-      },
-      "tag": ""
-    },
-    {
-      "key": "kouignamann",
-      "id": "kouignamann",
-      "code": "",
-      "name": "Kouign-Amann",
-      "category": "Fore Deli",
-      "sourceCategory": "Fore Deli",
-      "img": "https://static.fore.coffee/product/Kouign%20amann-.jpg",
-      "desc": "Pastry dengan lapisan karamel manis dan juga taburan kayu manis",
-      "price": 28000,
-      "largePrice": null,
-      "normalPrice": 33000,
-      "outletPrice": 33000,
-      "customPrice": false,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
-      "isSoldOut": false,
-      "notCarried": false,
-      "isFood": true,
-      "isSpecial": true,
-      "noLarge": false,
-      "options": {
-        "sizes": [],
-        "temps": [],
-        "ices": [],
-        "sugars": []
-      },
-      "tag": ""
-    },
-    {
-      "key": "cocopeachfusion",
-      "id": "cocopeachfusion",
-      "code": "",
-      "name": "Coco Peach Fusion",
-      "category": "Refresher",
-      "sourceCategory": "Refresher",
-      "img": "https://static.fore.coffee/product/Coco%20Peach%20Fusion%20(1).jpg",
-      "desc": "Rasa segar dari peach, lychee, orange citrus, dan air kelapa",
-      "price": 28000,
-      "largePrice": 33000,
-      "normalPrice": 33000,
-      "outletPrice": 33000,
-      "largeBase": 38000,
-      "customPrice": false,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
-      "isSoldOut": false,
-      "notCarried": false,
-      "isFood": false,
-      "isSpecial": false,
-      "noLarge": false,
-      "options": {
-        "sizes": [
-          "Regular",
-          "Large"
-        ],
-        "temps": [
-          "Ice"
-        ],
-        "ices": [
-          "Normal Ice",
-          "Less Ice",
-          "No Ice",
-          "Extra Ice"
-        ],
-        "sugars": [
-          "Normal Sugar",
-          "Less Sugar"
-        ]
-      },
-      "tag": ""
-    },
-    {
-      "key": "hibiscuslycheepeachyakult",
-      "id": "hibiscuslycheepeachyakult",
-      "code": "",
-      "name": "Hibiscus Lychee Peach  Yakult",
-      "category": "Refresher",
-      "sourceCategory": "Refresher",
-      "img": "https://static.fore.coffee/product/Hibiscus%20Lychee%20Peach%20Yakult.jpg",
-      "desc": "Kebaikan buah berry, hibiscus, dan yakult yang memberi kesegaran sepanjang hari.",
-      "price": 25000,
-      "largePrice": 33000,
-      "normalPrice": 29000,
-      "outletPrice": 29000,
-      "largeBase": 36000,
-      "customPrice": true,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
-      "isSoldOut": false,
-      "notCarried": false,
-      "isFood": false,
-      "isSpecial": false,
-      "noLarge": false,
-      "options": {
-        "sizes": [
-          "Regular",
-          "Large"
-        ],
-        "temps": [
-          "Ice",
-          "Hot"
-        ],
-        "ices": [
-          "Normal Ice",
-          "Less Ice",
-          "No Ice"
-        ],
-        "sugars": [
-          "Normal Sugar",
-          "Less Sugar",
-          "No Sugar"
-        ]
-      },
-      "tag": ""
-    },
-    {
-      "key": "sunnycitrusjasmine",
-      "id": "sunnycitrusjasmine",
-      "code": "",
-      "name": "Sunny Citrus  Jasmine",
-      "category": "Refresher",
-      "sourceCategory": "Refresher",
-      "img": "https://static.fore.coffee/product/Sunny%20Citrus%20Jasmine.jpg",
-      "desc": "Campuran spesial dari rasa buah tropikal, madu Manuka, dan teh jasmine yang menyegarkan sekaligus beraroma.",
-      "price": 29000,
-      "largePrice": 34000,
-      "normalPrice": 35000,
-      "outletPrice": 35000,
-      "largeBase": 40000,
-      "customPrice": false,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
-      "isSoldOut": false,
-      "notCarried": false,
-      "isFood": false,
-      "isSpecial": false,
-      "noLarge": false,
-      "options": {
-        "sizes": [
-          "Regular",
-          "Large"
-        ],
-        "temps": [
-          "Ice"
-        ],
-        "ices": [
-          "Normal Ice",
-          "Less Ice",
-          "No Ice",
-          "Extra Ice"
-        ],
-        "sugars": [
-          "Normal Sugar",
-          "Less Sugar"
-        ]
-      },
-      "tag": ""
-    },
-    {
-      "key": "englishbreakfast",
-      "id": "englishbreakfast",
-      "code": "",
-      "name": "English Breakfast",
-      "category": "Tea",
-      "sourceCategory": "Tea",
-      "img": "https://static.fore.coffee/product/English%20Breakfast.jpg",
-      "desc": "Teh hitam klasik harum yang legendaris",
-      "price": 25000,
-      "largePrice": 30000,
-      "normalPrice": 29000,
-      "outletPrice": 29000,
-      "largeBase": 34000,
-      "customPrice": false,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
-      "isSoldOut": false,
-      "notCarried": false,
-      "isFood": false,
-      "isSpecial": false,
-      "noLarge": false,
-      "options": {
-        "sizes": [
-          "Regular",
-          "Large"
-        ],
-        "temps": [
-          "Ice",
-          "Hot"
-        ],
-        "ices": [
-          "Normal Ice",
-          "Less Ice",
-          "No Ice",
-          "Extra Ice"
-        ],
-        "sugars": [
-          "Normal Sugar",
-          "Less Sugar"
-        ]
-      },
-      "tag": ""
-    },
-    {
-      "key": "greenteajasmine",
-      "id": "greenteajasmine",
-      "code": "",
-      "name": "Green Tea Jasmine",
-      "category": "Tea",
-      "sourceCategory": "Tea",
-      "img": "https://static.fore.coffee/product/Green%20Tea%20Mint.jpg",
-      "desc": "Teh hijau dengan sentuhan rasa melati",
-      "price": 25000,
-      "largePrice": 30000,
-      "normalPrice": 29000,
-      "outletPrice": 29000,
-      "largeBase": 34000,
-      "customPrice": false,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
-      "isSoldOut": false,
-      "notCarried": false,
-      "isFood": false,
-      "isSpecial": false,
-      "noLarge": false,
-      "options": {
-        "sizes": [
-          "Regular",
-          "Large"
-        ],
-        "temps": [
-          "Ice",
-          "Hot"
-        ],
-        "ices": [
-          "Normal Ice",
-          "Less Ice",
-          "No Ice",
-          "Extra Ice"
-        ],
-        "sugars": [
-          "Normal Sugar",
-          "Less Sugar"
-        ]
-      },
-      "tag": ""
-    },
-    {
-      "key": "purechamomile",
-      "id": "purechamomile",
-      "code": "",
-      "name": "Pure Chamomile",
-      "category": "Tea",
-      "sourceCategory": "Tea",
-      "img": "https://static.fore.coffee/product/Pure%20Chamomile.jpg",
-      "desc": "Teh bunga chamomile memiliki aroma madu yang kaya dan menghasilkan warna emas",
-      "price": 25000,
-      "largePrice": 30000,
-      "normalPrice": 29000,
-      "outletPrice": 29000,
-      "largeBase": 34000,
-      "customPrice": false,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
-      "isSoldOut": false,
-      "notCarried": false,
-      "isFood": false,
-      "isSpecial": false,
-      "noLarge": false,
-      "options": {
-        "sizes": [
-          "Regular",
-          "Large"
-        ],
-        "temps": [
-          "Ice",
-          "Hot"
-        ],
-        "ices": [
-          "Normal Ice",
-          "Less Ice",
-          "No Ice",
-          "Extra Ice"
-        ],
-        "sugars": [
-          "Normal Sugar",
-          "Less Sugar"
-        ]
-      },
-      "tag": ""
-    },
-    {
-      "key": "greenteamint",
-      "id": "greenteamint",
-      "code": "",
-      "name": "Green Tea Mint",
-      "category": "Tea",
-      "sourceCategory": "Tea",
-      "img": "https://static.fore.coffee/product/Green%20Tea%20Mint.jpg",
-      "desc": "Teh merah halus dari Afrika Selatan dengan campuran rempah-rempah Perancis yang manis",
-      "price": 25000,
-      "largePrice": 30000,
-      "normalPrice": 29000,
-      "outletPrice": 29000,
-      "largeBase": 34000,
-      "customPrice": false,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
-      "isSoldOut": false,
-      "notCarried": false,
-      "isFood": false,
-      "isSpecial": false,
-      "noLarge": false,
-      "options": {
-        "sizes": [
-          "Regular",
-          "Large"
-        ],
-        "temps": [
-          "Ice",
-          "Hot"
-        ],
-        "ices": [
-          "Normal Ice",
-          "Less Ice",
-          "No Ice",
-          "Extra Ice"
-        ],
-        "sugars": [
-          "Normal Sugar",
-          "Less Sugar"
-        ]
-      },
-      "tag": ""
-    }
-  ],
-  "satuan": [],
-  "seliter": [],
-  "bundles": [],
-  "outlet": null,
-  "preview": true,
-  "updatedAt": "2026-11-19T14:58:31.392457"
+    "brand": "fore",
+    "extras": [],
+    "live": false,
+    "isClosed": false,
+    "source": "fore.coffee catalogue (tanpa info stok)",
+    "premium": false,
+    "categories": [
+        {
+            "id": "item-the-unexpected-twist",
+            "name": "The Unexpected Twist",
+            "kind": "item",
+            "items": [
+                "saltedspanishlatte",
+                "crunchycereallatte"
+            ]
+        },
+        {
+            "id": "item-favorite-choice",
+            "name": "Favorite Choice",
+            "kind": "item",
+            "items": [
+                "sunrisemontblack",
+                "starrycano"
+            ]
+        },
+        {
+            "id": "item-fore-signature",
+            "name": "Fore Signature",
+            "kind": "item",
+            "items": [
+                "kopidaritani",
+                "butterscotchseasaltlatte",
+                "buttercreamlatte",
+                "arenlatte",
+                "pandanlatte"
+            ]
+        },
+        {
+            "id": "item-coffee",
+            "name": "Coffee",
+            "kind": "item",
+            "items": [
+                "dirtymatchapresso",
+                "maltylatte",
+                "bumilatte",
+                "cappuccino",
+                "doubleicedshakenlatte",
+                "caflatte",
+                "nuttyoatlatte",
+                "buttercreamtiramisulatte",
+                "espresso",
+                "caramelpralinemacchiato"
+            ]
+        },
+        {
+            "id": "item-americano-series",
+            "name": "Americano Series",
+            "kind": "item",
+            "items": [
+                "americano",
+                "manukaamericano",
+                "triplepeachamericano",
+                "berrymanukaamericano"
+            ]
+        },
+        {
+            "id": "item-non-coffee",
+            "name": "Non Coffee",
+            "kind": "item",
+            "items": [
+                "matchabuttersaltcream",
+                "darkchocolate",
+                "almondchoco",
+                "matchagreentea"
+            ]
+        },
+        {
+            "id": "item-fore-junior",
+            "name": "Fore Junior",
+            "kind": "item",
+            "items": [
+                "butterscotchmilkcrumble",
+                "vanillaocrumbs",
+                "chococaramelcloud",
+                "chococookieshake"
+            ]
+        },
+        {
+            "id": "item-fore-deli",
+            "name": "Fore Deli",
+            "kind": "item",
+            "items": [
+                "saltbread",
+                "beefomelettetoast",
+                "mushroomtrufflesandwich",
+                "rollcakecheesepandan",
+                "rollcakepeanutbutterjam",
+                "rollcakemocha",
+                "beefmentaisandwich",
+                "cheesytunasandwich",
+                "chickenteriyakisandwich",
+                "smokedbeefcheesesandwich",
+                "blueberrycheesemuffin",
+                "chocomeltmuffin",
+                "triplecheesedanish",
+                "almondcroissant",
+                "bananachocolatecake",
+                "buttercroissant",
+                "painauchocolat",
+                "kouignamann"
+            ]
+        },
+        {
+            "id": "item-refresher",
+            "name": "Refresher",
+            "kind": "item",
+            "items": [
+                "sunnycitrusjasmine",
+                "cocopeachfusion"
+            ]
+        },
+        {
+            "id": "item-tea",
+            "name": "Tea",
+            "kind": "item",
+            "items": [
+                "englishbreakfast",
+                "greenteajasmine",
+                "purechamomile",
+                "greenteamint"
+            ]
+        },
+        {
+            "id": "item-others",
+            "name": "Others",
+            "kind": "item",
+            "items": [
+                "mineralwater"
+            ]
+        }
+    ],
+    "items": [
+        {
+            "key": "crunchycereallatte",
+            "id": "crunchycereallatte",
+            "code": "",
+            "name": "Crunchy Cereal Latte",
+            "category": "The Unexpected Twist",
+            "sourceCategory": "The Unexpected Twist",
+            "img": "https://static.fore.coffee/product/Crunchy%20Cereal%20Latte_Iced_2e0973cadc2ef0a0.jpg",
+            "desc": "Perpaduan kopi susu sereal dengan rasa manis gurih, dilengkapi taburan cornflakes renyah.",
+            "price": 28500,
+            "largePrice": 33500,
+            "normalPrice": 35000,
+            "outletPrice": 35000,
+            "largeBase": 40000,
+            "customPrice": false,
+            "discount": null,
+            "discountLabel": "",
+            "largeNormal": 41000,
+            "isSoldOut": false,
+            "notCarried": false,
+            "isFood": false,
+            "isSpecial": false,
+            "noLarge": false,
+            "options": {
+                "sizes": [
+                    "Regular",
+                    "Large"
+                ],
+                "temps": [
+                    "Ice",
+                    "Hot"
+                ],
+                "ices": [
+                    "Normal Ice",
+                    "Less Ice",
+                    "No Ice",
+                    "Extra Ice"
+                ],
+                "sugars": [
+                    "Normal Sugar",
+                    "Less Sugar"
+                ]
+            },
+            "tag": ""
+        },
+        {
+            "key": "saltedspanishlatte",
+            "id": "saltedspanishlatte",
+            "code": "",
+            "name": "Salted Spanish Latte",
+            "category": "The Unexpected Twist",
+            "sourceCategory": "The Unexpected Twist",
+            "img": "https://static.fore.coffee/product/Salted%20Spanish%20Latte_Iced_acf3d0a409dea32f.jpg",
+            "desc": "Kopi susu Spanish dengan sentuhan gurih manis yang lembut di tiap tegukan.",
+            "price": 25500,
+            "largePrice": 30500,
+            "normalPrice": 31000,
+            "outletPrice": 31000,
+            "largeBase": 36000,
+            "customPrice": false,
+            "discount": null,
+            "discountLabel": "",
+            "largeNormal": 37000,
+            "isSoldOut": false,
+            "notCarried": false,
+            "isFood": false,
+            "isSpecial": false,
+            "noLarge": false,
+            "options": {
+                "sizes": [
+                    "Regular",
+                    "Large"
+                ],
+                "temps": [
+                    "Ice",
+                    "Hot"
+                ],
+                "ices": [
+                    "Normal Ice",
+                    "Less Ice",
+                    "No Ice",
+                    "Extra Ice"
+                ],
+                "sugars": [
+                    "Normal Sugar",
+                    "Less Sugar"
+                ]
+            },
+            "tag": ""
+        },
+        {
+            "key": "sunrisemontblack",
+            "id": "sunrisemontblack",
+            "code": "",
+            "name": "Sunrise Mont-Black",
+            "category": "Favorite Choice",
+            "sourceCategory": "Favorite Choice",
+            "img": "https://static.fore.coffee/product/Thumbnail_%20_Sunrise%20Mont%20Black%20_895fa9ff36dedba9.jpg",
+            "desc": "Americano dengan sentuhan rasa jeruk dilengkapi dengan krim yang lembut.",
+            "price": 27000,
+            "largePrice": 32000,
+            "normalPrice": 33000,
+            "outletPrice": 33000,
+            "largeBase": 38000,
+            "customPrice": false,
+            "discount": null,
+            "discountLabel": "",
+            "largeNormal": 39000,
+            "isSoldOut": false,
+            "notCarried": false,
+            "isFood": false,
+            "isSpecial": false,
+            "noLarge": false,
+            "options": {
+                "sizes": [
+                    "Regular",
+                    "Large"
+                ],
+                "temps": [
+                    "Ice"
+                ],
+                "ices": [
+                    "Normal Ice",
+                    "Less Ice",
+                    "No Ice",
+                    "Extra Ice"
+                ],
+                "sugars": [
+                    "Normal Sugar",
+                    "Less Sugar"
+                ]
+            },
+            "tag": ""
+        },
+        {
+            "key": "starrycano",
+            "id": "starrycano",
+            "code": "",
+            "name": "Starrycano",
+            "category": "Favorite Choice",
+            "sourceCategory": "Favorite Choice",
+            "img": "https://static.fore.coffee/product/Starrycano%20(1).jpg",
+            "desc": "Kopi Americano yang bold bercampuran dengan belimbing dan apel, menambah rasa dan sensasi dinamis yang segar untuk si “Jiwa Petualang”",
+            "price": 27000,
+            "largePrice": 32000,
+            "normalPrice": 33000,
+            "outletPrice": 33000,
+            "largeBase": 38000,
+            "customPrice": false,
+            "discount": null,
+            "discountLabel": "",
+            "largeNormal": 39000,
+            "isSoldOut": false,
+            "notCarried": false,
+            "isFood": false,
+            "isSpecial": false,
+            "noLarge": false,
+            "options": {
+                "sizes": [
+                    "Regular",
+                    "Large"
+                ],
+                "temps": [
+                    "Ice"
+                ],
+                "ices": [
+                    "Normal Ice",
+                    "Less Ice",
+                    "No Ice",
+                    "Extra Ice"
+                ],
+                "sugars": [
+                    "Normal Sugar",
+                    "Less Sugar"
+                ]
+            },
+            "tag": ""
+        },
+        {
+            "key": "caramelpralinecoffeeiceblended",
+            "id": "caramelpralinecoffeeiceblended",
+            "code": "",
+            "name": "Caramel Praline Coffee  Ice Blended",
+            "category": "Ice Blended",
+            "sourceCategory": "Ice Blended",
+            "img": "https://static.fore.coffee/product/Caramel%20Praline%20Coffee%20Ice%20Blended.jpg",
+            "desc": "Ice blended latte dengan saus Praline dan karamel.",
+            "price": 27500,
+            "largePrice": 32500,
+            "normalPrice": 34000,
+            "outletPrice": 34000,
+            "largeBase": 41000,
+            "customPrice": true,
+            "discount": null,
+            "discountLabel": "",
+            "largeNormal": 40000,
+            "isSoldOut": false,
+            "notCarried": false,
+            "isFood": false,
+            "isSpecial": true,
+            "noLarge": false,
+            "options": {
+                "sizes": [
+                    "Regular",
+                    "Large"
+                ],
+                "temps": [
+                    "Ice"
+                ],
+                "ices": [
+                    "Normal Ice",
+                    "Less Ice",
+                    "No Ice"
+                ],
+                "sugars": [
+                    "Normal Sugar",
+                    "Less Sugar",
+                    "No Sugar"
+                ]
+            },
+            "tag": ""
+        },
+        {
+            "key": "matchaiceblended",
+            "id": "matchaiceblended",
+            "code": "",
+            "name": "Matcha Ice Blended",
+            "category": "Ice Blended",
+            "sourceCategory": "Ice Blended",
+            "img": "https://static.fore.coffee/product/Matcha%20Ice%20Blended.jpg",
+            "desc": "Paduan Creamy Matcha khas Fore Coffee, susu segar, dengan es, pas untuk menyejukkan harimu!",
+            "price": 27500,
+            "largePrice": 32500,
+            "normalPrice": 34000,
+            "outletPrice": 34000,
+            "largeBase": 41000,
+            "customPrice": true,
+            "discount": null,
+            "discountLabel": "",
+            "largeNormal": 40000,
+            "isSoldOut": false,
+            "notCarried": false,
+            "isFood": false,
+            "isSpecial": true,
+            "noLarge": false,
+            "options": {
+                "sizes": [
+                    "Regular",
+                    "Large"
+                ],
+                "temps": [
+                    "Ice"
+                ],
+                "ices": [
+                    "Normal Ice",
+                    "Less Ice",
+                    "No Ice"
+                ],
+                "sugars": [
+                    "Normal Sugar",
+                    "Less Sugar",
+                    "No Sugar"
+                ]
+            },
+            "tag": ""
+        },
+        {
+            "key": "strawberryiceblended",
+            "id": "strawberryiceblended",
+            "code": "",
+            "name": "Strawberry Ice Blended",
+            "category": "Ice Blended",
+            "sourceCategory": "Ice Blended",
+            "img": "https://static.fore.coffee/product/Strawberry%20Ice%20Blended.jpg",
+            "desc": "Manisnya strawberry bertemu dengan susu dan es dilapisi dengan strawberry puree.",
+            "price": 27500,
+            "largePrice": 32500,
+            "normalPrice": 34000,
+            "outletPrice": 34000,
+            "largeBase": 41000,
+            "customPrice": true,
+            "discount": null,
+            "discountLabel": "",
+            "largeNormal": 40000,
+            "isSoldOut": false,
+            "notCarried": false,
+            "isFood": false,
+            "isSpecial": true,
+            "noLarge": false,
+            "options": {
+                "sizes": [
+                    "Regular",
+                    "Large"
+                ],
+                "temps": [
+                    "Ice"
+                ],
+                "ices": [
+                    "Normal Ice",
+                    "Less Ice",
+                    "No Ice"
+                ],
+                "sugars": [
+                    "Normal Sugar",
+                    "Less Sugar",
+                    "No Sugar"
+                ]
+            },
+            "tag": ""
+        },
+        {
+            "key": "chocolateiceblended",
+            "id": "chocolateiceblended",
+            "code": "",
+            "name": "Chocolate Ice Blended",
+            "category": "Ice Blended",
+            "sourceCategory": "Ice Blended",
+            "img": "https://static.fore.coffee/product/Chocolate%20Ice%20Blended.jpg",
+            "desc": "Ice blended cokelat spesial dengan susu pilihan",
+            "price": 30000,
+            "largePrice": 35000,
+            "normalPrice": 37000,
+            "outletPrice": 37000,
+            "largeBase": 44000,
+            "customPrice": true,
+            "discount": null,
+            "discountLabel": "",
+            "largeNormal": 43000,
+            "isSoldOut": false,
+            "notCarried": false,
+            "isFood": false,
+            "isSpecial": true,
+            "noLarge": false,
+            "options": {
+                "sizes": [
+                    "Regular",
+                    "Large"
+                ],
+                "temps": [
+                    "Ice"
+                ],
+                "ices": [
+                    "Normal Ice",
+                    "Less Ice",
+                    "No Ice"
+                ],
+                "sugars": [
+                    "Normal Sugar",
+                    "Less Sugar",
+                    "No Sugar"
+                ]
+            },
+            "tag": ""
+        },
+        {
+            "key": "kopidaritani",
+            "id": "kopidaritani",
+            "code": "",
+            "name": "Kopi Dari Tani",
+            "category": "Fore Signature",
+            "sourceCategory": "Fore Signature",
+            "img": "https://static.fore.coffee/product/Kopi%20dari%20Tani%20(1)_f54155c1c7a1d234.jpg",
+            "desc": "Paduan rasa dan aroma kopi Indonesia yang kuat bercampur dengan gula aren khas nusantara",
+            "price": 24000,
+            "largePrice": 29000,
+            "normalPrice": 29000,
+            "outletPrice": 29000,
+            "largeBase": 34000,
+            "customPrice": false,
+            "discount": null,
+            "discountLabel": "",
+            "largeNormal": 35000,
+            "isSoldOut": false,
+            "notCarried": false,
+            "isFood": false,
+            "isSpecial": false,
+            "noLarge": false,
+            "options": {
+                "sizes": [
+                    "Regular",
+                    "Large"
+                ],
+                "temps": [
+                    "Ice"
+                ],
+                "ices": [
+                    "Normal Ice",
+                    "Less Ice",
+                    "No Ice",
+                    "Extra Ice"
+                ],
+                "sugars": [
+                    "Normal Sugar",
+                    "Less Sugar"
+                ]
+            },
+            "tag": ""
+        },
+        {
+            "key": "butterscotchseasaltlatte",
+            "id": "butterscotchseasaltlatte",
+            "code": "",
+            "name": "Butterscotch Sea Salt Latte",
+            "category": "Fore Signature",
+            "sourceCategory": "Fore Signature",
+            "img": "https://static.fore.coffee/product/Butterscotch%20Sea%20Salt%20Latte%20(1)_b6cce4a2413c5920.jpg",
+            "desc": "Perpaduan butterscotch dan espresso house blend dengan topping cream sea salt yang lembut di atasnya",
+            "price": 30000,
+            "largePrice": 35000,
+            "normalPrice": 37000,
+            "outletPrice": 37000,
+            "largeBase": 45000,
+            "customPrice": false,
+            "discount": null,
+            "discountLabel": "",
+            "largeNormal": 43000,
+            "isSoldOut": false,
+            "notCarried": false,
+            "isFood": false,
+            "isSpecial": false,
+            "noLarge": false,
+            "options": {
+                "sizes": [
+                    "Regular",
+                    "Large"
+                ],
+                "temps": [
+                    "Ice"
+                ],
+                "ices": [
+                    "Normal Ice",
+                    "Less Ice",
+                    "No Ice",
+                    "Extra Ice"
+                ],
+                "sugars": [
+                    "Normal Sugar",
+                    "Less Sugar"
+                ]
+            },
+            "tag": ""
+        },
+        {
+            "key": "buttercreamlatte",
+            "id": "buttercreamlatte",
+            "code": "",
+            "name": "Buttercream Latte",
+            "category": "Fore Signature",
+            "sourceCategory": "Fore Signature",
+            "img": "https://static.fore.coffee/product/Buttercream%20Latte.jpg",
+            "desc": "Nikmatnya Buttercream Coffee sebagai topping  kopi susu karamel",
+            "price": 30000,
+            "largePrice": 35000,
+            "normalPrice": 37000,
+            "outletPrice": 37000,
+            "largeBase": 42000,
+            "customPrice": false,
+            "discount": null,
+            "discountLabel": "",
+            "largeNormal": 43000,
+            "isSoldOut": false,
+            "notCarried": false,
+            "isFood": false,
+            "isSpecial": false,
+            "noLarge": false,
+            "options": {
+                "sizes": [
+                    "Regular",
+                    "Large"
+                ],
+                "temps": [
+                    "Ice"
+                ],
+                "ices": [
+                    "Normal Ice",
+                    "Less Ice",
+                    "No Ice",
+                    "Extra Ice"
+                ],
+                "sugars": [
+                    "Normal Sugar",
+                    "Less Sugar"
+                ]
+            },
+            "tag": ""
+        },
+        {
+            "key": "arenlatte",
+            "id": "arenlatte",
+            "code": "",
+            "name": "Aren Latte",
+            "category": "Fore Signature",
+            "sourceCategory": "Fore Signature",
+            "img": "https://static.fore.coffee/product/Aren%20Latte%20(2)_661d2790d334836a.jpg",
+            "desc": "Rasa alami gula aren berpadu sempurna dengan espresso premium. Menu terlaris Fore Coffee",
+            "price": 27000,
+            "largePrice": 32000,
+            "normalPrice": 33000,
+            "outletPrice": 33000,
+            "largeBase": 38000,
+            "customPrice": false,
+            "discount": null,
+            "discountLabel": "",
+            "largeNormal": 39000,
+            "isSoldOut": false,
+            "notCarried": false,
+            "isFood": false,
+            "isSpecial": false,
+            "noLarge": false,
+            "options": {
+                "sizes": [
+                    "Regular",
+                    "Large"
+                ],
+                "temps": [
+                    "Ice",
+                    "Hot"
+                ],
+                "ices": [
+                    "Normal Ice",
+                    "Less Ice",
+                    "No Ice",
+                    "Extra Ice"
+                ],
+                "sugars": [
+                    "Normal Sugar",
+                    "Less Sugar"
+                ]
+            },
+            "tag": ""
+        },
+        {
+            "key": "pandanlatte",
+            "id": "pandanlatte",
+            "code": "",
+            "name": "Pandan Latte",
+            "category": "Fore Signature",
+            "sourceCategory": "Fore Signature",
+            "img": "https://static.fore.coffee/product/Pandan%20Latte.jpg",
+            "desc": "Latte dengan rasa dan aroma unik dari ekstrak pandan alami khas Fore Coffee",
+            "price": 27000,
+            "largePrice": 32000,
+            "normalPrice": 33000,
+            "outletPrice": 33000,
+            "largeBase": 38000,
+            "customPrice": false,
+            "discount": null,
+            "discountLabel": "",
+            "largeNormal": 39000,
+            "isSoldOut": false,
+            "notCarried": false,
+            "isFood": false,
+            "isSpecial": false,
+            "noLarge": false,
+            "options": {
+                "sizes": [
+                    "Regular",
+                    "Large"
+                ],
+                "temps": [
+                    "Ice",
+                    "Hot"
+                ],
+                "ices": [
+                    "Normal Ice",
+                    "Less Ice",
+                    "No Ice",
+                    "Extra Ice"
+                ],
+                "sugars": [
+                    "Normal Sugar",
+                    "Less Sugar"
+                ]
+            },
+            "tag": ""
+        },
+        {
+            "key": "dirtymatchapresso",
+            "id": "dirtymatchapresso",
+            "code": "",
+            "name": "Dirty Matchapresso",
+            "category": "Coffee",
+            "sourceCategory": "Coffee",
+            "img": "https://static.fore.coffee/product/Dirty-Matchapresso-ID.jpg",
+            "desc": "Kombinasi matcha dan espresso yang bold, satukan dua dunia untuk bangkitkan semangatmu!",
+            "price": 28500,
+            "largePrice": 33500,
+            "normalPrice": 35000,
+            "outletPrice": 35000,
+            "largeBase": 40000,
+            "customPrice": false,
+            "discount": null,
+            "discountLabel": "",
+            "largeNormal": 41000,
+            "isSoldOut": false,
+            "notCarried": false,
+            "isFood": false,
+            "isSpecial": false,
+            "noLarge": false,
+            "options": {
+                "sizes": [
+                    "Regular",
+                    "Large"
+                ],
+                "temps": [
+                    "Ice"
+                ],
+                "ices": [
+                    "Normal Ice",
+                    "Less Ice",
+                    "No Ice",
+                    "Extra Ice"
+                ],
+                "sugars": [
+                    "Normal Sugar",
+                    "Less Sugar"
+                ]
+            },
+            "tag": ""
+        },
+        {
+            "key": "maltylatte",
+            "id": "maltylatte",
+            "code": "",
+            "name": "Malty Latte",
+            "category": "Coffee",
+            "sourceCategory": "Coffee",
+            "img": "https://static.fore.coffee/product/Malty%20Latte%20(1).jpg",
+            "desc": "Sang legenda Traditional Latte berpadu dengan manisnya karamel, menambah pengalaman rasa creamy dan nutty, yang berkesan di hati.",
+            "price": 25500,
+            "largePrice": 30500,
+            "normalPrice": 31000,
+            "outletPrice": 31000,
+            "largeBase": 36000,
+            "customPrice": false,
+            "discount": null,
+            "discountLabel": "",
+            "largeNormal": 37000,
+            "isSoldOut": false,
+            "notCarried": false,
+            "isFood": false,
+            "isSpecial": false,
+            "noLarge": false,
+            "options": {
+                "sizes": [
+                    "Regular",
+                    "Large"
+                ],
+                "temps": [
+                    "Ice"
+                ],
+                "ices": [
+                    "Normal Ice",
+                    "Less Ice",
+                    "No Ice",
+                    "Extra Ice"
+                ],
+                "sugars": [
+                    "Normal Sugar",
+                    "Less Sugar"
+                ]
+            },
+            "tag": ""
+        },
+        {
+            "key": "bumilatte",
+            "id": "bumilatte",
+            "code": "",
+            "name": "Bumi Latte",
+            "category": "Coffee",
+            "sourceCategory": "Coffee",
+            "img": "https://static.fore.coffee/product/Bumi%20Latte.jpg",
+            "desc": "Sensasi lembut dan legit dari saus karamel dan butterscotch yang khas berpadu dengan kopi autentik Indonesia",
+            "price": 24000,
+            "largePrice": 29000,
+            "normalPrice": 29000,
+            "outletPrice": 29000,
+            "largeBase": 34000,
+            "customPrice": false,
+            "discount": null,
+            "discountLabel": "",
+            "largeNormal": 35000,
+            "isSoldOut": false,
+            "notCarried": false,
+            "isFood": false,
+            "isSpecial": false,
+            "noLarge": false,
+            "options": {
+                "sizes": [
+                    "Regular",
+                    "Large"
+                ],
+                "temps": [
+                    "Ice"
+                ],
+                "ices": [
+                    "Normal Ice",
+                    "Less Ice",
+                    "No Ice",
+                    "Extra Ice"
+                ],
+                "sugars": [
+                    "Normal Sugar",
+                    "Less Sugar"
+                ]
+            },
+            "tag": ""
+        },
+        {
+            "key": "cappuccino",
+            "id": "cappuccino",
+            "code": "",
+            "name": "Cappuccino",
+            "category": "Coffee",
+            "sourceCategory": "Coffee",
+            "img": "https://static.fore.coffee/product/Cappuccino3.jpg",
+            "desc": "Paduan Espresso, susu hangat, dan lapisan foam tebal di atasnya tanpa gula tambahan.",
+            "price": 27000,
+            "largePrice": 32000,
+            "normalPrice": 33000,
+            "outletPrice": 33000,
+            "largeBase": 40000,
+            "customPrice": false,
+            "discount": null,
+            "discountLabel": "",
+            "largeNormal": 39000,
+            "isSoldOut": false,
+            "notCarried": false,
+            "isFood": false,
+            "isSpecial": false,
+            "noLarge": false,
+            "options": {
+                "sizes": [
+                    "Regular",
+                    "Large"
+                ],
+                "temps": [
+                    "Ice",
+                    "Hot"
+                ],
+                "ices": [
+                    "Normal Ice",
+                    "Less Ice",
+                    "No Ice",
+                    "Extra Ice"
+                ],
+                "sugars": [
+                    "Normal Sugar",
+                    "Less Sugar"
+                ]
+            },
+            "tag": ""
+        },
+        {
+            "key": "doubleicedshakenlatte",
+            "id": "doubleicedshakenlatte",
+            "code": "",
+            "name": "Double Iced Shaken Latte",
+            "category": "Coffee",
+            "sourceCategory": "Coffee",
+            "img": "https://static.fore.coffee/product/Double-Iced-Shaken-Latte-new.jpg",
+            "desc": "Paduan klasik 2 shot espresso dengan susu dan krim",
+            "price": 29000,
+            "largePrice": 34000,
+            "normalPrice": 36000,
+            "outletPrice": 36000,
+            "largeBase": 41000,
+            "customPrice": false,
+            "discount": null,
+            "discountLabel": "",
+            "largeNormal": 42000,
+            "isSoldOut": false,
+            "notCarried": false,
+            "isFood": false,
+            "isSpecial": true,
+            "noLarge": false,
+            "options": {
+                "sizes": [
+                    "Regular",
+                    "Large"
+                ],
+                "temps": [
+                    "Ice"
+                ],
+                "ices": [
+                    "Normal Ice",
+                    "Less Ice",
+                    "No Ice",
+                    "Extra Ice"
+                ],
+                "sugars": [
+                    "Normal Sugar",
+                    "Less Sugar"
+                ]
+            },
+            "tag": ""
+        },
+        {
+            "key": "caflatte",
+            "id": "caflatte",
+            "code": "",
+            "name": "Café Latte",
+            "category": "Coffee",
+            "sourceCategory": "Coffee",
+            "img": "https://static.fore.coffee/product/Cafe%CC%81%20Latte.jpg",
+            "desc": "Paduan espresso dengan susu sapi pilihan dan sedikit foam tanpa gula tambahan.",
+            "price": 27000,
+            "largePrice": 32000,
+            "normalPrice": 33000,
+            "outletPrice": 33000,
+            "largeBase": 38000,
+            "customPrice": false,
+            "discount": null,
+            "discountLabel": "",
+            "largeNormal": 39000,
+            "isSoldOut": false,
+            "notCarried": false,
+            "isFood": false,
+            "isSpecial": false,
+            "noLarge": false,
+            "options": {
+                "sizes": [
+                    "Regular",
+                    "Large"
+                ],
+                "temps": [
+                    "Ice",
+                    "Hot"
+                ],
+                "ices": [
+                    "Normal Ice",
+                    "Less Ice",
+                    "No Ice",
+                    "Extra Ice"
+                ],
+                "sugars": [
+                    "Normal Sugar",
+                    "Less Sugar"
+                ]
+            },
+            "tag": ""
+        },
+        {
+            "key": "nuttyoatlatte",
+            "id": "nuttyoatlatte",
+            "code": "",
+            "name": "Nutty Oat Latte",
+            "category": "Coffee",
+            "sourceCategory": "Coffee",
+            "img": "https://static.fore.coffee/product/Nutty%20Oat%20Latte.jpg",
+            "desc": "Espresso dari biji kopi khas nusantara dipadukan susu oat gluten-free dan sensasi nutty dari hazelnut.",
+            "price": 33500,
+            "largePrice": 38500,
+            "normalPrice": 42000,
+            "outletPrice": 42000,
+            "largeBase": 47000,
+            "customPrice": false,
+            "discount": null,
+            "discountLabel": "",
+            "largeNormal": 48000,
+            "isSoldOut": false,
+            "notCarried": false,
+            "isFood": false,
+            "isSpecial": false,
+            "noLarge": false,
+            "options": {
+                "sizes": [
+                    "Regular",
+                    "Large"
+                ],
+                "temps": [
+                    "Ice"
+                ],
+                "ices": [
+                    "Normal Ice",
+                    "Less Ice",
+                    "No Ice",
+                    "Extra Ice"
+                ],
+                "sugars": [
+                    "Normal Sugar",
+                    "Less Sugar"
+                ]
+            },
+            "tag": ""
+        },
+        {
+            "key": "buttercreamtiramisulatte",
+            "id": "buttercreamtiramisulatte",
+            "code": "",
+            "name": "Buttercream Tiramisu Latte",
+            "category": "Coffee",
+            "sourceCategory": "Coffee",
+            "img": "https://static.fore.coffee/product/Buttercream%20Tiramisu%20Latte4.jpg",
+            "desc": "Lembutnya Buttercream Tiramisu sebagai topping kopi susu praline",
+            "price": 30000,
+            "largePrice": 35000,
+            "normalPrice": 37000,
+            "outletPrice": 37000,
+            "largeBase": 42000,
+            "customPrice": false,
+            "discount": null,
+            "discountLabel": "",
+            "largeNormal": 43000,
+            "isSoldOut": false,
+            "notCarried": false,
+            "isFood": false,
+            "isSpecial": false,
+            "noLarge": false,
+            "options": {
+                "sizes": [
+                    "Regular",
+                    "Large"
+                ],
+                "temps": [
+                    "Ice"
+                ],
+                "ices": [
+                    "Normal Ice",
+                    "Less Ice",
+                    "No Ice",
+                    "Extra Ice"
+                ],
+                "sugars": [
+                    "Normal Sugar",
+                    "Less Sugar"
+                ]
+            },
+            "tag": ""
+        },
+        {
+            "key": "espresso",
+            "id": "espresso",
+            "code": "",
+            "name": "Espresso",
+            "category": "Coffee",
+            "sourceCategory": "Coffee",
+            "img": "https://static.fore.coffee/product/Espresso.jpg",
+            "desc": "Ekstrak biji kopi Arabika murni tanpa campuran",
+            "price": 19500,
+            "largePrice": null,
+            "normalPrice": 23000,
+            "outletPrice": 23000,
+            "customPrice": false,
+            "discount": null,
+            "discountLabel": "",
+            "largeNormal": null,
+            "isSoldOut": false,
+            "notCarried": false,
+            "isFood": false,
+            "isSpecial": false,
+            "noLarge": false,
+            "options": {
+                "sizes": [
+                    "Regular"
+                ],
+                "temps": [
+                    "Hot"
+                ],
+                "ices": [],
+                "sugars": []
+            },
+            "tag": ""
+        },
+        {
+            "key": "caramelpralinemacchiato",
+            "id": "caramelpralinemacchiato",
+            "code": "",
+            "name": "Caramel Praline Macchiato",
+            "category": "Coffee",
+            "sourceCategory": "Coffee",
+            "img": "https://static.fore.coffee/product/Caramel-Praline-Macchiato-new.jpg",
+            "desc": "Latte dengan saus Praline dan karamel dengan rasa dan aroma manis.",
+            "price": 30000,
+            "largePrice": 35000,
+            "normalPrice": 37000,
+            "outletPrice": 37000,
+            "largeBase": 42000,
+            "customPrice": false,
+            "discount": null,
+            "discountLabel": "",
+            "largeNormal": 43000,
+            "isSoldOut": false,
+            "notCarried": false,
+            "isFood": false,
+            "isSpecial": false,
+            "noLarge": false,
+            "options": {
+                "sizes": [
+                    "Regular",
+                    "Large"
+                ],
+                "temps": [
+                    "Ice",
+                    "Hot"
+                ],
+                "ices": [
+                    "Normal Ice",
+                    "Less Ice",
+                    "No Ice",
+                    "Extra Ice"
+                ],
+                "sugars": [
+                    "Normal Sugar",
+                    "Less Sugar"
+                ]
+            },
+            "tag": ""
+        },
+        {
+            "key": "americano",
+            "id": "americano",
+            "code": "",
+            "name": "Americano",
+            "category": "Americano Series",
+            "sourceCategory": "Americano Series",
+            "img": "https://static.fore.coffee/product/Americano_c14433f402033bfc.jpg",
+            "desc": "Espresso shot yang dicampur dengan segelas air menghadirkan karakter, aroma, dan rasa yang ideal.",
+            "price": 21500,
+            "largePrice": 26500,
+            "normalPrice": 26000,
+            "outletPrice": 26000,
+            "largeBase": 31000,
+            "customPrice": false,
+            "discount": null,
+            "discountLabel": "",
+            "largeNormal": 32000,
+            "isSoldOut": false,
+            "notCarried": false,
+            "isFood": false,
+            "isSpecial": false,
+            "noLarge": false,
+            "options": {
+                "sizes": [
+                    "Regular",
+                    "Large"
+                ],
+                "temps": [
+                    "Ice",
+                    "Hot"
+                ],
+                "ices": [
+                    "Normal Ice",
+                    "Less Ice",
+                    "No Ice",
+                    "Extra Ice"
+                ],
+                "sugars": []
+            },
+            "tag": ""
+        },
+        {
+            "key": "manukaamericano",
+            "id": "manukaamericano",
+            "code": "",
+            "name": "Manuka Americano",
+            "category": "Americano Series",
+            "sourceCategory": "Americano Series",
+            "img": "https://static.fore.coffee/product/Manuka-Americano-New.jpg",
+            "desc": "Americano dengan madu Manuka yang pas untuk jadi energy booster",
+            "price": 27000,
+            "largePrice": 32000,
+            "normalPrice": 33000,
+            "outletPrice": 33000,
+            "largeBase": 38000,
+            "customPrice": false,
+            "discount": null,
+            "discountLabel": "",
+            "largeNormal": 39000,
+            "isSoldOut": false,
+            "notCarried": false,
+            "isFood": false,
+            "isSpecial": false,
+            "noLarge": false,
+            "options": {
+                "sizes": [
+                    "Regular",
+                    "Large"
+                ],
+                "temps": [
+                    "Ice",
+                    "Hot"
+                ],
+                "ices": [
+                    "Normal Ice",
+                    "Less Ice",
+                    "No Ice",
+                    "Extra Ice"
+                ],
+                "sugars": [
+                    "Normal Sugar",
+                    "Less Sugar"
+                ]
+            },
+            "tag": ""
+        },
+        {
+            "key": "triplepeachamericano",
+            "id": "triplepeachamericano",
+            "code": "",
+            "name": "Triple Peach  Americano",
+            "category": "Americano Series",
+            "sourceCategory": "Americano Series",
+            "img": "https://static.fore.coffee/product/Triple-Peach-Americano-New.jpg",
+            "desc": "Peach coffee perpaduan rasa kopi,  tiga jenis buah peach dan aroma elderflower yang menciptakan sensasi kopi yang segar dan harmonis.",
+            "price": 27000,
+            "largePrice": 32000,
+            "normalPrice": 33000,
+            "outletPrice": 33000,
+            "largeBase": 38000,
+            "customPrice": false,
+            "discount": null,
+            "discountLabel": "",
+            "largeNormal": 39000,
+            "isSoldOut": false,
+            "notCarried": false,
+            "isFood": false,
+            "isSpecial": false,
+            "noLarge": false,
+            "options": {
+                "sizes": [
+                    "Regular",
+                    "Large"
+                ],
+                "temps": [
+                    "Ice"
+                ],
+                "ices": [
+                    "Normal Ice",
+                    "Less Ice",
+                    "No Ice",
+                    "Extra Ice"
+                ],
+                "sugars": [
+                    "Normal Sugar",
+                    "Less Sugar"
+                ]
+            },
+            "tag": ""
+        },
+        {
+            "key": "berrymanukaamericano",
+            "id": "berrymanukaamericano",
+            "code": "",
+            "name": "Berry Manuka  Americano",
+            "category": "Americano Series",
+            "sourceCategory": "Americano Series",
+            "img": "https://static.fore.coffee/product/Berry%20Manuka%20Americano%20(3)_0e751080265ef9f6.jpg",
+            "desc": "Perpaduan rasa Stroberi dan Manuka dengan Classic Blend Fore yang menyegarkan",
+            "price": 28500,
+            "largePrice": 33500,
+            "normalPrice": 35000,
+            "outletPrice": 35000,
+            "largeBase": 40000,
+            "customPrice": false,
+            "discount": null,
+            "discountLabel": "",
+            "largeNormal": 41000,
+            "isSoldOut": false,
+            "notCarried": false,
+            "isFood": false,
+            "isSpecial": false,
+            "noLarge": false,
+            "options": {
+                "sizes": [
+                    "Regular",
+                    "Large"
+                ],
+                "temps": [
+                    "Ice"
+                ],
+                "ices": [
+                    "Normal Ice",
+                    "Less Ice",
+                    "No Ice",
+                    "Extra Ice"
+                ],
+                "sugars": [
+                    "Normal Sugar",
+                    "Less Sugar"
+                ]
+            },
+            "tag": ""
+        },
+        {
+            "key": "matchabuttersaltcream",
+            "id": "matchabuttersaltcream",
+            "code": "",
+            "name": "Matcha Butter Salt Cream",
+            "category": "Non Coffee",
+            "sourceCategory": "Non Coffee",
+            "img": "https://static.fore.coffee/product/Matcha-Buttersalt-Cream-ID.jpg",
+            "desc": "Perpaduan matcha dengan krim Butter Salt yang populer dan memanjakan di setiap tegukan.",
+            "price": 28500,
+            "largePrice": 33500,
+            "normalPrice": 35000,
+            "outletPrice": 35000,
+            "largeBase": 40000,
+            "customPrice": false,
+            "discount": null,
+            "discountLabel": "",
+            "largeNormal": 41000,
+            "isSoldOut": false,
+            "notCarried": false,
+            "isFood": false,
+            "isSpecial": false,
+            "noLarge": false,
+            "options": {
+                "sizes": [
+                    "Regular",
+                    "Large"
+                ],
+                "temps": [
+                    "Ice"
+                ],
+                "ices": [
+                    "Normal Ice",
+                    "Less Ice",
+                    "No Ice",
+                    "Extra Ice"
+                ],
+                "sugars": [
+                    "Normal Sugar",
+                    "Less Sugar"
+                ]
+            },
+            "tag": ""
+        },
+        {
+            "key": "darkchocolate",
+            "id": "darkchocolate",
+            "code": "",
+            "name": "Dark Chocolate",
+            "category": "Non Coffee",
+            "sourceCategory": "Non Coffee",
+            "img": "https://static.fore.coffee/product/Dark%20Chocolate.jpg",
+            "desc": "Dibuat dari 100% dark chocolate dan paduan susu yang nikmat",
+            "price": 30000,
+            "largePrice": 35000,
+            "normalPrice": 37000,
+            "outletPrice": 37000,
+            "largeBase": 42000,
+            "customPrice": false,
+            "discount": null,
+            "discountLabel": "",
+            "largeNormal": 43000,
+            "isSoldOut": false,
+            "notCarried": false,
+            "isFood": false,
+            "isSpecial": false,
+            "noLarge": false,
+            "options": {
+                "sizes": [
+                    "Regular",
+                    "Large"
+                ],
+                "temps": [
+                    "Ice",
+                    "Hot"
+                ],
+                "ices": [
+                    "Normal Ice",
+                    "Less Ice",
+                    "No Ice",
+                    "Extra Ice"
+                ],
+                "sugars": [
+                    "Normal Sugar",
+                    "Less Sugar"
+                ]
+            },
+            "tag": ""
+        },
+        {
+            "key": "almondchoco",
+            "id": "almondchoco",
+            "code": "",
+            "name": "Almond Choco",
+            "category": "Non Coffee",
+            "sourceCategory": "Non Coffee",
+            "img": "https://static.fore.coffee/product/Almond%20Chocolate.jpg",
+            "desc": "Cokelat klasik dari Fore Coffee yang dipadu dengan susu almond. Sebuah definisi comfort drink yang sesungguhnya.",
+            "price": 33500,
+            "largePrice": 38500,
+            "normalPrice": 42000,
+            "outletPrice": 42000,
+            "largeBase": 47000,
+            "customPrice": false,
+            "discount": null,
+            "discountLabel": "",
+            "largeNormal": 48000,
+            "isSoldOut": false,
+            "notCarried": false,
+            "isFood": false,
+            "isSpecial": false,
+            "noLarge": false,
+            "options": {
+                "sizes": [
+                    "Regular",
+                    "Large"
+                ],
+                "temps": [
+                    "Ice",
+                    "Hot"
+                ],
+                "ices": [
+                    "Normal Ice",
+                    "Less Ice",
+                    "No Ice",
+                    "Extra Ice"
+                ],
+                "sugars": [
+                    "Normal Sugar",
+                    "Less Sugar"
+                ]
+            },
+            "tag": ""
+        },
+        {
+            "key": "matchagreentea",
+            "id": "matchagreentea",
+            "code": "",
+            "name": "Matcha Green Tea",
+            "category": "Non Coffee",
+            "sourceCategory": "Non Coffee",
+            "img": "https://static.fore.coffee/product/Matcha%20Latte.jpg",
+            "desc": "Bubuk matcha spesial Fore yang lembut dan creamy berpadu dengan susu segar",
+            "price": 30000,
+            "largePrice": 35000,
+            "normalPrice": 37000,
+            "outletPrice": 37000,
+            "largeBase": 42000,
+            "customPrice": false,
+            "discount": null,
+            "discountLabel": "",
+            "largeNormal": 43000,
+            "isSoldOut": false,
+            "notCarried": false,
+            "isFood": false,
+            "isSpecial": false,
+            "noLarge": false,
+            "options": {
+                "sizes": [
+                    "Regular",
+                    "Large"
+                ],
+                "temps": [
+                    "Ice",
+                    "Hot"
+                ],
+                "ices": [
+                    "Normal Ice",
+                    "Less Ice",
+                    "No Ice",
+                    "Extra Ice"
+                ],
+                "sugars": [
+                    "Normal Sugar",
+                    "Less Sugar"
+                ]
+            },
+            "tag": ""
+        },
+        {
+            "key": "classicmilo",
+            "id": "classicmilo",
+            "code": "",
+            "name": "Classic Milo",
+            "category": "Non Coffee",
+            "sourceCategory": "Non Coffee",
+            "img": "https://static.fore.coffee/product/Iced%20Milo.jpg",
+            "desc": "Minuman klasik cokelat dengan rasa malt dengan saus creamy dan susu creamy",
+            "price": 21000,
+            "largePrice": 26000,
+            "normalPrice": 25000,
+            "outletPrice": 25000,
+            "largeBase": 32000,
+            "customPrice": true,
+            "discount": null,
+            "discountLabel": "",
+            "largeNormal": 31000,
+            "isSoldOut": false,
+            "notCarried": false,
+            "isFood": false,
+            "isSpecial": false,
+            "noLarge": false,
+            "options": {
+                "sizes": [
+                    "Regular",
+                    "Large"
+                ],
+                "temps": [
+                    "Ice",
+                    "Hot"
+                ],
+                "ices": [
+                    "Normal Ice",
+                    "Less Ice",
+                    "No Ice"
+                ],
+                "sugars": [
+                    "Normal Sugar",
+                    "Less Sugar",
+                    "No Sugar"
+                ]
+            },
+            "tag": ""
+        },
+        {
+            "key": "chococookieshake",
+            "id": "chococookieshake",
+            "code": "",
+            "name": "Choco Cookie Shake",
+            "category": "Fore Junior",
+            "sourceCategory": "Fore Junior",
+            "img": "https://static.fore.coffee/product/chococookieshake-.jpg",
+            "desc": "Rasa cokelat istimewa untuk momen manis dan penuh petualangan.",
+            "price": 27000,
+            "largePrice": null,
+            "normalPrice": 33000,
+            "outletPrice": 33000,
+            "customPrice": false,
+            "discount": null,
+            "discountLabel": "",
+            "largeNormal": null,
+            "isSoldOut": true,
+            "notCarried": false,
+            "isFood": false,
+            "isSpecial": true,
+            "noLarge": false,
+            "options": {
+                "sizes": [
+                    "Regular"
+                ],
+                "temps": [
+                    "Ice"
+                ],
+                "ices": [
+                    "Normal Ice",
+                    "Less Ice",
+                    "No Ice",
+                    "Extra Ice"
+                ],
+                "sugars": [
+                    "Normal Sugar",
+                    "Less Sugar"
+                ]
+            },
+            "tag": ""
+        },
+        {
+            "key": "butterscotchmilkcrumble",
+            "id": "butterscotchmilkcrumble",
+            "code": "",
+            "name": "Butterscotch Milk Crumble",
+            "category": "Fore Junior",
+            "sourceCategory": "Fore Junior",
+            "img": "https://static.fore.coffee/product/butterscotchmilk-crumble.jpg",
+            "desc": "Butterscotch dengan paduan caramel, susu dengan sea salt cream dan caramel crumble sebagai topping.",
+            "price": 27000,
+            "largePrice": null,
+            "normalPrice": 33000,
+            "outletPrice": 33000,
+            "customPrice": false,
+            "discount": null,
+            "discountLabel": "",
+            "largeNormal": null,
+            "isSoldOut": false,
+            "notCarried": false,
+            "isFood": false,
+            "isSpecial": false,
+            "noLarge": false,
+            "options": {
+                "sizes": [
+                    "Regular"
+                ],
+                "temps": [
+                    "Ice"
+                ],
+                "ices": [
+                    "Normal Ice",
+                    "Less Ice",
+                    "No Ice",
+                    "Extra Ice"
+                ],
+                "sugars": [
+                    "Normal Sugar",
+                    "Less Sugar"
+                ]
+            },
+            "tag": ""
+        },
+        {
+            "key": "vanillaocrumbs",
+            "id": "vanillaocrumbs",
+            "code": "",
+            "name": "Vanilla O' Crumbs",
+            "category": "Fore Junior",
+            "sourceCategory": "Fore Junior",
+            "img": "https://static.fore.coffee/product/vanillaocrumbs-.jpg",
+            "desc": "Perpaduan vanilla, butterscotch dan susu dilengkapi dengan saus karamel juga topping oreo yang gurih diatasnya",
+            "price": 27000,
+            "largePrice": null,
+            "normalPrice": 33000,
+            "outletPrice": 33000,
+            "customPrice": false,
+            "discount": null,
+            "discountLabel": "",
+            "largeNormal": null,
+            "isSoldOut": false,
+            "notCarried": false,
+            "isFood": false,
+            "isSpecial": false,
+            "noLarge": false,
+            "options": {
+                "sizes": [
+                    "Regular"
+                ],
+                "temps": [
+                    "Ice"
+                ],
+                "ices": [
+                    "Normal Ice",
+                    "Less Ice",
+                    "No Ice",
+                    "Extra Ice"
+                ],
+                "sugars": [
+                    "Normal Sugar",
+                    "Less Sugar"
+                ]
+            },
+            "tag": ""
+        },
+        {
+            "key": "chococaramelcloud",
+            "id": "chococaramelcloud",
+            "code": "",
+            "name": "Choco Caramel Cloud",
+            "category": "Fore Junior",
+            "sourceCategory": "Fore Junior",
+            "img": "https://static.fore.coffee/product/choco-caramelcloud.jpg",
+            "desc": "Nikmatnya cream salted caramel dengan paduan dark chocolate yang cocok untuk ceriakan hari",
+            "price": 27000,
+            "largePrice": null,
+            "normalPrice": 33000,
+            "outletPrice": 33000,
+            "customPrice": false,
+            "discount": null,
+            "discountLabel": "",
+            "largeNormal": null,
+            "isSoldOut": false,
+            "notCarried": false,
+            "isFood": false,
+            "isSpecial": false,
+            "noLarge": false,
+            "options": {
+                "sizes": [
+                    "Regular"
+                ],
+                "temps": [
+                    "Ice"
+                ],
+                "ices": [
+                    "Normal Ice",
+                    "Less Ice",
+                    "No Ice",
+                    "Extra Ice"
+                ],
+                "sugars": [
+                    "Normal Sugar",
+                    "Less Sugar"
+                ]
+            },
+            "tag": ""
+        },
+        {
+            "key": "crunchycereallatte1l",
+            "id": "crunchycereallatte1l",
+            "code": "",
+            "name": "Crunchy Cereal Latte 1L",
+            "category": "FOREveryone 1L",
+            "sourceCategory": "FOREveryone 1L",
+            "img": "https://static.fore.coffee/product/Crunchy%20Cereal%20Latte_RTD_f024951197d2cefb.jpg",
+            "desc": "Perpaduan kopi susu sereal dengan rasa manis gurih, dilengkapi taburan cornflakes renyah.",
+            "price": 84000,
+            "largePrice": null,
+            "normalPrice": 109000,
+            "outletPrice": 109000,
+            "customPrice": true,
+            "discount": null,
+            "discountLabel": "",
+            "largeNormal": null,
+            "isSoldOut": false,
+            "notCarried": false,
+            "isFood": false,
+            "isSpecial": false,
+            "noLarge": false,
+            "options": {
+                "sizes": [
+                    "1 Liter"
+                ],
+                "temps": [],
+                "ices": [],
+                "sugars": [
+                    "Normal Sugar",
+                    "Less Sugar",
+                    "No Sugar"
+                ]
+            },
+            "tag": ""
+        },
+        {
+            "key": "saltedspanishlatte1l",
+            "id": "saltedspanishlatte1l",
+            "code": "",
+            "name": "Salted Spanish Latte 1L",
+            "category": "FOREveryone 1L",
+            "sourceCategory": "FOREveryone 1L",
+            "img": "https://static.fore.coffee/product/Salted%20Spanish%20Latte_RTD_98192c7d0a4b586a.jpg",
+            "desc": "Kopi susu Spanish dengan sentuhan gurih manis yang lembut di tiap tegukan.",
+            "price": 69500,
+            "largePrice": null,
+            "normalPrice": 90000,
+            "outletPrice": 90000,
+            "customPrice": true,
+            "discount": null,
+            "discountLabel": "",
+            "largeNormal": null,
+            "isSoldOut": false,
+            "notCarried": false,
+            "isFood": false,
+            "isSpecial": false,
+            "noLarge": false,
+            "options": {
+                "sizes": [
+                    "1 Liter"
+                ],
+                "temps": [],
+                "ices": [],
+                "sugars": [
+                    "Normal Sugar",
+                    "Less Sugar",
+                    "No Sugar"
+                ]
+            },
+            "tag": ""
+        },
+        {
+            "key": "cocopeachfusion1l",
+            "id": "cocopeachfusion1l",
+            "code": "",
+            "name": "Coco Peach Fusion 1L",
+            "category": "FOREveryone 1L",
+            "sourceCategory": "FOREveryone 1L",
+            "img": "https://static.fore.coffee/product/Coco%20Peach%20RTD.jpg",
+            "desc": "Rasa segar dari peach, lychee, orange citrus, dan air kelapa",
+            "price": 69000,
+            "largePrice": null,
+            "normalPrice": 89000,
+            "outletPrice": 89000,
+            "customPrice": true,
+            "discount": null,
+            "discountLabel": "",
+            "largeNormal": null,
+            "isSoldOut": false,
+            "notCarried": false,
+            "isFood": false,
+            "isSpecial": false,
+            "noLarge": false,
+            "options": {
+                "sizes": [
+                    "1 Liter"
+                ],
+                "temps": [],
+                "ices": [],
+                "sugars": [
+                    "Normal Sugar",
+                    "Less Sugar",
+                    "No Sugar"
+                ]
+            },
+            "tag": ""
+        },
+        {
+            "key": "kopidaritani1l",
+            "id": "kopidaritani1l",
+            "code": "",
+            "name": "Kopi Dari Tani 1L",
+            "category": "FOREveryone 1L",
+            "sourceCategory": "FOREveryone 1L",
+            "img": "https://static.fore.coffee/product/Kopi%20Dari%20Tani%20RTD%20(1).jpg",
+            "desc": "Paduan rasa dan aroma kopi autentik Indonesia yang kuat dalan ukuran 1L.",
+            "price": 69000,
+            "largePrice": null,
+            "normalPrice": 89000,
+            "outletPrice": 89000,
+            "customPrice": true,
+            "discount": null,
+            "discountLabel": "",
+            "largeNormal": null,
+            "isSoldOut": false,
+            "notCarried": false,
+            "isFood": false,
+            "isSpecial": false,
+            "noLarge": false,
+            "options": {
+                "sizes": [
+                    "1 Liter"
+                ],
+                "temps": [],
+                "ices": [],
+                "sugars": [
+                    "Normal Sugar",
+                    "Less Sugar",
+                    "No Sugar"
+                ]
+            },
+            "tag": ""
+        },
+        {
+            "key": "bumilatte1l",
+            "id": "bumilatte1l",
+            "code": "",
+            "name": "Bumi Latte 1L",
+            "category": "FOREveryone 1L",
+            "sourceCategory": "FOREveryone 1L",
+            "img": "https://static.fore.coffee/product/Bumi%20Latte%20RTD.jpg",
+            "desc": "Sensasi lembut dan legit Bumi Latte hadir dalam ukuran 1L untuk sempurnakan kebersamaan!",
+            "price": 69000,
+            "largePrice": null,
+            "normalPrice": 89000,
+            "outletPrice": 89000,
+            "customPrice": true,
+            "discount": null,
+            "discountLabel": "",
+            "largeNormal": null,
+            "isSoldOut": false,
+            "notCarried": false,
+            "isFood": false,
+            "isSpecial": false,
+            "noLarge": false,
+            "options": {
+                "sizes": [
+                    "1 Liter"
+                ],
+                "temps": [],
+                "ices": [],
+                "sugars": [
+                    "Normal Sugar",
+                    "Less Sugar",
+                    "No Sugar"
+                ]
+            },
+            "tag": ""
+        },
+        {
+            "key": "darkchocolate1l",
+            "id": "darkchocolate1l",
+            "code": "",
+            "name": "Dark Chocolate 1L",
+            "category": "FOREveryone 1L",
+            "sourceCategory": "FOREveryone 1L",
+            "img": "https://static.fore.coffee/product/Dark%20Choco%20RTD.jpg",
+            "desc": "Dibuat dari 100% dark chocolate dan paduan susu yang nikmat",
+            "price": 84000,
+            "largePrice": null,
+            "normalPrice": 109000,
+            "outletPrice": 109000,
+            "customPrice": true,
+            "discount": null,
+            "discountLabel": "",
+            "largeNormal": null,
+            "isSoldOut": false,
+            "notCarried": false,
+            "isFood": false,
+            "isSpecial": false,
+            "noLarge": false,
+            "options": {
+                "sizes": [
+                    "1 Liter"
+                ],
+                "temps": [],
+                "ices": [],
+                "sugars": [
+                    "Normal Sugar",
+                    "Less Sugar",
+                    "No Sugar"
+                ]
+            },
+            "tag": ""
+        },
+        {
+            "key": "butterscotchseasaltlatte1l",
+            "id": "butterscotchseasaltlatte1l",
+            "code": "",
+            "name": "Butterscotch Sea Salt Latte 1L",
+            "category": "FOREveryone 1L",
+            "sourceCategory": "FOREveryone 1L",
+            "img": "https://static.fore.coffee/product/BSL%20RTD.jpg",
+            "desc": "Butterscotch Sea Salt Latte Fore Coffee yang disukai banyak orang hadir dalam botol 1L.",
+            "price": 99000,
+            "largePrice": null,
+            "normalPrice": 129000,
+            "outletPrice": 129000,
+            "customPrice": true,
+            "discount": null,
+            "discountLabel": "",
+            "largeNormal": null,
+            "isSoldOut": false,
+            "notCarried": false,
+            "isFood": false,
+            "isSpecial": false,
+            "noLarge": false,
+            "options": {
+                "sizes": [
+                    "1 Liter"
+                ],
+                "temps": [],
+                "ices": [],
+                "sugars": [
+                    "Normal Sugar",
+                    "Less Sugar",
+                    "No Sugar"
+                ]
+            },
+            "tag": ""
+        },
+        {
+            "key": "arenlatte1l",
+            "id": "arenlatte1l",
+            "code": "",
+            "name": "Aren Latte 1L",
+            "category": "FOREveryone 1L",
+            "sourceCategory": "FOREveryone 1L",
+            "img": "https://static.fore.coffee/product/Aren%20Latte%20RTD.jpg",
+            "desc": "Nikmatnya latte dengan gula aren khas Indonesia hadir dalam ukuran 1L.",
+            "price": 76500,
+            "largePrice": null,
+            "normalPrice": 99000,
+            "outletPrice": 99000,
+            "customPrice": true,
+            "discount": null,
+            "discountLabel": "",
+            "largeNormal": null,
+            "isSoldOut": false,
+            "notCarried": false,
+            "isFood": false,
+            "isSpecial": false,
+            "noLarge": false,
+            "options": {
+                "sizes": [
+                    "1 Liter"
+                ],
+                "temps": [],
+                "ices": [],
+                "sugars": [
+                    "Normal Sugar",
+                    "Less Sugar",
+                    "No Sugar"
+                ]
+            },
+            "tag": ""
+        },
+        {
+            "key": "caramelpralinemacchiato1l",
+            "id": "caramelpralinemacchiato1l",
+            "code": "",
+            "name": "Caramel Praline Macchiato 1L",
+            "category": "FOREveryone 1L",
+            "sourceCategory": "FOREveryone 1L",
+            "img": "https://static.fore.coffee/product/Caramel%20Praline%20RTD.jpg",
+            "desc": "Latte praline bercampur karamel dalam ukuran 1L.",
+            "price": 84000,
+            "largePrice": null,
+            "normalPrice": 109000,
+            "outletPrice": 109000,
+            "customPrice": true,
+            "discount": null,
+            "discountLabel": "",
+            "largeNormal": null,
+            "isSoldOut": false,
+            "notCarried": false,
+            "isFood": false,
+            "isSpecial": false,
+            "noLarge": false,
+            "options": {
+                "sizes": [
+                    "1 Liter"
+                ],
+                "temps": [],
+                "ices": [],
+                "sugars": [
+                    "Normal Sugar",
+                    "Less Sugar",
+                    "No Sugar"
+                ]
+            },
+            "tag": ""
+        },
+        {
+            "key": "pandanlatte1l",
+            "id": "pandanlatte1l",
+            "code": "",
+            "name": "Pandan Latte 1L",
+            "category": "FOREveryone 1L",
+            "sourceCategory": "FOREveryone 1L",
+            "img": "https://static.fore.coffee/product/Pandan%20Latte%20RTD.jpg",
+            "desc": "Latte dengan aroma dan rasa pandan yang istimewa dari Fore Coffee dalam ukuran 1L.",
+            "price": 76500,
+            "largePrice": null,
+            "normalPrice": 99000,
+            "outletPrice": 99000,
+            "customPrice": true,
+            "discount": null,
+            "discountLabel": "",
+            "largeNormal": null,
+            "isSoldOut": false,
+            "notCarried": false,
+            "isFood": false,
+            "isSpecial": false,
+            "noLarge": false,
+            "options": {
+                "sizes": [
+                    "1 Liter"
+                ],
+                "temps": [],
+                "ices": [],
+                "sugars": [
+                    "Normal Sugar",
+                    "Less Sugar",
+                    "No Sugar"
+                ]
+            },
+            "tag": ""
+        },
+        {
+            "key": "caflatte1l",
+            "id": "caflatte1l",
+            "code": "",
+            "name": "Café Latte 1L",
+            "category": "FOREveryone 1L",
+            "sourceCategory": "FOREveryone 1L",
+            "img": "https://static.fore.coffee/product/Cafe%20Latte%20RTD.jpg",
+            "desc": "Latte tanpa gula dalam ukuran 1L yang pas untuk menemani momen kumpul bersama.",
+            "price": 76500,
+            "largePrice": null,
+            "normalPrice": 99000,
+            "outletPrice": 99000,
+            "customPrice": true,
+            "discount": null,
+            "discountLabel": "",
+            "largeNormal": null,
+            "isSoldOut": false,
+            "notCarried": false,
+            "isFood": false,
+            "isSpecial": false,
+            "noLarge": false,
+            "options": {
+                "sizes": [
+                    "1 Liter"
+                ],
+                "temps": [],
+                "ices": [],
+                "sugars": [
+                    "Normal Sugar",
+                    "Less Sugar",
+                    "No Sugar"
+                ]
+            },
+            "tag": ""
+        },
+        {
+            "key": "nuttyoatlatte1l",
+            "id": "nuttyoatlatte1l",
+            "code": "",
+            "name": "Nutty Oat Latte 1L",
+            "category": "FOREveryone 1L",
+            "sourceCategory": "FOREveryone 1L",
+            "img": "https://static.fore.coffee/product/Nutty%20Oat%20Latte%20RTD.jpg",
+            "desc": "Latte dengan susu oat yang nikmat dalam ukuran 1L.",
+            "price": 106500,
+            "largePrice": null,
+            "normalPrice": 139000,
+            "outletPrice": 139000,
+            "customPrice": true,
+            "discount": null,
+            "discountLabel": "",
+            "largeNormal": null,
+            "isSoldOut": false,
+            "notCarried": false,
+            "isFood": false,
+            "isSpecial": false,
+            "noLarge": false,
+            "options": {
+                "sizes": [
+                    "1 Liter"
+                ],
+                "temps": [],
+                "ices": [],
+                "sugars": [
+                    "Normal Sugar",
+                    "Less Sugar",
+                    "No Sugar"
+                ]
+            },
+            "tag": ""
+        },
+        {
+            "key": "almondchoco1l",
+            "id": "almondchoco1l",
+            "code": "",
+            "name": "Almond Choco 1L",
+            "category": "FOREveryone 1L",
+            "sourceCategory": "FOREveryone 1L",
+            "img": "https://static.fore.coffee/product/Almond%20Choco%20RTD.jpg",
+            "desc": "Cokelat klasik dengan susu almond dalam ukuran 1L yang pas untuk dinikmati bersama keluarga!",
+            "price": 106500,
+            "largePrice": null,
+            "normalPrice": 139000,
+            "outletPrice": 139000,
+            "customPrice": true,
+            "discount": null,
+            "discountLabel": "",
+            "largeNormal": null,
+            "isSoldOut": false,
+            "notCarried": false,
+            "isFood": false,
+            "isSpecial": false,
+            "noLarge": false,
+            "options": {
+                "sizes": [
+                    "1 Liter"
+                ],
+                "temps": [],
+                "ices": [],
+                "sugars": [
+                    "Normal Sugar",
+                    "Less Sugar",
+                    "No Sugar"
+                ]
+            },
+            "tag": ""
+        },
+        {
+            "key": "matchagreentea1l",
+            "id": "matchagreentea1l",
+            "code": "",
+            "name": "Matcha Green Tea 1L",
+            "category": "FOREveryone 1L",
+            "sourceCategory": "FOREveryone 1L",
+            "img": "https://static.fore.coffee/product/Matcha%20Latte%20RTD.jpg",
+            "desc": "Nikmatnya teh hijau berkualitas yang dipadukan dengan susu creamy untuk persediaan di rumah!",
+            "price": 84000,
+            "largePrice": null,
+            "normalPrice": 109000,
+            "outletPrice": 109000,
+            "customPrice": true,
+            "discount": null,
+            "discountLabel": "",
+            "largeNormal": null,
+            "isSoldOut": false,
+            "notCarried": false,
+            "isFood": false,
+            "isSpecial": false,
+            "noLarge": false,
+            "options": {
+                "sizes": [
+                    "1 Liter"
+                ],
+                "temps": [],
+                "ices": [],
+                "sugars": [
+                    "Normal Sugar",
+                    "Less Sugar",
+                    "No Sugar"
+                ]
+            },
+            "tag": ""
+        },
+        {
+            "key": "beefomelettetoast",
+            "id": "beefomelettetoast",
+            "code": "",
+            "name": "Beef & Omelette Toast",
+            "category": "Fore Deli",
+            "sourceCategory": "Fore Deli",
+            "img": "https://static.fore.coffee/product/Thumbnail%20App%20SFPC.jpg",
+            "desc": "Perpaduan smoked beef, telur omelet, dan keju cheddar dalam English muffin yang khas dan lembut",
+            "price": 33500,
+            "largePrice": null,
+            "normalPrice": 42000,
+            "outletPrice": 42000,
+            "customPrice": false,
+            "discount": null,
+            "discountLabel": "",
+            "largeNormal": null,
+            "isSoldOut": false,
+            "notCarried": false,
+            "isFood": true,
+            "isSpecial": true,
+            "noLarge": false,
+            "options": {
+                "sizes": [],
+                "temps": [],
+                "ices": [],
+                "sugars": []
+            },
+            "tag": ""
+        },
+        {
+            "key": "mushroomtrufflesandwich",
+            "id": "mushroomtrufflesandwich",
+            "code": "",
+            "name": "Mushroom Truffle Sandwich",
+            "category": "Fore Deli",
+            "sourceCategory": "Fore Deli",
+            "img": "https://static.fore.coffee/product/mushroomsandwich.jpg",
+            "desc": "Sandwich dengan roti taburan parsley, jamur, saus truffle dan keju cheddar",
+            "price": 38000,
+            "largePrice": null,
+            "normalPrice": 48000,
+            "outletPrice": 48000,
+            "customPrice": false,
+            "discount": null,
+            "discountLabel": "",
+            "largeNormal": null,
+            "isSoldOut": false,
+            "notCarried": false,
+            "isFood": true,
+            "isSpecial": true,
+            "noLarge": false,
+            "options": {
+                "sizes": [],
+                "temps": [],
+                "ices": [],
+                "sugars": []
+            },
+            "tag": ""
+        },
+        {
+            "key": "rollcakecheesepandan",
+            "id": "rollcakecheesepandan",
+            "code": "",
+            "name": "Roll Cake Cheese Pandan",
+            "category": "Fore Deli",
+            "sourceCategory": "Fore Deli",
+            "img": "https://static.fore.coffee/product/Pandan-Roll-Cake-ID.jpg",
+            "desc": "Bolu gulung pandan yang lembut dengan krim vanilla dan taburan keju parut",
+            "price": 27000,
+            "largePrice": null,
+            "normalPrice": 33000,
+            "outletPrice": 33000,
+            "customPrice": false,
+            "discount": null,
+            "discountLabel": "",
+            "largeNormal": null,
+            "isSoldOut": false,
+            "notCarried": false,
+            "isFood": true,
+            "isSpecial": true,
+            "noLarge": false,
+            "options": {
+                "sizes": [],
+                "temps": [],
+                "ices": [],
+                "sugars": []
+            },
+            "tag": ""
+        },
+        {
+            "key": "rollcakepeanutbutterjam",
+            "id": "rollcakepeanutbutterjam",
+            "code": "",
+            "name": "Roll Cake Peanut Butter & Jam",
+            "category": "Fore Deli",
+            "sourceCategory": "Fore Deli",
+            "img": "https://static.fore.coffee/product/PBnJ-Roll-Cake-ID.jpg",
+            "desc": "Bolu gulung vanila yang lembut dengan selai kacang dan selai stroberi",
+            "price": 27000,
+            "largePrice": null,
+            "normalPrice": 33000,
+            "outletPrice": 33000,
+            "customPrice": false,
+            "discount": null,
+            "discountLabel": "",
+            "largeNormal": null,
+            "isSoldOut": false,
+            "notCarried": false,
+            "isFood": true,
+            "isSpecial": true,
+            "noLarge": false,
+            "options": {
+                "sizes": [],
+                "temps": [],
+                "ices": [],
+                "sugars": []
+            },
+            "tag": ""
+        },
+        {
+            "key": "rollcakemocha",
+            "id": "rollcakemocha",
+            "code": "",
+            "name": "Roll Cake Mocha",
+            "category": "Fore Deli",
+            "sourceCategory": "Fore Deli",
+            "img": "https://static.fore.coffee/product/Moccha-Roll-Cake-ID.jpg",
+            "desc": "Bolu gulung coklat yang lembut dengan krim mocha dan taburan meses.",
+            "price": 27000,
+            "largePrice": null,
+            "normalPrice": 33000,
+            "outletPrice": 33000,
+            "customPrice": false,
+            "discount": null,
+            "discountLabel": "",
+            "largeNormal": null,
+            "isSoldOut": false,
+            "notCarried": false,
+            "isFood": true,
+            "isSpecial": true,
+            "noLarge": false,
+            "options": {
+                "sizes": [],
+                "temps": [],
+                "ices": [],
+                "sugars": []
+            },
+            "tag": ""
+        },
+        {
+            "key": "beefmentaisandwich",
+            "id": "beefmentaisandwich",
+            "code": "",
+            "name": "Beef  Mentai Sandwich",
+            "category": "Fore Deli",
+            "sourceCategory": "Fore Deli",
+            "img": "https://static.fore.coffee/product/Creamy%20Beef%20Mentai%20Sandwich.png",
+            "desc": "Sandwich dengan potongan daging, saus mentai, keju cheddar merah, dan paprika merah",
+            "price": 36000,
+            "largePrice": null,
+            "normalPrice": 45000,
+            "outletPrice": 45000,
+            "customPrice": false,
+            "discount": null,
+            "discountLabel": "",
+            "largeNormal": null,
+            "isSoldOut": false,
+            "notCarried": false,
+            "isFood": true,
+            "isSpecial": true,
+            "noLarge": false,
+            "options": {
+                "sizes": [],
+                "temps": [],
+                "ices": [],
+                "sugars": []
+            },
+            "tag": ""
+        },
+        {
+            "key": "cakalangquiche",
+            "id": "cakalangquiche",
+            "code": "",
+            "name": "Cakalang Quiche",
+            "category": "Fore Deli",
+            "sourceCategory": "Fore Deli",
+            "img": "https://static.fore.coffee/product/Cakalang%20Quiche.png",
+            "desc": "Pie gurih dengan isian ikan cakalang, telur, krim, dan keju",
+            "price": 29000,
+            "largePrice": null,
+            "normalPrice": 36000,
+            "outletPrice": 36000,
+            "customPrice": true,
+            "discount": null,
+            "discountLabel": "",
+            "largeNormal": null,
+            "isSoldOut": false,
+            "notCarried": false,
+            "isFood": true,
+            "isSpecial": true,
+            "noLarge": false,
+            "options": {
+                "sizes": [],
+                "temps": [],
+                "ices": [],
+                "sugars": []
+            },
+            "tag": ""
+        },
+        {
+            "key": "painautiramisu",
+            "id": "painautiramisu",
+            "code": "",
+            "name": "Pain au Tiramisu",
+            "category": "Fore Deli",
+            "sourceCategory": "Fore Deli",
+            "img": "https://static.fore.coffee/product/Pain%20au%20Tiramisu.png",
+            "desc": "Pastry dengan isian almond paste rasa tiramisu dan topping cocoa crumble",
+            "price": 29000,
+            "largePrice": null,
+            "normalPrice": 36000,
+            "outletPrice": 36000,
+            "customPrice": true,
+            "discount": null,
+            "discountLabel": "",
+            "largeNormal": null,
+            "isSoldOut": false,
+            "notCarried": false,
+            "isFood": true,
+            "isSpecial": true,
+            "noLarge": false,
+            "options": {
+                "sizes": [],
+                "temps": [],
+                "ices": [],
+                "sugars": []
+            },
+            "tag": ""
+        },
+        {
+            "key": "cheesytunasandwich",
+            "id": "cheesytunasandwich",
+            "code": "",
+            "name": "Cheesy Tuna Sandwich",
+            "category": "Fore Deli",
+            "sourceCategory": "Fore Deli",
+            "img": "https://static.fore.coffee/product/Cheesy%20Tuna%20Sandwich.png",
+            "desc": "Sandwich dengan roti taburan wijen hitam, tuna mayo, saus tartar, keju mozzarella, keju cheddar merah, bawang bombay dan paprika hijau.",
+            "price": 36000,
+            "largePrice": null,
+            "normalPrice": 45000,
+            "outletPrice": 45000,
+            "customPrice": false,
+            "discount": null,
+            "discountLabel": "",
+            "largeNormal": null,
+            "isSoldOut": false,
+            "notCarried": false,
+            "isFood": true,
+            "isSpecial": true,
+            "noLarge": false,
+            "options": {
+                "sizes": [],
+                "temps": [],
+                "ices": [],
+                "sugars": []
+            },
+            "tag": ""
+        },
+        {
+            "key": "chickenteriyakisandwich",
+            "id": "chickenteriyakisandwich",
+            "code": "",
+            "name": "Chicken Teriyaki Sandwich",
+            "category": "Fore Deli",
+            "sourceCategory": "Fore Deli",
+            "img": "https://static.fore.coffee/product/Chicken%20Teriyaki%20Sandwich.png",
+            "desc": "Sandwich dengan roti taburan wijen putih, ayam bumbu teriyaki, mayonnaise teriyaki, keju cheddar, dan bawang bombay",
+            "price": 36000,
+            "largePrice": null,
+            "normalPrice": 45000,
+            "outletPrice": 45000,
+            "customPrice": false,
+            "discount": null,
+            "discountLabel": "",
+            "largeNormal": null,
+            "isSoldOut": false,
+            "notCarried": false,
+            "isFood": true,
+            "isSpecial": true,
+            "noLarge": false,
+            "options": {
+                "sizes": [],
+                "temps": [],
+                "ices": [],
+                "sugars": []
+            },
+            "tag": ""
+        },
+        {
+            "key": "smokedbeefcheesesandwich",
+            "id": "smokedbeefcheesesandwich",
+            "code": "",
+            "name": "Smoked Beef & Cheese Sandwich",
+            "category": "Fore Deli",
+            "sourceCategory": "Fore Deli",
+            "img": "https://static.fore.coffee/product/Smoked%20Beef%20&%20Cheese%20Sandwich.png",
+            "desc": "Sandwich dengan roti focaccia taburan parsley, smoked beef, keju mozzarella, keju red cheddar, mayonnaise dan bawang bombay.",
+            "price": 36000,
+            "largePrice": null,
+            "normalPrice": 45000,
+            "outletPrice": 45000,
+            "customPrice": false,
+            "discount": null,
+            "discountLabel": "",
+            "largeNormal": null,
+            "isSoldOut": false,
+            "notCarried": false,
+            "isFood": true,
+            "isSpecial": true,
+            "noLarge": false,
+            "options": {
+                "sizes": [],
+                "temps": [],
+                "ices": [],
+                "sugars": []
+            },
+            "tag": ""
+        },
+        {
+            "key": "blueberrycheesemuffin",
+            "id": "blueberrycheesemuffin",
+            "code": "",
+            "name": "Blueberry Cheese Muffin",
+            "category": "Fore Deli",
+            "sourceCategory": "Fore Deli",
+            "img": "https://static.fore.coffee/product/Blueberry%20Cheese%20Muffin.png",
+            "desc": "Bolu padat rasa vanilla dengan isian krim keju bluberi dan topping crumble",
+            "price": 33500,
+            "largePrice": null,
+            "normalPrice": 42000,
+            "outletPrice": 42000,
+            "customPrice": false,
+            "discount": null,
+            "discountLabel": "",
+            "largeNormal": null,
+            "isSoldOut": false,
+            "notCarried": false,
+            "isFood": true,
+            "isSpecial": true,
+            "noLarge": false,
+            "options": {
+                "sizes": [],
+                "temps": [],
+                "ices": [],
+                "sugars": []
+            },
+            "tag": ""
+        },
+        {
+            "key": "chocomeltmuffin",
+            "id": "chocomeltmuffin",
+            "code": "",
+            "name": "Choco Melt Muffin",
+            "category": "Fore Deli",
+            "sourceCategory": "Fore Deli",
+            "img": "https://static.fore.coffee/product/Choco%20Melt%20Muffin.png",
+            "desc": "Bolu padat rasa coklat dengan isian coklat yang meleleh dan topping coklat chips",
+            "price": 33500,
+            "largePrice": null,
+            "normalPrice": 42000,
+            "outletPrice": 42000,
+            "customPrice": false,
+            "discount": null,
+            "discountLabel": "",
+            "largeNormal": null,
+            "isSoldOut": false,
+            "notCarried": false,
+            "isFood": true,
+            "isSpecial": true,
+            "noLarge": false,
+            "options": {
+                "sizes": [],
+                "temps": [],
+                "ices": [],
+                "sugars": []
+            },
+            "tag": ""
+        },
+        {
+            "key": "triplecheesedanish",
+            "id": "triplecheesedanish",
+            "code": "",
+            "name": "Triple Cheese Danish",
+            "category": "Fore Deli",
+            "sourceCategory": "Fore Deli",
+            "img": "https://static.fore.coffee/product/Triple%20Cheese%20Danish.jpg",
+            "desc": "Danish dengan isian krim keju",
+            "price": 33500,
+            "largePrice": null,
+            "normalPrice": 42000,
+            "outletPrice": 42000,
+            "customPrice": false,
+            "discount": null,
+            "discountLabel": "",
+            "largeNormal": null,
+            "isSoldOut": false,
+            "notCarried": false,
+            "isFood": true,
+            "isSpecial": true,
+            "noLarge": false,
+            "options": {
+                "sizes": [],
+                "temps": [],
+                "ices": [],
+                "sugars": []
+            },
+            "tag": ""
+        },
+        {
+            "key": "almondcroissant",
+            "id": "almondcroissant",
+            "code": "",
+            "name": "Almond Croissant",
+            "category": "Fore Deli",
+            "sourceCategory": "Fore Deli",
+            "img": "https://static.fore.coffee/product/Almond%20Croissant%20-1.jpg",
+            "desc": "Croissant dengan taburan gula halus dan potongan almond",
+            "price": 33500,
+            "largePrice": null,
+            "normalPrice": 42000,
+            "outletPrice": 42000,
+            "customPrice": false,
+            "discount": null,
+            "discountLabel": "",
+            "largeNormal": null,
+            "isSoldOut": false,
+            "notCarried": false,
+            "isFood": true,
+            "isSpecial": true,
+            "noLarge": false,
+            "options": {
+                "sizes": [],
+                "temps": [],
+                "ices": [],
+                "sugars": []
+            },
+            "tag": ""
+        },
+        {
+            "key": "bananachocolatecake",
+            "id": "bananachocolatecake",
+            "code": "",
+            "name": "Banana Chocolate Cake",
+            "category": "Fore Deli",
+            "sourceCategory": "Fore Deli",
+            "img": "https://static.fore.coffee/product/thumbbbb.jpg",
+            "desc": "Bolu dengan paduan pisang dan coklat",
+            "price": 27000,
+            "largePrice": null,
+            "normalPrice": 33000,
+            "outletPrice": 33000,
+            "customPrice": false,
+            "discount": null,
+            "discountLabel": "",
+            "largeNormal": null,
+            "isSoldOut": false,
+            "notCarried": false,
+            "isFood": true,
+            "isSpecial": true,
+            "noLarge": false,
+            "options": {
+                "sizes": [],
+                "temps": [],
+                "ices": [],
+                "sugars": []
+            },
+            "tag": ""
+        },
+        {
+            "key": "cempedakcake",
+            "id": "cempedakcake",
+            "code": "",
+            "name": "Cempedak Cake",
+            "category": "Fore Deli",
+            "sourceCategory": "Fore Deli",
+            "img": "https://static.fore.coffee/product/cempedak-80.jpg",
+            "desc": "Bolu dengan potongan cempedak",
+            "price": 22500,
+            "largePrice": null,
+            "normalPrice": 27000,
+            "outletPrice": 27000,
+            "customPrice": true,
+            "discount": null,
+            "discountLabel": "",
+            "largeNormal": null,
+            "isSoldOut": false,
+            "notCarried": false,
+            "isFood": true,
+            "isSpecial": true,
+            "noLarge": false,
+            "options": {
+                "sizes": [],
+                "temps": [],
+                "ices": [],
+                "sugars": []
+            },
+            "tag": ""
+        },
+        {
+            "key": "buttercroissant",
+            "id": "buttercroissant",
+            "code": "",
+            "name": "Butter Croissant",
+            "category": "Fore Deli",
+            "sourceCategory": "Fore Deli",
+            "img": "https://static.fore.coffee/product/Butter%20Croissant%20_-80.jpg",
+            "desc": "Pastry dengan rasa dan aroma butter",
+            "price": 24000,
+            "largePrice": null,
+            "normalPrice": 29000,
+            "outletPrice": 29000,
+            "customPrice": false,
+            "discount": null,
+            "discountLabel": "",
+            "largeNormal": null,
+            "isSoldOut": false,
+            "notCarried": false,
+            "isFood": true,
+            "isSpecial": true,
+            "noLarge": false,
+            "options": {
+                "sizes": [],
+                "temps": [],
+                "ices": [],
+                "sugars": []
+            },
+            "tag": ""
+        },
+        {
+            "key": "painauchocolat",
+            "id": "painauchocolat",
+            "code": "",
+            "name": "Pain au Chocolat",
+            "category": "Fore Deli",
+            "sourceCategory": "Fore Deli",
+            "img": "https://static.fore.coffee/product/painauchocolat2403.jpg",
+            "desc": "Pastry  dengan isi coklat di dalamnya",
+            "price": 27000,
+            "largePrice": null,
+            "normalPrice": 33000,
+            "outletPrice": 33000,
+            "customPrice": false,
+            "discount": null,
+            "discountLabel": "",
+            "largeNormal": null,
+            "isSoldOut": false,
+            "notCarried": false,
+            "isFood": true,
+            "isSpecial": true,
+            "noLarge": false,
+            "options": {
+                "sizes": [],
+                "temps": [],
+                "ices": [],
+                "sugars": []
+            },
+            "tag": ""
+        },
+        {
+            "key": "kouignamann",
+            "id": "kouignamann",
+            "code": "",
+            "name": "Kouign-Amann",
+            "category": "Fore Deli",
+            "sourceCategory": "Fore Deli",
+            "img": "https://static.fore.coffee/product/Kouign%20amann-.jpg",
+            "desc": "Pastry dengan lapisan karamel manis dan juga taburan kayu manis",
+            "price": 27000,
+            "largePrice": null,
+            "normalPrice": 33000,
+            "outletPrice": 33000,
+            "customPrice": false,
+            "discount": null,
+            "discountLabel": "",
+            "largeNormal": null,
+            "isSoldOut": false,
+            "notCarried": false,
+            "isFood": true,
+            "isSpecial": true,
+            "noLarge": false,
+            "options": {
+                "sizes": [],
+                "temps": [],
+                "ices": [],
+                "sugars": []
+            },
+            "tag": ""
+        },
+        {
+            "key": "cocopeachfusion",
+            "id": "cocopeachfusion",
+            "code": "",
+            "name": "Coco Peach Fusion",
+            "category": "Refresher",
+            "sourceCategory": "Refresher",
+            "img": "https://static.fore.coffee/product/Coco%20Peach%20Fusion%20(1).jpg",
+            "desc": "Rasa segar dari peach, lychee, orange citrus, dan air kelapa",
+            "price": 27000,
+            "largePrice": 32000,
+            "normalPrice": 33000,
+            "outletPrice": 33000,
+            "largeBase": 38000,
+            "customPrice": false,
+            "discount": null,
+            "discountLabel": "",
+            "largeNormal": 39000,
+            "isSoldOut": false,
+            "notCarried": false,
+            "isFood": false,
+            "isSpecial": false,
+            "noLarge": false,
+            "options": {
+                "sizes": [
+                    "Regular",
+                    "Large"
+                ],
+                "temps": [
+                    "Ice"
+                ],
+                "ices": [
+                    "Normal Ice",
+                    "Less Ice",
+                    "No Ice",
+                    "Extra Ice"
+                ],
+                "sugars": [
+                    "Normal Sugar",
+                    "Less Sugar"
+                ]
+            },
+            "tag": ""
+        },
+        {
+            "key": "hibiscuslycheepeachyakult",
+            "id": "hibiscuslycheepeachyakult",
+            "code": "",
+            "name": "Hibiscus Lychee Peach  Yakult",
+            "category": "Refresher",
+            "sourceCategory": "Refresher",
+            "img": "https://static.fore.coffee/product/Hibiscus%20Lychee%20Peach%20Yakult.jpg",
+            "desc": "Kebaikan buah berry, hibiscus, dan yakult yang memberi kesegaran sepanjang hari.",
+            "price": 24000,
+            "largePrice": 29000,
+            "normalPrice": 29000,
+            "outletPrice": 29000,
+            "largeBase": 36000,
+            "customPrice": true,
+            "discount": null,
+            "discountLabel": "",
+            "largeNormal": 35000,
+            "isSoldOut": false,
+            "notCarried": false,
+            "isFood": false,
+            "isSpecial": false,
+            "noLarge": false,
+            "options": {
+                "sizes": [
+                    "Regular",
+                    "Large"
+                ],
+                "temps": [
+                    "Ice",
+                    "Hot"
+                ],
+                "ices": [
+                    "Normal Ice",
+                    "Less Ice",
+                    "No Ice"
+                ],
+                "sugars": [
+                    "Normal Sugar",
+                    "Less Sugar",
+                    "No Sugar"
+                ]
+            },
+            "tag": ""
+        },
+        {
+            "key": "sunnycitrusjasmine",
+            "id": "sunnycitrusjasmine",
+            "code": "",
+            "name": "Sunny Citrus  Jasmine",
+            "category": "Refresher",
+            "sourceCategory": "Refresher",
+            "img": "https://static.fore.coffee/product/Sunny%20Citrus%20Jasmine.jpg",
+            "desc": "Campuran spesial dari rasa buah tropikal, madu Manuka, dan teh jasmine yang menyegarkan sekaligus beraroma.",
+            "price": 28500,
+            "largePrice": 33500,
+            "normalPrice": 35000,
+            "outletPrice": 35000,
+            "largeBase": 40000,
+            "customPrice": false,
+            "discount": null,
+            "discountLabel": "",
+            "largeNormal": 41000,
+            "isSoldOut": false,
+            "notCarried": false,
+            "isFood": false,
+            "isSpecial": false,
+            "noLarge": false,
+            "options": {
+                "sizes": [
+                    "Regular",
+                    "Large"
+                ],
+                "temps": [
+                    "Ice"
+                ],
+                "ices": [
+                    "Normal Ice",
+                    "Less Ice",
+                    "No Ice",
+                    "Extra Ice"
+                ],
+                "sugars": [
+                    "Normal Sugar",
+                    "Less Sugar"
+                ]
+            },
+            "tag": ""
+        },
+        {
+            "key": "englishbreakfast",
+            "id": "englishbreakfast",
+            "code": "",
+            "name": "English Breakfast",
+            "category": "Tea",
+            "sourceCategory": "Tea",
+            "img": "https://static.fore.coffee/product/English%20Breakfast.jpg",
+            "desc": "Teh hitam klasik harum yang legendaris",
+            "price": 24000,
+            "largePrice": 29000,
+            "normalPrice": 29000,
+            "outletPrice": 29000,
+            "largeBase": 34000,
+            "customPrice": false,
+            "discount": null,
+            "discountLabel": "",
+            "largeNormal": 35000,
+            "isSoldOut": false,
+            "notCarried": false,
+            "isFood": false,
+            "isSpecial": false,
+            "noLarge": false,
+            "options": {
+                "sizes": [
+                    "Regular",
+                    "Large"
+                ],
+                "temps": [
+                    "Ice",
+                    "Hot"
+                ],
+                "ices": [
+                    "Normal Ice",
+                    "Less Ice",
+                    "No Ice",
+                    "Extra Ice"
+                ],
+                "sugars": [
+                    "Normal Sugar",
+                    "Less Sugar"
+                ]
+            },
+            "tag": ""
+        },
+        {
+            "key": "greenteajasmine",
+            "id": "greenteajasmine",
+            "code": "",
+            "name": "Green Tea Jasmine",
+            "category": "Tea",
+            "sourceCategory": "Tea",
+            "img": "https://static.fore.coffee/product/Green%20Tea%20Mint.jpg",
+            "desc": "Teh hijau dengan sentuhan rasa melati",
+            "price": 24000,
+            "largePrice": 29000,
+            "normalPrice": 29000,
+            "outletPrice": 29000,
+            "largeBase": 34000,
+            "customPrice": false,
+            "discount": null,
+            "discountLabel": "",
+            "largeNormal": 35000,
+            "isSoldOut": false,
+            "notCarried": false,
+            "isFood": false,
+            "isSpecial": false,
+            "noLarge": false,
+            "options": {
+                "sizes": [
+                    "Regular",
+                    "Large"
+                ],
+                "temps": [
+                    "Ice",
+                    "Hot"
+                ],
+                "ices": [
+                    "Normal Ice",
+                    "Less Ice",
+                    "No Ice",
+                    "Extra Ice"
+                ],
+                "sugars": [
+                    "Normal Sugar",
+                    "Less Sugar"
+                ]
+            },
+            "tag": ""
+        },
+        {
+            "key": "purechamomile",
+            "id": "purechamomile",
+            "code": "",
+            "name": "Pure Chamomile",
+            "category": "Tea",
+            "sourceCategory": "Tea",
+            "img": "https://static.fore.coffee/product/Pure%20Chamomile.jpg",
+            "desc": "Teh bunga chamomile memiliki aroma madu yang kaya dan menghasilkan warna emas",
+            "price": 24000,
+            "largePrice": 29000,
+            "normalPrice": 29000,
+            "outletPrice": 29000,
+            "largeBase": 34000,
+            "customPrice": false,
+            "discount": null,
+            "discountLabel": "",
+            "largeNormal": 35000,
+            "isSoldOut": false,
+            "notCarried": false,
+            "isFood": false,
+            "isSpecial": false,
+            "noLarge": false,
+            "options": {
+                "sizes": [
+                    "Regular",
+                    "Large"
+                ],
+                "temps": [
+                    "Ice",
+                    "Hot"
+                ],
+                "ices": [
+                    "Normal Ice",
+                    "Less Ice",
+                    "No Ice",
+                    "Extra Ice"
+                ],
+                "sugars": [
+                    "Normal Sugar",
+                    "Less Sugar"
+                ]
+            },
+            "tag": ""
+        },
+        {
+            "key": "greenteamint",
+            "id": "greenteamint",
+            "code": "",
+            "name": "Green Tea Mint",
+            "category": "Tea",
+            "sourceCategory": "Tea",
+            "img": "https://static.fore.coffee/product/Green%20Tea%20Mint.jpg",
+            "desc": "Teh merah halus dari Afrika Selatan dengan campuran rempah-rempah Perancis yang manis",
+            "price": 24000,
+            "largePrice": 29000,
+            "normalPrice": 29000,
+            "outletPrice": 29000,
+            "largeBase": 34000,
+            "customPrice": false,
+            "discount": null,
+            "discountLabel": "",
+            "largeNormal": 35000,
+            "isSoldOut": false,
+            "notCarried": false,
+            "isFood": false,
+            "isSpecial": false,
+            "noLarge": false,
+            "options": {
+                "sizes": [
+                    "Regular",
+                    "Large"
+                ],
+                "temps": [
+                    "Ice",
+                    "Hot"
+                ],
+                "ices": [
+                    "Normal Ice",
+                    "Less Ice",
+                    "No Ice",
+                    "Extra Ice"
+                ],
+                "sugars": [
+                    "Normal Sugar",
+                    "Less Sugar"
+                ]
+            },
+            "tag": ""
+        }
+    ],
+    "satuan": [],
+    "seliter": [],
+    "bundles": [],
+    "outlet": null,
+    "preview": true,
+    "updatedAt": "2026-11-19T14:58:31.392457"
 }

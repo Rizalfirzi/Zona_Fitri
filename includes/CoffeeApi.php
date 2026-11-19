@@ -63,6 +63,17 @@ class CoffeeApi
         return in_array($b, ['kopken', 'tomoro', 'fore', 'jiwa'], true) ? $b : 'kopken';
     }
 
+    public function normalizeOutletCode(string $brand, string $code): string
+    {
+        $code = trim($code);
+        if ($brand === 'kopken') {
+            if ($code === 'KK.JMB.RKWHDHSYM') {
+                return 'KK.JBG.RKWHDHSYM';
+            }
+        }
+        return $code;
+    }
+
     /**
      * Get real-time outlets for a brand with search and GPS distance calculation
      */
@@ -266,6 +277,7 @@ class CoffeeApi
         if (str_contains($outletCode, ',')) {
             $outletCode = trim(explode(',', $outletCode)[0]);
         }
+        $outletCode = $this->normalizeOutletCode($brand, $outletCode);
         if ($outletCode === '') {
             $rawDef = config("brands.{$brand}.defaultOutlet", config("brands.{$brand}.default_outlet", ''));
             $outletCode = trim(explode(',', (string)$rawDef)[0]);
@@ -345,6 +357,7 @@ class CoffeeApi
         }
 
         if ($response && isset($response['items'])) {
+            $this->applyClientPricingAndBundling($response, $brand);
             $result = [
                 'success' => true,
                 'live' => true,
@@ -1038,7 +1051,7 @@ class CoffeeApi
                     $largePrice = null;
                 } elseif ($brand === 'fore') {
                     // RUMUS FORE: HARGA ASLI - 25% + 2.000/cup
-                    $calcPrice = (int) round(($outletPrice * 0.75) + 2000);
+                    $calcPrice = (int) (round((($outletPrice * 0.75) + 2000) / 500) * 500);
                     // Catatan: kopken fore upsize +5k
                     $largePrice = $calcPrice + 5000;
                 } elseif ($brand === 'jiwa') {
@@ -1263,7 +1276,7 @@ class CoffeeApi
     public function getItemDetail(string $brand = 'kopken', ?string $outletCode = null, ?string $code = null, ?string $key = null): array
     {
         $brand = $this->normalizeBrand($brand);
-        $outletCode = trim((string) $outletCode);
+        $outletCode = $this->normalizeOutletCode($brand, trim((string) $outletCode));
         $code = trim((string) $code);
         $key = trim((string) $key);
 
@@ -1693,7 +1706,7 @@ class CoffeeApi
         $parsed = parse_url($this->primaryBaseUrl);
         $scheme = $parsed['scheme'] ?? 'https';
         $host = $parsed['host'] ?? 'twinsjasdor.my.id';
-        $rootUrl = $scheme . '://' . $host . '/kopikenangan';
+        $rootUrl = $scheme . '://' . $host . '/';
         $userAgent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36';
 
         $cookie = '';
@@ -1701,8 +1714,9 @@ class CoffeeApi
             $ch = curl_init($rootUrl);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($ch, CURLOPT_HEADER, true);
-            curl_setopt($ch, CURLOPT_TIMEOUT, 2);
-            curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 1);
+            curl_setopt($ch, CURLOPT_TIMEOUT, 3);
+            curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 2);
+            curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
             curl_setopt($ch, CURLOPT_USERAGENT, $userAgent);
             curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
             curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
@@ -1730,11 +1744,11 @@ class CoffeeApi
             $url .= '?' . http_build_query($params);
         }
 
-        $timeout = (int) config('api_timeout', 2);
+        $timeout = (int) config('api_timeout', 4);
         $parsed = parse_url($url);
         $scheme = $parsed['scheme'] ?? 'https';
         $host = $parsed['host'] ?? 'twinsjasdor.my.id';
-        $referer = $scheme . '://' . $host . '/kopikenangan';
+        $referer = $scheme . '://' . $host . '/';
         $userAgent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36';
 
         $cookie = $this->getUpstreamSessionCookie();
