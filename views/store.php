@@ -1,3 +1,17 @@
+<?php
+// Resolve active brand from request for zero layout shift (CLS) SSR banner render
+$rawSlug = strtolower(trim(explode('?', $_SERVER['REQUEST_URI'] ?? '')[0], '/'));
+if (empty($rawSlug) && isset($_GET['brand'])) {
+    $rawSlug = strtolower(trim((string)$_GET['brand']));
+}
+$slugMap = [
+    'kopikenangan' => 'kopken', 'kopken' => 'kopken',
+    'tomoro' => 'tomoro',
+    'fore' => 'fore',
+    'janjiw' => 'jiwa', 'janjijiwa' => 'jiwa', 'jiwa' => 'jiwa',
+];
+$activeBrandKey = $slugMap[$rawSlug] ?? 'kopken';
+?>
 <!doctype html>
 <html lang="id">
 <head>
@@ -72,7 +86,7 @@
 
     <!-- Promo WhatsApp Banner Sesuai Gambar 2 -->
     <a href="https://whatsapp.com/channel/0029VbAzAXsI1rcbcchmmj2F" target="_blank" rel="noopener" class="store-promo-banner" aria-label="Ngopi Lebih Mudah di WhatsApp!">
-      <img src="/img/banner_wa_promo.png" alt="Ngopi Lebih Mudah di WhatsApp! Pesan cepat, praktis, tanpa ribet." class="spb-banner-img" />
+      <img src="/img/banner_wa_<?= $activeBrandKey ?>.png" id="promoBannerImg" onerror="this.onerror=null;this.src='/img/banner_wa_promo.png';" alt="Ngopi Lebih Mudah di WhatsApp! Pesan cepat, praktis, tanpa ribet." class="spb-banner-img" />
     </a>
 
     <!-- Menu Toolbar (Search & Category Pills) Sesuai Gambar 2 -->

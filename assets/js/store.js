@@ -103,6 +103,16 @@ function applyBrand() {
   const navBrand = $('#navBrand');
   if (navBrand) navBrand.innerHTML = logoHtml(S.cfg);
 
+  // Update WhatsApp promo banner cup to match active brand
+  const promoBannerImg = $('#promoBannerImg');
+  if (promoBannerImg && S.brandId) {
+    promoBannerImg.src = `/img/banner_wa_${S.brandId}.png`;
+    promoBannerImg.onerror = function() {
+      this.onerror = null;
+      this.src = '/img/banner_wa_promo.png';
+    };
+  }
+
   // Optional elements with safe checks
   $('#drawerBtn')?.replaceChildren();
   $('#themeBtn')?.replaceChildren();
@@ -136,6 +146,7 @@ function applyBrand() {
 
 function wireStatic() {
   $('#drawerBtn')?.addEventListener('click', openDrawer);
+  $('#brandBtn')?.addEventListener('click', openDrawer);
   $('#brandHeaderInfo')?.addEventListener('click', openDrawer);
   $('#themeBtn')?.addEventListener('click', toggleTheme);
   $('#wifiBtn')?.addEventListener('click', openWifi);
