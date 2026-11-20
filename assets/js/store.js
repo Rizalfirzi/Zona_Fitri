@@ -731,9 +731,6 @@ async function loadMenu(forceRefresh = false) {
     S.menu = await api(`/api/${S.brandId}/menu?${qs.join('&')}`);
     if (S.menu && Array.isArray(S.menu.items)) {
       for (const it of S.menu.items) {
-        if (it.img && it.img.startsWith('/uploads/')) {
-          it.img = 'https://twinsjasdor.my.id' + it.img;
-        }
         if (it.options?.sizes) {
           it.options.sizes = it.options.sizes.filter((sz) => !/jumbo/i.test(sz));
         }
@@ -770,8 +767,14 @@ async function loadMenu(forceRefresh = false) {
           : 'Stok diperbarui manual oleh admin.');
     }
   } catch (err) {
-    const rawMsg = err?.message || String(err);
-    const errText = rawMsg && rawMsg !== '[object Object]' ? rawMsg : 'Koneksi ke server terputus. Silakan coba lagi.';
+    let errText = 'Koneksi ke server terputus. Silakan coba lagi.';
+    if (typeof err === 'string' && err.trim() && err !== '[object Object]') {
+      errText = err;
+    } else if (err?.message && typeof err.message === 'string' && err.message !== '[object Object]') {
+      errText = err.message;
+    } else if (err?.error) {
+      errText = typeof err.error === 'string' ? err.error : (err.error.message || JSON.stringify(err.error));
+    }
     menuEl.innerHTML = `<div class="menu-empty"><b>Menu belum bisa dimuat</b>${esc(errText)}<br><button class="btn btn-primary" id="retryMenu">Coba lagi</button></div>`;
     $('#retryMenu')?.addEventListener('click', loadMenu);
   } finally {
@@ -915,7 +918,7 @@ function setActivePill(cat) {
   }
 }
 
-const fixImg = (url) => (!url ? '' : url.startsWith('/uploads/') ? 'https://twinsjasdor.my.id' + url : url);
+const fixImg = (url) => (!url ? '' : url);
 
 function thumb(item, cls = 'thumb') {
   const imgUrl = fixImg(item?.img);

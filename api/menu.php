@@ -55,7 +55,13 @@ try {
         $rawDef = config("brands.{$brand}.defaultOutlet", config("brands.{$brand}.default_outlet", ''));
         $outletCode = trim(explode(',', (string)$rawDef)[0]);
         if (empty($outletCode)) {
-            $outletCode = $brand === 'kopken' ? 'KK.SBY.MERRNGKTDT' : ($brand === 'jiwa' ? '25' : ($brand === 'fore' ? 'KOKAS' : 'TMR-627779'));
+            $outletCode = match ($brand) {
+                'kopken' => 'KK.SBY.MERRNGKTDT',
+                'jiwa'   => '2248',
+                'fore'   => 'KOKAS',
+                'point'  => 'PC001',
+                default  => 'TMR-627779',
+            };
         }
     }
 

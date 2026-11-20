@@ -13,14 +13,6 @@ $cleanUri = '/' . trim((string)$uri, '/');
 
 // 1. Static asset fallback protection (if requested through index.php)
 if (preg_match('#\.(png|webp|jpe?g|svg|ico|gif|css|js|map|woff2?|ttf|eot)$#i', $uri)) {
-    if (preg_match('#^/uploads/#', $uri)) {
-        header("Location: https://twinsjasdor.my.id{$uri}", true, 302);
-        exit;
-    }
-    if (preg_match('#^/img/#', $uri)) {
-        header("Location: https://ridstore.developerngantuk.my.id{$uri}", true, 302);
-        exit;
-    }
     http_response_code(404);
     header('Content-Type: text/plain');
     echo 'Asset not found: ' . htmlspecialchars($uri);
@@ -82,7 +74,7 @@ if (empty($slug) && isset($_GET['brand'])) {
     $slug = trim($_GET['brand']);
 }
 
-$isStorePage = in_array($slug, ['kopikenangan', 'tomoro', 'fore', 'kopken', 'janjiw', 'janjijiwa', 'jiwa'], true);
+$isStorePage = in_array($slug, ['kopikenangan', 'tomoro', 'fore', 'kopken', 'janjiw', 'janjijiwa', 'jiwa', 'point', 'pointcoffee'], true);
 
 if ($isStorePage) {
     require __DIR__ . '/views/store.php';

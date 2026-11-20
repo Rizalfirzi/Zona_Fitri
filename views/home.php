@@ -319,6 +319,26 @@
                             <i data-lucide="chevron-right" class="w-5 h-5 stroke-[2.5]"></i>
                         </div>
                     </a>
+
+                    <!-- 5. Point Coffee -->
+                    <a href="/point" class="group relative bg-white rounded-[26px] p-3.5 pl-6 soft-card-shadow flex items-center justify-between cursor-pointer overflow-hidden border border-white hover:border-blue-200 active:scale-[0.98] transition-all">
+                        <div class="absolute left-0 top-0 bottom-0 w-9 bg-gradient-to-r from-teal-400/80 to-teal-100/20 rounded-r-full pointer-events-none"></div>
+                        
+                        <div class="relative z-10 flex items-center gap-4">
+                            <div class="w-14 h-14 flex items-center justify-center shrink-0">
+                                <img src="/img/brands/point.png" alt="Point Coffee" class="w-12 h-12 object-contain group-hover:scale-105 transition-transform">
+                            </div>
+                            
+                            <div>
+                                <h3 class="font-extrabold text-[17px] text-[#052963] leading-tight group-hover:text-[#0b57d0] transition-colors">Point Coffee</h3>
+                                <p class="text-[12px] text-slate-500 font-medium mt-0.5">Fresh Quality Coffee</p>
+                            </div>
+                        </div>
+
+                        <div class="relative z-10 w-10 h-10 rounded-full bg-[#e3effd] group-hover:bg-[#0b57d0] text-[#052963] group-hover:text-white flex items-center justify-center transition-colors shrink-0">
+                            <i data-lucide="chevron-right" class="w-5 h-5 stroke-[2.5]"></i>
+                        </div>
+                    </a>
                 </div>
 
                 <!-- Gabung Saluran Button -->

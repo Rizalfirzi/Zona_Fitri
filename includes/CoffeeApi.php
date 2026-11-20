@@ -2,39 +2,38 @@
 /**
  * Zona Fitri - Multi-Brand Coffee Native API Service
  * 
- * Mendukung Kopi Kenangan, Tomoro Coffee, & Fore Coffee:
- * 1. Mengambil daftar outlet secara real-time berdasarkan brand & query pencarian.
- * 2. Menghitung jarak GPS terdekat menggunakan Haversine Formula.
- * 3. Menghitung status buka/tutup outlet berdasarkan jam operasional WIB.
- * 4. Mengambil menu lengkap & status ketersediaan stok real-time (Ready vs Habis).
- * 5. Fitur force refresh untuk pembaruan stok instan.
- * 6. Format pemesanan otomatis terintegrasi ke WhatsApp admin.
- * 7. Caching mandiri di temporary directory serverless.
- * 8. Fallback data cerdas jika remote API offline.
+ * Terhubung langsung ke 5 Dedicated Brand APIs (Nuxt Serverless):
+ * - Kopi Kenangan: https://kopkenapi.swamptechnology.id
+ * - Janji Jiwa:    https://jiwaapi.swamptechnology.id
+ * - Point Coffee:  https://pointapi.swamptechnology.id
+ * - Fore Coffee:   https://foreapi.swamptechnology.id
+ * - Tomoro Coffee: https://tomoroapi.swamptechnology.id
+ * 
+ * Vercel Serverless Optimized:
+ * 1. Zero Database overhead pada request menu & outlet.
+ * 2. Caching layer pada Edge CDN dan temporary container directory (/tmp).
+ * 3. Strict 4s cURL timeout sehingga tidak membebani fungsi serverless Vercel.
+ * 4. Master snapshot fallback instan (< 1ms) untuk zero downtime.
  */
-
-require_once __DIR__ . '/SimpleMongo.php';
 
 class CoffeeApi
 {
-    protected SimpleMongo $mongo;
-    protected string $primaryBaseUrl;
-    protected string $backupBaseUrl;
-    protected string $tertiaryBaseUrl;
-    protected string $quaternaryBaseUrl;
+    protected array $brandApis;
     protected int $outletsTtl;
     protected int $stockTtl;
     protected string $cacheDir;
 
     public function __construct()
     {
-        $this->mongo = new SimpleMongo();
-        $this->primaryBaseUrl = rtrim((string) config('api_base_url', 'https://twinsjasdor.my.id/api'), '/');
-        $this->backupBaseUrl = rtrim((string) config('api_backup_url', 'https://tixandcoffee.developerngantuk.my.id/api'), '/');
-        $this->tertiaryBaseUrl = rtrim((string) config('api_tertiary_url', 'https://ridstore.developerngantuk.my.id/api'), '/');
-        $this->quaternaryBaseUrl = rtrim((string) config('api_quaternary_url', 'https://tyaastore.my.id/api'), '/');
+        $this->brandApis = config('brand_apis', [
+            'kopken' => 'https://kopkenapi.swamptechnology.id',
+            'jiwa'   => 'https://jiwaapi.swamptechnology.id',
+            'point'  => 'https://pointapi.swamptechnology.id',
+            'fore'   => 'https://foreapi.swamptechnology.id',
+            'tomoro' => 'https://tomoroapi.swamptechnology.id',
+        ]);
         $this->outletsTtl = (int) config('cache_ttl.outlets', 1800);
-        $this->stockTtl = (int) config('cache_ttl.menu', 3);
+        $this->stockTtl = (int) config('cache_ttl.menu', 20);
         $this->cacheDir = defined('CACHE_PATH') ? CACHE_PATH : sys_get_temp_dir() . DIRECTORY_SEPARATOR . 'zonafitri_cache';
 
         if (!is_dir($this->cacheDir)) {
@@ -60,14 +59,20 @@ class CoffeeApi
         if ($b === 'janjijiwa' || $b === 'janji-jiwa' || $b === 'janjiw' || $b === 'jiwa' || $b === 'jj') {
             return 'jiwa';
         }
-        return in_array($b, ['kopken', 'tomoro', 'fore', 'jiwa'], true) ? $b : 'kopken';
+        if ($b === 'pointcoffee' || $b === 'point-coffee' || $b === 'point') {
+            return 'point';
+        }
+        return in_array($b, ['kopken', 'tomoro', 'fore', 'jiwa', 'point'], true) ? $b : 'kopken';
     }
 
+    /**
+     * Normalize outlet code aliases (e.g. Jombang outlet codes)
+     */
     public function normalizeOutletCode(string $brand, string $code): string
     {
         $code = trim($code);
         if ($brand === 'kopken') {
-            if ($code === 'KK.JMB.RKWHDHSYM') {
+            if ($code === 'KK.JMB.RKWHDHSYM' || $code === 'KK.JMB.RKWD.SYM' || stripos($code, 'JMB') !== false) {
                 return 'KK.JBG.RKWHDHSYM';
             }
         }
@@ -81,190 +86,238 @@ class CoffeeApi
     {
         $brand = $this->normalizeBrand($brand);
         $query = trim((string) $query);
-        $cacheKey = "outlets_{$brand}_" . md5($query . '|' . ($lat ? round($lat, 3) : '') . '|' . ($lng ? round($lng, 3) : ''));
+        $cacheKey = "outlets_{$brand}_all";
 
-        $cached = $this->getCache($cacheKey, $this->outletsTtl);
-        if ($cached !== null) {
-            foreach ($cached['outlets'] as &$o) {
-                $o = $this->evaluateOutletHours($o, $brand);
+        // 1. Load full outlet list from container cache or live brand API
+        $allOutlets = $this->getCache($cacheKey, $this->outletsTtl);
+        if ($allOutlets === null || empty($allOutlets['outlets'])) {
+            $liveOutlets = $this->fetchOutletsFromApi($brand);
+            if (!empty($liveOutlets)) {
+                $allOutlets = [
+                    'brand' => $brand,
+                    'outlets' => $liveOutlets,
+                    'updatedAt' => date('c'),
+                ];
+                $this->setCache($cacheKey, $allOutlets);
             }
-            unset($o);
-            return $cached;
         }
 
-        // 1. Direct fast load from MongoDB Atlas Master Database ('zona_fitri')
-        $mongoOutlets = $this->mongo->getOutlets($brand, $query);
-        if (!empty($mongoOutlets)) {
-            if ($lat !== null && $lng !== null) {
-                foreach ($mongoOutlets as &$outlet) {
-                    if (!empty($outlet['lat']) && !empty($outlet['lng'])) {
-                        $outlet['distanceKm'] = $this->calculateDistance(
-                            $lat,
-                            $lng,
-                            (float) $outlet['lat'],
-                            (float) $outlet['lng']
-                        );
-                    }
-                }
-                unset($outlet);
-
-                usort($mongoOutlets, function ($a, $b) {
-                    $distA = $a['distanceKm'] ?? 999999;
-                    $distB = $b['distanceKm'] ?? 999999;
-                    return $distA <=> $distB;
-                });
-            }
-
-            foreach ($mongoOutlets as &$o) {
-                $o = $this->evaluateOutletHours($o, $brand);
-            }
-            unset($o);
-
-            $result = [
-                'success' => true,
+        // 2. Fallback to local snapshot file if live API failed
+        if (empty($allOutlets['outlets'])) {
+            $fallback = $this->getFallbackOutlets($brand);
+            $allOutlets = [
                 'brand' => $brand,
-                'source' => 'mongodb',
-                'count' => count($mongoOutlets),
-                'outlets' => $mongoOutlets,
-                'timestamp' => date('c'),
+                'outlets' => $fallback,
+                'source' => 'snapshot',
+                'updatedAt' => date('c'),
             ];
-
-            $this->setCache($cacheKey, $result);
-            return $result;
         }
 
-        $params = [];
+        $outlets = $allOutlets['outlets'] ?? [];
+
+        // 3. Filter by search query if specified
         if ($query !== '') {
-            $params['q'] = $query;
+            $qLower = strtolower($query);
+            $outlets = array_values(array_filter($outlets, function ($o) use ($qLower) {
+                $haystack = strtolower(
+                    ($o['name'] ?? '') . ' ' .
+                    ($o['address'] ?? '') . ' ' .
+                    ($o['city'] ?? '') . ' ' .
+                    ($o['code'] ?? '')
+                );
+                return str_contains($haystack, $qLower);
+            }));
+
+            // Sort by relevance
+            usort($outlets, function ($a, $b) use ($qLower) {
+                $scoreA = 999;
+                $cityA = strtolower($a['city'] ?? '');
+                $nameA = strtolower($a['name'] ?? '');
+                $addrA = strtolower($a['address'] ?? '');
+                if (preg_match('/\b' . preg_quote($qLower, '/') . '\b/i', $cityA)) $scoreA = 1;
+                elseif (preg_match('/\b' . preg_quote($qLower, '/') . '\b/i', $nameA)) $scoreA = 2;
+                elseif (preg_match('/\b' . preg_quote($qLower, '/') . '\b/i', $addrA)) $scoreA = 3;
+                elseif (str_contains($cityA . ' ' . $nameA . ' ' . $addrA, $qLower)) $scoreA = 4;
+
+                $scoreB = 999;
+                $cityB = strtolower($b['city'] ?? '');
+                $nameB = strtolower($b['name'] ?? '');
+                $addrB = strtolower($b['address'] ?? '');
+                if (preg_match('/\b' . preg_quote($qLower, '/') . '\b/i', $cityB)) $scoreB = 1;
+                elseif (preg_match('/\b' . preg_quote($qLower, '/') . '\b/i', $nameB)) $scoreB = 2;
+                elseif (preg_match('/\b' . preg_quote($qLower, '/') . '\b/i', $addrB)) $scoreB = 3;
+                elseif (str_contains($cityB . ' ' . $nameB . ' ' . $addrB, $qLower)) $scoreB = 4;
+
+                return $scoreA <=> $scoreB;
+            });
         }
+
+        // 4. Calculate GPS Distance if coordinates provided
         if ($lat !== null && $lng !== null) {
-            $params['lat'] = $lat;
-            $params['lng'] = $lng;
-        }
-
-        // Try primary URL first, then backup
-        $url = $this->primaryBaseUrl . "/{$brand}/outlets";
-        $response = $this->httpRequest($url, $params);
-
-        if (!$response || empty($response['outlets'])) {
-            $backupUrl = $this->backupBaseUrl . "/{$brand}/outlets";
-            $response = $this->httpRequest($backupUrl, $params);
-        }
-
-        if (!$response || empty($response['outlets'])) {
-            $tertiaryUrl = $this->tertiaryBaseUrl . "/{$brand}/outlets";
-            $response = $this->httpRequest($tertiaryUrl, $params);
-        }
-
-        if (!$response || empty($response['outlets'])) {
-            $quaternaryUrl = $this->quaternaryBaseUrl . "/{$brand}/outlets";
-            $response = $this->httpRequest($quaternaryUrl, $params);
-        }
-
-        $outlets = ($response && !empty($response['outlets'])) ? $response['outlets'] : [];
-
-        // Special enhancement for Tomoro: Merge with comprehensive 645+ outlet dataset
-        if ($brand === 'tomoro') {
-            $localTomoro = $this->searchLocalTomoroOutlets($query);
-            $existingCodes = [];
-            foreach ($outlets as $o) {
-                $c = (string)($o['code'] ?? $o['id'] ?? '');
-                if ($c !== '') $existingCodes[$c] = true;
-            }
-            foreach ($localTomoro as $lo) {
-                $c = (string)($lo['code'] ?? $lo['id'] ?? '');
-                if ($c !== '' && !isset($existingCodes[$c])) {
-                    $outlets[] = $lo;
-                    $existingCodes[$c] = true;
-                }
-            }
-        }
-
-        if (!empty($outlets)) {
-            // Calculate GPS distance locally if coordinates provided
-            if ($lat !== null && $lng !== null) {
-                foreach ($outlets as &$outlet) {
-                    if (!empty($outlet['lat']) && !empty($outlet['lng'])) {
-                        $outlet['distanceKm'] = $this->calculateDistance(
-                            $lat,
-                            $lng,
-                            (float) $outlet['lat'],
-                            (float) $outlet['lng']
-                        );
-                    }
-                }
-                unset($outlet);
-
-                usort($outlets, function ($a, $b) {
-                    $distA = $a['distanceKm'] ?? 999999;
-                    $distB = $b['distanceKm'] ?? 999999;
-                    return $distA <=> $distB;
-                });
-
-                if (count($outlets) > 40) {
-                    $outlets = array_slice($outlets, 0, 40);
-                }
-            } elseif ($query !== '') {
-                $qLower = strtolower($query);
-                usort($outlets, function ($a, $b) use ($qLower) {
-                    $scoreA = 999;
-                    $cityA = strtolower($a['city'] ?? '');
-                    $nameA = strtolower($a['name'] ?? '');
-                    $addrA = strtolower($a['address'] ?? '');
-                    if (preg_match('/\b' . preg_quote($qLower, '/') . '\b/i', $cityA)) $scoreA = 1;
-                    elseif (preg_match('/\b' . preg_quote($qLower, '/') . '\b/i', $nameA)) $scoreA = 2;
-                    elseif (preg_match('/\b' . preg_quote($qLower, '/') . '\b/i', $addrA)) $scoreA = 3;
-                    elseif (str_contains($cityA . ' ' . $nameA . ' ' . $addrA, $qLower)) $scoreA = 4;
-
-                    $scoreB = 999;
-                    $cityB = strtolower($b['city'] ?? '');
-                    $nameB = strtolower($b['name'] ?? '');
-                    $addrB = strtolower($b['address'] ?? '');
-                    if (preg_match('/\b' . preg_quote($qLower, '/') . '\b/i', $cityB)) $scoreB = 1;
-                    elseif (preg_match('/\b' . preg_quote($qLower, '/') . '\b/i', $nameB)) $scoreB = 2;
-                    elseif (preg_match('/\b' . preg_quote($qLower, '/') . '\b/i', $addrB)) $scoreB = 3;
-                    elseif (str_contains($cityB . ' ' . $nameB . ' ' . $addrB, $qLower)) $scoreB = 4;
-
-                    return $scoreA <=> $scoreB;
-                });
-            } elseif ($query === '' && count($outlets) > 50) {
-                $outlets = array_slice($outlets, 0, 50);
-            }
-
-            // Evaluate operating hours for each outlet
             foreach ($outlets as &$outlet) {
-                $outlet = $this->evaluateOutletHours($outlet, $brand);
+                if (!empty($outlet['lat']) && !empty($outlet['lng'])) {
+                    $outlet['distanceKm'] = $this->calculateDistance(
+                        $lat,
+                        $lng,
+                        (float) $outlet['lat'],
+                        (float) $outlet['lng']
+                    );
+                }
             }
             unset($outlet);
 
-            $result = [
-                'success' => true,
-                'brand' => $brand,
-                'source' => 'live',
-                'count' => count($outlets),
-                'outlets' => $outlets,
-                'timestamp' => date('c'),
-            ];
+            usort($outlets, function ($a, $b) {
+                $distA = $a['distanceKm'] ?? 999999;
+                $distB = $b['distanceKm'] ?? 999999;
+                return $distA <=> $distB;
+            });
 
-            $this->setCache($cacheKey, $result);
-            return $result;
+            if (count($outlets) > 40) {
+                $outlets = array_slice($outlets, 0, 40);
+            }
+        } elseif ($query === '' && count($outlets) > 50) {
+            $outlets = array_slice($outlets, 0, 50);
         }
 
-        // Fallback to local catalog if remote API is unreachable
-        $fallback = $this->getFallbackOutlets($brand, $query, $lat, $lng);
-        foreach ($fallback as &$o) {
-            $o = $this->evaluateOutletHours($o, $brand);
+        // 5. Evaluate operating hours
+        foreach ($outlets as &$outlet) {
+            $outlet = $this->evaluateOutletHours($outlet, $brand);
         }
-        unset($o);
+        unset($outlet);
 
         return [
             'success' => true,
             'brand' => $brand,
-            'source' => 'fallback',
-            'count' => count($fallback),
-            'outlets' => $fallback,
+            'source' => empty($allOutlets['source']) ? 'live' : $allOutlets['source'],
+            'count' => count($outlets),
+            'outlets' => $outlets,
             'timestamp' => date('c'),
         ];
+    }
+
+    /**
+     * Fetch outlets directly from dedicated brand API
+     */
+    protected function fetchOutletsFromApi(string $brand): array
+    {
+        $apiBase = $this->brandApis[$brand] ?? null;
+        if (!$apiBase) return [];
+
+        $outlets = [];
+
+        try {
+            if ($brand === 'kopken') {
+                $res = $this->httpRequest("{$apiBase}/api/store/query_pageable_store", ['pageSize' => 1500]);
+                $rawStores = $res['data']['store'] ?? [];
+                foreach ($rawStores as $s) {
+                    $code = $s['code'] ?? '';
+                    $name = $s['alias'] ?: ($s['name'] ?? '');
+                    $addr = $s['address'] ?? '';
+                    $openTime = $s['open'] ?? '07:00';
+                    $closeTime = $s['close'] ?? '22:00';
+
+                    $outlets[] = [
+                        'code' => $code,
+                        'id' => $code,
+                        'name' => $name,
+                        'address' => $addr,
+                        'city' => $this->extractCity($addr . ' ' . $name),
+                        'lat' => (float) ($s['latitude'] ?? 0),
+                        'lng' => (float) ($s['longitude'] ?? 0),
+                        'isOpen' => !empty($s['is_open']) && !empty($s['available']),
+                        'hours' => "{$openTime} - {$closeTime} WIB",
+                        'img' => $s['image_url'] ?? $this->getDefaultOutletImage('kopken'),
+                    ];
+                }
+            } elseif ($brand === 'jiwa') {
+                $res = $this->httpRequest("{$apiBase}/api/store/all", ['limit' => 1000]);
+                $rawStores = $res['payload'] ?? [];
+                foreach ($rawStores as $s) {
+                    $oid = (string) ($s['id_outlet'] ?? $s['outlet_code'] ?? '');
+                    $name = $s['outlet_name'] ?? '';
+                    $addr = $s['outlet_address'] ?? '';
+                    $outlets[] = [
+                        'code' => $oid,
+                        'id' => $oid,
+                        'outlet_code' => $s['outlet_code'] ?? '',
+                        'name' => $name,
+                        'address' => $addr,
+                        'city' => $this->extractCity($addr . ' ' . $name),
+                        'lat' => (float) ($s['outlet_lat'] ?? 0),
+                        'lng' => (float) ($s['outlet_long'] ?? 0),
+                        'isOpen' => ($s['is_open'] == 1 || ($s['outlet_status'] ?? '') === 'ACTIVE'),
+                        'hours' => '07:00 - 22:00 WIB',
+                        'img' => $this->getDefaultOutletImage('jiwa'),
+                    ];
+                }
+            } elseif ($brand === 'fore') {
+                $res = $this->httpRequest("{$apiBase}/api/store/all", ['limit' => 1000]);
+                $rawStores = $res['payload'] ?? [];
+                foreach ($rawStores as $s) {
+                    $code = $s['st_code'] ?? (string) ($s['st_id'] ?? '');
+                    $name = $s['st_name'] ?? '';
+                    $addr = $s['st_address'] ?? '';
+                    $openTime = $s['st_open_wib'] ?: ($s['st_open'] ?? '07:00');
+                    $closeTime = $s['st_close_wib'] ?: ($s['st_close'] ?? '22:00');
+                    $outlets[] = [
+                        'code' => $code,
+                        'id' => (string) ($s['st_id'] ?? $code),
+                        'name' => $name,
+                        'address' => $addr,
+                        'city' => $this->extractCity($addr . ' ' . $name),
+                        'lat' => (float) ($s['st_lat'] ?? 0),
+                        'lng' => (float) ($s['st_long'] ?? 0),
+                        'isOpen' => !empty($s['is_open']) || strtolower((string)($s['st_status'] ?? '')) === 'active',
+                        'hours' => "{$openTime} - {$closeTime} WIB",
+                        'img' => $this->getDefaultOutletImage('fore'),
+                    ];
+                }
+            } elseif ($brand === 'tomoro') {
+                $res = $this->httpRequest("{$apiBase}/api/store/list", ['pageSize' => 1000]);
+                $rawStores = $res['data']['records'] ?? [];
+                foreach ($rawStores as $s) {
+                    $code = $s['storeCode'] ?? '';
+                    $name = $s['storeName'] ?? '';
+                    $addr = $s['storeAddress'] ?? '';
+                    $outlets[] = [
+                        'code' => $code,
+                        'id' => $code,
+                        'name' => $name,
+                        'address' => $addr,
+                        'city' => $s['city'] ?? $this->extractCity($addr . ' ' . $name),
+                        'lat' => (float) ($s['latitude'] ?? 0),
+                        'lng' => (float) ($s['longitude'] ?? 0),
+                        'isOpen' => ($s['businessStatus'] == 1),
+                        'hours' => '07:00 - 22:00 WIB',
+                        'img' => $s['storePicture'] ?? $this->getDefaultOutletImage('tomoro'),
+                    ];
+                }
+            } elseif ($brand === 'point') {
+                $res = $this->httpRequest("{$apiBase}/api/store/list", ['page' => 0, 'size' => 500]);
+                $rawStores = $res['data']['content'] ?? [];
+                foreach ($rawStores as $s) {
+                    $code = $s['storeCode'] ?? '';
+                    $name = $s['storeName'] ?? '';
+                    $addr = $s['address'] ?? '';
+                    $outlets[] = [
+                        'code' => $code,
+                        'id' => $code,
+                        'name' => $name,
+                        'address' => $addr,
+                        'city' => $s['areaName'] ?? $this->extractCity($addr . ' ' . $name),
+                        'lat' => (float) ($s['latitude'] ?? 0),
+                        'lng' => (float) ($s['longitude'] ?? 0),
+                        'isOpen' => $s['isOpen'] ?? true,
+                        'hours' => $s['openingHour'] ?? '07:00 - 22:00 WIB',
+                        'img' => $this->getDefaultOutletImage('point'),
+                    ];
+                }
+            }
+        } catch (Throwable $e) {
+            error_log("Failed to fetch outlets for {$brand}: " . $e->getMessage());
+        }
+
+        return $outlets;
     }
 
     /**
@@ -282,7 +335,14 @@ class CoffeeApi
             $rawDef = config("brands.{$brand}.defaultOutlet", config("brands.{$brand}.default_outlet", ''));
             $outletCode = trim(explode(',', (string)$rawDef)[0]);
             if ($outletCode === '') {
-                $outletCode = $brand === 'kopken' ? 'KK.SBY.MERRNGKTDT' : ($brand === 'jiwa' ? '25' : ($brand === 'fore' ? 'KOKAS' : 'TMR-627779'));
+                $outletCode = match ($brand) {
+                    'kopken' => 'KK.SBY.MERRNGKTDT',
+                    'jiwa'   => '2248',
+                    'fore'   => 'KOKAS',
+                    'tomoro' => 'JKT0001',
+                    'point'  => 'PC001',
+                    default  => 'KK.SBY.MERRNGKTDT',
+                };
             }
         }
 
@@ -300,91 +360,375 @@ class CoffeeApi
             return $this->formatMenuStats($cached, $brand, $outletCode);
         }
 
-        // 1. Direct fast load from MongoDB Atlas Master Database ('zona_fitri') if no specific outlet requested
-        // When an outlet is specified, we fetch real-time outlet stock from upstream (twinsjasdor)
-        if (!$forceRefresh && empty($outletCode)) {
-            $mongoMenu = $this->mongo->getMenu($brand);
-            if (!empty($mongoMenu) && !empty($mongoMenu['items'])) {
-                $this->applyClientPricingAndBundling($mongoMenu, $brand);
-                $mongoMenu['brand'] = $brand;
-                $mongoMenu['outletCode'] = $outletCode;
-                $mongoMenu['source'] = 'mongodb';
-                $mongoMenu['live'] = true;
-                $result = $this->formatMenuStats($mongoMenu, $brand, $outletCode);
-                $this->setCache($cacheKey, $result);
-                return $result;
-            }
+        // 1. Fetch live menu directly from brand API
+        $liveMenu = $this->fetchMenuFromApi($brand, $outletCode);
+
+        // 2. Fallback to local snapshot file if live API failed or empty
+        if (!$liveMenu || empty($liveMenu['items'])) {
+            $liveMenu = $this->getFallbackMenu($brand, $outletCode);
         }
 
-        // Primary API request: fetch real-time outlet stock from upstream (twinsjasdor)
-        $response = null;
-        if (!empty($this->primaryBaseUrl)) {
-            $url = $this->primaryBaseUrl . "/{$brand}/menu";
-            $requestParams = $outletCode !== '' ? ['outlet' => $outletCode] : [];
-            $response = $this->httpRequest($url, $requestParams);
-        }
-
-        // Ultra-fast Fallback: if upstream unavailable, blocked, or timed out,
-        // IMMEDIATELY load from MongoDB Atlas Master Database (< 30ms) or local master snapshot (< 1ms)!
-        if (!$response || empty($response['items'])) {
-            $mongoMenu = $this->mongo->getMenu($brand);
-            if (!empty($mongoMenu) && !empty($mongoMenu['items'])) {
-                $this->applyClientPricingAndBundling($mongoMenu, $brand);
-                $mongoMenu['brand'] = $brand;
-                $mongoMenu['outletCode'] = $outletCode;
-                $mongoMenu['source'] = 'mongodb';
-                $mongoMenu['live'] = true;
-                $result = $this->formatMenuStats($mongoMenu, $brand, $outletCode);
-                $this->setCache($cacheKey, $result);
-                return $result;
-            }
-
-            // Local snapshot file fallback
-            $localFile = (defined('ROOT_PATH') ? ROOT_PATH : dirname(__DIR__)) . "/data/menu_master_{$brand}.json";
-            if (file_exists($localFile)) {
-                $localMenu = json_decode((string)file_get_contents($localFile), true);
-                if (!empty($localMenu) && !empty($localMenu['items'])) {
-                    $this->applyClientPricingAndBundling($localMenu, $brand);
-                    $localMenu['brand'] = $brand;
-                    $localMenu['outletCode'] = $outletCode;
-                    $localMenu['source'] = 'local_snapshot';
-                    $localMenu['live'] = true;
-                    $result = $this->formatMenuStats($localMenu, $brand, $outletCode);
-                    $this->setCache($cacheKey, $result);
-                    return $result;
-                }
-            }
-        }
-
-        if ($response && isset($response['items'])) {
-            $this->applyClientPricingAndBundling($response, $brand);
-            $result = [
-                'success' => true,
-                'live' => true,
-                'isClosed' => $response['isClosed'] ?? false,
-                'premium' => !empty($response['premium']),
-                'brand' => $brand,
-                'outletCode' => $outletCode,
-                'categories' => $response['categories'] ?? [],
-                'items' => $response['items'],
-                'updatedAt' => date('c'),
-            ];
-
+        if ($liveMenu && !empty($liveMenu['items'])) {
+            $result = $this->formatMenuStats($liveMenu, $brand, $outletCode);
             $this->setCache($cacheKey, $result);
-            return $this->formatMenuStats($result, $brand, $outletCode);
+            return $result;
         }
 
-        // Offline fallback menu
-        $fallback = $this->getFallbackMenu($brand, $outletCode);
-        return $this->formatMenuStats($fallback, $brand, $outletCode);
+        return [
+            'brand' => $brand,
+            'outletCode' => $outletCode,
+            'categories' => [],
+            'items' => [],
+            'stats' => ['total' => 0, 'available' => 0, 'soldOut' => 0],
+            'updatedAt' => date('c'),
+        ];
     }
 
     /**
-     * Format menu statistics and ensure standard category items
+     * Fetch menu directly from dedicated brand API
+     */
+    protected function fetchMenuFromApi(string $brand, string $outletCode): ?array
+    {
+        $apiBase = $this->brandApis[$brand] ?? null;
+        if (!$apiBase) return null;
+
+        try {
+            if ($brand === 'kopken') {
+                $res = $this->httpRequest("{$apiBase}/api/product/query_product_menu", ['store_code' => $outletCode]);
+                $groups = $res['data']['menu_groups'] ?? [];
+                if (empty($groups)) return null;
+
+                $items = [];
+                $categories = [];
+                $seenKeys = [];
+
+                foreach ($groups as $g) {
+                    $gname = $g['group_name'] ?? 'Menu';
+                    $catId = 'cat-' . $this->slugify($gname);
+                    $catItems = [];
+
+                    foreach ($g['menu_products'] ?? [] as $p) {
+                        $name = $p['name'] ?? '';
+                        $key = $this->slugify($name);
+                        if (isset($seenKeys[$key])) continue;
+                        $seenKeys[$key] = true;
+
+                        $origPrice = (int) ($p['orig_price'] ?? $p['price'] ?? 0);
+                        $price = (int) ($p['price'] ?? $origPrice);
+                        $isSoldOut = !empty($p['is_sold_out']);
+                        $isFood = (bool) preg_match('/toast|food|panini|croissant|bagel|roti|bread|cookie|muffin|danish|cake/i', $name . ' ' . $gname);
+
+                        $items[] = [
+                            'key' => $key,
+                            'id' => (string) ($p['id'] ?? $key),
+                            'code' => (string) ($p['product_code'] ?? $p['id'] ?? $key),
+                            'name' => $name,
+                            'category' => $gname,
+                            'outletPrice' => $origPrice > 0 ? $origPrice : $price,
+                            'normalPrice' => $origPrice > 0 ? $origPrice : $price,
+                            'price' => $origPrice > 0 ? $origPrice : $price,
+                            'img' => $p['image'] ?? '',
+                            'isSoldOut' => $isSoldOut,
+                            'notCarried' => false,
+                            'isFood' => $isFood,
+                            'desc' => $p['description'] ?? '',
+                            'options' => [
+                                'sizes' => $isFood ? ['Regular'] : ['Regular', 'Large'],
+                                'temps' => ['Ice', 'Hot'],
+                                'ices' => ['Normal Ice', 'Less Ice', 'No Ice'],
+                                'sugars' => ['Normal Sugar', 'Less Sugar', 'No Sugar'],
+                            ],
+                        ];
+                        $catItems[] = $key;
+                    }
+
+                    if (!empty($catItems)) {
+                        $categories[] = [
+                            'id' => $catId,
+                            'name' => $gname,
+                            'kind' => 'item',
+                            'items' => $catItems,
+                        ];
+                    }
+                }
+
+                return [
+                    'brand' => 'kopken',
+                    'outletCode' => $outletCode,
+                    'categories' => $categories,
+                    'items' => $items,
+                    'live' => true,
+                    'updatedAt' => date('c'),
+                ];
+            } elseif ($brand === 'jiwa') {
+                $res = $this->httpRequest("{$apiBase}/api/product/menu", ['outlet_id' => $outletCode]);
+                $rawItems = $res['payload'] ?? [];
+                if (empty($rawItems)) return null;
+
+                $items = [];
+                $catMap = [];
+                $seenKeys = [];
+
+                foreach ($rawItems as $p) {
+                    $name = $p['product_name'] ?? '';
+                    $key = $this->slugify($name);
+                    if (isset($seenKeys[$key])) continue;
+                    $seenKeys[$key] = true;
+
+                    $catName = $p['category_name'] ?? 'Menu';
+                    $price = (int) ($p['price'] ?? $p['discounted_price'] ?? 0);
+                    $isFood = (bool) preg_match('/toast|food|bun|bread|roti/i', $name . ' ' . $catName);
+
+                    $items[] = [
+                        'key' => $key,
+                        'id' => (string) ($p['id_product'] ?? $key),
+                        'code' => (string) ($p['id_product'] ?? $key),
+                        'name' => $name,
+                        'category' => $catName,
+                        'outletPrice' => $price,
+                        'normalPrice' => $price,
+                        'price' => $price,
+                        'img' => $p['product_photo'] ?? '',
+                        'isSoldOut' => ($p['is_inactive'] == 1),
+                        'isFood' => $isFood,
+                        'desc' => $p['product_description'] ?? '',
+                        'options' => [
+                            'sizes' => ['Regular'],
+                            'temps' => ['Ice', 'Hot'],
+                            'ices' => ['Normal Ice', 'Less Ice', 'No Ice'],
+                            'sugars' => ['Normal Sugar', 'Less Sugar', 'No Sugar'],
+                        ],
+                    ];
+
+                    $catMap[$catName][] = $key;
+                }
+
+                $categories = [];
+                foreach ($catMap as $cn => $citems) {
+                    $categories[] = [
+                        'id' => 'cat-' . $this->slugify($cn),
+                        'name' => $cn,
+                        'kind' => 'item',
+                        'items' => $citems,
+                    ];
+                }
+
+                return [
+                    'brand' => 'jiwa',
+                    'outletCode' => $outletCode,
+                    'categories' => $categories,
+                    'items' => $items,
+                    'live' => true,
+                    'updatedAt' => date('c'),
+                ];
+            } elseif ($brand === 'fore') {
+                $res = $this->httpRequest("{$apiBase}/api/product/menu", ['store_id' => $outletCode]);
+                $rawItems = $res['payload'] ?? [];
+                if (empty($rawItems)) return null;
+
+                $items = [];
+                $catMap = [];
+                $seenKeys = [];
+
+                foreach ($rawItems as $p) {
+                    $name = $p['pd_name'] ?? '';
+                    $key = $this->slugify($name);
+                    if (isset($seenKeys[$key])) continue;
+                    $seenKeys[$key] = true;
+
+                    $catName = $p['cat_name'] ?? 'Menu';
+                    $price = (int) ($p['pd_final_price'] ?? $p['pd_final_price_ori'] ?? 0);
+                    $origPrice = (int) ($p['pd_final_price_ori'] ?? $price);
+                    $isFood = (bool) preg_match('/pastry|croissant|panini|sandwich|toast|food|cake|bread/i', $name . ' ' . $catName);
+
+                    $items[] = [
+                        'key' => $key,
+                        'id' => (string) ($p['pd_id'] ?? $key),
+                        'code' => (string) ($p['pd_code'] ?? $p['pd_id'] ?? $key),
+                        'name' => $name,
+                        'category' => $catName,
+                        'outletPrice' => $origPrice,
+                        'normalPrice' => $origPrice,
+                        'price' => $price,
+                        'img' => $p['image_url'] ?? $p['pd_img'] ?? '',
+                        'isSoldOut' => strtolower((string)($p['stpd_status'] ?? $p['pd_status'] ?? 'active')) !== 'active',
+                        'isFood' => $isFood,
+                        'desc' => $p['pd_desc'] ?? '',
+                        'options' => [
+                            'sizes' => $isFood ? ['Regular'] : ['Regular', 'Large'],
+                            'temps' => ['Ice', 'Hot'],
+                            'ices' => ['Normal Ice', 'Less Ice', 'No Ice'],
+                            'sugars' => ['Normal Sugar', 'Less Sugar', 'No Sugar'],
+                        ],
+                    ];
+
+                    $catMap[$catName][] = $key;
+                }
+
+                $categories = [];
+                foreach ($catMap as $cn => $citems) {
+                    $categories[] = [
+                        'id' => 'cat-' . $this->slugify($cn),
+                        'name' => $cn,
+                        'kind' => 'item',
+                        'items' => $citems,
+                    ];
+                }
+
+                return [
+                    'brand' => 'fore',
+                    'outletCode' => $outletCode,
+                    'categories' => $categories,
+                    'items' => $items,
+                    'live' => true,
+                    'updatedAt' => date('c'),
+                ];
+            } elseif ($brand === 'tomoro') {
+                $res = $this->httpRequest("{$apiBase}/api/product/menu", [
+                    'storeCode' => $outletCode,
+                    'mainMenuType' => 1,
+                ]);
+                $vos = $res['data']['menuVos'] ?? [];
+                if (empty($vos)) return null;
+
+                $items = [];
+                $categories = [];
+                $seenKeys = [];
+
+                foreach ($vos as $vo) {
+                    $cname = $vo['menuName'] ?? 'Menu';
+                    // Skip food categories for Tomoro per client revision
+                    if (preg_match('/food|pastry|snack|bakery|toast|bread/i', $cname)) {
+                        continue;
+                    }
+                    $catId = 'cat-' . $this->slugify($cname);
+                    $catItems = [];
+
+                    foreach ($vo['items'] ?? [] as $p) {
+                        $name = $p['name'] ?? '';
+                        $key = $this->slugify($name);
+                        if (isset($seenKeys[$key])) continue;
+                        $seenKeys[$key] = true;
+
+                        $price = (int) ($p['price'] ?? $p['linePrice'] ?? 0);
+                        $origPrice = (int) ($p['linePrice'] ?? $price);
+
+                        $items[] = [
+                            'key' => $key,
+                            'id' => (string) ($p['goodId'] ?? $key),
+                            'code' => (string) ($p['code'] ?? $p['goodId'] ?? $key),
+                            'name' => $name,
+                            'category' => $cname,
+                            'outletPrice' => $origPrice,
+                            'normalPrice' => $origPrice,
+                            'price' => $price,
+                            'img' => $p['goodPic'] ?? '',
+                            'isSoldOut' => !empty($p['isSoldOut']),
+                            'isFood' => false,
+                            'desc' => $p['desc'] ?? '',
+                            'options' => [
+                                'sizes' => ['Small'],
+                                'temps' => ['Ice', 'Hot'],
+                                'ices' => ['Normal Ice', 'Less Ice', 'No Ice'],
+                                'sugars' => ['Normal Sugar', 'Less Sugar', 'No Sugar'],
+                            ],
+                        ];
+                        $catItems[] = $key;
+                    }
+
+                    if (!empty($catItems)) {
+                        $categories[] = [
+                            'id' => $catId,
+                            'name' => $cname,
+                            'kind' => 'item',
+                            'items' => $catItems,
+                        ];
+                    }
+                }
+
+                return [
+                    'brand' => 'tomoro',
+                    'outletCode' => $outletCode,
+                    'categories' => $categories,
+                    'items' => $items,
+                    'live' => true,
+                    'updatedAt' => date('c'),
+                ];
+            } elseif ($brand === 'point') {
+                $res = $this->httpRequest("{$apiBase}/api/catalog/products", ['page' => 0, 'size' => 100]);
+                $rawItems = $res['data']['content'] ?? [];
+                if (empty($rawItems)) return null;
+
+                $items = [];
+                $catMap = [];
+                $seenKeys = [];
+
+                foreach ($rawItems as $p) {
+                    $name = $p['name'] ?? '';
+                    $key = $this->slugify($name);
+                    if (isset($seenKeys[$key])) continue;
+                    $seenKeys[$key] = true;
+
+                    $catName = $p['categoryName'] ?? 'Menu';
+                    $price = (int) ($p['price'] ?? 0);
+                    $isFood = (bool) preg_match('/pastry|croissant|food|cake|bread/i', $name . ' ' . $catName);
+
+                    $items[] = [
+                        'key' => $key,
+                        'id' => (string) ($p['id'] ?? $key),
+                        'code' => (string) ($p['id'] ?? $key),
+                        'name' => $name,
+                        'category' => $catName,
+                        'outletPrice' => $price,
+                        'normalPrice' => $price,
+                        'price' => $price,
+                        'img' => $p['imageUrl'] ?? '',
+                        'isSoldOut' => !($p['isAvailable'] ?? true),
+                        'isFood' => $isFood,
+                        'desc' => $p['description'] ?? '',
+                        'options' => [
+                            'sizes' => ['Regular', 'Large'],
+                            'temps' => ['Ice', 'Hot'],
+                            'ices' => ['Normal Ice', 'Less Ice', 'No Ice'],
+                            'sugars' => ['Normal Sugar', 'Less Sugar', 'No Sugar'],
+                        ],
+                    ];
+
+                    $catMap[$catName][] = $key;
+                }
+
+                $categories = [];
+                foreach ($catMap as $cn => $citems) {
+                    $categories[] = [
+                        'id' => 'cat-' . $this->slugify($cn),
+                        'name' => $cn,
+                        'kind' => 'item',
+                        'items' => $citems,
+                    ];
+                }
+
+                return [
+                    'brand' => 'point',
+                    'outletCode' => $outletCode,
+                    'categories' => $categories,
+                    'items' => $items,
+                    'live' => true,
+                    'updatedAt' => date('c'),
+                ];
+            }
+        } catch (Throwable $e) {
+            error_log("Failed to fetch menu for {$brand} @ {$outletCode}: " . $e->getMessage());
+        }
+
+        return null;
+    }
+
+    /**
+     * Format menu statistics, ensure standard categories and client adjustments
      */
     protected function formatMenuStats(array $menuData, string $brand, string $outletCode): array
     {
-        // Client revision (Gambar kedua): Hapus menu food / snack di Tomoro Coffee
+        // 1. Client revision: Hapus menu food / snack di Tomoro Coffee
         if ($brand === 'tomoro' && isset($menuData['items']) && is_array($menuData['items'])) {
             $removedKeys = [];
             $drinksOnly = [];
@@ -408,30 +752,16 @@ class CoffeeApi
             }
             $menuData['items'] = $drinksOnly;
 
-            // Remove food categories & prune category items
             if (isset($menuData['categories']) && is_array($menuData['categories'])) {
                 $cleanCats = [];
                 foreach ($menuData['categories'] as $cat) {
                     $catName = strtolower(trim((string)($cat['name'] ?? '')));
-                    $catId = strtolower(trim((string)($cat['id'] ?? '')));
-                    $isFoodCat = str_contains($catName, 'food')
-                        || str_contains($catName, 'pastry')
-                        || str_contains($catName, 'snack')
-                        || str_contains($catName, 'bakery')
-                        || str_contains($catId, 'food')
-                        || str_contains($catId, 'pastry')
-                        || str_contains($catId, 'snack');
-
-                    if ($isFoodCat) {
+                    if (str_contains($catName, 'food') || str_contains($catName, 'pastry') || str_contains($catName, 'snack')) {
                         continue;
                     }
-
                     if (!empty($cat['items']) && is_array($cat['items'])) {
-                        $cat['items'] = array_values(array_filter($cat['items'], function ($k) use ($removedKeys) {
-                            return !isset($removedKeys[$k]);
-                        }));
+                        $cat['items'] = array_values(array_filter($cat['items'], fn($k) => !isset($removedKeys[$k])));
                     }
-
                     if (!empty($cat['items'])) {
                         $cleanCats[] = $cat;
                     }
@@ -440,7 +770,7 @@ class CoffeeApi
             }
         }
 
-        // Client revision: Hapus menu Fried Chicken Kenangan (FCK) & Salt Bread Original pada Kopi Kenangan
+        // 2. Client revision: Hapus menu Fried Chicken Kenangan (FCK) & Salt Bread Original pada Kopi Kenangan
         if ($brand === 'kopken' && isset($menuData['items']) && is_array($menuData['items'])) {
             $removedKeys = [];
             $filteredItems = [];
@@ -478,27 +808,16 @@ class CoffeeApi
             }
             $menuData['items'] = $filteredItems;
 
-            // Remove FCK categories & prune category items
             if (isset($menuData['categories']) && is_array($menuData['categories'])) {
                 $cleanCats = [];
                 foreach ($menuData['categories'] as $cat) {
                     $catName = strtolower(trim((string)($cat['name'] ?? '')));
-                    $catId = strtolower(trim((string)($cat['id'] ?? '')));
-                    $isFckCat = str_contains($catName, 'fried chicken')
-                        || str_contains($catName, 'fck')
-                        || str_contains($catId, 'fried chicken')
-                        || str_contains($catId, 'fck');
-
-                    if ($isFckCat) {
+                    if (str_contains($catName, 'fried chicken') || str_contains($catName, 'fck')) {
                         continue;
                     }
-
                     if (!empty($cat['items']) && is_array($cat['items'])) {
-                        $cat['items'] = array_values(array_filter($cat['items'], function ($k) use ($removedKeys) {
-                            return !isset($removedKeys[$k]);
-                        }));
+                        $cat['items'] = array_values(array_filter($cat['items'], fn($k) => !isset($removedKeys[$k])));
                     }
-
                     if (!empty($cat['items'])) {
                         $cleanCats[] = $cat;
                     }
@@ -507,28 +826,7 @@ class CoffeeApi
             }
         }
 
-        // Merge duplicate categories for Janji Jiwa (e.g. custom-coffee and item-coffee both named Coffee)
-        if ($brand === 'jiwa' && isset($menuData['categories']) && is_array($menuData['categories'])) {
-            $mergedCats = [];
-            $catMap = [];
-            foreach ($menuData['categories'] as $cat) {
-                $name = trim((string)($cat['name'] ?? ''));
-                $normName = strtolower($name);
-                if (isset($catMap[$normName])) {
-                    $idx = $catMap[$normName];
-                    foreach ($cat['items'] ?? [] as $k) {
-                        if (!in_array($k, $mergedCats[$idx]['items'], true)) {
-                            $mergedCats[$idx]['items'][] = $k;
-                        }
-                    }
-                } else {
-                    $catMap[$normName] = count($mergedCats);
-                    $mergedCats[] = $cat;
-                }
-            }
-            $menuData['categories'] = $mergedCats;
-        }
-
+        // 3. Normalizing item image, options, and size rules
         $items = $menuData['items'] ?? [];
         $totalCount = count($items);
         $availableCount = 0;
@@ -543,19 +841,11 @@ class CoffeeApi
                 $availableCount++;
             }
 
-            // Normalizing image url
-            if (!empty($item['img']) && strpos($item['img'], 'http') !== 0) {
-                if (strpos($item['img'], '/uploads/') === 0 || strpos($item['img'], '/img/') === 0) {
-                    $item['img'] = 'https://twinsjasdor.my.id' . $item['img'];
-                }
-            }
             if (empty($item['img'])) {
                 $item['img'] = $this->getDefaultItemImage($brand, $item['name'] ?? '');
-            } elseif (str_starts_with($item['img'], '/uploads/')) {
-                $item['img'] = 'https://twinsjasdor.my.id' . $item['img'];
             }
 
-            // Client revision: Hapus Jumbo di all menu
+            // Remove Jumbo size option across all brands
             if (!empty($item['options']['sizes']) && is_array($item['options']['sizes'])) {
                 $item['options']['sizes'] = array_values(array_filter(
                     $item['options']['sizes'],
@@ -564,35 +854,18 @@ class CoffeeApi
             }
             unset($item['jumboPrice'], $item['jumboNormal'], $item['jumboOutletPrice']);
 
-            // Client revision: Untuk Tomoro pilihan size Small only
+            // Tomoro small size only
             if ($brand === 'tomoro') {
-                $isFood = !empty($item['isFood']) || (isset($item['category']) && strtolower($item['category']) === 'food');
-                $is1L = (bool) preg_match('/1\s*l|liter/i', ($item['name'] ?? '') . ' ' . ($item['key'] ?? ''));
-                if (!$isFood && !$is1L) {
-                    if (!isset($item['options']) || !is_array($item['options'])) {
-                        $item['options'] = [];
-                    }
-                    if (empty($item['options']['temps'])) {
-                        $item['options']['temps'] = ['Ice', 'Hot'];
-                    }
-                    if (empty($item['options']['ices'])) {
-                        $item['options']['ices'] = ['Normal Ice', 'Less Ice', 'No Ice'];
-                    }
-                    if (empty($item['options']['sugars'])) {
-                        $item['options']['sugars'] = ['Normal Sugar', 'Less Sugar', 'No Sugar'];
-                    }
-                    $item['options']['sizes'] = ['Small'];
-                    unset($item['largePrice'], $item['largeNormal'], $item['largeOutletPrice']);
-                }
+                $item['options']['sizes'] = ['Small'];
+                unset($item['largePrice'], $item['largeNormal'], $item['largeOutletPrice']);
             }
         }
         unset($item);
 
-        // Apply Zona Fitri client pricing formulas and live-stock bundling
+        // 4. Apply client pricing formulas & bundling
         $this->applyClientPricingAndBundling($menuData, $brand);
 
-        // Client request: Kategori Kopi Kenangan disinkronkan sesuai Aplikasi Resmi (Gambar 1) & twinsjasdor.my.id:
-        // Promo & Combo (Bundling), Kopi, Non-Kopi, Kenangan Frappe, Tea, Food
+        // 5. Kopken Category standard grouping matching official app
         if ($brand === 'kopken' && isset($menuData['items']) && is_array($menuData['items'])) {
             $catBuckets = [
                 'bundle' => [],
@@ -639,7 +912,7 @@ class CoffeeApi
             }
             unset($it);
 
-            // Urutkan Kenangan Frappe persis seperti Gambar 1: Butterscotch, Matcha, Mantan, Vanilla, Dutch Choco, Choco Caramel
+            // Ordered frappes matching official Kenangan Frappe menu
             $desiredFrappeOrder = [
                 'butterscotchkenanganfrappe', 'matchakenanganfrappe', 'kopikenanganmantanfrappe',
                 'vanillakenanganfrappe', 'dutchchocokenanganfrappe', 'chococaramelfrappe'
@@ -659,265 +932,13 @@ class CoffeeApi
             ];
         }
 
-        // Client request v2: Sinkronisasi Tomoro (Siwalankerto & kategori Signature/Classic)
-        if ($brand === 'tomoro') {
-            $isSiwalankerto = stripos($outletCode, 'siwalankerto') !== false || stripos($outletCode, 'TOM-343') !== false;
-
-            if (isset($menuData['categories'])) {
-                foreach ($menuData['categories'] as &$cat) {
-                    if (($cat['id'] ?? '') === 'item-tomoro-signature' || strtolower($cat['name'] ?? '') === 'tomoro signature') {
-                        $desiredSignature = ['tomoroarenlatte', 'tomoroarenlatte1l', 'cheesecloudchocolate', 'tomorococonutlatte', 'tomorooatlatte', 'seasaltcloudcaramelmacchiato', 'cheesecloudlatte'];
-                        $newItems = [];
-                        foreach ($desiredSignature as $sigKey) {
-                            if (!in_array($sigKey, $newItems, true)) {
-                                $newItems[] = $sigKey;
-                            }
-                        }
-                        foreach ($cat['items'] as $orig) {
-                            if (!in_array($orig, $newItems, true)) $newItems[] = $orig;
-                        }
-                        $cat['items'] = $newItems;
-                    }
-                    if (($cat['id'] ?? '') === 'item-classic-coffee' || strtolower($cat['name'] ?? '') === 'classic coffee') {
-                        $desiredClassic = ['cafelatte', 'caffeamericano', 'kopisusuaren', 'brevelatte', 'caffemocca', 'cappuccino'];
-                        $newItems = [];
-                        foreach ($desiredClassic as $clsKey) {
-                            if (!in_array($clsKey, $newItems, true)) {
-                                $newItems[] = $clsKey;
-                            }
-                        }
-                        foreach ($cat['items'] as $orig) {
-                            if (!in_array($orig, $newItems, true)) $newItems[] = $orig;
-                        }
-                        $cat['items'] = $newItems;
-                    }
-                }
-                unset($cat);
-            }
-
-            if (isset($menuData['items'])) {
-                foreach ($menuData['items'] as &$it) {
-                    $k = $it['key'] ?? '';
-                    // Standard Tomoro Price Corrections across all outlets (Client request: harga asli salah dan lebih mahal)
-                    if ($k === 'caffeamericano') {
-                        $it['outletPrice'] = 18000;
-                        $it['normalPrice'] = 18000;
-                        $it['price'] = 14000; // 18k * 0.5 + 5k
-                    } elseif ($k === 'cafelatte') {
-                        $it['outletPrice'] = 24000;
-                        $it['normalPrice'] = 24000;
-                        $it['price'] = 17000; // 24k * 0.5 + 5k
-                    } elseif ($k === 'cappuccino') {
-                        $it['outletPrice'] = 24000;
-                        $it['normalPrice'] = 24000;
-                        $it['price'] = 17000;
-                    } elseif ($k === 'caffemocca') {
-                        $it['outletPrice'] = 24000;
-                        $it['normalPrice'] = 24000;
-                        $it['price'] = 17000;
-                    } elseif ($k === 'chocolate') {
-                        $it['outletPrice'] = 24000;
-                        $it['normalPrice'] = 24000;
-                        $it['price'] = 17000;
-                    } elseif ($k === 'cheesecloudchocolate') {
-                        $it['outletPrice'] = 26000;
-                        $it['normalPrice'] = 26000;
-                        $it['price'] = 18000; // 26k * 0.5 + 5k
-                        if ($isSiwalankerto) {
-                            $it['isSoldOut'] = true; // HABIS di Siwalankerto per live app
-                        }
-                    } elseif ($k === 'tomoroarenlatte') {
-                        $it['outletPrice'] = 21000;
-                        $it['normalPrice'] = 21000;
-                        $it['price'] = 15500;
-                    }
-
-                    // Seasonal / Custom Tomoro Drinks (Client revision: Triple Pistachio & Mont Blanc series)
-                    $normName = strtolower(trim((string)($it['name'] ?? '')));
-                    if (str_contains($normName, 'triple pistachio matcha')) {
-                        $it['outletPrice'] = 32000;
-                        $it['normalPrice'] = 32000;
-                        $it['price'] = 21000; // (32k - 50%) + 5k = 21k
-                    } elseif (str_contains($normName, 'triple dubai pistachio chocolate') || str_contains($normName, 'dubai pistachio')) {
-                        $it['outletPrice'] = 32000;
-                        $it['normalPrice'] = 32000;
-                        $it['price'] = 21000; // (32k - 50%) + 5k = 21k
-                    } elseif (str_contains($normName, 'triple pistachio latte')) {
-                        $it['outletPrice'] = 29000;
-                        $it['normalPrice'] = 29000;
-                        $it['price'] = 19500; // (29k - 50%) + 5k = 19.5k
-                    } elseif (str_contains($normName, 'choco mont blanc')) {
-                        $it['outletPrice'] = 29000;
-                        $it['normalPrice'] = 29000;
-                        $it['price'] = 19500; // (29k - 50%) + 5k = 19.5k
-                    } elseif (str_contains($normName, 'mocha mont blanc')) {
-                        $it['outletPrice'] = 28000;
-                        $it['normalPrice'] = 28000;
-                        $it['price'] = 19000; // (28k - 50%) + 5k = 19k
-                    }
-                }
-                unset($it);
-
-                // Add 1L TOMORO Aren Latte if not present
-                $has1L = false;
-                foreach ($menuData['items'] as $it) {
-                    if (($it['key'] ?? '') === 'tomoroarenlatte1l') { $has1L = true; break; }
-                }
-                if (!$has1L) {
-                    $item1L = [
-                        'key' => 'tomoroarenlatte1l',
-                        'id' => 'tomoroarenlatte1l',
-                        'code' => '990001',
-                        'name' => '1L TOMORO Aren Latte',
-                        'category' => 'Tomoro Signature',
-                        'sourceCategory' => 'Tomoro Signature',
-                        'img' => 'https://images.unsplash.com/photo-1517701550927-30cf4ba1dba5?q=80&w=400&auto=format&fit=crop',
-                        'desc' => '1 Liter Master Arabica blend dengan paduan gula aren organik alami.',
-                        'outletPrice' => 90000,
-                        'normalPrice' => 90000,
-                        'price' => 50000,
-                        'isSoldOut' => false,
-                        'notCarried' => false,
-                        'isFood' => false,
-                        'isSpecial' => true,
-                        'options' => ['sizes' => ['1 Liter'], 'temps' => ['Ice'], 'ices' => ['Normal Ice'], 'sugars' => ['Normal Sugar', 'Less Sugar']],
-                        'tag' => '',
-                        'featured' => true,
-                    ];
-                    $menuData['items'][] = $item1L;
-                }
-
-                // Add seasonal Tomoro drinks (Triple Pistachio & Mont Blanc series) if not present
-                $seasonalDefs = [
-                    'triplepistachiomatcha' => [
-                        'key' => 'triplepistachiomatcha',
-                        'id' => 'triplepistachiomatcha',
-                        'code' => '990002',
-                        'name' => 'Triple Pistachio Matcha',
-                        'category' => 'Matcha Series',
-                        'sourceCategory' => 'Matcha Series',
-                        'img' => 'https://tixandcoffee.developerngantuk.my.id/uploads/1bd5d564d13a99f2.jpg',
-                        'desc' => 'Perpaduan matcha first flush premium dengan foam pistachio creamy dan crumble pistachio renyah.',
-                        'outletPrice' => 32000,
-                        'normalPrice' => 32000,
-                        'price' => 21000,
-                        'isSoldOut' => false,
-                        'notCarried' => false,
-                        'isFood' => false,
-                        'options' => ['sizes' => ['Small'], 'temps' => ['Ice'], 'ices' => ['Normal Ice', 'Less Ice', 'No Ice'], 'sugars' => ['Normal Sugar', 'Less Sugar', 'No Sugar']],
-                        'tag' => 'Seasonal',
-                    ],
-                    'tripledubaipistachiochocolate' => [
-                        'key' => 'tripledubaipistachiochocolate',
-                        'id' => 'tripledubaipistachiochocolate',
-                        'code' => '990003',
-                        'name' => 'Triple Dubai Pistachio Chocolate',
-                        'category' => 'Non Coffee',
-                        'sourceCategory' => 'Non Coffee',
-                        'img' => 'https://tixandcoffee.developerngantuk.my.id/uploads/c9b8b59dd72bcf06.jpg',
-                        'desc' => 'Dessert kekinian dalam segelas minuman cokelat lezat dengan saus pistachio gurih dan sensasi kunafa crunchy.',
-                        'outletPrice' => 32000,
-                        'normalPrice' => 32000,
-                        'price' => 21000,
-                        'isSoldOut' => false,
-                        'notCarried' => false,
-                        'isFood' => false,
-                        'options' => ['sizes' => ['Small'], 'temps' => ['Ice'], 'ices' => ['Normal Ice', 'Less Ice', 'No Ice'], 'sugars' => ['Normal Sugar', 'Less Sugar', 'No Sugar']],
-                        'tag' => 'Seasonal',
-                    ],
-                    'triplepistachiolatte' => [
-                        'key' => 'triplepistachiolatte',
-                        'id' => 'triplepistachiolatte',
-                        'code' => '990004',
-                        'name' => 'Triple Pistachio Latte',
-                        'category' => 'Flavored Latte',
-                        'sourceCategory' => 'Flavored Latte',
-                        'img' => 'https://tixandcoffee.developerngantuk.my.id/uploads/9e740957f49eb292.jpg',
-                        'desc' => 'Pistachio Latte favorit kini hadir dengan rasa pistachio lebih pekat dan topping pistachio crumble.',
-                        'outletPrice' => 29000,
-                        'normalPrice' => 29000,
-                        'price' => 19500,
-                        'isSoldOut' => false,
-                        'notCarried' => false,
-                        'isFood' => false,
-                        'options' => ['sizes' => ['Small'], 'temps' => ['Ice'], 'ices' => ['Normal Ice', 'Less Ice', 'No Ice'], 'sugars' => ['Normal Sugar', 'Less Sugar', 'No Sugar']],
-                        'tag' => 'Seasonal',
-                    ],
-                    'chocomontblanc' => [
-                        'key' => 'chocomontblanc',
-                        'id' => 'chocomontblanc',
-                        'code' => '990005',
-                        'name' => 'Choco Mont Blanc',
-                        'category' => 'Cloud Series',
-                        'sourceCategory' => 'Cloud Series',
-                        'img' => 'https://tixandcoffee.developerngantuk.my.id/uploads/991979dee615bfe7.jpg',
-                        'desc' => 'Pengalaman yang worthed dari kenikmatan dark chocolate kaya rasa berpadu dengan coffee foam lembut.',
-                        'outletPrice' => 29000,
-                        'normalPrice' => 29000,
-                        'price' => 19500,
-                        'isSoldOut' => false,
-                        'notCarried' => false,
-                        'isFood' => false,
-                        'options' => ['sizes' => ['Small'], 'temps' => ['Ice'], 'ices' => ['Normal Ice', 'Less Ice', 'No Ice'], 'sugars' => ['Normal Sugar', 'Less Sugar', 'No Sugar']],
-                        'tag' => 'Seasonal',
-                    ],
-                    'mochamontblanc' => [
-                        'key' => 'mochamontblanc',
-                        'id' => 'mochamontblanc',
-                        'code' => '990006',
-                        'name' => 'Mocha Mont Blanc',
-                        'category' => 'Cloud Series',
-                        'sourceCategory' => 'Cloud Series',
-                        'img' => 'https://tixandcoffee.developerngantuk.my.id/uploads/7ab8b1ed060289f8.jpg',
-                        'desc' => 'Mocha Kesukaanmu, tampil beda dengan coffee foam lembut dan taburan cokelat renyah.',
-                        'outletPrice' => 28000,
-                        'normalPrice' => 28000,
-                        'price' => 19000,
-                        'isSoldOut' => false,
-                        'notCarried' => false,
-                        'isFood' => false,
-                        'options' => ['sizes' => ['Small'], 'temps' => ['Ice'], 'ices' => ['Normal Ice', 'Less Ice', 'No Ice'], 'sugars' => ['Normal Sugar', 'Less Sugar', 'No Sugar']],
-                        'tag' => 'Seasonal',
-                    ],
-                ];
-
-                $existingKeys = [];
-                foreach ($menuData['items'] as $it) {
-                    $k = $it['key'] ?? '';
-                    if ($k !== '') $existingKeys[$k] = true;
-                }
-
-                foreach ($seasonalDefs as $sKey => $sDef) {
-                    if (!isset($existingKeys[$sKey])) {
-                        $menuData['items'][] = $sDef;
-                        if (isset($menuData['categories']) && is_array($menuData['categories'])) {
-                            foreach ($menuData['categories'] as &$cat) {
-                                $cName = strtolower(trim((string)($cat['name'] ?? '')));
-                                $cId = strtolower(trim((string)($cat['id'] ?? '')));
-                                $tName = strtolower($sDef['category']);
-                                if ($cName === $tName || str_contains($cId, str_replace(' ', '-', $tName))) {
-                                    if (!in_array($sKey, $cat['items'], true)) {
-                                        array_unshift($cat['items'], $sKey);
-                                    }
-                                }
-                            }
-                            unset($cat);
-                        }
-                    }
-                }
-            }
-        }
-
         $items = $menuData['items'] ?? [];
         $totalCount = count($items);
         $availableCount = 0;
         $soldOutCount = 0;
         foreach ($items as $it) {
-            if (!empty($it['isSoldOut'])) {
-                $soldOutCount++;
-            } else {
-                $availableCount++;
-            }
+            if (!empty($it['isSoldOut'])) $soldOutCount++;
+            else $availableCount++;
         }
 
         $menuData['brand'] = $brand;
@@ -934,198 +955,77 @@ class CoffeeApi
 
     /**
      * Apply client specific pricing formulas and bundling rules
-     * - Kopken: (Harga Asli - 50%) + 4.000, Large: +5.000
-     * - Tomoro: (Harga Asli - 50%) + 5.000
-     * - Fore: (Harga Asli - 25%) + 2.000, Large: +5.000
-     * - Bundling 3: 35.000 (all menu asli 17k & 19k termasuk food, sync real-time stock)
-     * - Bundling Large 2: 32.000 (2 cup Large dari menu reg 19k drink only, sync real-time stock)
      */
     protected function applyClientPricingAndBundling(array &$menuData, string $brand): void
     {
         $brand = $this->normalizeBrand($brand);
         $items = &$menuData['items'];
 
-        $stockMap = [];
         $candidates1719 = [];
         $candidates1719Drinks = [];
         $candidates19Drinks = [];
 
         foreach ($items as &$item) {
-            if (!empty($item['isBundle'])) {
-                continue;
-            }
+            if (!empty($item['isBundle'])) continue;
 
             $key = $item['key'] ?? '';
-            $outletPrice = (int) ($item['outletPrice'] ?? $item['normalPrice'] ?? 0);
-
-            // Handle Janji Jiwa custom items from upstream where outletPrice is 0 or empty
-            if ($brand === 'jiwa' && $outletPrice <= 0) {
-                $existingPrice = (int) ($item['price'] ?? 0);
-                if ($existingPrice > 0) {
-                    $tixFee = 6500;
-                    if (stripos($item['category'] ?? '', 'premium') !== false || stripos($item['category'] ?? '', 'breeze') !== false) {
-                        $tixFee = 8500;
-                    }
-                    $estimatedOutlet = max(0, ($existingPrice - $tixFee) * 2);
-                    if ($estimatedOutlet > 0) {
-                        $outletPrice = $estimatedOutlet;
-                        $item['outletPrice'] = $outletPrice;
-                        $item['normalPrice'] = $outletPrice;
-                    }
-                }
-            }
-
-            // Handle Tomoro seasonal / custom drinks from upstream where outletPrice is empty or needs normalization
-            if ($brand === 'tomoro') {
-                $normName = strtolower(trim((string)($item['name'] ?? '')));
-                if (str_contains($normName, 'triple pistachio matcha')) {
-                    $outletPrice = 32000;
-                    $item['outletPrice'] = 32000;
-                    $item['normalPrice'] = 32000;
-                } elseif (str_contains($normName, 'triple dubai pistachio chocolate') || str_contains($normName, 'dubai pistachio')) {
-                    $outletPrice = 32000;
-                    $item['outletPrice'] = 32000;
-                    $item['normalPrice'] = 32000;
-                } elseif (str_contains($normName, 'triple pistachio latte')) {
-                    $outletPrice = 29000;
-                    $item['outletPrice'] = 29000;
-                    $item['normalPrice'] = 29000;
-                } elseif (str_contains($normName, 'choco mont blanc')) {
-                    $outletPrice = 29000;
-                    $item['outletPrice'] = 29000;
-                    $item['normalPrice'] = 29000;
-                } elseif (str_contains($normName, 'mocha mont blanc')) {
-                    $outletPrice = 28000;
-                    $item['outletPrice'] = 28000;
-                    $item['normalPrice'] = 28000;
-                } elseif ($outletPrice <= 0 && !empty($item['isCustom'])) {
-                    $existingPrice = (int) ($item['price'] ?? 0);
-                    if ($existingPrice > 0) {
-                        $outletPrice = max(0, ($existingPrice - 5000) * 2);
-                        $item['outletPrice'] = $outletPrice;
-                        $item['normalPrice'] = $outletPrice;
-                    }
-                }
-            }
-            if ($outletPrice <= 0) {
-                $outletPrice = (int) ($item['price'] ?? 0);
-            }
-
-            // Normalizing image url
-            if (!empty($item['img']) && strpos($item['img'], 'http') !== 0) {
-                if (strpos($item['img'], '/uploads/') === 0 || strpos($item['img'], '/img/') === 0) {
-                    $item['img'] = 'https://twinsjasdor.my.id' . $item['img'];
-                }
-            }
-            if (empty($item['img'])) {
-                $item['img'] = $this->getDefaultItemImage($brand, $item['name'] ?? '');
-            }
+            $outletPrice = (int) ($item['outletPrice'] ?? $item['normalPrice'] ?? $item['price'] ?? 0);
+            if ($outletPrice <= 0) $outletPrice = (int) ($item['price'] ?? 0);
 
             $isSoldOut = !empty($item['isSoldOut']) || !empty($item['notCarried']);
             $isFood = !empty($item['isFood']) || (isset($item['category']) && strtolower($item['category']) === 'food');
 
-            $stockMap[$key] = [
-                'isSoldOut' => $isSoldOut,
-                'outletPrice' => $outletPrice,
-                'name' => $item['name'] ?? '',
-                'img' => $item['img'] ?? '',
-                'category' => $item['category'] ?? '',
-                'isFood' => $isFood,
-                'options' => $item['options'] ?? [],
-            ];
+            // Client Formulas:
+            $calcPrice = $outletPrice;
+            $largePrice = null;
 
-            // Calculate selling price according to client formula
-            if ($outletPrice > 0) {
-                $calcPrice = $outletPrice;
+            if ($brand === 'kopken') {
+                // KOPKEN: HARGA ASLI - 50% + 4.500/cup, Large: +5.000
+                $calcPrice = (int) round(($outletPrice * 0.5) + 4500);
+                $largePrice = $calcPrice + 5000;
+            } elseif ($brand === 'tomoro') {
+                // TOMORO: HARGA ASLI - 50% + 5.000/cup (Small only)
+                $calcPrice = (int) round(($outletPrice * 0.5) + 5000);
                 $largePrice = null;
-
-                if ($brand === 'kopken') {
-                    // RUMUS KOPKEN: HARGA ASLI - 50% + 4.500/cup per client revision
-                    $calcPrice = (int) round(($outletPrice * 0.5) + 4500);
-                    // Catatan: kopken fore upsize +5k
-                    $largePrice = $calcPrice + 5000;
-                } elseif ($brand === 'tomoro') {
-                    // RUMUS TOMORO: HARGA ASLI - 50% + 5.000/cup
-                    $calcPrice = (int) round(($outletPrice * 0.5) + 5000);
-                    // Client revision: Tomoro size small only (no large price)
-                    $largePrice = null;
-                } elseif ($brand === 'fore') {
-                    // RUMUS FORE: HARGA ASLI - 25% + 2.000/cup
-                    $calcPrice = (int) (round((($outletPrice * 0.75) + 2000) / 500) * 500);
-                    // Catatan: kopken fore upsize +5k
-                    $largePrice = $calcPrice + 5000;
-                } elseif ($brand === 'jiwa') {
-                    // RUMUS JANJI JIWA: all menu disc 50% max 20k, fee per menu 10k (Client revision: coba +5k semua)
-                    $discount = min($outletPrice * 0.5, 20000);
-                    $calcPrice = (int) round(($outletPrice - $discount) + 10000);
-
-                    // Tampilan normalPrice (harga coret) proporsional
-                    $normalPrice = max($outletPrice, (int) round(($calcPrice - 5000) * 2));
-                    if ($normalPrice <= $calcPrice) {
-                        $normalPrice = $calcPrice + 6000;
-                    }
-                    if ($key === 'americano' || strtolower($item['name'] ?? '') === 'americano') {
-                        $normalPrice = 24000;
-                    } elseif ($key === 'latte' || strtolower($item['name'] ?? '') === 'latte') {
-                        $normalPrice = 28000;
-                    } elseif ($key === 'jiwa-c-mvsaq8zc' || strtolower($item['name'] ?? '') === 'signature kopi susu') {
-                        $normalPrice = 28000;
-                    }
-                    $outletPrice = $normalPrice;
-
-                    // Large variant if available
-                    $largeOut = (int) ($item['largeOutletPrice'] ?? 0);
-                    if ($largeOut <= 0 && (!empty($item['largePrice']) || !empty($item['largeNormal']))) {
-                        $largeOut = $outletPrice + 6000;
-                    }
-                    if ($largeOut > 0) {
-                        $largeDisc = min($largeOut * 0.5, 20000);
-                        $largePrice = (int) round(($largeOut - $largeDisc) + 10000);
-                    }
-                }
-
-                $item['price'] = $calcPrice;
-                $item['normalPrice'] = $outletPrice;
-                if ($largePrice !== null && !$isFood && (empty($item['options']['sizes']) || in_array('Large', $item['options']['sizes'], true))) {
-                    $item['largePrice'] = $largePrice;
-                    $item['largeNormal'] = $item['largeOutletPrice'] ?? ($outletPrice + 6000);
-                } else {
-                    unset($item['largePrice'], $item['largeNormal'], $item['largeOutletPrice']);
-                }
-
-                // Client revision: Hapus Jumbo di all menu
-                if (!empty($item['options']['sizes']) && is_array($item['options']['sizes'])) {
-                    $item['options']['sizes'] = array_values(array_filter(
-                        $item['options']['sizes'],
-                        fn($sz) => stripos((string)$sz, 'jumbo') === false
-                    ));
-                }
-                unset($item['jumboPrice'], $item['jumboNormal'], $item['jumboOutletPrice']);
+            } elseif ($brand === 'fore') {
+                // FORE: HARGA ASLI - 25% + 2.000/cup, Large: +5.000
+                $calcPrice = (int) (round((($outletPrice * 0.75) + 2000) / 500) * 500);
+                $largePrice = $calcPrice + 5000;
+            } elseif ($brand === 'jiwa') {
+                // JANJI JIWA: all menu disc 50% max 20k, fee per menu 10k
+                $discount = min($outletPrice * 0.5, 20000);
+                $calcPrice = (int) round(($outletPrice - $discount) + 10000);
+                $normalPrice = max($outletPrice, (int) round(($calcPrice - 5000) * 2));
+                if ($normalPrice <= $calcPrice) $normalPrice = $calcPrice + 6000;
+                $outletPrice = $normalPrice;
+            } elseif ($brand === 'point') {
+                // POINT COFFEE: HARGA ASLI - 25% + 2.000/cup, Large: +4.000
+                $calcPrice = (int) (round((($outletPrice * 0.75) + 2000) / 500) * 500);
+                $largePrice = $calcPrice + 4000;
             }
 
-            // Check if eligible for Kopken Bundling (17k & 19k tier)
-            // Client rule per screenshot: "all menu yang harga asli 17.000 & 19.000 termasuk menu food"
-            // Strictly exclude premium drinks (Avocado, Oreo, Dutch Choco, Frappe, Liter)
-            $isExcludedFromBundling = (bool) preg_match('/avocado|oreo|dutch|frappe|1\s*l|liter/i', ($item['name'] ?? '') . ' ' . $key);
+            $item['price'] = $calcPrice;
+            $item['normalPrice'] = $outletPrice;
 
+            if ($largePrice !== null && !$isFood && (empty($item['options']['sizes']) || in_array('Large', $item['options']['sizes'], true))) {
+                $item['largePrice'] = $largePrice;
+                $item['largeNormal'] = $item['largeOutletPrice'] ?? ($outletPrice + 6000);
+            } else {
+                unset($item['largePrice'], $item['largeNormal'], $item['largeOutletPrice']);
+            }
+
+            // Bundling eligibility (Kopken)
+            $isExcludedFromBundling = (bool) preg_match('/avocado|oreo|dutch|frappe|1\s*l|liter/i', ($item['name'] ?? '') . ' ' . $key);
             $base1719Keys = [
                 'kopikenanganmantan', 'spanishlatte', 'pistachioarenlatte', 'bananaamericano', 
                 'bluberiamericano', 'blueberryamericano', 'americano', 'taromilk', 'tarocloudmilktea', 
                 'ogthaitea', 'earlgreytea', 'earlgreymilktea', 'lemonblacktea', 'freshlemonade',
                 'classicpeanutbutterpanini', 'triplecheesebagel', 'doublechocobagel', 'wahyusapitoast', 
                 'oboycoffeetoast', 'chocolatecroissant', 'sweethoneysoftbakedcookie', 
-                'oatmealraisinsoftbakedcookie', 'friendchipcookie', 'saltbreadabon', 
-                'milkycarameldanish', 'almondcroissant', 'berrylovecromboloni', 
-                'bananachocosoftbakedcookie', 'canelearen', 'chocomuffin', 'blueberrymuffin', 
-                'donuttiramisu', 'saltbreadbeefandcheese', 'caneleoriginal', 'rotigulungaren', 
-                'saltbreadsausage'
+                'oatmealraisinsoftbakedcookie', 'friendchipcookie', 'saltbreadabon'
             ];
-            $isRegEligible = !$isExcludedFromBundling && (
-                ($outletPrice >= 16000 && $outletPrice <= 19500) ||
-                in_array($key, $base1719Keys, true)
-            );
 
-            if ($brand === 'kopken' && $isRegEligible) {
+            if ($brand === 'kopken' && !$isExcludedFromBundling && (($outletPrice >= 16000 && $outletPrice <= 19500) || in_array($key, $base1719Keys, true))) {
                 $candItem = [
                     'key' => $key,
                     'name' => $item['name'],
@@ -1138,435 +1038,215 @@ class CoffeeApi
                     'options' => $item['options'] ?? [],
                 ];
                 $candidates1719[] = $candItem;
-                if (!$isFood) {
-                    $candDrink = $candItem;
-                    $candDrink['category'] = $item['category'] ?? 'Minuman';
-                    $candidates1719Drinks[] = $candDrink;
+                if (!$isFood) $candidates1719Drinks[] = $candItem;
+            }
+
+            // Bundling Large 2 (Rp32.000)
+            if ($brand === 'kopken' && !$isFood && !preg_match('/baby|cino|black\s*aren|kopsu.*black|avocado|oreo|dutch|frappe|1\s*l|liter/i', ($item['name'] ?? '') . ' ' . $key)) {
+                if (($outletPrice >= 18000 && $outletPrice <= 19500) || in_array($key, ['kopikenanganmantan', 'spanishlatte', 'pistachioarenlatte', 'bananaamericano', 'bluberiamericano'], true)) {
+                    $largeOpt = $item['options'] ?? [];
+                    $largeOpt['sizes'] = ['Large'];
+                    $candidates19Drinks[] = [
+                        'key' => $key,
+                        'name' => $item['name'],
+                        'img' => $item['img'],
+                        'category' => $item['category'] ?? 'Kopi',
+                        'isSoldOut' => $isSoldOut,
+                        'outletPrice' => $outletPrice,
+                        'largeOutletPrice' => $outletPrice + 6000,
+                        'bundlePrice' => 16000,
+                        'premium' => 0,
+                        'options' => $largeOpt,
+                    ];
                 }
-            }
-
-            // Check if eligible for Kopken Bundling Large 2 (Rp32.000)
-            // Client rule per screenshot: "all menu harga 19.000(reg) seperti kenangan mantan, spanish, pistacio aren, banana americano, bluberi americano dll itu harga regnya 19.000 bisa untuk bundling large 2 32.000 kak (drink only)"
-            // Strictly exclude: Babyccino, Black Aren, Avocado, Oreo, Dutch Choco, Frappe, Liter, and Food!
-            $largeOut = (int) ($item['largeOutletPrice'] ?? 0);
-            if ($largeOut <= 0 && $outletPrice > 0) {
-                $largeOut = $outletPrice + 6000;
-            }
-
-            $isNotLargeEligible = (bool) preg_match('/baby|cino|black\s*aren|kopsu.*black|avocado|oreo|dutch|frappe|1\s*l|liter/i', ($item['name'] ?? '') . ' ' . $key);
-
-            $base19DrinkKeys = [
-                'kopikenanganmantan', 'spanishlatte', 'pistachioarenlatte', 'bananaamericano', 
-                'bluberiamericano', 'blueberryamericano', 'taromilk', 'tarocloudmilktea', 
-                'ogthaitea', 'earlgreytea', 'earlgreymilktea', 'lemonblacktea'
-            ];
-            $isLargeEligible = !$isFood && !$isNotLargeEligible && (
-                ($outletPrice >= 18000 && $outletPrice <= 19500) ||
-                in_array($key, $base19DrinkKeys, true)
-            );
-
-            if ($brand === 'kopken' && $isLargeEligible) {
-                $largeOpt = $item['options'] ?? [];
-                $largeOpt['sizes'] = ['Large'];
-                $candidates19Drinks[] = [
-                    'key' => $key,
-                    'name' => $item['name'],
-                    'img' => $item['img'],
-                    'category' => $item['category'] ?? 'Kopi',
-                    'isSoldOut' => $isSoldOut,
-                    'outletPrice' => $outletPrice,
-                    'largeOutletPrice' => $largeOut,
-                    'bundlePrice' => 16000, // 32.000 / 2 = 16.000 per cup (client revision: fix 32.000)
-                    'premium' => 0,
-                    'options' => $largeOpt,
-                ];
             }
         }
         unset($item);
 
-        // If Kopken, add client specific Bundling packages
-        if ($brand === 'kopken' && (!empty($candidates1719) || !empty($candidates19Drinks))) {
-            $bundling4pcs = [
-                'key' => 'zf-b-4pcs-35k',
-                'id' => 'zf-b-4pcs-35k',
-                'name' => 'Bundling 4 Pcs',
-                'category' => 'Promo & Combo',
-                'desc' => '2 Minuman Reguler + 2 Roti Coklat Klasik',
-                'img' => '/img/bundling-4pcs-35k.png',
-                'price' => 35000,
-                'normalPrice' => 58000,
-                'isBundle' => true,
-                'slots' => 2,
-                'fixedItems' => ['2 Roti Coklat Klasik'],
-                'tag' => '4 Pcs',
-                'group' => 'Bundling 4 Pcs (2 Minuman + 2 Roti)',
-                'candidates' => !empty($candidates1719Drinks) ? $candidates1719Drinks : $candidates1719,
-                'isSoldOut' => false,
-            ];
+        // Inject dynamic Kopken Bundling bundles
+        if ($brand === 'kopken') {
+            $bundleItems = [];
 
-            $bundling3 = [
-                'key' => 'zf-b-3-35k',
-                'id' => 'zf-b-3-35k',
-                'name' => 'Bundling 3 Cup',
-                'category' => 'Promo & Combo',
-                'desc' => 'Pilih 3 menu dari minuman & makanan pilihan',
-                'img' => '/img/bundling-3-cup-reguler.png',
-                'price' => 35000,
-                'normalPrice' => 54000,
-                'isBundle' => true,
-                'slots' => 3,
-                'tag' => '3 Cup',
-                'group' => 'Bundling 3 (Food & Drinks)',
-                'candidates' => $candidates1719,
-                'isSoldOut' => false,
-            ];
-
-            $bundlingLarge2 = [
-                'key' => 'zf-b-large2-32k',
-                'id' => 'zf-b-large2-32k',
-                'name' => 'Bundling 2 Cup Large',
-                'category' => 'Promo & Combo',
-                'desc' => 'Pilih 2 cup Large dari menu reguler 19k',
-                'img' => '/img/bundling-2-cup-large.png',
-                'price' => 32000,
-                'normalPrice' => 52000,
-                'isBundle' => true,
-                'slots' => 2,
-                'size' => 'Large',
-                'tag' => '2 Large',
-                'group' => 'Bundling 2 Large',
-                'candidates' => $candidates19Drinks,
-                'isSoldOut' => false,
-            ];
-
-            // Remove existing bundles and replace with client bundles
-            $items = array_values(array_filter($items, fn($i) => empty($i['isBundle'])));
-            array_unshift($items, $bundling4pcs, $bundling3, $bundlingLarge2);
-
-            $cats = $menuData['categories'] ?? [];
-            $bundleCat = [
-                'id' => 'bundle-promo-bundling',
-                'name' => 'Promo & Combo',
-                'kind' => 'bundle',
-                'items' => ['zf-b-4pcs-35k', 'zf-b-3-35k', 'zf-b-large2-32k'],
-            ];
-            $cats = array_values(array_filter($cats, fn($c) => ($c['kind'] ?? '') !== 'bundle'));
-            array_unshift($cats, $bundleCat);
-            $menuData['categories'] = $cats;
-        } else {
-            // Live sync candidates for any other bundles
-            foreach ($items as &$item) {
-                if (!empty($item['isBundle']) && !empty($item['candidates'])) {
-                    foreach ($item['candidates'] as &$cand) {
-                        $cKey = $cand['key'] ?? '';
-                        if (isset($stockMap[$cKey])) {
-                            $cand['isSoldOut'] = $stockMap[$cKey]['isSoldOut'];
-                        }
-                    }
-                    unset($cand);
-                }
+            // Bundle 3: 35.000
+            if (!empty($candidates1719)) {
+                $bundleItems[] = [
+                    'key' => 'zf-b-3-35k',
+                    'id' => 'zf-b-3-35k',
+                    'name' => 'Paket 3 Menu Bebas Pilih (Reguler / Food)',
+                    'category' => 'Promo & Combo',
+                    'price' => 35000,
+                    'normalPrice' => 57000,
+                    'outletPrice' => 57000,
+                    'img' => '/img/brands/kopken.png',
+                    'desc' => 'Bebas pilih 3 item (minuman reguler atau food / roti) dari menu harga outlet Rp 17.000 - Rp 19.000.',
+                    'isSoldOut' => count(array_filter($candidates1719, fn($c) => !$c['isSoldOut'])) < 3,
+                    'isBundle' => true,
+                    'bundleSlots' => 3,
+                    'bundlePricePerSlot' => 35000 / 3,
+                    'candidates' => $candidates1719,
+                    'tag' => 'Hemat Rp 22.000',
+                ];
             }
-            unset($item);
+
+            // Bundle Large 2: 32.000
+            if (!empty($candidates19Drinks)) {
+                $bundleItems[] = [
+                    'key' => 'zf-b-large2-32k',
+                    'id' => 'zf-b-large2-32k',
+                    'name' => 'Paket 2 Cup Large Bebas Pilih',
+                    'category' => 'Promo & Combo',
+                    'price' => 32000,
+                    'normalPrice' => 50000,
+                    'outletPrice' => 50000,
+                    'img' => '/img/brands/kopken.png',
+                    'desc' => 'Bebas pilih 2 minuman size Large favoritmu (Kenangan Mantan, Spanish Latte, Pistachio, dll).',
+                    'isSoldOut' => count(array_filter($candidates19Drinks, fn($c) => !$c['isSoldOut'])) < 2,
+                    'isBundle' => true,
+                    'bundleSlots' => 2,
+                    'bundlePricePerSlot' => 16000,
+                    'candidates' => $candidates19Drinks,
+                    'tag' => 'Hemat Rp 18.000',
+                ];
+            }
+
+            // Prepend bundles to items
+            if (!empty($bundleItems)) {
+                $items = array_merge($bundleItems, $items);
+            }
         }
     }
 
     /**
-     * Get item detail variants and options with real-time stock and client pricing
+     * Get item detail & options
      */
     public function getItemDetail(string $brand = 'kopken', ?string $outletCode = null, ?string $code = null, ?string $key = null): array
     {
         $brand = $this->normalizeBrand($brand);
         $outletCode = $this->normalizeOutletCode($brand, trim((string) $outletCode));
-        $code = trim((string) $code);
-        $key = trim((string) $key);
+        $menu = $this->getMenu($brand, $outletCode);
 
-        $url = $this->primaryBaseUrl . "/{$brand}/item";
-        $params = [
-            'outlet' => $outletCode,
-            'code' => $code,
-            'key' => $key,
+        $matchedItem = null;
+        foreach ($menu['items'] ?? [] as $mi) {
+            if (($key !== null && ($mi['key'] ?? '') === $key) || ($code !== null && ($mi['code'] ?? '') === $code)) {
+                $matchedItem = $mi;
+                break;
+            }
+        }
+
+        if (!$matchedItem) {
+            return ['isSoldOut' => false, 'groups' => [], 'prices' => []];
+        }
+
+        $opts = $matchedItem['options'] ?? [];
+        $groups = [];
+
+        if (!empty($opts['sizes']) && is_array($opts['sizes'])) {
+            $vals = array_map(fn($s) => ['id' => $s, 'text' => $s], $opts['sizes']);
+            $groups[] = ['id' => 'size', 'name' => 'Ukuran', 'values' => $vals, 'default' => $opts['sizes'][0]];
+        }
+        if (!empty($opts['temps']) && is_array($opts['temps'])) {
+            $vals = array_map(fn($s) => ['id' => $s, 'text' => $s], $opts['temps']);
+            $groups[] = ['id' => 'temp', 'name' => 'Suhu', 'values' => $vals, 'default' => $opts['temps'][0]];
+        }
+        if (!empty($opts['ices']) && is_array($opts['ices'])) {
+            $vals = array_map(fn($s) => ['id' => $s, 'text' => $s], $opts['ices']);
+            $groups[] = ['id' => 'ice', 'name' => 'Level Es', 'values' => $vals, 'default' => $opts['ices'][0]];
+        }
+        if (!empty($opts['sugars']) && is_array($opts['sugars'])) {
+            $vals = array_map(fn($s) => ['id' => $s, 'text' => $s], $opts['sugars']);
+            $groups[] = ['id' => 'sugar', 'name' => 'Level Gula', 'values' => $vals, 'default' => $opts['sugars'][0]];
+        }
+
+        $basePrice = (int) ($matchedItem['price'] ?? 0);
+        $largePrice = (int) ($matchedItem['largePrice'] ?? ($basePrice + 5000));
+
+        $prices = ['default' => $basePrice];
+        if (!empty($opts['sizes']) && in_array('Large', $opts['sizes'], true)) {
+            $prices['Large'] = $largePrice;
+            $prices['Regular'] = $basePrice;
+        }
+
+        return [
+            'isSoldOut' => !empty($matchedItem['isSoldOut']),
+            'groups' => $groups,
+            'prices' => $prices,
+            'desc' => $matchedItem['desc'] ?? '',
         ];
-        $res = $this->httpRequest($url, $params);
-        if (!$res) {
-            $backupUrl = $this->backupBaseUrl . "/{$brand}/item";
-            $res = $this->httpRequest($backupUrl, $params);
-        }
-
-        if ($res && !empty($res['groups']) && is_array($res['groups'])) {
-            // Client revision: Hapus Jumbo di all menu
-            $jumboIds = [];
-            foreach ($res['groups'] as &$g) {
-                if (!empty($g['values']) && is_array($g['values'])) {
-                    foreach ($g['values'] as $v) {
-                        $vtxt = strtolower(trim((string)($v['text'] ?? '')));
-                        $vid = (string)($v['id'] ?? '');
-                        if (str_contains($vtxt, 'jumbo') || str_contains(strtolower($vid), 'jumbo')) {
-                            $jumboIds[] = $vid;
-                        }
-                    }
-                    $g['values'] = array_values(array_filter(
-                        $g['values'],
-                        fn($v) => !in_array((string)($v['id'] ?? ''), $jumboIds, true)
-                    ));
-                    if (in_array((string)($g['default'] ?? ''), $jumboIds, true) && !empty($g['values'])) {
-                        $g['default'] = $g['values'][0]['id'] ?? '';
-                    }
-                }
-            }
-            unset($g);
-
-            // Filter out empty groups if any
-            $res['groups'] = array_values(array_filter($res['groups'], fn($g) => !empty($g['values'])));
-
-            // Clean prices, normals, and comboAddons referencing Jumbo
-            if (!empty($jumboIds)) {
-                if (!empty($res['prices']) && is_array($res['prices'])) {
-                    $cleanPrices = [];
-                    foreach ($res['prices'] as $combo => $price) {
-                        $parts = explode('|', (string)$combo);
-                        $hasJumbo = false;
-                        foreach ($parts as $pPart) {
-                            if (in_array($pPart, $jumboIds, true)) {
-                                $hasJumbo = true;
-                                break;
-                            }
-                        }
-                        if (!$hasJumbo) {
-                            $cleanPrices[$combo] = $price;
-                        }
-                    }
-                    $res['prices'] = $cleanPrices;
-                }
-
-                if (!empty($res['normals']) && is_array($res['normals'])) {
-                    $cleanNormals = [];
-                    foreach ($res['normals'] as $combo => $norm) {
-                        $parts = explode('|', (string)$combo);
-                        $hasJumbo = false;
-                        foreach ($parts as $pPart) {
-                            if (in_array($pPart, $jumboIds, true)) {
-                                $hasJumbo = true;
-                                break;
-                            }
-                        }
-                        if (!$hasJumbo) {
-                            $cleanNormals[$combo] = $norm;
-                        }
-                    }
-                    $res['normals'] = $cleanNormals;
-                }
-
-                if (!empty($res['comboAddons']) && is_array($res['comboAddons'])) {
-                    $cleanComboAddons = [];
-                    foreach ($res['comboAddons'] as $combo => $ca) {
-                        $parts = explode('|', (string)$combo);
-                        $hasJumbo = false;
-                        foreach ($parts as $pPart) {
-                            if (in_array($pPart, $jumboIds, true)) {
-                                $hasJumbo = true;
-                                break;
-                            }
-                        }
-                        if (!$hasJumbo) {
-                            $cleanComboAddons[$combo] = $ca;
-                        }
-                    }
-                    $res['comboAddons'] = $cleanComboAddons;
-                }
-            }
-
-            // Client revision: Untuk Tomoro pilihan size Small only
-            if ($brand === 'tomoro') {
-                $is1L = (bool) preg_match('/1\s*l|liter/i', $key . ' ' . $code);
-                if (!$is1L) {
-                    foreach ($res['groups'] as &$g) {
-                        $gName = strtolower(trim((string)($g['name'] ?? '')));
-                        $gId = strtolower(trim((string)($g['id'] ?? '')));
-                        if ($gName === 'size' || $gName === 'ukuran' || $gId === 'size' || $gId === 'ukuran') {
-                            $g['values'] = [['id' => 'Small', 'text' => 'Small']];
-                            $g['default'] = 'Small';
-                        }
-                    }
-                    unset($g);
-                }
-            }
-        }
-
-        if ($res && isset($res['prices']) && is_array($res['prices'])) {
-            // Find base item in menu to know outletPrice
-            $menu = $this->getMenu($brand, $outletCode);
-            $matchedItem = null;
-            foreach ($menu['items'] ?? [] as $mi) {
-                if (($key !== '' && ($mi['key'] ?? '') === $key) || ($code !== '' && ($mi['code'] ?? '') === $code)) {
-                    $matchedItem = $mi;
-                    break;
-                }
-            }
-
-            $basePrice = (int) ($matchedItem['outletPrice'] ?? $matchedItem['price'] ?? 19000);
-            $regularCalc = (int) round(($basePrice * 0.5) + 4000);
-            $largeCalc = $regularCalc + 5000;
-
-            if ($brand === 'tomoro') {
-                $regularCalc = (int) round(($basePrice * 0.5) + 5000);
-                $largeCalc = $regularCalc + 5000;
-            } elseif ($brand === 'fore') {
-                $regularCalc = (int) round(($basePrice * 0.75) + 2000);
-                $largeCalc = $regularCalc + 5000;
-            } elseif ($brand === 'jiwa') {
-                $baseDisc = min($basePrice * 0.5, 20000);
-                $regularCalc = (int) round(($basePrice - $baseDisc) + 5000);
-                $largeBase = $basePrice + 6000;
-                $largeDisc = min($largeBase * 0.5, 20000);
-                $largeCalc = (int) round(($largeBase - $largeDisc) + 5000);
-            }
-
-            // Extract option IDs for specific modifier pricing (Client request v2: Juwara Beans +2k)
-            $largeIds = [];
-            $juwaraIds = [];
-            $oatsideIds = [];
-
-            foreach ($res['groups'] ?? [] as $g) {
-                foreach ($g['values'] ?? [] as $v) {
-                    $vid = (string) ($v['id'] ?? '');
-                    $vtxt = strtolower(trim((string) ($v['text'] ?? '')));
-                    if (strpos($vtxt, 'large') !== false) {
-                        $largeIds[] = $vid;
-                    }
-                    if (strpos($vtxt, 'juwara') !== false) {
-                        $juwaraIds[] = $vid;
-                    }
-                    if (strpos($vtxt, 'oatside') !== false || strpos($vtxt, 'oat') !== false) {
-                        $oatsideIds[] = $vid;
-                    }
-                }
-            }
-
-            // Adjust variant prices
-            foreach ($res['prices'] as $combo => &$p) {
-                $comboParts = explode('|', (string) $combo);
-                $isLarge = false;
-                $isJuwara = false;
-                $isOatside = false;
-
-                foreach ($comboParts as $part) {
-                    if (in_array($part, $largeIds, true)) $isLarge = true;
-                    if (in_array($part, $juwaraIds, true)) $isJuwara = true;
-                    if (in_array($part, $oatsideIds, true)) $isOatside = true;
-                }
-
-                $finalPrice = $regularCalc;
-                if ($isLarge) {
-                    $finalPrice += 5000;
-                }
-                if ($isJuwara) {
-                    $finalPrice += 2000; // +2k ka yg ini (client request)
-                }
-                if ($isOatside) {
-                    $finalPrice += 2000; // Client request: Juwara Beans & Oatside ubah jadi 2.000
-                }
-
-                $p = $finalPrice;
-            }
-            unset($p);
-
-            return $res;
-        }
-
-        return $res ?: ['isSoldOut' => false, 'groups' => [], 'prices' => []];
     }
 
     /**
-     * Default high-resolution cafe outlet image based on brand
+     * Default outlet image based on brand
      */
     public function getDefaultOutletImage(string $brand = 'kopken'): string
     {
-        switch ($this->normalizeBrand($brand)) {
-            case 'kopken':
-                return 'https://cdn.kopikenangan.com/public/cf8b6835-e066-4a73-7f08-4803716d2d4c';
-            case 'fore':
-                return 'https://static.fore.coffee/store_image/AEONTanjungBarat-181121.jpg';
-            case 'tomoro':
-                return 'https://images.unsplash.com/photo-1554118811-1e0d58224f24?q=80&w=400&auto=format&fit=crop';
-            case 'jiwa':
-                return 'https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?q=80&w=400&auto=format&fit=crop';
-            default:
-                return 'https://images.unsplash.com/photo-1554118811-1e0d58224f24?q=80&w=400&auto=format&fit=crop';
-        }
+        return match ($this->normalizeBrand($brand)) {
+            'tomoro' => 'https://images.unsplash.com/photo-1509785307050-d4066910ec1e?q=80&w=400&auto=format&fit=crop',
+            'fore'   => 'https://images.unsplash.com/photo-1442512595331-e89e73853f31?q=80&w=400&auto=format&fit=crop',
+            'jiwa'   => 'https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?q=80&w=400&auto=format&fit=crop',
+            'point'  => 'https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?q=80&w=400&auto=format&fit=crop',
+            default  => 'https://images.unsplash.com/photo-1554118811-1e0d58224f24?q=80&w=400&auto=format&fit=crop',
+        };
     }
 
     /**
-     * Normalize outlet image URL
+     * Default product image based on brand & menu name
      */
-    public function normalizeOutletImage(array $outlet, string $brand = 'kopken'): array
+    protected function getDefaultItemImage(string $brand, string $name): string
     {
-        if (empty($outlet['img'])) {
-            if (!empty($outlet['image'])) {
-                $outlet['img'] = $outlet['image'];
-            } elseif (!empty($outlet['photo'])) {
-                $outlet['img'] = $outlet['photo'];
-            }
-        }
-        if (!empty($outlet['img']) && strpos($outlet['img'], 'http') !== 0) {
-            if (str_starts_with($outlet['img'], '/')) {
-                $outlet['img'] = 'https://twinsjasdor.my.id' . $outlet['img'];
-            }
-        }
-        if (empty($outlet['img'])) {
-            $outlet['img'] = $this->getDefaultOutletImage($outlet['brand'] ?? $brand);
-        }
-        return $outlet;
+        return 'https://images.unsplash.com/photo-1541167760496-1628856ab772?q=80&w=400&auto=format&fit=crop';
     }
 
     /**
-     * Evaluate outlet operating hours based on Asia/Jakarta (WIB) time and ensure outlet image
+     * Evaluate outlet open/closed status based on current WIB time
      */
     public function evaluateOutletHours(array $outlet, string $brand = 'kopken'): array
     {
-        $outlet = $this->normalizeOutletImage($outlet, $brand);
+        $brandConfig = config("brands.{$brand}", []);
+        $now = new DateTime('now', new DateTimeZone('Asia/Jakarta'));
+        $currentMinutes = ((int) $now->format('G')) * 60 + ((int) $now->format('i'));
 
-        if (isset($outlet['isOpen']) && is_bool($outlet['isOpen']) && !empty($outlet['statusText'])) {
-            return $outlet;
-        }
+        $hoursStr = (string) ($outlet['hours'] ?? $brandConfig['shop']['hours'] ?? '07:00 - 22:00 WIB');
+        $isOpen = $outlet['isOpen'] ?? true;
+        $statusText = 'Buka';
 
-        $hours = trim((string) ($outlet['hours'] ?? ''));
-        if (empty($hours)) {
-            $outlet['isOpen'] = true;
-            $outlet['canOrder'] = true;
-            $outlet['statusText'] = 'Buka';
-            return $outlet;
-        }
+        if (preg_match('/(\d{1,2})[:.](\d{2})\s*[-–—]\s*(\d{1,2})[:.](\d{2})/', $hoursStr, $m)) {
+            $openMinutes = ((int) $m[1]) * 60 + ((int) $m[2]);
+            $closeMinutes = ((int) $m[3]) * 60 + ((int) $m[4]);
 
-        // Match time pattern "07:00 - 22:00" or "08.00-21.30"
-        if (preg_match('/(\d{1,2})[:.](\d{2})\s*-\s*(\d{1,2})[:.](\d{2})/', $hours, $m)) {
-            $openMinutes = (int) $m[1] * 60 + (int) $m[2];
-            $closeMinutes = (int) $m[3] * 60 + (int) $m[4];
-
-            $nowMinutes = (int) date('H') * 60 + (int) date('i');
-            $is24Hours = ($openMinutes <= 1 && $closeMinutes >= 23 * 60);
-
-            if ($is24Hours) {
-                $isOpen = true;
-            } elseif ($openMinutes <= $closeMinutes) {
-                $isOpen = ($nowMinutes >= $openMinutes && $nowMinutes <= $closeMinutes);
+            if ($closeMinutes > $openMinutes) {
+                $isOpen = ($currentMinutes >= $openMinutes && $currentMinutes < $closeMinutes);
             } else {
-                $isOpen = ($nowMinutes >= $openMinutes || $nowMinutes <= $closeMinutes);
+                $isOpen = ($currentMinutes >= $openMinutes || $currentMinutes < $closeMinutes);
             }
-
-            $outlet['isOpen'] = $isOpen;
-            $outlet['canOrder'] = $isOpen;
-            $outlet['statusText'] = $isOpen ? 'Buka' : 'Tutup';
-        } else {
-            $outlet['isOpen'] = true;
-            $outlet['canOrder'] = true;
-            $outlet['statusText'] = 'Buka';
         }
+
+        $outlet['isOpen'] = $isOpen;
+        $outlet['canOrder'] = $isOpen;
+        $outlet['statusText'] = $isOpen ? 'Buka' : 'Tutup';
+        $outlet['hours'] = $hoursStr;
 
         return $outlet;
     }
 
     /**
-     * Process order submission and generate formatted WhatsApp checkout link
+     * Calculate Haversine distance in kilometers
+     */
+    public function calculateDistance(float $lat1, float $lon1, float $lat2, float $lon2): float
+    {
+        $earthRadius = 6371; // km
+        $dLat = deg2rad($lat2 - $lat1);
+        $dLon = deg2rad($lon2 - $lon1);
+
+        $a = sin($dLat / 2) * sin($dLat / 2) +
+             cos(deg2rad($lat1)) * cos(deg2rad($lat2)) *
+             sin($dLon / 2) * sin($dLon / 2);
+
+        $c = 2 * atan2(sqrt($a), sqrt(1 - $a));
+        return round($earthRadius * $c, 2);
+    }
+
+    /**
+     * Save order & generate WhatsApp checkout format
      */
     public function saveOrder(array $data): array
     {
@@ -1580,12 +1260,10 @@ class CoffeeApi
             $totalQty += (int) ($it['qty'] ?? 1);
         }
 
-        // Single item fee: +Rp 2.000 if order is 1 pcs
         $singleItemFeeConfig = (int) config('fees.single_item_fee', 2000);
         $hasSingleItemFee = ($totalQty === 1) || !empty($data['hasSingleItemFee']);
         $singleItemFee = $hasSingleItemFee ? $singleItemFeeConfig : 0;
 
-        // Plastic bag fee: +Rp 1.000 if selected
         $plasticBagFeeConfig = (int) config('fees.plastic_bag_fee', 1000);
         $hasPlasticBag = !empty($data['plasticBag']);
         $plasticBagFee = $hasPlasticBag ? $plasticBagFeeConfig : 0;
@@ -1620,7 +1298,7 @@ class CoffeeApi
 
         // Format WhatsApp Message
         $adminPhone = (string) config('store.admin_phone', '628973034455');
-        $header = (string) config('wa_format.header', '── .✦ FORMAT ORDER ZONA FITRI ✦.──');
+        $header = (string) config('wa_format.header', '── .✦ FORMAT ORDER ZONA FITRI✦.──');
         $footer = (string) config('wa_format.footer', '');
 
         $waMessage = "{$header}\n";
@@ -1647,96 +1325,36 @@ class CoffeeApi
             $subtotalFormatted = number_format($itemSubtotal, 0, ',', '.');
 
             $waMessage .= ($idx + 1) . ". *" . ($item['name'] ?? 'Item') . "*" . $optStr . " — " . $itemQty . "x Rp " . $subtotalFormatted . "\n";
-            if (!empty($item['bundleChoices'])) {
-                $waMessage .= "   Isi Pilihan: _" . $item['bundleChoices'] . "_\n";
-            }
-            if (!empty($item['note'])) {
-                $waMessage .= "   Catatan: _" . $item['note'] . "_\n";
-            }
         }
 
         $waMessage .= "--------------------------------------\n";
-        $waMessage .= "Subtotal Menu: Rp " . number_format($order['subtotal'], 0, ',', '.') . "\n";
-
-        if ($hasSingleItemFee) {
-            $waMessage .= "Fee Pesanan 1 pcs: +Rp " . number_format($singleItemFee, 0, ',', '.') . "\n";
-        } else {
-            $waMessage .= "Fee Pesanan: Rp 0 (Bebas fee order 2+ item) ✨\n";
+        $waMessage .= "Subtotal: Rp " . number_format($subtotal, 0, ',', '.') . "\n";
+        if ($singleItemFee > 0) {
+            $waMessage .= "Biaya 1 Cup: Rp " . number_format($singleItemFee, 0, ',', '.') . "\n";
         }
-
-        if ($hasPlasticBag) {
-            $waMessage .= "Kantung Belanja Plastik: +Rp " . number_format($plasticBagFee, 0, ',', '.') . "\n";
+        if ($plasticBagFee > 0) {
+            $waMessage .= "Kantong Plastik: Rp " . number_format($plasticBagFee, 0, ',', '.') . "\n";
         }
-
+        $waMessage .= "*Total Pembayaran: Rp " . number_format($total, 0, ',', '.') . "*\n";
         if (!empty($order['notes'])) {
-            $waMessage .= "Catatan Khusus: _" . $order['notes'] . "_\n";
+            $waMessage .= "Catatan: " . $order['notes'] . "\n";
         }
-        $waMessage .= "--------------------------------------\n";
-        $waMessage .= "*TOTAL BAYAR: Rp " . number_format($order['total'], 0, ',', '.') . "*\n\n";
+        $waMessage .= "Kode Order: *" . $orderCode . "*\n";
         if (!empty($footer)) {
-            $waMessage .= "{$footer}\n\n";
+            $waMessage .= "{$footer}\n";
         }
-        $waMessage .= "Mohon segera diproses ya min, terima kasih! ☕✨";
 
-        $waUrl = 'https://wa.me/' . $adminPhone . '?text=' . rawurlencode($waMessage);
+        $waUrl = "https://api.whatsapp.com/send?phone={$adminPhone}&text=" . rawurlencode($waMessage);
 
         return [
             'success' => true,
-            'orderCode' => $orderCode,
             'order' => $order,
-            'waMessage' => $waMessage,
             'waUrl' => $waUrl,
         ];
     }
 
     /**
-     * Get or refresh upstream session cookie from root website.
-     * Upstream API requires a valid browser session cookie and referer.
-     */
-    protected function getUpstreamSessionCookie(bool $forceRefresh = false): string
-    {
-        $sessionCacheKey = 'upstream_zf_session_cookie';
-        if (!$forceRefresh) {
-            $cached = $this->getCache($sessionCacheKey, 82800); // 23 hours
-            if (!empty($cached['cookie'])) {
-                return (string) $cached['cookie'];
-            }
-        }
-
-        $parsed = parse_url($this->primaryBaseUrl);
-        $scheme = $parsed['scheme'] ?? 'https';
-        $host = $parsed['host'] ?? 'twinsjasdor.my.id';
-        $rootUrl = $scheme . '://' . $host . '/';
-        $userAgent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36';
-
-        $cookie = '';
-        if (function_exists('curl_init')) {
-            $ch = curl_init($rootUrl);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($ch, CURLOPT_HEADER, true);
-            curl_setopt($ch, CURLOPT_TIMEOUT, 3);
-            curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 2);
-            curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
-            curl_setopt($ch, CURLOPT_USERAGENT, $userAgent);
-            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-            curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
-            $response = curl_exec($ch);
-            curl_close($ch);
-
-            if ($response && preg_match_all('/^Set-Cookie:\s*([^;]+)/mi', $response, $matches)) {
-                $cookie = implode('; ', $matches[1]);
-            }
-        }
-
-        if ($cookie !== '') {
-            $this->setCache($sessionCacheKey, ['cookie' => $cookie]);
-        }
-
-        return $cookie;
-    }
-
-    /**
-     * Perform HTTP GET request with stealth customer headers, session cookie, and 403 auto-retry
+     * Fast cURL HTTP GET request
      */
     protected function httpRequest(string $url, array $params = []): ?array
     {
@@ -1745,77 +1363,39 @@ class CoffeeApi
         }
 
         $timeout = (int) config('api_timeout', 4);
-        $parsed = parse_url($url);
-        $scheme = $parsed['scheme'] ?? 'https';
-        $host = $parsed['host'] ?? 'twinsjasdor.my.id';
-        $referer = $scheme . '://' . $host . '/';
         $userAgent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36';
 
-        $cookie = $this->getUpstreamSessionCookie();
-        if (empty($cookie)) {
-            // Upstream session handshake unreachable or blocked by Cloudflare on serverless, fallback immediately!
-            return null;
-        }
-
         if (function_exists('curl_init')) {
-            $makeRequest = function($cookieStr) use ($url, $timeout, $userAgent, $referer) {
-                $ch = curl_init();
-                curl_setopt($ch, CURLOPT_URL, $url);
-                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-                curl_setopt($ch, CURLOPT_TIMEOUT, $timeout);
-                curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 1);
-                curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-                curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
-                curl_setopt($ch, CURLOPT_USERAGENT, $userAgent);
-                curl_setopt($ch, CURLOPT_REFERER, $referer);
-                
-                $headers = [
-                    'Accept: application/json, text/plain, */*',
-                    'X-Requested-With: XMLHttpRequest',
-                ];
-                if (!empty($cookieStr)) {
-                    $headers[] = 'Cookie: ' . $cookieStr;
-                }
-                curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL, $url);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_TIMEOUT, $timeout);
+            curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 2);
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+            curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+            curl_setopt($ch, CURLOPT_USERAGENT, $userAgent);
+            curl_setopt($ch, CURLOPT_HTTPHEADER, [
+                'Accept: application/json, text/plain, */*',
+            ]);
 
-                $response = curl_exec($ch);
-                $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-                curl_close($ch);
-
-                return [$httpCode, $response];
-            };
-
-            [$httpCode, $response] = $makeRequest($cookie);
-
-            // If 403 (session expired or invalid), refresh session cookie and retry once
-            if ($httpCode === 403 && !empty($cookie)) {
-                $cookie = $this->getUpstreamSessionCookie(true);
-                if (!empty($cookie)) {
-                    [$httpCode, $response] = $makeRequest($cookie);
-                }
-            }
+            $response = curl_exec($ch);
+            $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+            curl_close($ch);
 
             if ($response !== false && $httpCode >= 200 && $httpCode < 300) {
                 $decoded = json_decode($response, true);
-                if (is_array($decoded) && empty($decoded['error'])) {
+                if (is_array($decoded)) {
                     return $decoded;
                 }
             }
         }
 
         if (ini_get('allow_url_fopen')) {
-            $headersStr = "Accept: application/json\r\n" .
-                          "Referer: {$referer}\r\n" .
-                          "X-Requested-With: XMLHttpRequest\r\n";
-            if (!empty($cookie)) {
-                $headersStr .= "Cookie: {$cookie}\r\n";
-            }
-
             $context = stream_context_create([
                 'http' => [
                     'timeout' => $timeout,
                     'user_agent' => $userAgent,
-                    'header' => $headersStr,
+                    'header' => "Accept: application/json\r\n",
                 ],
                 'ssl' => [
                     'verify_peer' => false,
@@ -1826,7 +1406,7 @@ class CoffeeApi
             $response = @file_get_contents($url, false, $context);
             if ($response !== false) {
                 $decoded = json_decode($response, true);
-                if (is_array($decoded) && empty($decoded['error'])) {
+                if (is_array($decoded)) {
                     return $decoded;
                 }
             }
@@ -1836,25 +1416,7 @@ class CoffeeApi
     }
 
     /**
-     * Calculate Haversine distance between two coordinates in kilometers
-     */
-    public function calculateDistance(float $lat1, float $lon1, float $lat2, float $lon2): float
-    {
-        $earthRadius = 6371; // km
-        $dLat = deg2rad($lat2 - $lat1);
-        $dLon = deg2rad($lon2 - $lon1);
-
-        $a = sin($dLat / 2) * sin($dLat / 2) +
-            cos(deg2rad($lat1)) * cos(deg2rad($lat2)) *
-            sin($dLon / 2) * sin($dLon / 2);
-
-        $c = 2 * atan2(sqrt($a), sqrt(1 - $a));
-
-        return round($earthRadius * $c, 2);
-    }
-
-    /**
-     * Cache helpers
+     * Cache helpers (Container /tmp directory)
      */
     protected function getCache(string $key, int $ttl): ?array
     {
@@ -1888,659 +1450,79 @@ class CoffeeApi
     }
 
     /**
-     * Default product image based on brand & menu name
+     * Fallback outlets from local master snapshot file
      */
-    protected function getDefaultItemImage(string $brand, string $name): string
+    protected function getFallbackOutlets(string $brand): array
     {
-        return 'https://images.unsplash.com/photo-1541167760496-1628856ab772?q=80&w=400&auto=format&fit=crop';
-    }
-
-    /**
-     * Built-in fallback outlets for zero downtime
-     */
-    protected function getFallbackOutlets(string $brand, ?string $query, ?float $lat, ?float $lng): array
-    {
-        // 1. Direct from MongoDB Atlas Master Database ('zona_fitri')
-        $mongoOutlets = $this->mongo->getOutlets($brand, $query ?? '');
-        if (!empty($mongoOutlets)) {
-            if ($lat !== null && $lng !== null) {
-                foreach ($mongoOutlets as &$o) {
-                    if (!empty($o['lat']) && !empty($o['lng'])) {
-                        $o['distanceKm'] = $this->calculateDistance($lat, $lng, (float)$o['lat'], (float)$o['lng']);
-                    }
-                }
-                unset($o);
-                usort($mongoOutlets, fn ($a, $b) => ($a['distanceKm'] ?? 999999) <=> ($b['distanceKm'] ?? 999999));
-            }
-            return array_values($mongoOutlets);
-        }
-
-        // 2. Direct from local master snapshot file
         $masterFile = dirname(__DIR__) . "/data/outlets_master_{$brand}.json";
         if (file_exists($masterFile)) {
             $json = json_decode((string)file_get_contents($masterFile), true);
             if (is_array($json) && !empty($json)) {
-                $outlets = $json;
-                if ($query !== '' && $query !== null) {
-                    $q = strtolower(trim($query));
-                    $outlets = array_filter($outlets, function ($o) use ($q) {
-                        return str_contains(strtolower($o['name'] ?? ''), $q) ||
-                               str_contains(strtolower($o['address'] ?? ''), $q) ||
-                               str_contains(strtolower($o['city'] ?? ''), $q);
-                    });
-                }
-                if ($lat !== null && $lng !== null) {
-                    foreach ($outlets as &$o) {
-                        if (!empty($o['lat']) && !empty($o['lng'])) {
-                            $o['distanceKm'] = $this->calculateDistance($lat, $lng, (float)$o['lat'], (float)$o['lng']);
-                        }
-                    }
-                    unset($o);
-                    usort($outlets, fn ($a, $b) => ($a['distanceKm'] ?? 999999) <=> ($b['distanceKm'] ?? 999999));
-                }
-                return array_values($outlets);
+                return $json;
             }
         }
-
-        $fallbacks = [
-            'kopken' => [
-                [
-                    'code' => 'LA.CODEFIN',
-                    'id' => 101,
-                    'name' => 'Codefin Kemang Jakarta Selatan',
-                    'address' => 'Jl. Kemang Raya No. 10, RT 09/RW 01, Bangka, Kec. Mampang Prapatan, Jakarta Selatan 12730',
-                    'city' => 'Jakarta Selatan',
-                    'lat' => -6.2608,
-                    'lng' => 106.8156,
-                    'isOpen' => true,
-                    'canOrder' => true,
-                    'statusText' => 'Buka',
-                    'hours' => '07:00 - 22:00',
-                    'category' => 'Shop House',
-                    'phone' => '0817 6562 292',
-                    'distanceKm' => null,
-                ],
-                [
-                    'code' => 'KK.JKT.RKKSTBNJB',
-                    'id' => 3998,
-                    'name' => 'Ruko KS Tubun Jakarta Barat',
-                    'address' => 'Jl. KS Tubun No. 32 A, Palmerah, Jakarta Barat 11420',
-                    'city' => 'Jakarta Barat',
-                    'lat' => -6.1888,
-                    'lng' => 106.8072,
-                    'isOpen' => true,
-                    'canOrder' => true,
-                    'statusText' => 'Buka',
-                    'hours' => '00:01 - 23:19',
-                    'category' => 'Shop House',
-                    'phone' => '0817 6562 292',
-                    'distanceKm' => null,
-                ],
-                [
-                    'code' => 'JKT.THAMCIT',
-                    'id' => 205,
-                    'name' => 'Thamrin City Jakarta Pusat',
-                    'address' => 'Thamrin City Lt. Dasar, Jl. Thamrin Boulevard, Tanah Abang, Jakarta Pusat 10230',
-                    'city' => 'Jakarta Pusat',
-                    'lat' => -6.1952,
-                    'lng' => 106.8188,
-                    'isOpen' => true,
-                    'canOrder' => true,
-                    'statusText' => 'Buka',
-                    'hours' => '08:00 - 21:00',
-                    'category' => 'Mall',
-                    'phone' => '0817 9875 980',
-                    'distanceKm' => null,
-                ],
-                [
-                    'code' => 'KK.JKT.CKJNG',
-                    'id' => 3120,
-                    'name' => 'Cikini Jakarta Pusat',
-                    'address' => 'Jl. Cikini Raya No. 64, Menteng, Jakarta Pusat 10330',
-                    'city' => 'Jakarta Pusat',
-                    'lat' => -6.1915,
-                    'lng' => 106.8405,
-                    'isOpen' => true,
-                    'canOrder' => true,
-                    'statusText' => 'Buka',
-                    'hours' => '07:00 - 22:00',
-                    'category' => 'Shop House',
-                    'phone' => '0817 6562 292',
-                    'distanceKm' => null,
-                ],
-            ],
-            'tomoro' => [
-                [
-                    'code' => 'TMR-627779',
-                    'name' => 'Cipete Raya Jakarta Selatan',
-                    'address' => 'Jl. Cipete Raya No. 14, Cipete Selatan, Cilandak, Jakarta Selatan',
-                    'city' => 'Jakarta Selatan',
-                    'lat' => -6.27779,
-                    'lng' => 106.799476,
-                    'isOpen' => true,
-                    'canOrder' => true,
-                    'statusText' => 'Buka',
-                    'hours' => '07:00 - 22:00',
-                    'category' => 'Shop House',
-                    'distanceKm' => null,
-                ],
-                [
-                    'code' => 'TMR-624431',
-                    'name' => 'Blok M Plaza Jakarta Selatan',
-                    'address' => 'Plaza Blok M Lt. LG, Jl. Bulungan No. 76, Jakarta Selatan',
-                    'city' => 'Jakarta Selatan',
-                    'lat' => -6.24431,
-                    'lng' => 106.79721,
-                    'isOpen' => true,
-                    'canOrder' => true,
-                    'statusText' => 'Buka',
-                    'hours' => '07:00 - 22:00',
-                    'category' => 'Mall',
-                    'distanceKm' => null,
-                ],
-                [
-                    'code' => 'TMR-619743',
-                    'name' => 'Chubb Square MH Thamrin',
-                    'address' => 'Chubb Square Lt. B-1 Unit B3, Jl. MH Thamrin No. 8-9, Jakarta Pusat',
-                    'city' => 'Jakarta Pusat',
-                    'lat' => -6.19743,
-                    'lng' => 106.82112,
-                    'isOpen' => true,
-                    'canOrder' => true,
-                    'statusText' => 'Buka',
-                    'hours' => '07:00 - 22:00',
-                    'category' => 'Office',
-                    'distanceKm' => null,
-                ],
-            ],
-            'fore' => [
-                [
-                    'code' => 'KOKAS',
-                    'name' => 'Kota Kasablanka Jakarta Selatan',
-                    'address' => 'Mall Kota Kasablanka Lt. UG, Jl. Casablanca Raya No. 88, Tebet, Jakarta Selatan',
-                    'city' => 'Jakarta Selatan',
-                    'lat' => -6.2241,
-                    'lng' => 106.8427,
-                    'isOpen' => true,
-                    'canOrder' => true,
-                    'statusText' => 'Buka',
-                    'hours' => '08:00 - 22:00',
-                    'category' => 'Mall',
-                    'distanceKm' => null,
-                ],
-                [
-                    'code' => 'SENAYAN_CITY',
-                    'name' => 'Senayan City Jakarta Pusat',
-                    'address' => 'Senayan City Lt. LG, Jl. Asia Afrika No. 19, Gelora, Tanah Abang, Jakarta Pusat',
-                    'city' => 'Jakarta Pusat',
-                    'lat' => -6.2272,
-                    'lng' => 106.7984,
-                    'isOpen' => true,
-                    'canOrder' => true,
-                    'statusText' => 'Buka',
-                    'hours' => '08:00 - 22:00',
-                    'category' => 'Mall',
-                    'distanceKm' => null,
-                ],
-            ],
-            'jiwa' => [
-                [
-                    'code' => '25',
-                    'name' => 'Muara Karang Jakarta Utara',
-                    'address' => 'Muara Karang Blok D 7 Barat No.59A Rt.7/Rw.8, Pluit, Jakarta Utara, DKI Jakarta 14450',
-                    'city' => 'Jakarta Utara',
-                    'lat' => -6.1179217,
-                    'lng' => 106.777145,
-                    'isOpen' => true,
-                    'canOrder' => true,
-                    'statusText' => 'Buka',
-                    'hours' => '07:00 - 22:00',
-                    'category' => 'Shop House',
-                    'distanceKm' => null,
-                ],
-                [
-                    'code' => '222',
-                    'name' => 'Metro Park Kedoya Jakarta Barat',
-                    'address' => 'Metro Park Residence Apartement, Jl. Pilar Mas Utama Kav. 28, Kedoya Selatan, Kebon Jeruk, Jakarta Barat',
-                    'city' => 'Jakarta Barat',
-                    'lat' => -6.186237,
-                    'lng' => 106.757467,
-                    'isOpen' => true,
-                    'canOrder' => true,
-                    'statusText' => 'Buka',
-                    'hours' => '07:00 - 22:00',
-                    'category' => 'Apartment',
-                    'distanceKm' => null,
-                ],
-                [
-                    'code' => '636',
-                    'name' => 'MKG 3 Kelapa Gading Jakarta Utara',
-                    'address' => 'Mall Kelapa Gading 3, Jl. Boulevard Raya, Kelapa Gading Timur, Jakarta Utara',
-                    'city' => 'Jakarta Utara',
-                    'lat' => -6.156208,
-                    'lng' => 106.909708,
-                    'isOpen' => true,
-                    'canOrder' => true,
-                    'statusText' => 'Buka',
-                    'hours' => '10:00 - 22:00',
-                    'category' => 'Mall',
-                    'distanceKm' => null,
-                ],
-            ],
-        ];
-
-        if ($brand === 'tomoro') {
-            $list = $this->searchLocalTomoroOutlets($query);
-            if (empty($list)) {
-                $list = $fallbacks['tomoro'] ?? [];
-            }
-        } else {
-            $list = $fallbacks[$brand] ?? $fallbacks['kopken'];
-
-            // Filter by query if supplied
-            if ($query !== '' && $query !== null) {
-                $qLower = strtolower($query);
-                $list = array_values(array_filter($list, function ($it) use ($qLower) {
-                    return str_contains(strtolower($it['name'] ?? ''), $qLower)
-                        || str_contains(strtolower($it['address'] ?? ''), $qLower)
-                        || str_contains(strtolower($it['city'] ?? ''), $qLower);
-                }));
-            }
-        }
-
-        // Distance calculate
-        if ($lat !== null && $lng !== null) {
-            foreach ($list as &$item) {
-                if (!empty($item['lat']) && !empty($item['lng'])) {
-                    $item['distanceKm'] = $this->calculateDistance($lat, $lng, (float)$item['lat'], (float)$item['lng']);
-                }
-            }
-            unset($item);
-            usort($list, fn($a, $b) => ($a['distanceKm'] ?? 999999) <=> ($b['distanceKm'] ?? 999999));
-        }
-
-        return $list;
+        return [];
     }
 
     /**
-     * Search local comprehensive Tomoro dataset (645+ outlets across Indonesia)
-     */
-    public function searchLocalTomoroOutlets(?string $query): array
-    {
-        $filePath = (defined('ROOT_PATH') ? ROOT_PATH : __DIR__ . '/..') . '/data/outlets_tomoro.json';
-        if (!file_exists($filePath)) {
-            return [];
-        }
-        $raw = @file_get_contents($filePath);
-        if (!$raw) {
-            return [];
-        }
-        $all = json_decode($raw, true);
-        if (!is_array($all)) {
-            return [];
-        }
-
-        $q = strtolower(trim((string)$query));
-        if ($q === '') {
-            return $all;
-        }
-
-        $aliases = [
-            'ptc' => ['pakuwon', 'trade center'],
-            'tp' => ['tunjungan plaza'],
-            'gm' => ['galaxy mall'],
-            'cw' => ['ciputra world'],
-            'sby' => ['surabaya'],
-            'mlg' => ['malang'],
-            'bdg' => ['bandung'],
-            'jkt' => ['jakarta'],
-            'smg' => ['semarang'],
-            'jogja' => ['yogyakarta'],
-            'yogya' => ['yogyakarta'],
-            'bali' => ['denpasar', 'badung', 'kuta', 'ubud'],
-        ];
-
-        $terms = [$q];
-        if (isset($aliases[$q])) {
-            $terms = array_merge($terms, $aliases[$q]);
-        }
-
-        $results = [];
-        foreach ($all as $item) {
-            $name = strtolower($item['name'] ?? '');
-            $city = strtolower($item['city'] ?? '');
-            $address = strtolower($item['address'] ?? '');
-            $code = strtolower($item['code'] ?? '');
-            $haystack = "{$name} {$city} {$address} {$code}";
-
-            $score = 999;
-            foreach ($terms as $t) {
-                $tEsc = preg_quote($t, '/');
-                if (preg_match('/\b' . $tEsc . '\b/i', $city)) {
-                    $score = min($score, 1);
-                } elseif (preg_match('/\b' . $tEsc . '\b/i', $name)) {
-                    $score = min($score, 2);
-                } elseif (preg_match('/\b' . $tEsc . '\b/i', $address)) {
-                    $score = min($score, 3);
-                } elseif (str_contains($haystack, $t)) {
-                    $score = min($score, 4);
-                }
-            }
-
-            if ($score < 999) {
-                $item['_score'] = $score;
-                $results[] = $item;
-            }
-        }
-
-        usort($results, fn($a, $b) => ($a['_score'] ?? 999) <=> ($b['_score'] ?? 999));
-
-        foreach ($results as &$r) {
-            unset($r['_score']);
-        }
-        unset($r);
-
-        return $results;
-    }
-
-    /**
-     * Built-in fallback menu for zero downtime
+     * Fallback menu from local master snapshot file
      */
     protected function getFallbackMenu(string $brand, string $outletCode): array
     {
-        // 1. Direct from MongoDB Atlas Master Database ('zona_fitri')
-        $master = $this->mongo->getMenu($brand);
-        if ($master && !empty($master['items'])) {
-            $master['outletCode'] = $outletCode;
-            $master['source'] = 'mongodb';
-            $master['live'] = true;
-            return $master;
-        }
-
-        // 2. Direct from local master snapshot file
         $masterFile = dirname(__DIR__) . "/data/menu_master_{$brand}.json";
         if (file_exists($masterFile)) {
             $json = json_decode((string)file_get_contents($masterFile), true);
             if (is_array($json) && !empty($json['items'])) {
                 $json['outletCode'] = $outletCode;
-                $json['source'] = 'master_snapshot';
+                $json['source'] = 'snapshot';
                 $json['live'] = true;
                 return $json;
             }
         }
 
-        $defaultOptions = [
-            'sizes' => ['Regular', 'Large'],
-            'temps' => ['Ice', 'Hot'],
-            'ices' => ['Normal Ice', 'Less Ice', 'No Ice'],
-            'sugars' => ['Normal Sugar', 'Less Sugar', 'No Sugar'],
-        ];
-
-        // Client revision: Untuk Tomoro pilihan size Small only
-        $tomoroOptions = [
-            'sizes' => ['Small'],
-            'temps' => ['Ice', 'Hot'],
-            'ices' => ['Normal Ice', 'Less Ice', 'No Ice'],
-            'sugars' => ['Normal Sugar', 'Less Sugar', 'No Sugar'],
-        ];
-
-        $categories = [
-            ['id' => 'item-kopi', 'name' => 'Kopi', 'kind' => 'item'],
-            ['id' => 'item-non-kopi', 'name' => 'Non-Kopi', 'kind' => 'item'],
-            ['id' => 'item-frappe', 'name' => 'Frappe & Blended', 'kind' => 'item'],
-            ['id' => 'item-tea', 'name' => 'Tea', 'kind' => 'item'],
-        ];
-
-        if ($brand === 'kopken') {
-            $items = [
-                [
-                    'key' => 'kopikenanganmantan',
-                    'id' => 'kopikenanganmantan',
-                    'name' => 'Kopi Kenangan Mantan',
-                    'category' => 'Kopi',
-                    'price' => 15000,
-                    'normalPrice' => 19000,
-                    'largePrice' => 19000,
-                    'isSoldOut' => false,
-                    'img' => 'https://cdn.kopikenangan.com/public/da484154-47b1-a756-54a4-8b3490fb0eae',
-                    'desc' => 'Espresso dengan susu segar dan manis legitnya gula aren asli Indonesia.',
-                    'options' => $defaultOptions,
-                    'featured' => true,
-                ],
-                [
-                    'key' => 'kopisusublackaren',
-                    'id' => 'kopisusublackaren',
-                    'name' => 'Kopi Susu Black Aren',
-                    'category' => 'Kopi',
-                    'price' => 16000,
-                    'normalPrice' => 21000,
-                    'largePrice' => 21000,
-                    'isSoldOut' => false,
-                    'img' => 'https://cdn.kopikenangan.com/public/2ba99b9b-7912-397a-9fea-a21d4073a197',
-                    'desc' => 'Kopi susu khas dengan aroma smoky brown sugar aren pilihan.',
-                    'options' => $defaultOptions,
-                    'featured' => true,
-                ],
-                [
-                    'key' => 'americano',
-                    'id' => 'americano',
-                    'name' => 'Americano',
-                    'category' => 'Kopi',
-                    'price' => 14000,
-                    'normalPrice' => 17000,
-                    'largePrice' => 19000,
-                    'isSoldOut' => false,
-                    'img' => 'https://cdn.kopikenangan.com/public/36155ddd-784d-a7d9-4d02-13d596417078',
-                    'desc' => 'Espresso bold berkualitas yang disajikan dengan air murni segar.',
-                    'options' => $defaultOptions,
-                    'featured' => false,
-                ],
-                [
-                    'key' => 'taromilk',
-                    'id' => 'taromilk',
-                    'name' => 'Taro Milk',
-                    'category' => 'Non-Kopi',
-                    'price' => 15000,
-                    'normalPrice' => 19000,
-                    'largePrice' => 20000,
-                    'isSoldOut' => false,
-                    'img' => 'https://cdn.kopikenangan.com/ID/release/pub/kk-api-management/product/d388cac3-16df-4519-9e80-f8ef633048b9?',
-                    'desc' => 'Perpaduan lembut susu creamy dengan ekstrak taro wangi.',
-                    'options' => $defaultOptions,
-                    'featured' => false,
-                ],
-                [
-                    'key' => 'dutchchocolate',
-                    'id' => 'dutchchocolate',
-                    'name' => 'Dutch Chocolate',
-                    'category' => 'Non-Kopi',
-                    'price' => 19000,
-                    'normalPrice' => 26000,
-                    'largePrice' => 25000,
-                    'isSoldOut' => false,
-                    'img' => 'https://cdn.kopikenangan.com/public/e7dfc639-f112-28b7-4cff-8e1cda6f82b5',
-                    'desc' => 'Cokelat Belanda pekat yang rich, creamy, dan tidak terlalu manis.',
-                    'options' => $defaultOptions,
-                    'featured' => true,
-                ],
-                [
-                    'key' => 'butterscotcharenlatte',
-                    'id' => 'butterscotcharenlatte',
-                    'name' => 'Butterscotch Aren Latte',
-                    'category' => 'Kopi',
-                    'price' => 16000,
-                    'normalPrice' => 20000,
-                    'largePrice' => 20000,
-                    'isSoldOut' => true,
-                    'img' => 'https://cdn.kopikenangan.com/public/a1cb7272-f6e2-bb69-950d-59bc87515fd2',
-                    'desc' => 'Aroma butterscotch gurih dan gula aren berpadu nikmat.',
-                    'options' => $defaultOptions,
-                    'featured' => false,
-                ],
-            ];
-        } elseif ($brand === 'tomoro') {
-            $items = [
-                [
-                    'key' => 'tomoro-aren-latte',
-                    'id' => 'tomoro-aren-latte',
-                    'name' => 'Tomoro Aren Latte',
-                    'category' => 'Kopi',
-                    'price' => 17000,
-                    'normalPrice' => 22000,
-                    'isSoldOut' => false,
-                    'img' => 'https://images.unsplash.com/photo-1517701550927-30cf4ba1dba5?q=80&w=400&auto=format&fit=crop',
-                    'desc' => 'Master Arabica blend dengan paduan gula aren organik alami.',
-                    'options' => $tomoroOptions,
-                    'featured' => true,
-                ],
-                [
-                    'key' => 'tomoro-oat-latte',
-                    'id' => 'tomoro-oat-latte',
-                    'name' => 'Tomoro Oat Latte',
-                    'category' => 'Kopi',
-                    'price' => 24000,
-                    'normalPrice' => 28000,
-                    'isSoldOut' => false,
-                    'img' => 'https://images.unsplash.com/photo-1541167760496-1628856ab772?q=80&w=400&auto=format&fit=crop',
-                    'desc' => 'Susu gandum premium dipadukan espresso Arabica seimbang.',
-                    'options' => $tomoroOptions,
-                    'featured' => true,
-                ],
-                [
-                    'key' => 'tomoro-cloud-matcha',
-                    'id' => 'tomoro-cloud-matcha',
-                    'name' => 'Cloud Matcha Frappe',
-                    'category' => 'Frappe & Blended',
-                    'price' => 22000,
-                    'normalPrice' => 26000,
-                    'isSoldOut' => false,
-                    'img' => 'https://images.unsplash.com/photo-1536256263959-770b48d82b0a?q=80&w=400&auto=format&fit=crop',
-                    'desc' => 'Matcha asli dengan foam creamy tebal yang menyegarkan.',
-                    'options' => $tomoroOptions,
-                    'featured' => false,
-                ],
-            ];
-        } elseif ($brand === 'fore') {
-            $items = [
-                [
-                    'key' => 'fore-pandan-latte',
-                    'id' => 'fore-pandan-latte',
-                    'name' => 'Pandan Latte',
-                    'category' => 'Kopi',
-                    'price' => 26000,
-                    'normalPrice' => 32000,
-                    'largePrice' => 32000,
-                    'isSoldOut' => false,
-                    'img' => 'https://images.unsplash.com/photo-1509042239860-f550ce710b93?q=80&w=400&auto=format&fit=crop',
-                    'desc' => 'Kopi susu beraroma daun pandan wangi alami khas Fore Coffee.',
-                    'options' => $defaultOptions,
-                    'featured' => true,
-                ],
-                [
-                    'key' => 'fore-aren-latte',
-                    'id' => 'fore-aren-latte',
-                    'name' => 'Aren Latte Classic',
-                    'category' => 'Kopi',
-                    'price' => 23000,
-                    'normalPrice' => 29000,
-                    'largePrice' => 29000,
-                    'isSoldOut' => false,
-                    'img' => 'https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?q=80&w=400&auto=format&fit=crop',
-                    'desc' => 'Espresso Arabica pilihan dipadu susu gurih dan gula aren premium.',
-                    'options' => $defaultOptions,
-                    'featured' => true,
-                ],
-                [
-                    'key' => 'fore-matcha-chizu',
-                    'id' => 'fore-matcha-chizu',
-                    'name' => 'Matcha Chizu',
-                    'category' => 'Non-Kopi',
-                    'price' => 28000,
-                    'normalPrice' => 35000,
-                    'largePrice' => 35000,
-                    'isSoldOut' => false,
-                    'img' => 'https://images.unsplash.com/photo-1536256263959-770b48d82b0a?q=80&w=400&auto=format&fit=crop',
-                    'desc' => 'Green tea murni dengan topping krim keju gurih creamy.',
-                    'options' => $defaultOptions,
-                    'featured' => false,
-                ],
-            ];
-        } else {
-            $categories = [
-                ['id' => 'item-coffee', 'name' => 'Coffee', 'kind' => 'item'],
-                ['id' => 'item-toast', 'name' => 'Jiwa Toast', 'kind' => 'item'],
-                ['id' => 'item-non-coffee', 'name' => 'Non Coffee', 'kind' => 'item'],
-                ['id' => 'item-tea', 'name' => 'Tea-Based', 'kind' => 'item'],
-            ];
-            $items = [
-                [
-                    'key' => 'americano',
-                    'id' => 'americano',
-                    'name' => 'Americano',
-                    'category' => 'Coffee',
-                    'price' => 17500,
-                    'normalPrice' => 24000,
-                    'largePrice' => 20500,
-                    'isSoldOut' => false,
-                    'img' => 'https://tixandcoffee.developerngantuk.my.id/uploads/8cf1ecceeb60fa66.jpg',
-                    'desc' => 'Espresso dan air mineral segar pilihan khas Janji Jiwa.',
-                    'options' => $defaultOptions,
-                    'featured' => false,
-                ],
-                [
-                    'key' => 'jiwa-signature-kopisusu',
-                    'id' => 'jiwa-signature-kopisusu',
-                    'name' => 'Signature Kopi Susu',
-                    'category' => 'Coffee',
-                    'price' => 22000,
-                    'normalPrice' => 28000,
-                    'largePrice' => 25000,
-                    'isSoldOut' => false,
-                    'img' => 'https://tixandcoffee.developerngantuk.my.id/uploads/c67bb7ddf16ba096.jpg',
-                    'desc' => 'Espresso dengan paduan susu creamy dan gula aren autentik Janji Jiwa.',
-                    'options' => $defaultOptions,
-                    'featured' => true,
-                ],
-                [
-                    'key' => 'jiwa-goma-chicken-toast',
-                    'id' => 'jiwa-goma-chicken-toast',
-                    'name' => 'Goma Chicken Toast',
-                    'category' => 'Jiwa Toast',
-                    'price' => 28500,
-                    'normalPrice' => 37000,
-                    'isSoldOut' => false,
-                    'isFood' => true,
-                    'img' => 'https://tixandcoffee.developerngantuk.my.id/img/menu/jiwa/crispyspicychicken.webp',
-                    'desc' => 'Roti panggang renyah dengan isian ayam juicy dan saus goma gurih.',
-                    'options' => ['sizes' => [], 'temps' => [], 'ices' => [], 'sugars' => []],
-                    'featured' => true,
-                ],
-                [
-                    'key' => 'jiwa-matcha-latte',
-                    'id' => 'jiwa-matcha-latte',
-                    'name' => 'Matcha Latte',
-                    'category' => 'Non Coffee',
-                    'price' => 26000,
-                    'normalPrice' => 32000,
-                    'largePrice' => 29000,
-                    'isSoldOut' => false,
-                    'img' => 'https://images.unsplash.com/photo-1536256263959-770b48d82b0a?q=80&w=400&auto=format&fit=crop',
-                    'desc' => 'Matcha istimewa berpadu susu lembut yang segar dan menenangkan.',
-                    'options' => $defaultOptions,
-                    'featured' => true,
-                ],
-            ];
-        }
-
         return [
-            'success' => true,
-            'live' => false,
-            'isClosed' => false,
             'brand' => $brand,
             'outletCode' => $outletCode,
-            'categories' => $categories,
-            'items' => $items,
+            'categories' => [],
+            'items' => [],
+            'stats' => ['total' => 0, 'available' => 0, 'soldOut' => 0],
             'updatedAt' => date('c'),
         ];
+    }
+
+    /**
+     * Helper to slugify item name
+     */
+    protected function slugify(string $text): string
+    {
+        $s = preg_replace('/[^a-zA-Z0-9]/', '', strtolower($text));
+        return $s ?: 'item';
+    }
+
+    /**
+     * Helper to guess city from address/name
+     */
+    protected function extractCity(string $text): string
+    {
+        $t = strtolower($text);
+        if (str_contains($t, 'jombang')) return 'Jombang';
+        if (str_contains($t, 'surabaya')) return 'Surabaya';
+        if (str_contains($t, 'sidoarjo')) return 'Sidoarjo';
+        if (str_contains($t, 'gresik')) return 'Gresik';
+        if (str_contains($t, 'malang')) return 'Malang';
+        if (str_contains($t, 'jakarta')) return 'Jakarta';
+        if (str_contains($t, 'tangerang')) return 'Tangerang';
+        if (str_contains($t, 'bekasi')) return 'Bekasi';
+        if (str_contains($t, 'depok')) return 'Depok';
+        if (str_contains($t, 'bogor')) return 'Bogor';
+        if (str_contains($t, 'bandung')) return 'Bandung';
+        if (str_contains($t, 'semarang')) return 'Semarang';
+        if (str_contains($t, 'solo') || str_contains($t, 'surakarta')) return 'Solo';
+        if (str_contains($t, 'jogja') || str_contains($t, 'yogyakarta')) return 'Yogyakarta';
+        if (str_contains($t, 'denpasar') || str_contains($t, 'bali')) return 'Bali';
+        if (str_contains($t, 'medan')) return 'Medan';
+        if (str_contains($t, 'palembang')) return 'Palembang';
+        if (str_contains($t, 'makassar')) return 'Makassar';
+        return '';
     }
 }

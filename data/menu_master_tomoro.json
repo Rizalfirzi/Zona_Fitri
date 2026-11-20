@@ -1,22 +1,9 @@
 {
   "brand": "tomoro",
-  "extras": [],
-  "live": false,
-  "isClosed": false,
-  "source": "menu statis (stok diatur admin)",
-  "premium": false,
   "categories": [
     {
-      "id": "custom-food",
-      "name": "Food",
-      "kind": "custom",
-      "items": [
-        "tomoro-c-mvzj6e2d"
-      ]
-    },
-    {
-      "id": "item-mont-blanc-series",
-      "name": "Mont Blanc Series",
+      "id": "cat-montblancseries",
+      "name": "MONT BLANC SERIES",
       "kind": "item",
       "items": [
         "chocomontblanc",
@@ -24,8 +11,17 @@
       ]
     },
     {
-      "id": "item-master-s-o-e-series",
-      "name": "Master S.O.E Series",
+      "id": "cat-monthlypromo",
+      "name": "MONTHLY PROMO",
+      "kind": "item",
+      "items": [
+        "2eggtart",
+        "dailyduobundle"
+      ]
+    },
+    {
+      "id": "cat-mastersoeseries",
+      "name": "MASTER S.O.E SERIES",
       "kind": "item",
       "items": [
         "mastersoeamericano",
@@ -34,18 +30,20 @@
       ]
     },
     {
-      "id": "item-triple-pistachio-series",
-      "name": "Triple Pistachio Series",
+      "id": "cat-triplepistachioseries",
+      "name": "TRIPLE PISTACHIO SERIES",
       "kind": "item",
       "items": [
+        "glowinthedarkstickerbundle",
+        "emoneykeychain",
         "tripledubaipistachiochocolate",
         "triplepistachiolatte",
         "triplepistachiomatcha"
       ]
     },
     {
-      "id": "item-tomoro-signature",
-      "name": "Tomoro Signature",
+      "id": "cat-tomorosignature",
+      "name": "TOMORO SIGNATURE",
       "kind": "item",
       "items": [
         "tomoroarenlatte",
@@ -54,8 +52,8 @@
       ]
     },
     {
-      "id": "item-black-coffee",
-      "name": "Black Coffee",
+      "id": "cat-blackcoffee",
+      "name": "BLACK COFFEE",
       "kind": "item",
       "items": [
         "caffeamericano",
@@ -64,8 +62,8 @@
       ]
     },
     {
-      "id": "item-milk-based-coffee",
-      "name": "Milk Based Coffee",
+      "id": "cat-milkbasedcoffee",
+      "name": "MILK BASED COFFEE",
       "kind": "item",
       "items": [
         "kopisusuaren",
@@ -84,41 +82,45 @@
       ]
     },
     {
-      "id": "item-flavoured-drinks",
-      "name": "Flavoured Drinks",
+      "id": "cat-flavoureddrinks",
+      "name": "FLAVOURED DRINKS",
       "kind": "item",
       "items": [
         "matchaoatlatte",
+        "matchasaltedcloud",
         "matchastrawberrylatte",
+        "matchajasminemilktea",
         "chocolatesignature",
         "chocolateoatlatte",
         "chocolatecheesecloud",
         "chocolatesaltedcloud",
-        "matchasaltedcloud"
+        "chocolatefrappe"
       ]
     },
     {
-      "id": "item-tea-series",
-      "name": "Tea Series",
+      "id": "cat-teaseries",
+      "name": "TEA SERIES",
       "kind": "item",
       "items": [
         "peachjasminetea",
         "strawberryjasminetea",
-        "hojichaoatlatte",
-        "peachoolongmilktea"
+        "peachoolongmilktea",
+        "hojichaoatlatte"
       ]
     },
     {
-      "id": "item-frappe",
-      "name": "Frappe",
+      "id": "cat-frappe",
+      "name": "FRAPPE",
       "kind": "item",
       "items": [
-        "strawberryjasminesmoothie"
+        "strawberryjasminesmoothie",
+        "peachcoconutfrappe",
+        "matchafrappe"
       ]
     },
     {
-      "id": "item-1l-bottle",
-      "name": "1l Bottle",
+      "id": "cat-1lbottle",
+      "name": "1L BOTTLE",
       "kind": "item",
       "items": [
         "1ltomoroarenlatte",
@@ -128,29 +130,25 @@
       ]
     },
     {
-      "id": "item-food",
-      "name": "Food",
+      "id": "cat-icecreamseries",
+      "name": "ICE CREAM SERIES",
       "kind": "item",
       "items": [
-        "eggtart",
-        "buttercroissant",
-        "chocodanish",
-        "cinnamonroll",
-        "cheesebagel",
-        "blueberrycheesesourdough",
-        "cheesybeefpanini",
-        "smokedchickenonionsandwich",
-        "bananamuffin",
-        "chocomuffin",
-        "matcharaspberrybagel"
+        "twistericecream",
+        "pistachiomatchaicecream",
+        "matchaicecream",
+        "cheeseicecream",
+        "cheesematchatwistericecream"
       ]
     },
     {
-      "id": "item-merchandise",
-      "name": "Merchandise",
+      "id": "cat-merchandise",
+      "name": "MERCHANDISE",
       "kind": "item",
       "items": [
-        "pristine"
+        "pristine",
+        "totebagsmall",
+        "totebaglarge"
       ]
     }
   ],
@@ -158,1955 +156,1950 @@
     {
       "key": "chocomontblanc",
       "id": "chocomontblanc",
-      "code": "",
+      "code": "I01722",
       "name": "Choco Mont Blanc",
-      "category": "Mont Blanc Series",
-      "sourceCategory": "Mont Blanc Series",
-      "img": "",
-      "desc": "",
-      "price": 20000,
-      "largePrice": null,
-      "normalPrice": 29000,
+      "category": "MONT BLANC SERIES",
       "outletPrice": 29000,
-      "customPrice": false,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
+      "normalPrice": 29000,
+      "price": 29000,
+      "img": "",
       "isSoldOut": false,
-      "notCarried": false,
       "isFood": false,
-      "isSpecial": false,
-      "noLarge": false,
+      "desc": "Pengalaman yang worth it buat dinikmati dalam sebuah cangkir, di mana cokelat premium \nlokal 100% ketemu susu creamy yang lembut, kasih rasa nyaman di tiap tegukan.\nDisempurnakan sama cloud foam jeruk yang pulpy dan cacao nibs yang kriuk, kasih \nsentuhan akhir yang segar dan nggak terduga, bikin momen nyoklat harianmu jadi makin\nworth it buat di nikmati",
       "options": {
         "sizes": [
-          "Regular"
+          "Small"
         ],
         "temps": [
-          "Ice"
+          "Ice",
+          "Hot"
         ],
-        "ices": [],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
         "sugars": [
           "Normal Sugar",
-          "Less Sugar"
+          "Less Sugar",
+          "No Sugar"
         ]
-      },
-      "tag": ""
+      }
     },
     {
       "key": "mochamontblanc",
       "id": "mochamontblanc",
-      "code": "",
+      "code": "I01723",
       "name": "Mocha Mont Blanc",
-      "category": "Mont Blanc Series",
-      "sourceCategory": "Mont Blanc Series",
-      "img": "",
-      "desc": "",
-      "price": 20000,
-      "largePrice": null,
-      "normalPrice": 28000,
+      "category": "MONT BLANC SERIES",
       "outletPrice": 28000,
-      "customPrice": false,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
+      "normalPrice": 28000,
+      "price": 28000,
+      "img": "",
       "isSoldOut": false,
-      "notCarried": false,
       "isFood": false,
-      "isSpecial": false,
-      "noLarge": false,
+      "desc": "Mocha Kesukaanmu, tapi naik kelas dan makin worth it untuk di bahas. Espresso yang\nbold ketemu cokelat premium lokal sama susu creamy yang lembut, rasanya numpuk\nmakin kaya di tiap tegukan, lalu di sempurnakan sama cloud foam jeruk yang pulpy dan\ncacao nibs yang renyah, kasih sentuhan citrus pas yang bikin rasanya makin nendang.",
       "options": {
         "sizes": [
-          "Regular"
+          "Small"
         ],
         "temps": [
-          "Ice"
+          "Ice",
+          "Hot"
         ],
-        "ices": [],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
         "sugars": [
           "Normal Sugar",
-          "Less Sugar"
+          "Less Sugar",
+          "No Sugar"
         ]
-      },
-      "tag": ""
+      }
+    },
+    {
+      "key": "2eggtart",
+      "id": "2eggtart",
+      "code": "I01780",
+      "name": "2 Egg Tart",
+      "category": "MONTHLY PROMO",
+      "outletPrice": 46000,
+      "normalPrice": 46000,
+      "price": 35000,
+      "img": "",
+      "isSoldOut": false,
+      "isFood": false,
+      "desc": "",
+      "options": {
+        "sizes": [
+          "Small"
+        ],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      }
+    },
+    {
+      "key": "dailyduobundle",
+      "id": "dailyduobundle",
+      "code": "I01410",
+      "name": "Daily Duo Bundle",
+      "category": "MONTHLY PROMO",
+      "outletPrice": 36000,
+      "normalPrice": 36000,
+      "price": 29000,
+      "img": "",
+      "isSoldOut": false,
+      "isFood": false,
+      "desc": "",
+      "options": {
+        "sizes": [
+          "Small"
+        ],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      }
     },
     {
       "key": "mastersoeamericano",
       "id": "mastersoeamericano",
-      "code": "",
+      "code": "I00275",
       "name": "Master S.O.E - Americano",
-      "category": "Master S.O.E Series",
-      "sourceCategory": "Master S.O.E Series",
-      "img": "",
-      "desc": "",
-      "price": 20000,
-      "largePrice": null,
-      "normalPrice": 28000,
+      "category": "MASTER S.O.E SERIES",
       "outletPrice": 28000,
-      "customPrice": false,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
+      "normalPrice": 28000,
+      "price": 28000,
+      "img": "",
       "isSoldOut": false,
-      "notCarried": false,
       "isFood": false,
-      "isSpecial": false,
-      "noLarge": false,
+      "desc": "Perpaduan sempurna antara kesegaran citrus yang cerah dan aroma floral khas melati, dilengkapi tekstur yang lembut serta manis karamel yang bertahan lama, menghadirkan pengalaman kopi yang elegan dan menyenangkan.",
       "options": {
         "sizes": [
-          "Regular"
+          "Small"
         ],
         "temps": [
-          "Ice"
+          "Ice",
+          "Hot"
         ],
-        "ices": [],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
         "sugars": [
           "Normal Sugar",
-          "Less Sugar"
+          "Less Sugar",
+          "No Sugar"
         ]
-      },
-      "tag": ""
+      }
     },
     {
       "key": "mastersoelatte",
       "id": "mastersoelatte",
-      "code": "",
+      "code": "I00276",
       "name": "Master S.O.E - Latte",
-      "category": "Master S.O.E Series",
-      "sourceCategory": "Master S.O.E Series",
-      "img": "",
-      "desc": "",
-      "price": 21000,
-      "largePrice": null,
-      "normalPrice": 30000,
+      "category": "MASTER S.O.E SERIES",
       "outletPrice": 30000,
-      "customPrice": false,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
+      "normalPrice": 30000,
+      "price": 30000,
+      "img": "",
       "isSoldOut": false,
-      "notCarried": false,
       "isFood": false,
-      "isSpecial": false,
-      "noLarge": false,
+      "desc": "Latte yang lembut dan seimbang dengan karakter buttery dan nutty cookie yang manis, diakhiri tekstur creamy yang halus. Tersedia dengan TOMORO Master Milk, Oat Milk, atau Coconut Milk.",
       "options": {
         "sizes": [
-          "Regular"
+          "Small"
         ],
         "temps": [
-          "Ice"
+          "Ice",
+          "Hot"
         ],
-        "ices": [],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
         "sugars": [
           "Normal Sugar",
-          "Less Sugar"
+          "Less Sugar",
+          "No Sugar"
         ]
-      },
-      "tag": ""
+      }
     },
     {
       "key": "mastersoebrevelatte",
       "id": "mastersoebrevelatte",
-      "code": "",
+      "code": "I00277",
       "name": "Master S.O.E - Breve Latte",
-      "category": "Master S.O.E Series",
-      "sourceCategory": "Master S.O.E Series",
-      "img": "",
-      "desc": "",
-      "price": 23000,
-      "largePrice": null,
-      "normalPrice": 35000,
+      "category": "MASTER S.O.E SERIES",
       "outletPrice": 35000,
-      "customPrice": false,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
+      "normalPrice": 35000,
+      "price": 35000,
+      "img": "",
       "isSoldOut": false,
-      "notCarried": false,
       "isFood": false,
-      "isSpecial": false,
-      "noLarge": false,
+      "desc": "Latte kaya rasa dengan profil yang seimbang, diracik menggunakan Single Origin Espresso hasil kurasi kami. Menghadirkan manis yang lebih menonjol, tekstur creamy yang lembut, serta akhir rasa yang halus, menampilkan aroma dan karakter unik dari espresso pilihan.",
       "options": {
         "sizes": [
-          "Regular"
+          "Small"
         ],
         "temps": [
-          "Ice"
+          "Ice",
+          "Hot"
         ],
-        "ices": [],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
         "sugars": [
           "Normal Sugar",
-          "Less Sugar"
+          "Less Sugar",
+          "No Sugar"
         ]
-      },
-      "tag": ""
+      }
+    },
+    {
+      "key": "glowinthedarkstickerbundle",
+      "id": "glowinthedarkstickerbundle",
+      "code": "I01600",
+      "name": "Glow In The Dark Sticker Bundle",
+      "category": "TRIPLE PISTACHIO SERIES",
+      "outletPrice": 34000,
+      "normalPrice": 34000,
+      "price": 34000,
+      "img": "",
+      "isSoldOut": false,
+      "isFood": false,
+      "desc": "Beli 1 Triple Pistachio Series + Add on Rp5K dapat Sticker Glow in The Dark",
+      "options": {
+        "sizes": [
+          "Small"
+        ],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      }
+    },
+    {
+      "key": "emoneykeychain",
+      "id": "emoneykeychain",
+      "code": "I01598",
+      "name": "E-money Keychain",
+      "category": "TRIPLE PISTACHIO SERIES",
+      "outletPrice": 129000,
+      "normalPrice": 129000,
+      "price": 129000,
+      "img": "",
+      "isSoldOut": false,
+      "isFood": false,
+      "desc": "Gantungan kunci lucu dengan teknologi uang elektronik praktis dalam satu genggaman. Cukup dengan sekali tap, Anda bisa melakukan pembayaran instan untuk transportasi umum, tarif parkir, hingga belanja di gerai retail tanpa repot mengeluarkan dompet dan kehilangan kartu.",
+      "options": {
+        "sizes": [
+          "Small"
+        ],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      }
     },
     {
       "key": "tripledubaipistachiochocolate",
       "id": "tripledubaipistachiochocolate",
-      "code": "",
+      "code": "I01532",
       "name": "Triple Dubai Pistachio Chocolate",
-      "category": "Triple Pistachio Series",
-      "sourceCategory": "Triple Pistachio Series",
-      "img": "",
-      "desc": "",
-      "price": 22000,
-      "largePrice": null,
-      "normalPrice": 32000,
+      "category": "TRIPLE PISTACHIO SERIES",
       "outletPrice": 32000,
-      "customPrice": false,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
+      "normalPrice": 32000,
+      "price": 32000,
+      "img": "",
       "isSoldOut": false,
-      "notCarried": false,
       "isFood": false,
-      "isSpecial": false,
-      "noLarge": false,
+      "desc": "Dessert kekinian dalam satu gelas dengan perpaduan pistachio premium yang creamy-nutty dan cokelat premium lokal Indonesia. Dilengkapi pistachio foam yang lembut serta pistachio kunafa crunch yang renyah untuk sensasi rasa dan tekstur yang memanjakan.",
       "options": {
         "sizes": [
-          "Regular"
+          "Small"
         ],
         "temps": [
-          "Ice"
+          "Ice",
+          "Hot"
         ],
-        "ices": [],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
         "sugars": [
           "Normal Sugar",
-          "Less Sugar"
+          "Less Sugar",
+          "No Sugar"
         ]
-      },
-      "tag": ""
+      }
     },
     {
       "key": "triplepistachiolatte",
       "id": "triplepistachiolatte",
-      "code": "",
+      "code": "I01533",
       "name": "Triple Pistachio Latte",
-      "category": "Triple Pistachio Series",
-      "sourceCategory": "Triple Pistachio Series",
-      "img": "",
-      "desc": "",
-      "price": 20000,
-      "largePrice": null,
-      "normalPrice": 29000,
+      "category": "TRIPLE PISTACHIO SERIES",
       "outletPrice": 29000,
-      "customPrice": false,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
+      "normalPrice": 29000,
+      "price": 29000,
+      "img": "",
       "isSoldOut": false,
-      "notCarried": false,
       "isFood": false,
-      "isSpecial": false,
-      "noLarge": false,
+      "desc": "Pistachio Latte favorit kini semakin istimewa. Perpaduan espresso yang bold dengan pistachio creamy dan nutty, dilengkapi pistachio foam yang lembut serta pistachio kunafa crunch yang renyah untuk pengalaman Triple Pistachio yang lebih nikmat di setiap tegukan.",
       "options": {
         "sizes": [
-          "Regular"
+          "Small"
         ],
         "temps": [
-          "Ice"
+          "Ice",
+          "Hot"
         ],
-        "ices": [],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
         "sugars": [
           "Normal Sugar",
-          "Less Sugar"
+          "Less Sugar",
+          "No Sugar"
         ]
-      },
-      "tag": ""
+      }
     },
     {
       "key": "triplepistachiomatcha",
       "id": "triplepistachiomatcha",
-      "code": "",
+      "code": "I01534",
       "name": "Triple Pistachio Matcha",
-      "category": "Triple Pistachio Series",
-      "sourceCategory": "Triple Pistachio Series",
-      "img": "",
-      "desc": "",
-      "price": 22000,
-      "largePrice": null,
-      "normalPrice": 32000,
+      "category": "TRIPLE PISTACHIO SERIES",
       "outletPrice": 32000,
-      "customPrice": false,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
+      "normalPrice": 32000,
+      "price": 32000,
+      "img": "",
       "isSoldOut": false,
-      "notCarried": false,
       "isFood": false,
-      "isSpecial": false,
-      "noLarge": false,
+      "desc": "Perpaduan matcha first harvest dari Golden Belt dan pistachio yang creamy-nutty, dilengkapi pistachio foam yang lembut serta pistachio kunafa yang renyah untuk sensasi rasa dan tekstur yang istimewa di setiap tegukan.",
       "options": {
         "sizes": [
-          "Regular"
+          "Small"
         ],
         "temps": [
-          "Ice"
+          "Ice",
+          "Hot"
         ],
-        "ices": [],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
         "sugars": [
           "Normal Sugar",
-          "Less Sugar"
+          "Less Sugar",
+          "No Sugar"
         ]
-      },
-      "tag": ""
+      }
     },
     {
       "key": "tomoroarenlatte",
       "id": "tomoroarenlatte",
-      "code": "",
+      "code": "I221",
       "name": "TOMORO Aren Latte",
-      "category": "Tomoro Signature",
-      "sourceCategory": "Tomoro Signature",
-      "img": "/img/menu/tomoro/tomoroarenlatte.webp",
-      "desc": "",
-      "price": 16000,
-      "largePrice": null,
-      "normalPrice": 21000,
+      "category": "TOMORO SIGNATURE",
       "outletPrice": 21000,
-      "customPrice": false,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
+      "normalPrice": 21000,
+      "price": 21000,
+      "img": "",
       "isSoldOut": false,
-      "notCarried": false,
       "isFood": false,
-      "isSpecial": false,
-      "noLarge": false,
+      "desc": "Kopi susu favorit kita hanya menggunakan 100% kopi arabika, gula aren lokal dan susu segar. Sudah pasti favorit semua orang.",
       "options": {
         "sizes": [
-          "Regular"
+          "Small"
         ],
         "temps": [
-          "Ice"
+          "Ice",
+          "Hot"
         ],
-        "ices": [],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
         "sugars": [
           "Normal Sugar",
-          "Less Sugar"
+          "Less Sugar",
+          "No Sugar"
         ]
-      },
-      "tag": ""
+      }
     },
     {
       "key": "matchalatte",
       "id": "matchalatte",
-      "code": "",
+      "code": "I016",
       "name": "Matcha Latte",
-      "category": "Tomoro Signature",
-      "sourceCategory": "Tomoro Signature",
-      "img": "/img/menu/tomoro/matchalatte.webp",
-      "desc": "",
-      "price": 19000,
-      "largePrice": null,
-      "normalPrice": 27000,
+      "category": "TOMORO SIGNATURE",
       "outletPrice": 27000,
-      "customPrice": true,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
+      "normalPrice": 27000,
+      "price": 27000,
+      "img": "",
       "isSoldOut": false,
-      "notCarried": false,
       "isFood": false,
-      "isSpecial": false,
-      "noLarge": false,
+      "desc": "Kombinasi premium matcha yang wangi dan susu segar. ",
       "options": {
         "sizes": [
-          "Regular"
+          "Small"
         ],
         "temps": [
-          "Ice"
+          "Ice",
+          "Hot"
         ],
-        "ices": [],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
         "sugars": [
           "Normal Sugar",
-          "Less Sugar"
+          "Less Sugar",
+          "No Sugar"
         ]
-      },
-      "tag": ""
+      }
     },
     {
       "key": "caffelatte",
       "id": "caffelatte",
-      "code": "",
+      "code": "I003",
       "name": "Caffe Latte",
-      "category": "Tomoro Signature",
-      "sourceCategory": "Tomoro Signature",
-      "img": "/img/menu/tomoro/cafelatte.webp",
-      "desc": "",
-      "price": 18000,
-      "largePrice": null,
-      "normalPrice": 24000,
+      "category": "TOMORO SIGNATURE",
       "outletPrice": 24000,
-      "customPrice": false,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
+      "normalPrice": 24000,
+      "price": 24000,
+      "img": "",
       "isSoldOut": false,
-      "notCarried": false,
       "isFood": false,
-      "isSpecial": false,
-      "noLarge": false,
+      "desc": "\"Latte\" di Italia berarti susu. Campuran antara kopi dan susu yang seimbang dengan busa susu yang tipis dan lembut di atasnya.",
       "options": {
         "sizes": [
-          "Regular"
+          "Small"
         ],
         "temps": [
-          "Ice"
+          "Ice",
+          "Hot"
         ],
-        "ices": [],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
         "sugars": [
           "Normal Sugar",
-          "Less Sugar"
+          "Less Sugar",
+          "No Sugar"
         ]
-      },
-      "tag": ""
+      }
     },
     {
       "key": "caffeamericano",
       "id": "caffeamericano",
-      "code": "",
+      "code": "I002",
       "name": "Caffe Americano",
-      "category": "Black Coffee",
-      "sourceCategory": "Black Coffee",
-      "img": "/img/menu/tomoro/caffeamericano.webp",
-      "desc": "",
-      "price": 15000,
-      "largePrice": null,
-      "normalPrice": 18000,
+      "category": "BLACK COFFEE",
       "outletPrice": 18000,
-      "customPrice": true,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
+      "normalPrice": 18000,
+      "price": 18000,
+      "img": "",
       "isSoldOut": false,
-      "notCarried": false,
       "isFood": false,
-      "isSpecial": false,
-      "noLarge": false,
+      "desc": "Rasa espresso yang kaya di tuangkan ke air panas, mempertahankan crema kopi sempurna di cangkir dengan cita rasa cokelat hazelnut dan gula merah.",
       "options": {
         "sizes": [
-          "Regular"
+          "Small"
         ],
         "temps": [
-          "Ice"
+          "Ice",
+          "Hot"
         ],
-        "ices": [],
-        "sugars": []
-      },
-      "tag": ""
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      }
     },
     {
       "key": "strawberryamericano",
       "id": "strawberryamericano",
-      "code": "",
+      "code": "I01151",
       "name": "Strawberry Americano",
-      "category": "Black Coffee",
-      "sourceCategory": "Black Coffee",
-      "img": "/img/menu/tomoro/strawberryamericano.webp",
-      "desc": "",
-      "price": 15000,
-      "largePrice": null,
-      "normalPrice": 19000,
+      "category": "BLACK COFFEE",
       "outletPrice": 19000,
-      "customPrice": true,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
+      "normalPrice": 19000,
+      "price": 19000,
+      "img": "",
       "isSoldOut": false,
-      "notCarried": false,
       "isFood": false,
-      "isSpecial": false,
-      "noLarge": false,
+      "desc": "Perpaduan antara espresso dari TOMORO Blend dan Strawberry Purée asli, menghasilkan rasa manis yang menyegarkan.",
       "options": {
         "sizes": [
-          "Regular"
+          "Small"
         ],
         "temps": [
-          "Ice"
+          "Ice",
+          "Hot"
         ],
-        "ices": [],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
         "sugars": [
           "Normal Sugar",
-          "Less Sugar"
+          "Less Sugar",
+          "No Sugar"
         ]
-      },
-      "tag": ""
+      }
     },
     {
       "key": "peachamericano",
       "id": "peachamericano",
-      "code": "",
+      "code": "I726",
       "name": "Peach Americano",
-      "category": "Black Coffee",
-      "sourceCategory": "Black Coffee",
-      "img": "/img/menu/tomoro/peachamericano.webp",
-      "desc": "",
-      "price": 15000,
-      "largePrice": null,
-      "normalPrice": 19000,
+      "category": "BLACK COFFEE",
       "outletPrice": 19000,
-      "customPrice": true,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
+      "normalPrice": 19000,
+      "price": 19000,
+      "img": "",
       "isSoldOut": false,
-      "notCarried": false,
       "isFood": false,
-      "isSpecial": false,
-      "noLarge": false,
+      "desc": "Perpaduan antara espresso dari TOMORO Blend dan Peach Purée asli, menghasilkan rasa manis yang menyegarkan.",
       "options": {
         "sizes": [
-          "Regular"
+          "Small"
         ],
         "temps": [
-          "Ice"
+          "Ice",
+          "Hot"
         ],
-        "ices": [],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
         "sugars": [
           "Normal Sugar",
-          "Less Sugar"
+          "Less Sugar",
+          "No Sugar"
         ]
-      },
-      "tag": ""
+      }
     },
     {
       "key": "kopisusuaren",
       "id": "kopisusuaren",
-      "code": "",
+      "code": "I686",
       "name": "Kopi Susu Aren",
-      "category": "Milk Based Coffee",
-      "sourceCategory": "Milk Based Coffee",
-      "img": "/img/menu/tomoro/kopisusuaren.webp",
-      "desc": "",
-      "price": 15000,
-      "largePrice": null,
-      "normalPrice": 18000,
+      "category": "MILK BASED COFFEE",
       "outletPrice": 18000,
-      "customPrice": true,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
+      "normalPrice": 18000,
+      "price": 18000,
+      "img": "",
       "isSoldOut": false,
-      "notCarried": false,
       "isFood": false,
-      "isSpecial": false,
-      "noLarge": false,
+      "desc": "",
       "options": {
         "sizes": [
-          "Regular"
+          "Small"
         ],
         "temps": [
-          "Ice"
+          "Ice",
+          "Hot"
         ],
-        "ices": [],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
         "sugars": [
           "Normal Sugar",
-          "Less Sugar"
+          "Less Sugar",
+          "No Sugar"
         ]
-      },
-      "tag": ""
+      }
     },
     {
       "key": "tomorococonutlatte",
       "id": "tomorococonutlatte",
-      "code": "",
+      "code": "I218",
       "name": "TOMORO Coconut Latte",
-      "category": "Milk Based Coffee",
-      "sourceCategory": "Milk Based Coffee",
-      "img": "/img/menu/tomoro/tomorococonutlatte.webp",
-      "desc": "",
-      "price": 17000,
-      "largePrice": null,
-      "normalPrice": 23000,
+      "category": "MILK BASED COFFEE",
       "outletPrice": 23000,
-      "customPrice": false,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
+      "normalPrice": 23000,
+      "price": 23000,
+      "img": "",
       "isSoldOut": false,
-      "notCarried": false,
       "isFood": false,
-      "isSpecial": false,
-      "noLarge": false,
+      "desc": "#SeruputBuatHealing\nCoconut Latte Asli & Pertama di INDONESIA. Perpaduan 100% susu kelapa asli dan espresso dari TOMORO Blend menjadikan minuman ini lebih creamy & smooth.",
       "options": {
         "sizes": [
-          "Regular"
+          "Small"
         ],
         "temps": [
-          "Ice"
+          "Ice",
+          "Hot"
         ],
-        "ices": [],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
         "sugars": [
           "Normal Sugar",
-          "Less Sugar"
+          "Less Sugar",
+          "No Sugar"
         ]
-      },
-      "tag": ""
+      }
     },
     {
       "key": "tomorooatlatte",
       "id": "tomorooatlatte",
-      "code": "",
+      "code": "I130",
       "name": "TOMORO Oat Latte",
-      "category": "Milk Based Coffee",
-      "sourceCategory": "Milk Based Coffee",
-      "img": "/img/menu/tomoro/tomorooatlatte.webp",
-      "desc": "",
-      "price": 18000,
-      "largePrice": null,
-      "normalPrice": 24000,
+      "category": "MILK BASED COFFEE",
       "outletPrice": 24000,
-      "customPrice": false,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
+      "normalPrice": 24000,
+      "price": 24000,
+      "img": "",
       "isSoldOut": false,
-      "notCarried": false,
       "isFood": false,
-      "isSpecial": false,
-      "noLarge": false,
+      "desc": "Minuman nge-hits kita, kini hadir dengan 'susu' oat yang sehat. Dijamin langsung jatuh cinta pada tegukan pertama. Percaya dehh!",
       "options": {
         "sizes": [
-          "Regular"
+          "Small"
         ],
         "temps": [
-          "Ice"
+          "Ice",
+          "Hot"
         ],
-        "ices": [],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
         "sugars": [
           "Normal Sugar",
-          "Less Sugar"
+          "Less Sugar",
+          "No Sugar"
         ]
-      },
-      "tag": ""
+      }
     },
     {
       "key": "caramelmacchiato",
       "id": "caramelmacchiato",
-      "code": "",
+      "code": "I011",
       "name": "Caramel Macchiato",
-      "category": "Milk Based Coffee",
-      "sourceCategory": "Milk Based Coffee",
-      "img": "/img/menu/tomoro/caramelmacchiato.webp",
-      "desc": "",
-      "price": 19000,
-      "largePrice": null,
-      "normalPrice": 26000,
+      "category": "MILK BASED COFFEE",
       "outletPrice": 26000,
-      "customPrice": true,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
+      "normalPrice": 26000,
+      "price": 26000,
+      "img": "",
       "isSoldOut": false,
-      "notCarried": false,
       "isFood": false,
-      "isSpecial": false,
-      "noLarge": false,
+      "desc": "Espresso yang kaya dicampurkan dengan sirup karamel sebelum ditambahkan ke dalam susu yang lembut.",
       "options": {
         "sizes": [
-          "Regular"
+          "Small"
         ],
         "temps": [
-          "Ice"
+          "Ice",
+          "Hot"
         ],
-        "ices": [],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
         "sugars": [
           "Normal Sugar",
-          "Less Sugar"
+          "Less Sugar",
+          "No Sugar"
         ]
-      },
-      "tag": ""
+      }
     },
     {
       "key": "caramelmacchiatosaltedcloud",
       "id": "caramelmacchiatosaltedcloud",
-      "code": "",
+      "code": "I675",
       "name": "Caramel Macchiato Salted Cloud",
-      "category": "Milk Based Coffee",
-      "sourceCategory": "Milk Based Coffee",
-      "img": "",
-      "desc": "",
-      "price": 20000,
-      "largePrice": null,
-      "normalPrice": 29000,
+      "category": "MILK BASED COFFEE",
       "outletPrice": 29000,
-      "customPrice": false,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
+      "normalPrice": 29000,
+      "price": 29000,
+      "img": "",
       "isSoldOut": false,
-      "notCarried": false,
       "isFood": false,
-      "isSpecial": false,
-      "noLarge": false,
+      "desc": "Perpaduan espresso, susu dan sirup caramel dengan tambahan vanilla cloud foam diatasnya",
       "options": {
         "sizes": [
-          "Regular"
+          "Small"
         ],
         "temps": [
-          "Ice"
+          "Ice",
+          "Hot"
         ],
-        "ices": [],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
         "sugars": [
           "Normal Sugar",
-          "Less Sugar"
+          "Less Sugar",
+          "No Sugar"
         ]
-      },
-      "tag": ""
+      }
     },
     {
       "key": "caramelcheeselatte",
       "id": "caramelcheeselatte",
-      "code": "",
+      "code": "I710",
       "name": "Caramel Cheese Latte",
-      "category": "Milk Based Coffee",
-      "sourceCategory": "Milk Based Coffee",
-      "img": "/img/menu/tomoro/caramelcheeselatte.webp",
-      "desc": "",
-      "price": 19000,
-      "largePrice": null,
-      "normalPrice": 26000,
+      "category": "MILK BASED COFFEE",
       "outletPrice": 26000,
-      "customPrice": true,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
+      "normalPrice": 26000,
+      "price": 26000,
+      "img": "",
       "isSoldOut": false,
-      "notCarried": false,
       "isFood": false,
-      "isSpecial": false,
-      "noLarge": false,
+      "desc": "[CHARACTER CUP NAILOONG AKAN DIBERIKAN SELAMA PERSEDIAAN MASIH ADA]\nPerpaduan antara TOMORO Blend Espresso, sirup caramel dan cheese milk yang creamy dan gurih",
       "options": {
         "sizes": [
-          "Regular"
+          "Small"
         ],
         "temps": [
-          "Ice"
+          "Ice",
+          "Hot"
         ],
-        "ices": [],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
         "sugars": [
           "Normal Sugar",
-          "Less Sugar"
+          "Less Sugar",
+          "No Sugar"
         ]
-      },
-      "tag": ""
+      }
     },
     {
       "key": "cappuccino",
       "id": "cappuccino",
-      "code": "",
+      "code": "I004",
       "name": "Cappuccino",
-      "category": "Milk Based Coffee",
-      "sourceCategory": "Milk Based Coffee",
-      "img": "/img/menu/tomoro/cappuccino.webp",
-      "desc": "",
-      "price": 18000,
-      "largePrice": null,
-      "normalPrice": 24000,
+      "category": "MILK BASED COFFEE",
       "outletPrice": 24000,
-      "customPrice": false,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
+      "normalPrice": 24000,
+      "price": 24000,
+      "img": "",
       "isSoldOut": false,
-      "notCarried": false,
       "isFood": false,
-      "isSpecial": false,
-      "noLarge": false,
+      "desc": "Cappuccino membutuhkan keterampilan dari barista terbaik, perpaduan espresso yang sempurna dengan susu dan busa susu yang lebih tebal.",
       "options": {
         "sizes": [
-          "Regular"
+          "Small"
         ],
         "temps": [
-          "Ice"
+          "Ice",
+          "Hot"
         ],
-        "ices": [],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
         "sugars": [
           "Normal Sugar",
-          "Less Sugar"
+          "Less Sugar",
+          "No Sugar"
         ]
-      },
-      "tag": ""
+      }
     },
     {
       "key": "caffemocha",
       "id": "caffemocha",
-      "code": "",
+      "code": "I005",
       "name": "Caffe Mocha",
-      "category": "Milk Based Coffee",
-      "sourceCategory": "Milk Based Coffee",
-      "img": "/img/menu/tomoro/caffemocca.webp",
-      "desc": "",
-      "price": 18000,
-      "largePrice": null,
-      "normalPrice": 25000,
+      "category": "MILK BASED COFFEE",
       "outletPrice": 25000,
-      "customPrice": false,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
+      "normalPrice": 25000,
+      "price": 25000,
+      "img": "",
       "isSoldOut": false,
-      "notCarried": false,
       "isFood": false,
-      "isSpecial": false,
-      "noLarge": false,
+      "desc": "Espresso dan cokelat ganache  yang di kombinasi dengan susu hangat yang lembut.",
       "options": {
         "sizes": [
-          "Regular"
+          "Small"
         ],
         "temps": [
-          "Ice"
+          "Ice",
+          "Hot"
         ],
-        "ices": [],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
         "sugars": [
           "Normal Sugar",
-          "Less Sugar"
+          "Less Sugar",
+          "No Sugar"
         ]
-      },
-      "tag": ""
+      }
     },
     {
       "key": "brevelatte",
       "id": "brevelatte",
-      "code": "",
+      "code": "I010",
       "name": "Breve Latte",
-      "category": "Milk Based Coffee",
-      "sourceCategory": "Milk Based Coffee",
-      "img": "/img/menu/tomoro/brevelatte.webp",
-      "desc": "",
-      "price": 21000,
-      "largePrice": null,
-      "normalPrice": 30000,
+      "category": "MILK BASED COFFEE",
       "outletPrice": 30000,
-      "customPrice": true,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
+      "normalPrice": 30000,
+      "price": 30000,
+      "img": "",
       "isSoldOut": false,
-      "notCarried": false,
       "isFood": false,
-      "isSpecial": false,
-      "noLarge": false,
+      "desc": "Kami menggunakan half&half untuk membuat minuman kopi susu yang lembut dan lebih kental.",
       "options": {
         "sizes": [
-          "Regular"
+          "Small"
         ],
         "temps": [
-          "Ice"
+          "Ice",
+          "Hot"
         ],
-        "ices": [],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
         "sugars": [
           "Normal Sugar",
-          "Less Sugar"
+          "Less Sugar",
+          "No Sugar"
         ]
-      },
-      "tag": ""
+      }
     },
     {
       "key": "spanishlatte",
       "id": "spanishlatte",
-      "code": "",
+      "code": "I641",
       "name": "Spanish Latte",
-      "category": "Milk Based Coffee",
-      "sourceCategory": "Milk Based Coffee",
-      "img": "/img/menu/tomoro/spanishlatte.webp",
-      "desc": "",
-      "price": 18000,
-      "largePrice": null,
-      "normalPrice": 25000,
+      "category": "MILK BASED COFFEE",
       "outletPrice": 25000,
-      "customPrice": true,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
+      "normalPrice": 25000,
+      "price": 25000,
+      "img": "",
       "isSoldOut": false,
-      "notCarried": false,
       "isFood": false,
-      "isSpecial": false,
-      "noLarge": false,
+      "desc": "Perpaduan antara TOMORO Blend espresso dan susu yang creamy dengan rasa manis pada setiap tegukan",
       "options": {
         "sizes": [
-          "Regular"
+          "Small"
         ],
         "temps": [
-          "Ice"
+          "Ice",
+          "Hot"
         ],
-        "ices": [],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
         "sugars": [
           "Normal Sugar",
-          "Less Sugar"
+          "Less Sugar",
+          "No Sugar"
         ]
-      },
-      "tag": ""
+      }
     },
     {
       "key": "spanisharenlatte",
       "id": "spanisharenlatte",
-      "code": "",
+      "code": "I642",
       "name": "Spanish Aren Latte",
-      "category": "Milk Based Coffee",
-      "sourceCategory": "Milk Based Coffee",
-      "img": "/img/menu/tomoro/spanisharenlatte.webp",
-      "desc": "",
-      "price": 19000,
-      "largePrice": null,
-      "normalPrice": 28000,
+      "category": "MILK BASED COFFEE",
       "outletPrice": 28000,
-      "customPrice": true,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
+      "normalPrice": 28000,
+      "price": 28000,
+      "img": "",
       "isSoldOut": false,
-      "notCarried": false,
       "isFood": false,
-      "isSpecial": false,
-      "noLarge": false,
+      "desc": "Perpaduan antara TOMORO Blend espresso, susu yang creamy dengan rasa manis dan sirup gula aren pada setiap tegukan",
       "options": {
         "sizes": [
-          "Regular"
+          "Small"
         ],
         "temps": [
-          "Ice"
+          "Ice",
+          "Hot"
         ],
-        "ices": [],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
         "sugars": [
           "Normal Sugar",
-          "Less Sugar"
+          "Less Sugar",
+          "No Sugar"
         ]
-      },
-      "tag": ""
+      }
     },
     {
       "key": "coconutarenlatte",
       "id": "coconutarenlatte",
-      "code": "",
+      "code": "I219",
       "name": "Coconut Aren Latte",
-      "category": "Milk Based Coffee",
-      "sourceCategory": "Milk Based Coffee",
-      "img": "/img/menu/tomoro/coconutarenlatte.webp",
-      "desc": "",
-      "price": 18000,
-      "largePrice": null,
-      "normalPrice": 25000,
+      "category": "MILK BASED COFFEE",
       "outletPrice": 25000,
-      "customPrice": false,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
+      "normalPrice": 25000,
+      "price": 25000,
+      "img": "",
       "isSoldOut": false,
-      "notCarried": false,
       "isFood": false,
-      "isSpecial": false,
-      "noLarge": false,
+      "desc": "#SeruputBuatHealing\nA perfect blend of 100% Real Coconut Milk, Aren Syrup and Espresso from TOMORO Blend, create a sweet and creamy drinks.",
       "options": {
         "sizes": [
-          "Regular"
+          "Small"
         ],
         "temps": [
-          "Ice"
+          "Ice",
+          "Hot"
         ],
-        "ices": [],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
         "sugars": [
           "Normal Sugar",
-          "Less Sugar"
+          "Less Sugar",
+          "No Sugar"
         ]
-      },
-      "tag": ""
+      }
     },
     {
       "key": "cheesecloudlatte",
       "id": "cheesecloudlatte",
-      "code": "",
+      "code": "I748",
       "name": "Cheese Cloud Latte",
-      "category": "Milk Based Coffee",
-      "sourceCategory": "Milk Based Coffee",
-      "img": "/img/menu/tomoro/cheesecloudlatte.webp",
-      "desc": "",
-      "price": 19000,
-      "largePrice": null,
-      "normalPrice": 26000,
+      "category": "MILK BASED COFFEE",
       "outletPrice": 26000,
-      "customPrice": true,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
+      "normalPrice": 26000,
+      "price": 26000,
+      "img": "",
       "isSoldOut": false,
-      "notCarried": false,
       "isFood": false,
-      "isSpecial": false,
-      "noLarge": false,
+      "desc": "[CHARACTER CUP NAILOONG AKAN DIBERIKAN SELAMA PERSEDIAAN MASIH ADA]\nPerpaduan antara TOMORO Blend Espresso, susu yang creamy, dan cheese cloud foam yang manis gurih dan lembut",
       "options": {
         "sizes": [
-          "Regular"
+          "Small"
         ],
         "temps": [
-          "Ice"
+          "Ice",
+          "Hot"
         ],
-        "ices": [],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
         "sugars": [
           "Normal Sugar",
-          "Less Sugar"
+          "Less Sugar",
+          "No Sugar"
         ]
-      },
-      "tag": ""
+      }
     },
     {
       "key": "matchaoatlatte",
       "id": "matchaoatlatte",
-      "code": "",
+      "code": "I132",
       "name": "Matcha Oat Latte",
-      "category": "Flavoured Drinks",
-      "sourceCategory": "Flavoured Drinks",
-      "img": "/img/menu/tomoro/matchaoatlatte.webp",
-      "desc": "",
-      "price": 20000,
-      "largePrice": null,
-      "normalPrice": 30000,
+      "category": "FLAVOURED DRINKS",
       "outletPrice": 30000,
-      "customPrice": true,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
-      "isSoldOut": false,
-      "notCarried": false,
-      "isFood": false,
-      "isSpecial": false,
-      "noLarge": false,
-      "options": {
-        "sizes": [
-          "Regular"
-        ],
-        "temps": [
-          "Ice"
-        ],
-        "ices": [],
-        "sugars": [
-          "Normal Sugar",
-          "Less Sugar"
-        ]
-      },
-      "tag": ""
-    },
-    {
-      "key": "matchastrawberrylatte",
-      "id": "matchastrawberrylatte",
-      "code": "",
-      "name": "Matcha Strawberry Latte",
-      "category": "Flavoured Drinks",
-      "sourceCategory": "Flavoured Drinks",
-      "img": "",
-      "desc": "",
-      "price": 21000,
-      "largePrice": null,
       "normalPrice": 30000,
-      "outletPrice": 30000,
-      "customPrice": false,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
-      "isSoldOut": false,
-      "notCarried": false,
-      "isFood": false,
-      "isSpecial": false,
-      "noLarge": false,
-      "options": {
-        "sizes": [
-          "Regular"
-        ],
-        "temps": [
-          "Ice"
-        ],
-        "ices": [],
-        "sugars": [
-          "Normal Sugar",
-          "Less Sugar"
-        ]
-      },
-      "tag": ""
-    },
-    {
-      "key": "chocolatesignature",
-      "id": "chocolatesignature",
-      "code": "",
-      "name": "Chocolate Signature",
-      "category": "Flavoured Drinks",
-      "sourceCategory": "Flavoured Drinks",
+      "price": 30000,
       "img": "",
-      "desc": "",
-      "price": 18000,
-      "largePrice": null,
-      "normalPrice": 24000,
-      "outletPrice": 24000,
-      "customPrice": false,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
       "isSoldOut": false,
-      "notCarried": false,
       "isFood": false,
-      "isSpecial": false,
-      "noLarge": false,
+      "desc": "Susu oat yang luar biasa enak dengan cita rasa matcha yang khas, lahirlah matcha oat latte nya TOMORO.",
       "options": {
         "sizes": [
-          "Regular"
+          "Small"
         ],
         "temps": [
-          "Ice"
+          "Ice",
+          "Hot"
         ],
-        "ices": [],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
         "sugars": [
           "Normal Sugar",
-          "Less Sugar"
+          "Less Sugar",
+          "No Sugar"
         ]
-      },
-      "tag": ""
-    },
-    {
-      "key": "chocolateoatlatte",
-      "id": "chocolateoatlatte",
-      "code": "",
-      "name": "Chocolate Oat Latte",
-      "category": "Flavoured Drinks",
-      "sourceCategory": "Flavoured Drinks",
-      "img": "",
-      "desc": "",
-      "price": 19000,
-      "largePrice": null,
-      "normalPrice": 27000,
-      "outletPrice": 27000,
-      "customPrice": false,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
-      "isSoldOut": false,
-      "notCarried": false,
-      "isFood": false,
-      "isSpecial": false,
-      "noLarge": false,
-      "options": {
-        "sizes": [
-          "Regular"
-        ],
-        "temps": [
-          "Ice"
-        ],
-        "ices": [],
-        "sugars": [
-          "Normal Sugar",
-          "Less Sugar"
-        ]
-      },
-      "tag": ""
-    },
-    {
-      "key": "chocolatecheesecloud",
-      "id": "chocolatecheesecloud",
-      "code": "",
-      "name": "Chocolate Cheese Cloud",
-      "category": "Flavoured Drinks",
-      "sourceCategory": "Flavoured Drinks",
-      "img": "",
-      "desc": "",
-      "price": 19000,
-      "largePrice": null,
-      "normalPrice": 27000,
-      "outletPrice": 27000,
-      "customPrice": false,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
-      "isSoldOut": false,
-      "notCarried": false,
-      "isFood": false,
-      "isSpecial": false,
-      "noLarge": false,
-      "options": {
-        "sizes": [
-          "Regular"
-        ],
-        "temps": [
-          "Ice"
-        ],
-        "ices": [],
-        "sugars": [
-          "Normal Sugar",
-          "Less Sugar"
-        ]
-      },
-      "tag": ""
-    },
-    {
-      "key": "chocolatesaltedcloud",
-      "id": "chocolatesaltedcloud",
-      "code": "",
-      "name": "Chocolate Salted Cloud",
-      "category": "Flavoured Drinks",
-      "sourceCategory": "Flavoured Drinks",
-      "img": "",
-      "desc": "",
-      "price": 19000,
-      "largePrice": null,
-      "normalPrice": 27000,
-      "outletPrice": 27000,
-      "customPrice": false,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
-      "isSoldOut": false,
-      "notCarried": false,
-      "isFood": false,
-      "isSpecial": false,
-      "noLarge": false,
-      "options": {
-        "sizes": [
-          "Regular"
-        ],
-        "temps": [
-          "Ice"
-        ],
-        "ices": [],
-        "sugars": [
-          "Normal Sugar",
-          "Less Sugar"
-        ]
-      },
-      "tag": ""
+      }
     },
     {
       "key": "matchasaltedcloud",
       "id": "matchasaltedcloud",
-      "code": "",
+      "code": "I674",
       "name": "Matcha Salted Cloud",
-      "category": "Flavoured Drinks",
-      "sourceCategory": "Flavoured Drinks",
-      "img": "",
-      "desc": "",
-      "price": 21000,
-      "largePrice": null,
-      "normalPrice": 30000,
+      "category": "FLAVOURED DRINKS",
       "outletPrice": 30000,
-      "customPrice": false,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
-      "isSoldOut": true,
-      "notCarried": false,
+      "normalPrice": 30000,
+      "price": 30000,
+      "img": "",
+      "isSoldOut": false,
       "isFood": false,
-      "isSpecial": false,
-      "noLarge": false,
+      "desc": "Perpaduan Matcha dan Susu dengan tambahan sea salt cloud foam diatasnya",
       "options": {
         "sizes": [
-          "Regular"
+          "Small"
         ],
         "temps": [
-          "Ice"
+          "Ice",
+          "Hot"
         ],
-        "ices": [],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
         "sugars": [
           "Normal Sugar",
-          "Less Sugar"
+          "Less Sugar",
+          "No Sugar"
         ]
-      },
-      "tag": ""
+      }
+    },
+    {
+      "key": "matchastrawberrylatte",
+      "id": "matchastrawberrylatte",
+      "code": "I01413",
+      "name": "Matcha Strawberry Latte",
+      "category": "FLAVOURED DRINKS",
+      "outletPrice": 30000,
+      "normalPrice": 30000,
+      "price": 30000,
+      "img": "",
+      "isSoldOut": false,
+      "isFood": false,
+      "desc": "Harmoni tiga bahan pilihan, stroberi segar, matcha premium, dan susu lembut, hadir dalam satu minuman berlapis yang menyegarkan, lembut, dan menyenangkan, cocok untuk suasana apapun.",
+      "options": {
+        "sizes": [
+          "Small"
+        ],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      }
+    },
+    {
+      "key": "matchajasminemilktea",
+      "id": "matchajasminemilktea",
+      "code": "I01505",
+      "name": "Matcha Jasmine Milk Tea",
+      "category": "FLAVOURED DRINKS",
+      "outletPrice": 23000,
+      "normalPrice": 23000,
+      "price": 23000,
+      "img": "",
+      "isSoldOut": false,
+      "isFood": false,
+      "desc": "[CHARACTER CUP AKAN DIBERIKAN SELAMA PERSEDIAAN MASIH ADA] \nPerpaduan antara matcha aromatik dan teh melati yang lembut, dipadukan dengan susu creamy untuk menciptakan harmoni yang halus dan menyegarkan. Floral, segar, dan menenangkan di setiap tegukan.",
+      "options": {
+        "sizes": [
+          "Small"
+        ],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      }
+    },
+    {
+      "key": "chocolatesignature",
+      "id": "chocolatesignature",
+      "code": "I015",
+      "name": "Chocolate Signature",
+      "category": "FLAVOURED DRINKS",
+      "outletPrice": 24000,
+      "normalPrice": 24000,
+      "price": 24000,
+      "img": "",
+      "isSoldOut": false,
+      "isFood": false,
+      "desc": "Kombinasi cokelat premium dan susu segar, menghasilkan rasa yang kaya dan lembut.",
+      "options": {
+        "sizes": [
+          "Small"
+        ],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      }
+    },
+    {
+      "key": "chocolateoatlatte",
+      "id": "chocolateoatlatte",
+      "code": "I131",
+      "name": "Chocolate Oat Latte",
+      "category": "FLAVOURED DRINKS",
+      "outletPrice": 27000,
+      "normalPrice": 27000,
+      "price": 27000,
+      "img": "",
+      "isSoldOut": false,
+      "isFood": false,
+      "desc": "Coklat dan susu oat, sudah pasti tidak akan salah buat kamu. Pilihan yang tepat  sekali untuk keseharianmu!",
+      "options": {
+        "sizes": [
+          "Small"
+        ],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      }
+    },
+    {
+      "key": "chocolatecheesecloud",
+      "id": "chocolatecheesecloud",
+      "code": "I749",
+      "name": "Chocolate Cheese Cloud",
+      "category": "FLAVOURED DRINKS",
+      "outletPrice": 27000,
+      "normalPrice": 27000,
+      "price": 27000,
+      "img": "",
+      "isSoldOut": false,
+      "isFood": false,
+      "desc": "Perpaduan antara TOMORO premium coklat, susu yang creamy, dan cheese cloud foam yang manis gurih dan lembut",
+      "options": {
+        "sizes": [
+          "Small"
+        ],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      }
+    },
+    {
+      "key": "chocolatesaltedcloud",
+      "id": "chocolatesaltedcloud",
+      "code": "I601",
+      "name": "Chocolate Salted Cloud",
+      "category": "FLAVOURED DRINKS",
+      "outletPrice": 27000,
+      "normalPrice": 27000,
+      "price": 27000,
+      "img": "",
+      "isSoldOut": false,
+      "isFood": false,
+      "desc": "Perpaduan coklat premium dan susu dengan sea salt cloud foam diatasnya",
+      "options": {
+        "sizes": [
+          "Small"
+        ],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      }
+    },
+    {
+      "key": "chocolatefrappe",
+      "id": "chocolatefrappe",
+      "code": "I020",
+      "name": "Chocolate Frappe",
+      "category": "FLAVOURED DRINKS",
+      "outletPrice": 27000,
+      "normalPrice": 27000,
+      "price": 27000,
+      "img": "",
+      "isSoldOut": false,
+      "isFood": false,
+      "desc": "Cokelat premium yang di blend dengan susu & es.\nWhipped Cream pada gambar tidak termasuk.",
+      "options": {
+        "sizes": [
+          "Small"
+        ],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      }
     },
     {
       "key": "peachjasminetea",
       "id": "peachjasminetea",
-      "code": "",
+      "code": "I728",
       "name": "Peach Jasmine Tea",
-      "category": "Tea Series",
-      "sourceCategory": "Tea Series",
-      "img": "/img/menu/tomoro/peachjasminetea.webp",
-      "desc": "",
-      "price": 15000,
-      "largePrice": null,
-      "normalPrice": 19000,
+      "category": "TEA SERIES",
       "outletPrice": 19000,
-      "customPrice": true,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
+      "normalPrice": 19000,
+      "price": 19000,
+      "img": "",
       "isSoldOut": false,
-      "notCarried": false,
       "isFood": false,
-      "isSpecial": false,
-      "noLarge": false,
+      "desc": "Perpaduan sempurna dari rasa manis dari Peach Purée Asli dan wangi dari Jasmine Green Tea, menghasilkan rasa yang menyegarkan.",
       "options": {
         "sizes": [
-          "Regular"
+          "Small"
         ],
         "temps": [
-          "Ice"
+          "Ice",
+          "Hot"
         ],
-        "ices": [],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
         "sugars": [
           "Normal Sugar",
-          "Less Sugar"
+          "Less Sugar",
+          "No Sugar"
         ]
-      },
-      "tag": ""
+      }
     },
     {
       "key": "strawberryjasminetea",
       "id": "strawberryjasminetea",
-      "code": "",
+      "code": "I333",
       "name": "Strawberry Jasmine Tea",
-      "category": "Tea Series",
-      "sourceCategory": "Tea Series",
-      "img": "/img/menu/tomoro/strawberryjasminetea.webp",
-      "desc": "",
-      "price": 15000,
-      "largePrice": null,
-      "normalPrice": 19000,
+      "category": "TEA SERIES",
       "outletPrice": 19000,
-      "customPrice": true,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
+      "normalPrice": 19000,
+      "price": 19000,
+      "img": "",
       "isSoldOut": false,
-      "notCarried": false,
       "isFood": false,
-      "isSpecial": false,
-      "noLarge": false,
+      "desc": "Perpaduan sempurna dari rasa manis dari Strawberry Purée Asli dan wangi dari Jasmine Green Tea, menghasilkan rasa yang menyegarkan.",
       "options": {
         "sizes": [
-          "Regular"
+          "Small"
         ],
         "temps": [
-          "Ice"
+          "Ice",
+          "Hot"
         ],
-        "ices": [],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
         "sugars": [
           "Normal Sugar",
-          "Less Sugar"
+          "Less Sugar",
+          "No Sugar"
         ]
-      },
-      "tag": ""
-    },
-    {
-      "key": "hojichaoatlatte",
-      "id": "hojichaoatlatte",
-      "code": "",
-      "name": "Hojicha Oat Latte",
-      "category": "Tea Series",
-      "sourceCategory": "Tea Series",
-      "img": "/img/menu/tomoro/hojichaoatlatte.webp",
-      "desc": "",
-      "price": 21000,
-      "largePrice": null,
-      "normalPrice": 30000,
-      "outletPrice": 30000,
-      "customPrice": false,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
-      "isSoldOut": false,
-      "notCarried": false,
-      "isFood": false,
-      "isSpecial": false,
-      "noLarge": false,
-      "options": {
-        "sizes": [
-          "Regular"
-        ],
-        "temps": [
-          "Ice"
-        ],
-        "ices": [],
-        "sugars": [
-          "Normal Sugar",
-          "Less Sugar"
-        ]
-      },
-      "tag": ""
+      }
     },
     {
       "key": "peachoolongmilktea",
       "id": "peachoolongmilktea",
-      "code": "",
+      "code": "I00745",
       "name": "Peach Oolong Milk Tea",
-      "category": "Tea Series",
-      "sourceCategory": "Tea Series",
-      "img": "/img/menu/tomoro/peachoolongmilktea.webp",
-      "desc": "",
-      "price": 15000,
-      "largePrice": null,
-      "normalPrice": 19000,
+      "category": "TEA SERIES",
       "outletPrice": 19000,
-      "customPrice": true,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
-      "isSoldOut": true,
-      "notCarried": false,
+      "normalPrice": 19000,
+      "price": 19000,
+      "img": "",
+      "isSoldOut": false,
       "isFood": false,
-      "isSpecial": false,
-      "noLarge": false,
+      "desc": "",
       "options": {
         "sizes": [
-          "Regular"
+          "Small"
         ],
         "temps": [
-          "Ice"
+          "Ice",
+          "Hot"
         ],
-        "ices": [],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
         "sugars": [
           "Normal Sugar",
-          "Less Sugar"
+          "Less Sugar",
+          "No Sugar"
         ]
-      },
-      "tag": ""
+      }
+    },
+    {
+      "key": "hojichaoatlatte",
+      "id": "hojichaoatlatte",
+      "code": "I066",
+      "name": "Hojicha Oat Latte",
+      "category": "TEA SERIES",
+      "outletPrice": 30000,
+      "normalPrice": 30000,
+      "price": 30000,
+      "img": "",
+      "isSoldOut": false,
+      "isFood": false,
+      "desc": "Perpaduan rasa manis dengan teknik pemanggangan dari hojicha menghasilkan wangi yang khas, berbalut dengan tekstur creamy dari susu oat yang sehat. Cocok buat kalian yang menyukai rasa manis",
+      "options": {
+        "sizes": [
+          "Small"
+        ],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      }
     },
     {
       "key": "strawberryjasminesmoothie",
       "id": "strawberryjasminesmoothie",
-      "code": "",
+      "code": "I334",
       "name": "Strawberry Jasmine Smoothie",
-      "category": "Frappe",
-      "sourceCategory": "Frappe",
-      "img": "/img/menu/tomoro/strawberryjasminetea.webp",
-      "desc": "",
-      "price": 15000,
-      "largePrice": null,
-      "normalPrice": 19000,
+      "category": "FRAPPE",
       "outletPrice": 19000,
-      "customPrice": false,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
-      "isSoldOut": true,
-      "notCarried": false,
+      "normalPrice": 19000,
+      "price": 19000,
+      "img": "",
+      "isSoldOut": false,
       "isFood": false,
-      "isSpecial": true,
-      "noLarge": false,
+      "desc": "Perpaduan Jasmine Green Tea yang di blend dengan Strawberry Purée Asli, menghasikan minuman yang menyegarkan.\nWhipped Cream pada gambar tidak termasuk.",
       "options": {
         "sizes": [
-          "Regular"
+          "Small"
         ],
         "temps": [
-          "Ice"
+          "Ice",
+          "Hot"
         ],
-        "ices": [],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
         "sugars": [
           "Normal Sugar",
-          "Less Sugar"
+          "Less Sugar",
+          "No Sugar"
         ]
-      },
-      "tag": ""
+      }
+    },
+    {
+      "key": "peachcoconutfrappe",
+      "id": "peachcoconutfrappe",
+      "code": "I727",
+      "name": "Peach Coconut Frappe",
+      "category": "FRAPPE",
+      "outletPrice": 19000,
+      "normalPrice": 19000,
+      "price": 19000,
+      "img": "",
+      "isSoldOut": false,
+      "isFood": false,
+      "desc": "Perpaduan Susu Kelapa Asli yang di blend dengan es, ditambahkan rasa manis dari Peach Purée Asli, menghasilkan rasa yang menyegarkan.",
+      "options": {
+        "sizes": [
+          "Small"
+        ],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      }
+    },
+    {
+      "key": "matchafrappe",
+      "id": "matchafrappe",
+      "code": "I019",
+      "name": "Matcha Frappe",
+      "category": "FRAPPE",
+      "outletPrice": 27000,
+      "normalPrice": 27000,
+      "price": 27000,
+      "img": "",
+      "isSoldOut": false,
+      "isFood": false,
+      "desc": "Matcha premium yang dicampur dengan susu segar & es.\nWhipped Cream pada gambar tidak termasuk.",
+      "options": {
+        "sizes": [
+          "Small"
+        ],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      }
     },
     {
       "key": "1ltomoroarenlatte",
       "id": "1ltomoroarenlatte",
-      "code": "",
+      "code": "I567",
       "name": "1L TOMORO Aren Latte",
-      "category": "1l Bottle",
-      "sourceCategory": "1l Bottle",
-      "img": "",
-      "desc": "",
-      "price": 51000,
-      "largePrice": null,
-      "normalPrice": 90000,
+      "category": "1L BOTTLE",
       "outletPrice": 90000,
-      "customPrice": false,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
+      "normalPrice": 90000,
+      "price": 90000,
+      "img": "",
       "isSoldOut": false,
-      "notCarried": false,
       "isFood": false,
-      "isSpecial": false,
-      "noLarge": false,
+      "desc": "",
       "options": {
         "sizes": [
-          "1 Liter"
+          "Small"
         ],
-        "temps": [],
-        "ices": [],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
         "sugars": [
           "Normal Sugar",
-          "Less Sugar"
+          "Less Sugar",
+          "No Sugar"
         ]
-      },
-      "tag": ""
+      }
     },
     {
       "key": "1lchocolate",
       "id": "1lchocolate",
-      "code": "",
+      "code": "I569",
       "name": "1L Chocolate",
-      "category": "1l Bottle",
-      "sourceCategory": "1l Bottle",
-      "img": "",
-      "desc": "",
-      "price": 51000,
-      "largePrice": null,
-      "normalPrice": 90000,
+      "category": "1L BOTTLE",
       "outletPrice": 90000,
-      "customPrice": false,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
+      "normalPrice": 90000,
+      "price": 90000,
+      "img": "",
       "isSoldOut": false,
-      "notCarried": false,
       "isFood": false,
-      "isSpecial": false,
-      "noLarge": false,
+      "desc": "",
       "options": {
         "sizes": [
-          "1 Liter"
+          "Small"
         ],
-        "temps": [],
-        "ices": [],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
         "sugars": [
           "Normal Sugar",
-          "Less Sugar"
+          "Less Sugar",
+          "No Sugar"
         ]
-      },
-      "tag": ""
+      }
     },
     {
       "key": "1lkopisusuaren",
       "id": "1lkopisusuaren",
-      "code": "",
+      "code": "I00269",
       "name": "1L Kopi Susu Aren",
-      "category": "1l Bottle",
-      "sourceCategory": "1l Bottle",
-      "img": "",
-      "desc": "",
-      "price": 43000,
-      "largePrice": null,
-      "normalPrice": 75000,
+      "category": "1L BOTTLE",
       "outletPrice": 75000,
-      "customPrice": false,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
+      "normalPrice": 75000,
+      "price": 75000,
+      "img": "",
       "isSoldOut": false,
-      "notCarried": false,
       "isFood": false,
-      "isSpecial": false,
-      "noLarge": false,
+      "desc": "",
       "options": {
         "sizes": [
-          "1 Liter"
+          "Small"
         ],
-        "temps": [],
-        "ices": [],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
         "sugars": [
           "Normal Sugar",
-          "Less Sugar"
+          "Less Sugar",
+          "No Sugar"
         ]
-      },
-      "tag": ""
+      }
     },
     {
       "key": "1lmatchalatte",
       "id": "1lmatchalatte",
-      "code": "",
+      "code": "I00393",
       "name": "1L Matcha Latte",
-      "category": "1l Bottle",
-      "sourceCategory": "1l Bottle",
-      "img": "",
-      "desc": "",
-      "price": 56000,
-      "largePrice": null,
-      "normalPrice": 100000,
+      "category": "1L BOTTLE",
       "outletPrice": 100000,
-      "customPrice": false,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
+      "normalPrice": 100000,
+      "price": 100000,
+      "img": "",
       "isSoldOut": false,
-      "notCarried": false,
       "isFood": false,
-      "isSpecial": false,
-      "noLarge": false,
+      "desc": "",
       "options": {
         "sizes": [
-          "1 Liter"
+          "Small"
         ],
-        "temps": [],
-        "ices": [],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
         "sugars": [
           "Normal Sugar",
-          "Less Sugar"
+          "Less Sugar",
+          "No Sugar"
         ]
-      },
-      "tag": ""
+      }
     },
     {
-      "key": "eggtart",
-      "id": "eggtart",
-      "code": "",
-      "name": "Egg Tart",
-      "category": "Food",
-      "sourceCategory": "Food",
+      "key": "twistericecream",
+      "id": "twistericecream",
+      "code": "I00503",
+      "name": "Twister Ice Cream",
+      "category": "ICE CREAM SERIES",
+      "outletPrice": 8000,
+      "normalPrice": 8000,
+      "price": 8000,
       "img": "",
-      "desc": "",
-      "price": 17000,
-      "largePrice": null,
-      "normalPrice": 23000,
-      "outletPrice": 23000,
-      "customPrice": false,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
       "isSoldOut": false,
-      "notCarried": false,
-      "isFood": true,
-      "isSpecial": true,
-      "noLarge": false,
+      "isFood": false,
+      "desc": "",
       "options": {
-        "sizes": [],
-        "temps": [],
-        "ices": [],
-        "sugars": []
-      },
-      "tag": ""
+        "sizes": [
+          "Small"
+        ],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      }
     },
     {
-      "key": "buttercroissant",
-      "id": "buttercroissant",
-      "code": "",
-      "name": "Butter Croissant",
-      "category": "Food",
-      "sourceCategory": "Food",
+      "key": "pistachiomatchaicecream",
+      "id": "pistachiomatchaicecream",
+      "code": "I00502",
+      "name": "Pistachio Matcha Ice Cream",
+      "category": "ICE CREAM SERIES",
+      "outletPrice": 8000,
+      "normalPrice": 8000,
+      "price": 8000,
       "img": "",
-      "desc": "",
-      "price": 14000,
-      "largePrice": null,
-      "normalPrice": 16000,
-      "outletPrice": 16000,
-      "customPrice": false,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
       "isSoldOut": false,
-      "notCarried": false,
-      "isFood": true,
-      "isSpecial": true,
-      "noLarge": false,
+      "isFood": false,
+      "desc": "",
       "options": {
-        "sizes": [],
-        "temps": [],
-        "ices": [],
-        "sugars": []
-      },
-      "tag": ""
+        "sizes": [
+          "Small"
+        ],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      }
     },
     {
-      "key": "chocodanish",
-      "id": "chocodanish",
-      "code": "",
-      "name": "Choco Danish",
-      "category": "Food",
-      "sourceCategory": "Food",
+      "key": "matchaicecream",
+      "id": "matchaicecream",
+      "code": "I732",
+      "name": "Matcha Ice Cream",
+      "category": "ICE CREAM SERIES",
+      "outletPrice": 8000,
+      "normalPrice": 8000,
+      "price": 8000,
       "img": "",
-      "desc": "",
-      "price": 15000,
-      "largePrice": null,
-      "normalPrice": 18000,
-      "outletPrice": 18000,
-      "customPrice": false,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
       "isSoldOut": false,
-      "notCarried": false,
-      "isFood": true,
-      "isSpecial": true,
-      "noLarge": false,
+      "isFood": false,
+      "desc": "",
       "options": {
-        "sizes": [],
-        "temps": [],
-        "ices": [],
-        "sugars": []
-      },
-      "tag": ""
+        "sizes": [
+          "Small"
+        ],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      }
     },
     {
-      "key": "cinnamonroll",
-      "id": "cinnamonroll",
-      "code": "",
-      "name": "Cinnamon Roll",
-      "category": "Food",
-      "sourceCategory": "Food",
+      "key": "cheeseicecream",
+      "id": "cheeseicecream",
+      "code": "I00002",
+      "name": "Cheese Ice Cream",
+      "category": "ICE CREAM SERIES",
+      "outletPrice": 8000,
+      "normalPrice": 8000,
+      "price": 8000,
       "img": "",
-      "desc": "",
-      "price": 16000,
-      "largePrice": null,
-      "normalPrice": 20000,
-      "outletPrice": 20000,
-      "customPrice": false,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
       "isSoldOut": false,
-      "notCarried": false,
-      "isFood": true,
-      "isSpecial": true,
-      "noLarge": false,
+      "isFood": false,
+      "desc": "",
       "options": {
-        "sizes": [],
-        "temps": [],
-        "ices": [],
-        "sugars": []
-      },
-      "tag": ""
+        "sizes": [
+          "Small"
+        ],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      }
     },
     {
-      "key": "cheesebagel",
-      "id": "cheesebagel",
-      "code": "",
-      "name": "Cheese Bagel",
-      "category": "Food",
-      "sourceCategory": "Food",
+      "key": "cheesematchatwistericecream",
+      "id": "cheesematchatwistericecream",
+      "code": "I00003",
+      "name": "Cheese Matcha Twister Ice Cream",
+      "category": "ICE CREAM SERIES",
+      "outletPrice": 8000,
+      "normalPrice": 8000,
+      "price": 8000,
       "img": "",
-      "desc": "",
-      "price": 17000,
-      "largePrice": null,
-      "normalPrice": 22000,
-      "outletPrice": 22000,
-      "customPrice": false,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
       "isSoldOut": false,
-      "notCarried": false,
-      "isFood": true,
-      "isSpecial": true,
-      "noLarge": false,
-      "options": {
-        "sizes": [],
-        "temps": [],
-        "ices": [],
-        "sugars": []
-      },
-      "tag": ""
-    },
-    {
-      "key": "blueberrycheesesourdough",
-      "id": "blueberrycheesesourdough",
-      "code": "",
-      "name": "Blueberry & Cheese Sourdough",
-      "category": "Food",
-      "sourceCategory": "Food",
-      "img": "",
+      "isFood": false,
       "desc": "",
-      "price": 17000,
-      "largePrice": null,
-      "normalPrice": 22000,
-      "outletPrice": 22000,
-      "customPrice": false,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
-      "isSoldOut": false,
-      "notCarried": false,
-      "isFood": true,
-      "isSpecial": true,
-      "noLarge": false,
       "options": {
-        "sizes": [],
-        "temps": [],
-        "ices": [],
-        "sugars": []
-      },
-      "tag": ""
-    },
-    {
-      "key": "cheesybeefpanini",
-      "id": "cheesybeefpanini",
-      "code": "",
-      "name": "Cheesy Beef Panini",
-      "category": "Food",
-      "sourceCategory": "Food",
-      "img": "",
-      "desc": "",
-      "price": 19000,
-      "largePrice": null,
-      "normalPrice": 26000,
-      "outletPrice": 26000,
-      "customPrice": false,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
-      "isSoldOut": false,
-      "notCarried": false,
-      "isFood": true,
-      "isSpecial": true,
-      "noLarge": false,
-      "options": {
-        "sizes": [],
-        "temps": [],
-        "ices": [],
-        "sugars": []
-      },
-      "tag": ""
-    },
-    {
-      "key": "smokedchickenonionsandwich",
-      "id": "smokedchickenonionsandwich",
-      "code": "",
-      "name": "Smoked Chicken Onion Sandwich",
-      "category": "Food",
-      "sourceCategory": "Food",
-      "img": "",
-      "desc": "",
-      "price": 19000,
-      "largePrice": null,
-      "normalPrice": 26000,
-      "outletPrice": 26000,
-      "customPrice": false,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
-      "isSoldOut": false,
-      "notCarried": false,
-      "isFood": true,
-      "isSpecial": true,
-      "noLarge": false,
-      "options": {
-        "sizes": [],
-        "temps": [],
-        "ices": [],
-        "sugars": []
-      },
-      "tag": ""
-    },
-    {
-      "key": "bananamuffin",
-      "id": "bananamuffin",
-      "code": "",
-      "name": "Banana Muffin",
-      "category": "Food",
-      "sourceCategory": "Food",
-      "img": "",
-      "desc": "",
-      "price": 17000,
-      "largePrice": null,
-      "normalPrice": 22000,
-      "outletPrice": 22000,
-      "customPrice": false,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
-      "isSoldOut": false,
-      "notCarried": false,
-      "isFood": true,
-      "isSpecial": true,
-      "noLarge": false,
-      "options": {
-        "sizes": [],
-        "temps": [],
-        "ices": [],
-        "sugars": []
-      },
-      "tag": ""
-    },
-    {
-      "key": "chocomuffin",
-      "id": "chocomuffin",
-      "code": "",
-      "name": "Choco Muffin",
-      "category": "Food",
-      "sourceCategory": "Food",
-      "img": "",
-      "desc": "",
-      "price": 17000,
-      "largePrice": null,
-      "normalPrice": 22000,
-      "outletPrice": 22000,
-      "customPrice": false,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
-      "isSoldOut": false,
-      "notCarried": false,
-      "isFood": true,
-      "isSpecial": true,
-      "noLarge": false,
-      "options": {
-        "sizes": [],
-        "temps": [],
-        "ices": [],
-        "sugars": []
-      },
-      "tag": ""
-    },
-    {
-      "key": "matcharaspberrybagel",
-      "id": "matcharaspberrybagel",
-      "code": "",
-      "name": "Matcha Raspberry Bagel",
-      "category": "Food",
-      "sourceCategory": "Food",
-      "img": "",
-      "desc": "",
-      "price": 18000,
-      "largePrice": null,
-      "normalPrice": 24000,
-      "outletPrice": 24000,
-      "customPrice": false,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
-      "isSoldOut": true,
-      "notCarried": false,
-      "isFood": true,
-      "isSpecial": true,
-      "noLarge": false,
-      "options": {
-        "sizes": [],
-        "temps": [],
-        "ices": [],
-        "sugars": []
-      },
-      "tag": ""
+        "sizes": [
+          "Small"
+        ],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      }
     },
     {
       "key": "pristine",
       "id": "pristine",
-      "code": "",
+      "code": "I111",
       "name": "Pristine",
-      "category": "Merchandise",
-      "sourceCategory": "Merchandise",
-      "img": "/img/menu/tomoro/caffeamericano.webp",
-      "desc": "",
-      "price": 11000,
-      "largePrice": null,
-      "normalPrice": null,
+      "category": "MERCHANDISE",
       "outletPrice": 10000,
-      "customPrice": false,
-      "discount": null,
-      "discountLabel": "",
-      "largeNormal": null,
+      "normalPrice": 10000,
+      "price": 10000,
+      "img": "",
       "isSoldOut": false,
-      "notCarried": false,
       "isFood": false,
-      "isSpecial": false,
-      "noLarge": false,
+      "desc": "Air Mineral 400ml",
       "options": {
         "sizes": [
-          "Regular"
+          "Small"
         ],
         "temps": [
-          "Ice"
+          "Ice",
+          "Hot"
         ],
-        "ices": [],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
         "sugars": [
           "Normal Sugar",
-          "Less Sugar"
+          "Less Sugar",
+          "No Sugar"
         ]
-      },
-      "tag": ""
+      }
+    },
+    {
+      "key": "totebagsmall",
+      "id": "totebagsmall",
+      "code": "I109",
+      "name": "Tote Bag Small",
+      "category": "MERCHANDISE",
+      "outletPrice": 99000,
+      "normalPrice": 99000,
+      "price": 99000,
+      "img": "",
+      "isSoldOut": false,
+      "isFood": false,
+      "desc": "",
+      "options": {
+        "sizes": [
+          "Small"
+        ],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      }
+    },
+    {
+      "key": "totebaglarge",
+      "id": "totebaglarge",
+      "code": "I110",
+      "name": "Tote Bag Large",
+      "category": "MERCHANDISE",
+      "outletPrice": 149000,
+      "normalPrice": 149000,
+      "price": 149000,
+      "img": "",
+      "isSoldOut": false,
+      "isFood": false,
+      "desc": "",
+      "options": {
+        "sizes": [
+          "Small"
+        ],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      }
     }
   ],
-  "satuan": [],
-  "seliter": [],
-  "bundles": [],
-  "outlet": null,
-  "preview": true,
-  "updatedAt": "2026-11-19T14:58:31.281780"
+  "updatedAt": "2026-11-20T16:30:00+07:00"
 }

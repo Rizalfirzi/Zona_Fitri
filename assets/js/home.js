@@ -235,7 +235,7 @@ function safeHref(h) {
 
 function prodCard(b, i) {
   const href = `/${b.slug}?item=${encodeURIComponent(i.key)}`;
-  const iImg = i.img?.startsWith('/uploads/') ? 'https://tixandcoffee.developerngantuk.my.id' + i.img : i.img;
+  const iImg = i.img || '';
   const img = i.isBundle
     ? bundleCollage(i)
     : iImg

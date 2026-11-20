@@ -12,16 +12,6 @@ if ($uri !== '/' && file_exists($file) && !is_dir($file)) {
     return false;
 }
 
-// 1b. Fallback proxy for /img/ & /uploads/ assets to upstream CDN if not downloaded locally
-if (preg_match('#^/uploads/#', $uri)) {
-    header("Location: https://tixandcoffee.developerngantuk.my.id{$uri}", true, 302);
-    exit;
-}
-if (preg_match('#^/img/#', $uri)) {
-    header("Location: https://ridstore.developerngantuk.my.id{$uri}", true, 302);
-    exit;
-}
-
 // 1c. If a static asset is missing, return 404 instead of falling through to index.php (HTML)
 if (preg_match('#\.(png|webp|jpe?g|svg|ico|gif|css|js|map|woff2?|ttf|eot)$#i', $uri)) {
     http_response_code(404);

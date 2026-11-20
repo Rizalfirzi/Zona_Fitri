@@ -1,0 +1,645 @@
+{
+  "brand": "point",
+  "categories": [
+    {
+      "id": "cat-signaturecoffee",
+      "name": "Signature Coffee",
+      "kind": "item",
+      "items": [
+        "kopibaperoriginalcoldbrew",
+        "palmsugarlatteiced",
+        "kopibaperhazelnutcoldbrew",
+        "kopijadulpoint"
+      ]
+    },
+    {
+      "id": "cat-frappeseries",
+      "name": "Frappe Series",
+      "kind": "item",
+      "items": [
+        "avocadocoffeefrappe",
+        "matchagreenteafrappe",
+        "cookiescreamfrappe"
+      ]
+    },
+    {
+      "id": "cat-espressoseries",
+      "name": "Espresso Series",
+      "kind": "item",
+      "items": [
+        "caffeamericanolongblack",
+        "caramelmacchiatoiced",
+        "cafelattehoticed"
+      ]
+    },
+    {
+      "id": "cat-noncoffeeseries",
+      "name": "Non-Coffee Series",
+      "kind": "item",
+      "items": [
+        "signaturechocolateiced",
+        "tarolatteiced"
+      ]
+    },
+    {
+      "id": "cat-pastrybakery",
+      "name": "Pastry & Bakery",
+      "kind": "item",
+      "items": [
+        "buttercroissant",
+        "chocolatecroissant",
+        "smokedbeefcheesepastry"
+      ]
+    },
+    {
+      "id": "cat-teaseries",
+      "name": "Tea Series",
+      "kind": "item",
+      "items": [
+        "earlgreymilkteaiced",
+        "icedpeachteawithjelly"
+      ]
+    }
+  ],
+  "items": [
+    {
+      "key": "kopibaperoriginalcoldbrew",
+      "id": "101",
+      "code": "101",
+      "name": "Kopi Baper Original Cold Brew",
+      "category": "Signature Coffee",
+      "outletPrice": 20000,
+      "normalPrice": 20000,
+      "price": 20000,
+      "img": "https://assets.pointcoffee.id/products/kopi-baper-cold-brew.png",
+      "isSoldOut": false,
+      "isFood": false,
+      "desc": "Perpaduan kopi cold brew khas Point Coffee dengan susu segar creamy dan rasa legit gula aren alami.",
+      "options": {
+        "sizes": [
+          "Regular",
+          "Large"
+        ],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      }
+    },
+    {
+      "key": "palmsugarlatteiced",
+      "id": "102",
+      "code": "102",
+      "name": "Palm Sugar Latte (Iced)",
+      "category": "Signature Coffee",
+      "outletPrice": 25000,
+      "normalPrice": 25000,
+      "price": 25000,
+      "img": "https://assets.pointcoffee.id/products/palm-sugar-latte.png",
+      "isSoldOut": false,
+      "isFood": false,
+      "desc": "Espresso premium Point Coffee berpadu dengan susu segar dan sirup gula aren pilihan.",
+      "options": {
+        "sizes": [
+          "Regular",
+          "Large"
+        ],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      }
+    },
+    {
+      "key": "avocadocoffeefrappe",
+      "id": "103",
+      "code": "103",
+      "name": "Avocado Coffee Frappe",
+      "category": "Frappe Series",
+      "outletPrice": 30000,
+      "normalPrice": 30000,
+      "price": 30000,
+      "img": "https://assets.pointcoffee.id/products/avocado-coffee-frappe.png",
+      "isSoldOut": false,
+      "isFood": false,
+      "desc": "Minuman blend rasa alpukat gurih dengan hint espresso kopi, disajikan dingin dengan whipped cream.",
+      "options": {
+        "sizes": [
+          "Regular",
+          "Large"
+        ],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      }
+    },
+    {
+      "key": "caffeamericanolongblack",
+      "id": "104",
+      "code": "104",
+      "name": "Caffe Americano / Long Black",
+      "category": "Espresso Series",
+      "outletPrice": 18000,
+      "normalPrice": 18000,
+      "price": 18000,
+      "img": "https://assets.pointcoffee.id/products/americano.png",
+      "isSoldOut": false,
+      "isFood": false,
+      "desc": "Doble shot espresso 100% biji kopi arabika/robusta Indonesia dengan air murni segar.",
+      "options": {
+        "sizes": [
+          "Regular",
+          "Large"
+        ],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      }
+    },
+    {
+      "key": "caramelmacchiatoiced",
+      "id": "105",
+      "code": "105",
+      "name": "Caramel Macchiato (Iced)",
+      "category": "Espresso Series",
+      "outletPrice": 28000,
+      "normalPrice": 28000,
+      "price": 28000,
+      "img": "https://assets.pointcoffee.id/products/caramel-macchiato.png",
+      "isSoldOut": false,
+      "isFood": false,
+      "desc": "Espresso pekat dilapisi susu vanilla segar dan saus caramel mewah di atasnya.",
+      "options": {
+        "sizes": [
+          "Regular",
+          "Large"
+        ],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      }
+    },
+    {
+      "key": "signaturechocolateiced",
+      "id": "106",
+      "code": "106",
+      "name": "Signature Chocolate (Iced)",
+      "category": "Non-Coffee Series",
+      "outletPrice": 22000,
+      "normalPrice": 22000,
+      "price": 22000,
+      "img": "https://assets.pointcoffee.id/products/signature-chocolate.png",
+      "isSoldOut": false,
+      "isFood": false,
+      "desc": "Cokelat pekat pilihan dipadu dengan susu segar lembut tanpa kopi, manis dan memanjakan lidah.",
+      "options": {
+        "sizes": [
+          "Regular",
+          "Large"
+        ],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      }
+    },
+    {
+      "key": "buttercroissant",
+      "id": "107",
+      "code": "107",
+      "name": "Butter Croissant",
+      "category": "Pastry & Bakery",
+      "outletPrice": 18000,
+      "normalPrice": 18000,
+      "price": 18000,
+      "img": "https://assets.pointcoffee.id/products/butter-croissant.png",
+      "isSoldOut": false,
+      "isFood": true,
+      "desc": "Croissant renyah berlapis dengan aroma butter wangi, pasangan sempurna untuk secangkir kopi.",
+      "options": {
+        "sizes": [
+          "Regular",
+          "Large"
+        ],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      }
+    },
+    {
+      "key": "kopibaperhazelnutcoldbrew",
+      "id": "108",
+      "code": "108",
+      "name": "Kopi Baper Hazelnut Cold Brew",
+      "category": "Signature Coffee",
+      "outletPrice": 22000,
+      "normalPrice": 22000,
+      "price": 22000,
+      "img": "https://assets.pointcoffee.id/products/kopi-baper-hazelnut.png",
+      "isSoldOut": false,
+      "isFood": false,
+      "desc": "Cold brew khas Point Coffee dengan perpaduan sirup hazelnut harum dan susu gurih.",
+      "options": {
+        "sizes": [
+          "Regular",
+          "Large"
+        ],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      }
+    },
+    {
+      "key": "kopijadulpoint",
+      "id": "109",
+      "code": "109",
+      "name": "Kopi Jadul Point",
+      "category": "Signature Coffee",
+      "outletPrice": 18000,
+      "normalPrice": 18000,
+      "price": 18000,
+      "img": "https://assets.pointcoffee.id/products/kopi-jadul.png",
+      "isSoldOut": false,
+      "isFood": false,
+      "desc": "Racikan kopi robusta mantap dengan susu kental manis resep klasik warung kopi nusantara.",
+      "options": {
+        "sizes": [
+          "Regular",
+          "Large"
+        ],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      }
+    },
+    {
+      "key": "cafelattehoticed",
+      "id": "110",
+      "code": "110",
+      "name": "Cafe Latte (Hot/Iced)",
+      "category": "Espresso Series",
+      "outletPrice": 24000,
+      "normalPrice": 24000,
+      "price": 24000,
+      "img": "https://assets.pointcoffee.id/products/cafe-latte.png",
+      "isSoldOut": false,
+      "isFood": false,
+      "desc": "Espresso seimbang berpadu dengan velvety steamed milk yang lembut dan gurih.",
+      "options": {
+        "sizes": [
+          "Regular",
+          "Large"
+        ],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      }
+    },
+    {
+      "key": "matchagreenteafrappe",
+      "id": "111",
+      "code": "111",
+      "name": "Matcha Green Tea Frappe",
+      "category": "Frappe Series",
+      "outletPrice": 30000,
+      "normalPrice": 30000,
+      "price": 30000,
+      "img": "https://assets.pointcoffee.id/products/matcha-frappe.png",
+      "isSoldOut": false,
+      "isFood": false,
+      "desc": "Matcha premium Jepang di-blend dengan susu murni segar dan es batu halus, dilengkapi whipped cream.",
+      "options": {
+        "sizes": [
+          "Regular",
+          "Large"
+        ],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      }
+    },
+    {
+      "key": "cookiescreamfrappe",
+      "id": "112",
+      "code": "112",
+      "name": "Cookies & Cream Frappe",
+      "category": "Frappe Series",
+      "outletPrice": 30000,
+      "normalPrice": 30000,
+      "price": 30000,
+      "img": "https://assets.pointcoffee.id/products/cookies-cream-frappe.png",
+      "isSoldOut": false,
+      "isFood": false,
+      "desc": "Susu creamy berpadu remahan biskuit cokelat hitam gurih dan lelehan vanilla.",
+      "options": {
+        "sizes": [
+          "Regular",
+          "Large"
+        ],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      }
+    },
+    {
+      "key": "earlgreymilkteaiced",
+      "id": "113",
+      "code": "113",
+      "name": "Earl Grey Milk Tea (Iced)",
+      "category": "Tea Series",
+      "outletPrice": 22000,
+      "normalPrice": 22000,
+      "price": 22000,
+      "img": "https://assets.pointcoffee.id/products/earl-grey-milk-tea.png",
+      "isSoldOut": false,
+      "isFood": false,
+      "desc": "Teh Earl Grey beraroma bergamot khas dipadu dengan susu manis creamy segar.",
+      "options": {
+        "sizes": [
+          "Regular",
+          "Large"
+        ],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      }
+    },
+    {
+      "key": "icedpeachteawithjelly",
+      "id": "114",
+      "code": "114",
+      "name": "Iced Peach Tea with Jelly",
+      "category": "Tea Series",
+      "outletPrice": 20000,
+      "normalPrice": 20000,
+      "price": 20000,
+      "img": "https://assets.pointcoffee.id/products/iced-peach-tea.png",
+      "isSoldOut": false,
+      "isFood": false,
+      "desc": "Kesegaran seduhan black tea berpadu sari buah persik manis asam dengan topping jelly kenyal.",
+      "options": {
+        "sizes": [
+          "Regular",
+          "Large"
+        ],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      }
+    },
+    {
+      "key": "chocolatecroissant",
+      "id": "115",
+      "code": "115",
+      "name": "Chocolate Croissant",
+      "category": "Pastry & Bakery",
+      "outletPrice": 20000,
+      "normalPrice": 20000,
+      "price": 20000,
+      "img": "https://assets.pointcoffee.id/products/chocolate-croissant.png",
+      "isSoldOut": false,
+      "isFood": true,
+      "desc": "Pastry renyah dengan isian cokelat couverture leleh yang kaya rasa.",
+      "options": {
+        "sizes": [
+          "Regular",
+          "Large"
+        ],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      }
+    },
+    {
+      "key": "smokedbeefcheesepastry",
+      "id": "116",
+      "code": "116",
+      "name": "Smoked Beef & Cheese Pastry",
+      "category": "Pastry & Bakery",
+      "outletPrice": 22000,
+      "normalPrice": 22000,
+      "price": 22000,
+      "img": "https://assets.pointcoffee.id/products/beef-cheese-pastry.png",
+      "isSoldOut": false,
+      "isFood": true,
+      "desc": "Puff pastry renyah gurih berisi irisan smoked beef tebal dan lelehan keju cheddar.",
+      "options": {
+        "sizes": [
+          "Regular",
+          "Large"
+        ],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      }
+    },
+    {
+      "key": "tarolatteiced",
+      "id": "117",
+      "code": "117",
+      "name": "Taro Latte (Iced)",
+      "category": "Non-Coffee Series",
+      "outletPrice": 22000,
+      "normalPrice": 22000,
+      "price": 22000,
+      "img": "https://assets.pointcoffee.id/products/taro-latte.png",
+      "isSoldOut": false,
+      "isFood": false,
+      "desc": "Rasa umbi taro manis harum berpadu tekstur susu segar yang lembut.",
+      "options": {
+        "sizes": [
+          "Regular",
+          "Large"
+        ],
+        "temps": [
+          "Ice",
+          "Hot"
+        ],
+        "ices": [
+          "Normal Ice",
+          "Less Ice",
+          "No Ice"
+        ],
+        "sugars": [
+          "Normal Sugar",
+          "Less Sugar",
+          "No Sugar"
+        ]
+      }
+    }
+  ],
+  "updatedAt": "2026-11-20T16:30:00+07:00"
+}

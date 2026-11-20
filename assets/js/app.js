@@ -450,7 +450,7 @@ window.filterCategory = (catId) => {
   renderProductGrid();
 };
 
-const fixImg = (url) => (!url ? '' : url.startsWith('/uploads/') ? 'https://tixandcoffee.developerngantuk.my.id' + url : url);
+const fixImg = (url) => (!url ? '' : url);
 
 // Render Products with Real-time Stock Badges
 function renderProductGrid() {

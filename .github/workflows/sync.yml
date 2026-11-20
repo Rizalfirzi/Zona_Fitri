@@ -1,13 +1,7 @@
-name: Sync Multi-Brand Coffee Data to MongoDB Atlas
+name: Sync Multi-Brand Coffee Snapshots
 
 on:
-  schedule:
-    # Run every 5 minutes
-    - cron: '*/5 * * * *'
   workflow_dispatch: # Allows manual trigger from GitHub UI anytime
-  push:
-    branches:
-      - master
 
 concurrency:
   group: sync-multi-brand-coffee
