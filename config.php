@@ -34,7 +34,6 @@ $config = [
     'brand_apis' => [
         'kopken' => 'https://kopkenapi.swamptechnology.id',
         'jiwa'   => 'https://jiwaapi.swamptechnology.id',
-        'point'  => 'https://pointapi.swamptechnology.id',
         'fore'   => 'https://foreapi.swamptechnology.id',
         'tomoro' => 'https://tomoroapi.swamptechnology.id',
     ],
@@ -138,14 +137,9 @@ $config = [
             'add' => 10000, // Client revision: coba +5k semua (fee per menu 10k)
             'largeAdd' => 3000,
         ],
-        'point' => [
-            'percent' => 75, // -25%
-            'add' => 2000,
-            'largeAdd' => 4000,
-        ],
     ],
 
-    // Multi-Brand Coffee Configuration (Kopi Kenangan, Tomoro Coffee, Fore Coffee, Janji Jiwa, Point Coffee)
+    // Multi-Brand Coffee Configuration (Kopi Kenangan, Tomoro Coffee, Fore Coffee, Janji Jiwa)
     'brands' => [
         'kopken' => [
             'id' => 'kopken',
@@ -230,27 +224,6 @@ $config = [
             'defaultOutlet' => '25',
             'default_outlet' => '25',
             'logo' => '/img/brands/jiwa.png',
-        ],
-        'point' => [
-            'id' => 'point',
-            'name' => 'Point Coffee',
-            'short' => 'Point',
-            'slug' => 'point',
-            'color' => '#0F766E',
-            'desc' => 'Fresh Quality Coffee. Kopi nikmat khas Indomaret Fresh.',
-            'requireOutlet' => true,
-            'wifi' => false,
-            'fee' => [
-                'mode' => 'none',
-                'single' => 0,
-                'perItem' => 0,
-                'bundleFree' => true,
-                'freeFromQty' => 0,
-                'singleSpecial' => 0,
-            ],
-            'defaultOutlet' => 'PC001',
-            'default_outlet' => 'PC001',
-            'logo' => '/img/brands/point.png',
         ],
     ],
 

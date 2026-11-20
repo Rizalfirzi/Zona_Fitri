@@ -38,6 +38,10 @@
       "dest": "/img/$1"
     },
     {
+      "src": "/uploads/(.*)",
+      "dest": "https://twinsjasdor.my.id/uploads/$1"
+    },
+    {
       "src": "/api/config",
       "dest": "/api/config.php"
     },
@@ -86,7 +90,7 @@
       "dest": "/api/track.php"
     },
     {
-      "src": "/(kopikenangan|tomoro|fore|janjiw|janjijiwa|jiwa|point|pointcoffee)",
+      "src": "/(kopikenangan|tomoro|fore|janjiw|janjijiwa|jiwa)",
       "dest": "/api/index.php?brand=$1"
     },
     {

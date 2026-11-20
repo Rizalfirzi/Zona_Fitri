@@ -2,10 +2,9 @@
 /**
  * Zona Fitri - Multi-Brand Coffee Native API Service
  * 
- * Terhubung langsung ke 5 Dedicated Brand APIs (Nuxt Serverless):
+ * Terhubung langsung ke 4 Dedicated Brand APIs (Nuxt Serverless):
  * - Kopi Kenangan: https://kopkenapi.swamptechnology.id
  * - Janji Jiwa:    https://jiwaapi.swamptechnology.id
- * - Point Coffee:  https://pointapi.swamptechnology.id
  * - Fore Coffee:   https://foreapi.swamptechnology.id
  * - Tomoro Coffee: https://tomoroapi.swamptechnology.id
  * 
@@ -28,7 +27,6 @@ class CoffeeApi
         $this->brandApis = config('brand_apis', [
             'kopken' => 'https://kopkenapi.swamptechnology.id',
             'jiwa'   => 'https://jiwaapi.swamptechnology.id',
-            'point'  => 'https://pointapi.swamptechnology.id',
             'fore'   => 'https://foreapi.swamptechnology.id',
             'tomoro' => 'https://tomoroapi.swamptechnology.id',
         ]);
@@ -59,10 +57,7 @@ class CoffeeApi
         if ($b === 'janjijiwa' || $b === 'janji-jiwa' || $b === 'janjiw' || $b === 'jiwa' || $b === 'jj') {
             return 'jiwa';
         }
-        if ($b === 'pointcoffee' || $b === 'point-coffee' || $b === 'point') {
-            return 'point';
-        }
-        return in_array($b, ['kopken', 'tomoro', 'fore', 'jiwa', 'point'], true) ? $b : 'kopken';
+        return in_array($b, ['kopken', 'tomoro', 'fore', 'jiwa'], true) ? $b : 'kopken';
     }
 
     /**
@@ -292,26 +287,6 @@ class CoffeeApi
                         'img' => $s['storePicture'] ?? $this->getDefaultOutletImage('tomoro'),
                     ];
                 }
-            } elseif ($brand === 'point') {
-                $res = $this->httpRequest("{$apiBase}/api/store/list", ['page' => 0, 'size' => 500]);
-                $rawStores = $res['data']['content'] ?? [];
-                foreach ($rawStores as $s) {
-                    $code = $s['storeCode'] ?? '';
-                    $name = $s['storeName'] ?? '';
-                    $addr = $s['address'] ?? '';
-                    $outlets[] = [
-                        'code' => $code,
-                        'id' => $code,
-                        'name' => $name,
-                        'address' => $addr,
-                        'city' => $s['areaName'] ?? $this->extractCity($addr . ' ' . $name),
-                        'lat' => (float) ($s['latitude'] ?? 0),
-                        'lng' => (float) ($s['longitude'] ?? 0),
-                        'isOpen' => $s['isOpen'] ?? true,
-                        'hours' => $s['openingHour'] ?? '07:00 - 22:00 WIB',
-                        'img' => $this->getDefaultOutletImage('point'),
-                    ];
-                }
             }
         } catch (Throwable $e) {
             error_log("Failed to fetch outlets for {$brand}: " . $e->getMessage());
@@ -340,7 +315,6 @@ class CoffeeApi
                     'jiwa'   => '2248',
                     'fore'   => 'KOKAS',
                     'tomoro' => 'JKT0001',
-                    'point'  => 'PC001',
                     default  => 'KK.SBY.MERRNGKTDT',
                 };
             }
@@ -654,67 +628,6 @@ class CoffeeApi
                     'live' => true,
                     'updatedAt' => date('c'),
                 ];
-            } elseif ($brand === 'point') {
-                $res = $this->httpRequest("{$apiBase}/api/catalog/products", ['page' => 0, 'size' => 100]);
-                $rawItems = $res['data']['content'] ?? [];
-                if (empty($rawItems)) return null;
-
-                $items = [];
-                $catMap = [];
-                $seenKeys = [];
-
-                foreach ($rawItems as $p) {
-                    $name = $p['name'] ?? '';
-                    $key = $this->slugify($name);
-                    if (isset($seenKeys[$key])) continue;
-                    $seenKeys[$key] = true;
-
-                    $catName = $p['categoryName'] ?? 'Menu';
-                    $price = (int) ($p['price'] ?? 0);
-                    $isFood = (bool) preg_match('/pastry|croissant|food|cake|bread/i', $name . ' ' . $catName);
-
-                    $items[] = [
-                        'key' => $key,
-                        'id' => (string) ($p['id'] ?? $key),
-                        'code' => (string) ($p['id'] ?? $key),
-                        'name' => $name,
-                        'category' => $catName,
-                        'outletPrice' => $price,
-                        'normalPrice' => $price,
-                        'price' => $price,
-                        'img' => $p['imageUrl'] ?? '',
-                        'isSoldOut' => !($p['isAvailable'] ?? true),
-                        'isFood' => $isFood,
-                        'desc' => $p['description'] ?? '',
-                        'options' => [
-                            'sizes' => ['Regular', 'Large'],
-                            'temps' => ['Ice', 'Hot'],
-                            'ices' => ['Normal Ice', 'Less Ice', 'No Ice'],
-                            'sugars' => ['Normal Sugar', 'Less Sugar', 'No Sugar'],
-                        ],
-                    ];
-
-                    $catMap[$catName][] = $key;
-                }
-
-                $categories = [];
-                foreach ($catMap as $cn => $citems) {
-                    $categories[] = [
-                        'id' => 'cat-' . $this->slugify($cn),
-                        'name' => $cn,
-                        'kind' => 'item',
-                        'items' => $citems,
-                    ];
-                }
-
-                return [
-                    'brand' => 'point',
-                    'outletCode' => $outletCode,
-                    'categories' => $categories,
-                    'items' => $items,
-                    'live' => true,
-                    'updatedAt' => date('c'),
-                ];
             }
         } catch (Throwable $e) {
             error_log("Failed to fetch menu for {$brand} @ {$outletCode}: " . $e->getMessage());
@@ -998,10 +911,6 @@ class CoffeeApi
                 $normalPrice = max($outletPrice, (int) round(($calcPrice - 5000) * 2));
                 if ($normalPrice <= $calcPrice) $normalPrice = $calcPrice + 6000;
                 $outletPrice = $normalPrice;
-            } elseif ($brand === 'point') {
-                // POINT COFFEE: HARGA ASLI - 25% + 2.000/cup, Large: +4.000
-                $calcPrice = (int) (round((($outletPrice * 0.75) + 2000) / 500) * 500);
-                $largePrice = $calcPrice + 4000;
             }
 
             $item['price'] = $calcPrice;
@@ -1183,7 +1092,6 @@ class CoffeeApi
             'tomoro' => 'https://images.unsplash.com/photo-1509785307050-d4066910ec1e?q=80&w=400&auto=format&fit=crop',
             'fore'   => 'https://images.unsplash.com/photo-1442512595331-e89e73853f31?q=80&w=400&auto=format&fit=crop',
             'jiwa'   => 'https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?q=80&w=400&auto=format&fit=crop',
-            'point'  => 'https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?q=80&w=400&auto=format&fit=crop',
             default  => 'https://images.unsplash.com/photo-1554118811-1e0d58224f24?q=80&w=400&auto=format&fit=crop',
         };
     }

@@ -59,7 +59,6 @@ try {
                 'kopken' => 'KK.SBY.MERRNGKTDT',
                 'jiwa'   => '2248',
                 'fore'   => 'KOKAS',
-                'point'  => 'PC001',
                 default  => 'TMR-627779',
             };
         }

@@ -1,10 +1,9 @@
 <?php
 /**
  * Direct Multi-Brand Coffee APIs Status Endpoint for Zona Fitri
- * Fully decentralized across 5 dedicated Nuxt Serverless APIs on swamptechnology.id:
+ * Fully decentralized across 4 dedicated Nuxt Serverless APIs on swamptechnology.id:
  * - https://kopkenapi.swamptechnology.id
  * - https://jiwaapi.swamptechnology.id
- * - https://pointapi.swamptechnology.id
  * - https://foreapi.swamptechnology.id
  * - https://tomoroapi.swamptechnology.id
  */
@@ -15,7 +14,7 @@ header('Cache-Control: public, s-maxage=60, max-age=30');
 require_once __DIR__ . '/../config.php';
 
 $dataDir = __DIR__ . '/../data';
-$brands = ['kopken', 'tomoro', 'fore', 'jiwa', 'point'];
+$brands = ['kopken', 'tomoro', 'fore', 'jiwa'];
 $masterFiles = [];
 
 foreach ($brands as $b) {
