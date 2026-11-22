@@ -219,7 +219,7 @@ function wireStatic() {
           </div>
         </div>`;
       }).join('');
-      inlineDropdown.innerHTML = (isGeo ? '<div class="od-geo-header">⚡ Outlet terdekat dari lokasimu:</div>' : '') + manualHtml + html;
+      inlineDropdown.innerHTML = (isGeo ? '<div class="od-geo-header">⚡ Outlet terdekat dari lokasimu:</div>' : '') + html + manualHtml;
       inlineDropdown.classList.remove('hidden');
     }
 
@@ -1056,16 +1056,24 @@ function openItem(key, editIndex = null) {
   openSheet('itemSheet');
 
   // Exact variants and stock straight from the outlet (Kopi Kenangan official API).
-  if (item.code && S.outlet?.code && !S.outlet.manual && S.brandId === 'kopken') loadItemDetail(item, line);
+  const isFoodItem = Boolean(item.isFood) || /food|toast|roti|bread|donut|donat|croissant|bagel|panini|pastry|muffin|danish|cookie|bun|cake|pie/i.test((item.category || '') + ' ' + (item.name || '') + ' ' + (item.key || ''));
+  if (item.code && S.outlet?.code && !S.outlet.manual && S.brandId === 'kopken' && !isFoodItem) loadItemDetail(item, line);
 }
 
 /** Shop-made add-ons ("Extra es batu", …) for drinks, as a multi-select group. */
 function extrasGroup(item, extras = S.menu?.extras || []) {
-  if (item.isFood || !extras.length) return [];
+  const isFoodItem = Boolean(item.isFood) || /food|toast|roti|bread|donut|donat|croissant|bagel|panini|pastry|muffin|danish|cookie|bun|cake|pie/i.test((item.category || '') + ' ' + (item.name || '') + ' ' + (item.key || ''));
+  if (isFoodItem || !extras.length) return [];
   return [{ id: 'extras', name: 'Tambahan', values: extras.map((x) => ({ id: x.id, text: x.text, price: x.price })) }];
 }
 
 function staticGroups(item) {
+  // Food items don't have size, temperature, ice, sugar options per client revision
+  const isFoodItem = Boolean(item.isFood) || /food|toast|roti|bread|donut|donat|croissant|bagel|panini|pastry|muffin|danish|cookie|bun|cake|pie/i.test((item.category || '') + ' ' + (item.name || '') + ' ' + (item.key || ''));
+  if (isFoodItem) {
+    return [];
+  }
+
   const o = item.options || {};
   const groups = [];
   let sizes = (o.sizes || []).filter((v) => !/jumbo/i.test(v));
@@ -1375,13 +1383,25 @@ function addItemToCart() {
 }
 
 // ═══════════════ BUNDLE SHEET ═══════════════
+function getBundleSlotCount(b) {
+  if (!b) return 2;
+  const n = Number(b.slots || b.bundleSlots);
+  if (n && n > 0) return n;
+  if (/3\s*menu/i.test(b.name || '')) return 3;
+  if (/4\s*(?:pcs|menu)/i.test(b.name || '')) return 2;
+  return 2;
+}
+
 function openBundle(bundle, editIndex = null) {
   const line = editIndex != null ? S.cart[editIndex] : null;
+  const numSlots = getBundleSlotCount(bundle);
+  bundle.slots = numSlots;
+  bundle.bundleSlots = numSlots;
   S.bundle = {
     bundle,
     editIndex,
     active: 0,
-    slots: Array.from({ length: bundle.slots }, (_, i) => (line?.selections?.[i] ? { ...line.selections[i] } : null)),
+    slots: Array.from({ length: numSlots }, (_, i) => (line?.selections?.[i] ? { ...line.selections[i] } : null)),
     adjusting: null,
   };
   $('#bundleGroup').textContent = bundle.group || 'Promo bundling';
@@ -1399,8 +1419,9 @@ function openBundle(bundle, editIndex = null) {
 function getCandidatePrice(b, c) {
   if (!b || !c) return 0;
   if (c.bundlePrice != null) return Number(c.bundlePrice);
-  if (b.price && b.slots) {
-    return Math.round(b.price / b.slots);
+  const numSlots = getBundleSlotCount(b);
+  if (b.price && numSlots) {
+    return Math.round(Number(b.price) / numSlots);
   }
   if (b.formula) {
     const outPrice = b.size === 'Large'
@@ -1419,9 +1440,11 @@ function getCandidatePrice(b, c) {
 function bundlePrice(B = S.bundle, slots = B?.slots || []) {
   if (!B || !B.bundle) return 0;
   const b = B.bundle;
+  const numSlots = getBundleSlotCount(b);
+  b.slots = numSlots;
   const filledCount = slots.filter(Boolean).length;
   let extras = 0;
-  for (let i = 0; i < b.slots; i++) {
+  for (let i = 0; i < numSlots; i++) {
     const s = slots[i];
     if (s && s.choices) {
       for (const ch of s.choices) {
@@ -1435,13 +1458,13 @@ function bundlePrice(B = S.bundle, slots = B?.slots || []) {
   }
 
   if (b.price && !b.formula) {
-    if (filledCount === b.slots) return b.price + extras;
-    const basePortion = Math.round(b.price / b.slots);
+    if (filledCount === numSlots) return Number(b.price) + extras;
+    const basePortion = Math.round(Number(b.price) / numSlots);
     return (basePortion * filledCount) + extras;
   }
 
   let totalPrice = 0;
-  for (let i = 0; i < b.slots; i++) {
+  for (let i = 0; i < numSlots; i++) {
     const s = slots[i];
     if (s) {
       const c = b.candidates?.find((x) => x.key === s.key);
@@ -1454,6 +1477,8 @@ function bundlePrice(B = S.bundle, slots = B?.slots || []) {
 function renderBundle() {
   const B = S.bundle;
   const b = B.bundle;
+  const numSlots = getBundleSlotCount(b);
+  b.slots = numSlots;
   const filled = B.slots.filter(Boolean).length;
   const totalPrice = bundlePrice();
 
@@ -1526,16 +1551,16 @@ function renderBundle() {
   const totalBar = $('#bundleTotalBar');
   if (totalBar) {
     totalBar.innerHTML = `
-      <span class="btb-label">Total (${filled}/${b.slots} menu)</span>
-      <b class="btb-price">${filled === b.slots ? formatRp(totalPrice) : (filled > 0 ? `Sementara ${formatRp(totalPrice)}` : 'Rp0')}</b>
+      <span class="btb-label">Total (${filled}/${numSlots} menu)</span>
+      <b class="btb-price">${filled === numSlots ? formatRp(totalPrice) : (filled > 0 ? `Sementara ${formatRp(totalPrice)}` : 'Rp0')}</b>
     `;
   }
 
   const addBtn = $('#bundleAdd');
   if (addBtn) {
-    addBtn.disabled = filled < b.slots;
-    addBtn.textContent = filled < b.slots
-      ? `Pilih ${b.slots - filled} menu lagi`
+    addBtn.disabled = filled < numSlots;
+    addBtn.textContent = filled < numSlots
+      ? `Pilih ${numSlots - filled} menu lagi`
       : `${B.editIndex != null ? 'Simpan' : 'Tambah'} · Total ${formatRp(totalPrice)}`;
   }
 }
@@ -1549,7 +1574,7 @@ function setBundleSlot(i) {
 function pickBundleItem(key) {
   const c = S.bundle.bundle.candidates.find((x) => x.key === key);
   if (!c || c.isSoldOut) return;
-  const groups = staticGroups({ options: { ...c.options, sizes: [] } });
+  const groups = staticGroups({ ...c, options: { ...c.options, sizes: [] } });
   const sel = {};
   for (const g of groups) sel[g.id] = g.default;
   S.bundle.adjusting = { key, name: c.name, groups, sel };
@@ -1566,12 +1591,15 @@ function setBundleChoice(gid, vid) {
 function confirmBundleSlot() {
   const B = S.bundle;
   const a = B.adjusting;
+  if (!a) return;
   const choices = currentChoices(a.groups, a.sel);
   if (B.bundle.size && B.bundle.size !== 'Regular') choices.splice(1, 0, { group: 'Size', value: B.bundle.size });
   B.slots[B.active] = { key: a.key, name: a.name, choices };
   B.adjusting = null;
   const next = B.slots.findIndex((s) => !s);
-  if (next !== -1) B.active = next;
+  if (next !== -1) {
+    B.active = next;
+  }
   renderBundle();
 }
 

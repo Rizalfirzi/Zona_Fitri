@@ -87,10 +87,32 @@ class CoffeeApi
         $allOutlets = $this->getCache($cacheKey, $this->outletsTtl);
         if ($allOutlets === null || empty($allOutlets['outlets'])) {
             $liveOutlets = $this->fetchOutletsFromApi($brand);
-            if (!empty($liveOutlets)) {
+            $masterOutlets = $this->getFallbackOutlets($brand);
+
+            $outletMap = [];
+            foreach ($masterOutlets as $o) {
+                $code = $o['code'] ?? $o['id'] ?? '';
+                if ($code) {
+                    $outletMap[$code] = $o;
+                }
+            }
+            foreach ($liveOutlets as $o) {
+                $code = $o['code'] ?? $o['id'] ?? '';
+                if ($code) {
+                    if (isset($outletMap[$code])) {
+                        $outletMap[$code] = array_merge($outletMap[$code], array_filter($o, fn($v) => $v !== null && $v !== ''));
+                    } else {
+                        $outletMap[$code] = $o;
+                    }
+                }
+            }
+
+            $mergedList = array_values($outletMap);
+            if (!empty($mergedList)) {
                 $allOutlets = [
                     'brand' => $brand,
-                    'outlets' => $liveOutlets,
+                    'outlets' => $mergedList,
+                    'source' => !empty($liveOutlets) ? 'live+snapshot' : 'snapshot',
                     'updatedAt' => date('c'),
                 ];
                 $this->setCache($cacheKey, $allOutlets);
@@ -113,14 +135,28 @@ class CoffeeApi
         // 3. Filter by search query if specified
         if ($query !== '') {
             $qLower = strtolower($query);
-            $outlets = array_values(array_filter($outlets, function ($o) use ($qLower) {
+            $qWords = array_values(array_filter(explode(' ', $qLower), fn($w) => strlen($w) > 0));
+            $outlets = array_values(array_filter($outlets, function ($o) use ($qLower, $qWords) {
                 $haystack = strtolower(
                     ($o['name'] ?? '') . ' ' .
                     ($o['address'] ?? '') . ' ' .
                     ($o['city'] ?? '') . ' ' .
                     ($o['code'] ?? '')
                 );
-                return str_contains($haystack, $qLower);
+                if (str_contains($haystack, $qLower)) {
+                    return true;
+                }
+                if (count($qWords) > 1) {
+                    $matchAll = true;
+                    foreach ($qWords as $qw) {
+                        if (!str_contains($haystack, $qw)) {
+                            $matchAll = false;
+                            break;
+                        }
+                    }
+                    if ($matchAll) return true;
+                }
+                return false;
             }));
 
             // Sort by relevance
@@ -129,19 +165,21 @@ class CoffeeApi
                 $cityA = strtolower($a['city'] ?? '');
                 $nameA = strtolower($a['name'] ?? '');
                 $addrA = strtolower($a['address'] ?? '');
-                if (preg_match('/\b' . preg_quote($qLower, '/') . '\b/i', $cityA)) $scoreA = 1;
-                elseif (preg_match('/\b' . preg_quote($qLower, '/') . '\b/i', $nameA)) $scoreA = 2;
+                if (preg_match('/\b' . preg_quote($qLower, '/') . '\b/i', $nameA)) $scoreA = 1;
+                elseif (preg_match('/\b' . preg_quote($qLower, '/') . '\b/i', $cityA)) $scoreA = 2;
                 elseif (preg_match('/\b' . preg_quote($qLower, '/') . '\b/i', $addrA)) $scoreA = 3;
-                elseif (str_contains($cityA . ' ' . $nameA . ' ' . $addrA, $qLower)) $scoreA = 4;
+                elseif (str_contains($nameA, $qLower)) $scoreA = 4;
+                elseif (str_contains($cityA . ' ' . $addrA, $qLower)) $scoreA = 5;
 
                 $scoreB = 999;
                 $cityB = strtolower($b['city'] ?? '');
                 $nameB = strtolower($b['name'] ?? '');
                 $addrB = strtolower($b['address'] ?? '');
-                if (preg_match('/\b' . preg_quote($qLower, '/') . '\b/i', $cityB)) $scoreB = 1;
-                elseif (preg_match('/\b' . preg_quote($qLower, '/') . '\b/i', $nameB)) $scoreB = 2;
+                if (preg_match('/\b' . preg_quote($qLower, '/') . '\b/i', $nameB)) $scoreB = 1;
+                elseif (preg_match('/\b' . preg_quote($qLower, '/') . '\b/i', $cityB)) $scoreB = 2;
                 elseif (preg_match('/\b' . preg_quote($qLower, '/') . '\b/i', $addrB)) $scoreB = 3;
-                elseif (str_contains($cityB . ' ' . $nameB . ' ' . $addrB, $qLower)) $scoreB = 4;
+                elseif (str_contains($nameB, $qLower)) $scoreB = 4;
+                elseif (str_contains($cityB . ' ' . $addrB, $qLower)) $scoreB = 5;
 
                 return $scoreA <=> $scoreB;
             });
@@ -270,21 +308,26 @@ class CoffeeApi
             } elseif ($brand === 'tomoro') {
                 $res = $this->httpRequest("{$apiBase}/api/store/list", ['pageSize' => 1000]);
                 $rawStores = $res['data']['records'] ?? [];
+                if (empty($rawStores)) {
+                    // Fallback to cingops.com for Tomoro outlets
+                    $cingopsRes = $this->httpRequest("https://cingops.com/api/outlets", ['brand' => 'tomoro', 'pageSize' => 50]);
+                    $rawStores = $cingopsRes['stores'] ?? [];
+                }
                 foreach ($rawStores as $s) {
-                    $code = $s['storeCode'] ?? '';
-                    $name = $s['storeName'] ?? '';
-                    $addr = $s['storeAddress'] ?? '';
+                    $code = $s['storeCode'] ?? $s['code'] ?? $s['id'] ?? '';
+                    $name = $s['storeName'] ?? $s['name'] ?? '';
+                    $addr = $s['storeAddress'] ?? $s['address'] ?? '';
                     $outlets[] = [
                         'code' => $code,
                         'id' => $code,
                         'name' => $name,
                         'address' => $addr,
                         'city' => $s['city'] ?? $this->extractCity($addr . ' ' . $name),
-                        'lat' => (float) ($s['latitude'] ?? 0),
-                        'lng' => (float) ($s['longitude'] ?? 0),
-                        'isOpen' => ($s['businessStatus'] == 1),
-                        'hours' => '07:00 - 22:00 WIB',
-                        'img' => $s['storePicture'] ?? $this->getDefaultOutletImage('tomoro'),
+                        'lat' => (float) ($s['latitude'] ?? $s['lat'] ?? 0),
+                        'lng' => (float) ($s['longitude'] ?? $s['lng'] ?? 0),
+                        'isOpen' => isset($s['businessStatus']) ? ($s['businessStatus'] == 1) : (!empty($s['isOpen'])),
+                        'hours' => $s['hours'] ?? '07:00 - 22:00 WIB',
+                        'img' => $s['storePicture'] ?? $s['imageUrl'] ?? $this->getDefaultOutletImage('tomoro'),
                     ];
                 }
             }
@@ -739,6 +782,64 @@ class CoffeeApi
             }
         }
 
+        // 2b. Client revision: Hapus Tumblr, Literan, Drip Bag, Steep Coffee, Beans, Merchandise, dan Promo lama
+        if ($brand === 'kopken' && isset($menuData['items']) && is_array($menuData['items'])) {
+            $removedKeys = [];
+            $filteredItems = [];
+            $legacyPromos = [
+                'freeupsizelarge', 'buy2disc25', '2kkmhanya29rban', '3rotidiscount15', 'beli3hanya47rb',
+                'bundleeverydaycollectionlidtumbler', 'peka1', 'peka2', '2sweettoasts', '2savorytoasts',
+                'pahe1', 'pahe2', 'pahe3'
+            ];
+
+            foreach ($menuData['items'] as $it) {
+                $itCat = strtolower(trim((string)($it['category'] ?? '')));
+                $itName = strtolower(trim((string)($it['name'] ?? '')));
+                $itKey = strtolower(trim((string)($it['key'] ?? '')));
+
+                $isTumblrLiteran = str_contains($itName, 'seliter')
+                    || str_contains($itName, 'liter')
+                    || str_contains($itName, 'tumbler')
+                    || str_contains($itName, 'tumblr')
+                    || str_contains($itName, 'bottle')
+                    || str_contains($itName, 'cuddly pals')
+                    || str_contains($itName, 'sunshine friends')
+                    || str_contains($itName, 'teddy bear')
+                    || str_contains($itName, 'drip bag')
+                    || str_contains($itName, 'steep coffee')
+                    || str_contains($itName, 'coffee bag')
+                    || str_contains($itCat, 'merchandise')
+                    || str_contains($itCat, 'manual brew')
+                    || str_contains($itCat, 'kenangan at home')
+                    || in_array($itKey, $legacyPromos, true);
+
+                if ($isTumblrLiteran) {
+                    if (!empty($it['key'])) $removedKeys[$it['key']] = true;
+                    if (!empty($it['id'])) $removedKeys[$it['id']] = true;
+                } else {
+                    $filteredItems[] = $it;
+                }
+            }
+            $menuData['items'] = $filteredItems;
+
+            if (isset($menuData['categories']) && is_array($menuData['categories'])) {
+                $cleanCats = [];
+                foreach ($menuData['categories'] as $cat) {
+                    $catName = strtolower(trim((string)($cat['name'] ?? '')));
+                    if (str_contains($catName, 'merchandise') || str_contains($catName, 'manual brew') || str_contains($catName, 'kenangan at home')) {
+                        continue;
+                    }
+                    if (!empty($cat['items']) && is_array($cat['items'])) {
+                        $cat['items'] = array_values(array_filter($cat['items'], fn($k) => !isset($removedKeys[$k])));
+                    }
+                    if (!empty($cat['items'])) {
+                        $cleanCats[] = $cat;
+                    }
+                }
+                $menuData['categories'] = array_values($cleanCats);
+            }
+        }
+
         // 3. Normalizing item image, options, and size rules
         $items = $menuData['items'] ?? [];
         $totalCount = count($items);
@@ -758,19 +859,33 @@ class CoffeeApi
                 $item['img'] = $this->getDefaultItemImage($brand, $item['name'] ?? '');
             }
 
-            // Remove Jumbo size option across all brands
-            if (!empty($item['options']['sizes']) && is_array($item['options']['sizes'])) {
-                $item['options']['sizes'] = array_values(array_filter(
-                    $item['options']['sizes'],
-                    fn($sz) => stripos((string)$sz, 'jumbo') === false
-                ));
-            }
-            unset($item['jumboPrice'], $item['jumboNormal'], $item['jumboOutletPrice']);
+            // Food items check across all brands: food items don't have size, temperature, ice, sugar
+            $itCat = strtolower(trim((string)($item['category'] ?? '')));
+            $itName = strtolower(trim((string)($item['name'] ?? '')));
+            $isFood = !empty($item['isFood'])
+                || str_contains($itCat, 'food')
+                || str_contains($itCat, 'toast')
+                || (bool) preg_match('/toast|food|panini|croissant|bagel|roti|bread|cookie|muffin|danish|cake|donut|donat/i', $itName);
 
-            // Tomoro small size only
-            if ($brand === 'tomoro') {
-                $item['options']['sizes'] = ['Small'];
-                unset($item['largePrice'], $item['largeNormal'], $item['largeOutletPrice']);
+            $item['isFood'] = $isFood;
+            if ($isFood) {
+                $item['options'] = [];
+                unset($item['largePrice'], $item['largeNormal'], $item['largeOutletPrice'], $item['jumboPrice'], $item['jumboNormal']);
+            } else {
+                // Remove Jumbo size option across all brands
+                if (!empty($item['options']['sizes']) && is_array($item['options']['sizes'])) {
+                    $item['options']['sizes'] = array_values(array_filter(
+                        $item['options']['sizes'],
+                        fn($sz) => stripos((string)$sz, 'jumbo') === false
+                    ));
+                }
+                unset($item['jumboPrice'], $item['jumboNormal'], $item['jumboOutletPrice']);
+
+                // Tomoro small size only
+                if ($brand === 'tomoro') {
+                    $item['options']['sizes'] = ['Small'];
+                    unset($item['largePrice'], $item['largeNormal'], $item['largeOutletPrice']);
+                }
             }
         }
         unset($item);
@@ -976,7 +1091,32 @@ class CoffeeApi
         if ($brand === 'kopken') {
             $bundleItems = [];
 
-            // Bundle 3: 35.000
+            // Bundle 1: 4 Pcs (2 Minuman + 2 Roti) - Rp35.000
+            if (!empty($candidates1719Drinks) || !empty($candidates1719)) {
+                $candList = !empty($candidates1719Drinks) ? $candidates1719Drinks : $candidates1719;
+                $bundleItems[] = [
+                    'key' => 'zf-b-4pcs-35k',
+                    'id' => 'zf-b-4pcs-35k',
+                    'name' => 'Paket 2 Roti + 2 Minuman (Bundling 4 Pcs)',
+                    'category' => 'Promo & Combo',
+                    'price' => 35000,
+                    'normalPrice' => 58000,
+                    'outletPrice' => 58000,
+                    'img' => '/img/bundling-4pcs-35k.png',
+                    'desc' => 'Bebas pilih 2 minuman reguler (menu 17k–19k) + 2 Roti Coklat Klasik (Total 4 item).',
+                    'isSoldOut' => count(array_filter($candList, fn($c) => !$c['isSoldOut'])) < 2,
+                    'isBundle' => true,
+                    'slots' => 2,
+                    'bundleSlots' => 2,
+                    'fixedItems' => ['2 Roti Coklat Klasik'],
+                    'bundlePricePerSlot' => 17500,
+                    'candidates' => $candList,
+                    'tag' => '4 Pcs',
+                    'group' => 'Bundling 4 Pcs (2 Minuman + 2 Roti)',
+                ];
+            }
+
+            // Bundle 2: 3 Menu (Reguler / Food) - Rp35.000
             if (!empty($candidates1719)) {
                 $bundleItems[] = [
                     'key' => 'zf-b-3-35k',
@@ -986,18 +1126,20 @@ class CoffeeApi
                     'price' => 35000,
                     'normalPrice' => 57000,
                     'outletPrice' => 57000,
-                    'img' => '/img/brands/kopken.png',
+                    'img' => '/img/bundling-3-cup-reguler.png',
                     'desc' => 'Bebas pilih 3 item (minuman reguler atau food / roti) dari menu harga outlet Rp 17.000 - Rp 19.000.',
                     'isSoldOut' => count(array_filter($candidates1719, fn($c) => !$c['isSoldOut'])) < 3,
                     'isBundle' => true,
+                    'slots' => 3,
                     'bundleSlots' => 3,
                     'bundlePricePerSlot' => 35000 / 3,
                     'candidates' => $candidates1719,
                     'tag' => 'Hemat Rp 22.000',
+                    'group' => 'Bundling 3 (Food & Drinks)',
                 ];
             }
 
-            // Bundle Large 2: 32.000
+            // Bundle 3: Large 2 - Rp32.000
             if (!empty($candidates19Drinks)) {
                 $bundleItems[] = [
                     'key' => 'zf-b-large2-32k',
@@ -1007,21 +1149,33 @@ class CoffeeApi
                     'price' => 32000,
                     'normalPrice' => 50000,
                     'outletPrice' => 50000,
-                    'img' => '/img/brands/kopken.png',
+                    'img' => '/img/bundling-2-cup-large.png',
                     'desc' => 'Bebas pilih 2 minuman size Large favoritmu (Kenangan Mantan, Spanish Latte, Pistachio, dll).',
                     'isSoldOut' => count(array_filter($candidates19Drinks, fn($c) => !$c['isSoldOut'])) < 2,
                     'isBundle' => true,
+                    'slots' => 2,
                     'bundleSlots' => 2,
+                    'size' => 'Large',
                     'bundlePricePerSlot' => 16000,
                     'candidates' => $candidates19Drinks,
                     'tag' => 'Hemat Rp 18.000',
+                    'group' => 'Bundling 2 Large',
                 ];
             }
 
-            // Prepend bundles to items
-            if (!empty($bundleItems)) {
-                $items = array_merge($bundleItems, $items);
+            // Remove any old non-bundling items from Promo & Combo
+            $cleanItems = [];
+            foreach ($items as $it) {
+                if (!empty($it['isBundle'])) continue;
+                $itCat = strtolower(trim((string)($it['category'] ?? '')));
+                if ($itCat === 'promo & combo' || $itCat === 'promo' || $itCat === 'combo') {
+                    continue;
+                }
+                $cleanItems[] = $it;
             }
+
+            // Prepend bundles to items
+            $items = array_merge($bundleItems, $cleanItems);
         }
     }
 
@@ -1044,6 +1198,18 @@ class CoffeeApi
 
         if (!$matchedItem) {
             return ['isSoldOut' => false, 'groups' => [], 'prices' => []];
+        }
+
+        $basePrice = (int) ($matchedItem['price'] ?? 0);
+
+        // Food items don't have size, temperature, ice, sugar options per client revision
+        if (!empty($matchedItem['isFood'])) {
+            return [
+                'isSoldOut' => !empty($matchedItem['isSoldOut']),
+                'groups' => [],
+                'prices' => ['default' => $basePrice],
+                'desc' => $matchedItem['desc'] ?? '',
+            ];
         }
 
         $opts = $matchedItem['options'] ?? [];
@@ -1222,17 +1388,42 @@ class CoffeeApi
 
         foreach ($order['items'] as $idx => $item) {
             $options = [];
-            if (!empty($item['size'])) $options[] = $item['size'];
-            if (!empty($item['temp'])) $options[] = $item['temp'];
-            if (!empty($item['ice'])) $options[] = $item['ice'];
-            if (!empty($item['sugar'])) $options[] = $item['sugar'];
-            $optStr = !empty($options) ? ' (' . implode(', ', $options) . ')' : '';
+            $isFood = !empty($item['isFood']) || preg_match('/food|toast|roti|bread|donut|donat|croissant|bagel|panini|pastry|muffin|danish|cookie|bun|cake|pie/i', ($item['name'] ?? '') . ' ' . ($item['category'] ?? ''));
+            if (!$isFood && !empty($item['choices']) && is_array($item['choices'])) {
+                foreach ($item['choices'] as $c) {
+                    $val = is_array($c) ? ($c['value'] ?? '') : (string)$c;
+                    if ($val !== '') $options[] = $val;
+                }
+            } elseif (!$isFood) {
+                if (!empty($item['size'])) $options[] = $item['size'];
+                if (!empty($item['temp'])) $options[] = $item['temp'];
+                if (!empty($item['ice']) && ($item['temp'] ?? '') !== 'Hot') $options[] = $item['ice'];
+                if (!empty($item['sugar'])) $options[] = $item['sugar'];
+            }
+            $optStr = (!empty($options) && empty($item['isBundle'])) ? ' (' . implode(' • ', $options) . ')' : '';
 
             $itemQty = (int) ($item['qty'] ?? 1);
             $itemSubtotal = ($item['subtotal'] ?? 0) > 0 ? $item['subtotal'] : (($item['price'] ?? 0) * $itemQty);
             $subtotalFormatted = number_format($itemSubtotal, 0, ',', '.');
 
             $waMessage .= ($idx + 1) . ". *" . ($item['name'] ?? 'Item') . "*" . $optStr . " — " . $itemQty . "x Rp " . $subtotalFormatted . "\n";
+            if (!empty($item['isBundle'])) {
+                foreach ($item['fixedItems'] ?? [] as $f) {
+                    $waMessage .= "    • Termasuk: {$f}\n";
+                }
+                foreach ($item['selections'] ?? [] as $s) {
+                    $sOpt = [];
+                    $sFood = !empty($s['isFood']) || preg_match('/food|toast|roti|bread|donut|donat|croissant|bagel|panini|pastry|muffin|danish|cookie|bun|cake|pie/i', ($s['name'] ?? ''));
+                    if (!$sFood && !empty($s['choices']) && is_array($s['choices'])) {
+                        foreach ($s['choices'] as $sc) {
+                            $scVal = is_array($sc) ? ($sc['value'] ?? '') : (string)$sc;
+                            if ($scVal !== '') $sOpt[] = $scVal;
+                        }
+                    }
+                    $sOptStr = !empty($sOpt) ? ' (' . implode(' • ', $sOpt) . ')' : '';
+                    $waMessage .= "    • " . ($s['name'] ?? 'Menu') . $sOptStr . "\n";
+                }
+            }
         }
 
         $waMessage .= "--------------------------------------\n";
