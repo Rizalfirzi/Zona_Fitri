@@ -244,10 +244,24 @@ class CoffeeApi
                 $rawStores = $res['data']['store'] ?? [];
                 foreach ($rawStores as $s) {
                     $code = $s['code'] ?? '';
-                    $name = $s['alias'] ?: ($s['name'] ?? '');
+                    $name = trim((string)($s['name'] ?? ''));
+                    if (empty($name) || preg_match('/^[A-Z]{2,4}\.[A-Z0-9\.]+$/', $name)) {
+                        if (!empty($s['alias']) && !preg_match('/^[A-Z]{2,4}\.[A-Z0-9\.]+$/', $s['alias'])) {
+                            $name = $s['alias'];
+                        } elseif (!empty($s['address'])) {
+                            $parts = explode(',', $s['address']);
+                            $firstPart = trim($parts[0]);
+                            if (!empty($firstPart) && strlen($firstPart) >= 4) {
+                                $name = $firstPart;
+                            }
+                        }
+                    }
+                    if (empty($name)) {
+                        $name = $s['alias'] ?: ($s['code'] ?? 'Outlet');
+                    }
                     $addr = $s['address'] ?? '';
-                    $openTime = $s['open'] ?? '07:00';
-                    $closeTime = $s['close'] ?? '22:00';
+                    $openTime = !empty($s['open']) ? substr($s['open'], 0, 5) : '07:00';
+                    $closeTime = !empty($s['close']) ? substr($s['close'], 0, 5) : '22:00';
 
                     $outlets[] = [
                         'code' => $code,
@@ -1280,17 +1294,25 @@ class CoffeeApi
         $currentMinutes = ((int) $now->format('G')) * 60 + ((int) $now->format('i'));
 
         $hoursStr = (string) ($outlet['hours'] ?? $brandConfig['shop']['hours'] ?? '07:00 - 22:00 WIB');
-        $isOpen = $outlet['isOpen'] ?? true;
+        $liveIsOpen = isset($outlet['isOpen']) ? (bool) $outlet['isOpen'] : null;
+        $isOpen = $liveIsOpen ?? true;
         $statusText = 'Buka';
 
-        if (preg_match('/(\d{1,2})[:.](\d{2})\s*[-–—]\s*(\d{1,2})[:.](\d{2})/', $hoursStr, $m)) {
+        if (preg_match('/(\d{1,2})[:.](\d{2})(?:[:.]\d{2})?\s*[-–—]\s*(\d{1,2})[:.](\d{2})(?:[:.]\d{2})?/', $hoursStr, $m)) {
             $openMinutes = ((int) $m[1]) * 60 + ((int) $m[2]);
             $closeMinutes = ((int) $m[3]) * 60 + ((int) $m[4]);
 
+            $isWithinHours = false;
             if ($closeMinutes > $openMinutes) {
-                $isOpen = ($currentMinutes >= $openMinutes && $currentMinutes < $closeMinutes);
+                $isWithinHours = ($currentMinutes >= $openMinutes && $currentMinutes < $closeMinutes);
             } else {
-                $isOpen = ($currentMinutes >= $openMinutes || $currentMinutes < $closeMinutes);
+                $isWithinHours = ($currentMinutes >= $openMinutes || $currentMinutes < $closeMinutes);
+            }
+
+            if ($liveIsOpen === null) {
+                $isOpen = $isWithinHours;
+            } else {
+                $isOpen = $liveIsOpen && $isWithinHours;
             }
         }
 

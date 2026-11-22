@@ -72,7 +72,7 @@ $activeBrandKey = $slugMap[$rawSlug] ?? 'kopken';
           </button>
         </div>
         <div class="os-input-wrap" id="outletInputWrap">
-          <input type="text" id="inlineOutletInput" placeholder="📍 Ganti outlet (saat ini: Bandung Electronic Center)..." autocomplete="off" enterkeyhint="search" />
+          <input type="text" id="inlineOutletInput" placeholder="📍 Cari atau pilih outlet..." autocomplete="off" enterkeyhint="search" />
           <span class="os-input-chevron">⌵</span>
           <button type="button" class="os-clear hidden" id="inlineOutletClear" aria-label="Bersihkan">✕</button>
         </div>

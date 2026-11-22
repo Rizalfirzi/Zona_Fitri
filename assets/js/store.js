@@ -65,22 +65,11 @@ async function init() {
   watchNavScroll();
   S.cart = store.get(K.cart(), []) || [];
   S.outlet = store.get(K.outlet(), null);
-  if (!S.outlet) {
-    if (S.brandId === 'kopken') {
-      S.outlet = {
-        code: 'BDG.ELCENTER',
-        name: 'Bandung Electronic Center',
-        address: 'Bandung Electronic Center, Unit LU S-07, Jl. Purnawarman No.13-15',
-        isOpen: true,
-        canOrder: true,
-        statusText: 'Buka',
-        hours: '10:00 - 20:30',
-        img: 'https://cdn.kopikenangan.com/public/cf8b6835-e066-4a73-7f08-4803716d2d4c',
-        manual: false,
-      };
-      store.set(K.outlet(), S.outlet);
-    }
-  } else if (!S.outlet.img) {
+  if (S.outlet && S.outlet.code === 'BDG.ELCENTER') {
+    S.outlet = null;
+    store.remove(K.outlet());
+  }
+  if (S.outlet && !S.outlet.img) {
     S.outlet.img = getOutletPhotoUrl(S.outlet, S.brandId);
     store.set(K.outlet(), S.outlet);
   }
@@ -201,12 +190,15 @@ function wireStatic() {
         const closed = !o.isOpen || !o.canOrder;
         const dist = o.distanceKm != null ? `<span class="od-dist">📍 ${Number(o.distanceKm).toFixed(1)} km</span>` : '';
         const thumb = o.img || getOutletPhotoUrl(o, S.brandId);
+        const displayName = (o.name && !/^[A-Z]{2,4}\.[A-Z0-9\.]+$/.test(o.name))
+          ? o.name
+          : (o.address ? o.address.split(',')[0].trim() : o.name);
         return `<div class="od-item" data-idx="${idx}">
           <div style="display:flex;gap:10px;align-items:flex-start;">
             <img src="${thumb}" alt="" style="width:42px;height:42px;border-radius:10px;object-fit:cover;flex-shrink:0;background:#e0f2fe;border:1px solid #bae6fd;" onerror="this.onerror=null;this.src='/img/outlet_preview_cup.png'" />
             <div style="flex:1;min-width:0;">
               <div class="od-head">
-                <span class="od-name">${esc(o.name)}</span>
+                <span class="od-name">${esc(displayName)}</span>
                 <div class="od-tags">
                   ${dist}
                   ${closed ? '<span class="od-tutup">TUTUP</span>' : ''}
@@ -271,6 +263,9 @@ function wireStatic() {
           inlineDropdown.classList.add('hidden');
           inlineInput.value = '';
           if (inlineClear) inlineClear.classList.add('hidden');
+          if (o.name && /^[A-Z]{2,4}\.[A-Z0-9\.]+$/.test(o.name) && o.address) {
+            o.name = o.address.split(',')[0].trim();
+          }
           selectOutlet(o);
         }
       });
@@ -560,10 +555,15 @@ function renderOutletList(q, error) {
   S.kbIndex = -1;
   const hasDist = S.outletResults.some((o) => o.distanceKm != null);
   const rows = S.outletResults.map(
-    (o, i) => `<button class="outlet-opt ${S.outlet?.code && S.outlet.code === o.code ? 'current' : ''}" role="option" data-i="${i}">
-      ${hasDist ? `<span class="oo-dist">${fmtDist(o.distanceKm)}</span>` : ''}
-      <span class="oo-body"><span class="oo-top"><span class="oo-name">${esc(o.name)}</span>${statusPill(o)}</span>
-        <span class="oo-addr">${esc(o.address)}</span>${o.hours ? `<span class="oo-hours">Buka ${esc(o.hours)}</span>` : ''}</span></button>`,
+    (o, i) => {
+      const displayName = (o.name && !/^[A-Z]{2,4}\.[A-Z0-9\.]+$/.test(o.name))
+        ? o.name
+        : (o.address ? o.address.split(',')[0].trim() : o.name);
+      return `<button class="outlet-opt ${S.outlet?.code && S.outlet.code === o.code ? 'current' : ''}" role="option" data-i="${i}">
+        ${hasDist ? `<span class="oo-dist">${fmtDist(o.distanceKm)}</span>` : ''}
+        <span class="oo-body"><span class="oo-top"><span class="oo-name">${esc(displayName)}</span>${statusPill(o)}</span>
+          <span class="oo-addr">${esc(o.address)}</span>${o.hours ? `<span class="oo-hours">Buka ${esc(o.hours)}</span>` : ''}</span></button>`;
+    },
   );
   // Brands without a reliable outlet source let the customer type the outlet name.
   if (q) {
