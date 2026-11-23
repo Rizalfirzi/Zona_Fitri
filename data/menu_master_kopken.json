@@ -95,7 +95,9 @@
                                          "matchakenanganfrappe",
                                          "kopikenanganmantanfrappe",
                                          "vanillakenanganfrappe",
-                                         "dutchchocokenanganfrappe"
+                                         "dutchchocokenanganfrappe",
+                                         "strawberrycheesecakefrappe",
+                                         "blueberrycheesecakefrappe"
                                      ]
                        },
                        {
@@ -2240,6 +2242,74 @@
                       "desc":  "",
                       "options":  {
 
+                                  }
+                  },
+                  {
+                      "key":  "strawberrycheesecakefrappe",
+                      "id":  "strawberrycheesecakefrappe",
+                      "code":  "strawberrycheesecakefrappe",
+                      "name":  "Strawberry Cheesecake Frappe",
+                      "category":  "Kenangan Frappe",
+                      "outletPrice":  26000,
+                      "normalPrice":  26000,
+                      "price":  17500,
+                      "img":  "https://cdn.kopikenangan.com/public/d645e771-477d-411a-555e-0897e93c1935",
+                      "isSoldOut":  false,
+                      "notCarried":  false,
+                      "isFood":  false,
+                      "desc":  "Minuman Kenangan Frappe perpaduan rasa cheesecake manis gurih dan selai stroberi segar.",
+                      "options":  {
+                                      "sizes":  [
+                                                    "Regular",
+                                                    "Large"
+                                                ],
+                                      "temps":  [
+                                                    "Ice"
+                                                ],
+                                      "ices":  [
+                                                   "Normal Ice",
+                                                   "Less Ice",
+                                                   "No Ice"
+                                               ],
+                                      "sugars":  [
+                                                     "Normal Sugar",
+                                                     "Less Sugar",
+                                                     "No Sugar"
+                                                 ]
+                                  }
+                  },
+                  {
+                      "key":  "blueberrycheesecakefrappe",
+                      "id":  "blueberrycheesecakefrappe",
+                      "code":  "blueberrycheesecakefrappe",
+                      "name":  "Blueberry Cheesecake Frappe",
+                      "category":  "Kenangan Frappe",
+                      "outletPrice":  26000,
+                      "normalPrice":  26000,
+                      "price":  17500,
+                      "img":  "https://cdn.kopikenangan.com/public/d645e771-477d-411a-555e-0897e93c1935",
+                      "isSoldOut":  false,
+                      "notCarried":  false,
+                      "isFood":  false,
+                      "desc":  "Minuman Kenangan Frappe perpaduan rasa cheesecake manis gurih dan selai blueberry segar.",
+                      "options":  {
+                                      "sizes":  [
+                                                    "Regular",
+                                                    "Large"
+                                                ],
+                                      "temps":  [
+                                                    "Ice"
+                                                ],
+                                      "ices":  [
+                                                   "Normal Ice",
+                                                   "Less Ice",
+                                                   "No Ice"
+                                               ],
+                                      "sugars":  [
+                                                     "Normal Sugar",
+                                                     "Less Sugar",
+                                                     "No Sugar"
+                                                 ]
                                   }
                   }
               ],

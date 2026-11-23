@@ -38,6 +38,27 @@ const K = {
   customer: 'jo_customer',
 };
 
+function isItemFood(item) {
+  if (!item) return false;
+  const isDrink = /frappe|latte|macchiato|cappuccino|americano|espresso|kopi|coffee|tea|teh|shake|smoothie|drink|minuman|chocolate|cokelat|matcha|boba/i.test((item.category || '') + ' ' + (item.name || '') + ' ' + (item.key || ''));
+  if (isDrink) return false;
+  return Boolean(item.isFood) || /food|toast|roti|bread|donut|donat|croissant|bagel|panini|pastry|muffin|danish|cookie|bun|cake|pie/i.test((item.category || '') + ' ' + (item.name || '') + ' ' + (item.key || ''));
+}
+
+function formatOutletDisplayName(o) {
+  if (!o) return 'Outlet';
+  let name = (o.name || '').trim();
+  const addr = (o.address || '').trim();
+  const isCodeLike = !name || /^[A-Z0-9]{2,6}[._\-][A-Z0-9._\-]+$/i.test(name) || /^[A-Z0-9._\-]{4,20}$/.test(name);
+  if (isCodeLike && addr) {
+    const clean = addr.split(',')[0].trim();
+    if (clean && clean.length >= 4 && !/^[A-Z0-9]{2,6}[._\-][A-Z0-9._\-]+$/i.test(clean)) {
+      return clean;
+    }
+  }
+  return name || (addr ? addr.split(',')[0].trim() : 'Outlet');
+}
+
 init().catch((err) => {
   console.error(err);
   $('#menu').innerHTML = `<div class="menu-empty"><b>Halaman belum bisa dimuat</b>${esc(err.message)}</div>`;
@@ -65,7 +86,7 @@ async function init() {
   watchNavScroll();
   S.cart = store.get(K.cart(), []) || [];
   S.outlet = store.get(K.outlet(), null);
-  if (S.outlet && S.outlet.code === 'BDG.ELCENTER') {
+  if (S.outlet && (S.outlet.code === 'BDG.ELCENTER' || /bandung electronic/i.test(S.outlet.name || '') || /bandung electronic/i.test(S.outlet.address || ''))) {
     S.outlet = null;
     store.remove(K.outlet());
   }
@@ -190,9 +211,7 @@ function wireStatic() {
         const closed = !o.isOpen || !o.canOrder;
         const dist = o.distanceKm != null ? `<span class="od-dist">📍 ${Number(o.distanceKm).toFixed(1)} km</span>` : '';
         const thumb = o.img || getOutletPhotoUrl(o, S.brandId);
-        const displayName = (o.name && !/^[A-Z]{2,4}\.[A-Z0-9\.]+$/.test(o.name))
-          ? o.name
-          : (o.address ? o.address.split(',')[0].trim() : o.name);
+        const displayName = formatOutletDisplayName(o);
         return `<div class="od-item" data-idx="${idx}">
           <div style="display:flex;gap:10px;align-items:flex-start;">
             <img src="${thumb}" alt="" style="width:42px;height:42px;border-radius:10px;object-fit:cover;flex-shrink:0;background:#e0f2fe;border:1px solid #bae6fd;" onerror="this.onerror=null;this.src='/img/outlet_preview_cup.png'" />
@@ -263,9 +282,7 @@ function wireStatic() {
           inlineDropdown.classList.add('hidden');
           inlineInput.value = '';
           if (inlineClear) inlineClear.classList.add('hidden');
-          if (o.name && /^[A-Z]{2,4}\.[A-Z0-9\.]+$/.test(o.name) && o.address) {
-            o.name = o.address.split(',')[0].trim();
-          }
+          o.name = formatOutletDisplayName(o);
           selectOutlet(o);
         }
       });
@@ -556,9 +573,7 @@ function renderOutletList(q, error) {
   const hasDist = S.outletResults.some((o) => o.distanceKm != null);
   const rows = S.outletResults.map(
     (o, i) => {
-      const displayName = (o.name && !/^[A-Z]{2,4}\.[A-Z0-9\.]+$/.test(o.name))
-        ? o.name
-        : (o.address ? o.address.split(',')[0].trim() : o.name);
+      const displayName = formatOutletDisplayName(o);
       return `<button class="outlet-opt ${S.outlet?.code && S.outlet.code === o.code ? 'current' : ''}" role="option" data-i="${i}">
         ${hasDist ? `<span class="oo-dist">${fmtDist(o.distanceKm)}</span>` : ''}
         <span class="oo-body"><span class="oo-top"><span class="oo-name">${esc(displayName)}</span>${statusPill(o)}</span>
@@ -581,7 +596,11 @@ function onOutletClick(e) {
     const name = $('#outletInput').value.trim();
     selectOutlet({ code: '', name, address: 'Diisi manual', canOrder: true, isOpen: true, statusText: 'Manual', hours: '', manual: true });
   } else {
-    selectOutlet(S.outletResults[Number(opt.dataset.i)]);
+    const o = S.outletResults[Number(opt.dataset.i)];
+    if (o) {
+      o.name = formatOutletDisplayName(o);
+      selectOutlet(o);
+    }
   }
 }
 
@@ -675,14 +694,15 @@ function renderOutletCard() {
   }
 
   if (o && o.name) {
+    const disp = formatOutletDisplayName(o);
     if (chip) chip.classList.remove('hidden');
-    if (chipName) chipName.textContent = o.name;
+    if (chipName) chipName.textContent = disp;
     if (inlineInput) {
-      inlineInput.placeholder = `📍 Ganti outlet (saat ini: ${o.name})…`;
+      inlineInput.placeholder = `📍 Ganti outlet (saat ini: ${disp})…`;
     }
     if (floatPill) {
       floatPill.classList.remove('hidden');
-      if (floatName) floatName.textContent = o.name;
+      if (floatName) floatName.textContent = disp;
     }
     if (closedBar) {
       closedBar.classList.toggle('hidden', o.isOpen !== false && o.canOrder !== false);
@@ -1056,39 +1076,45 @@ function openItem(key, editIndex = null) {
   openSheet('itemSheet');
 
   // Exact variants and stock straight from the outlet (Kopi Kenangan official API).
-  const isFoodItem = Boolean(item.isFood) || /food|toast|roti|bread|donut|donat|croissant|bagel|panini|pastry|muffin|danish|cookie|bun|cake|pie/i.test((item.category || '') + ' ' + (item.name || '') + ' ' + (item.key || ''));
-  if (item.code && S.outlet?.code && !S.outlet.manual && S.brandId === 'kopken' && !isFoodItem) loadItemDetail(item, line);
+  if (item.code && S.outlet?.code && !S.outlet.manual && S.brandId === 'kopken' && !isItemFood(item)) loadItemDetail(item, line);
 }
 
 /** Shop-made add-ons ("Extra es batu", …) for drinks, as a multi-select group. */
 function extrasGroup(item, extras = S.menu?.extras || []) {
-  const isFoodItem = Boolean(item.isFood) || /food|toast|roti|bread|donut|donat|croissant|bagel|panini|pastry|muffin|danish|cookie|bun|cake|pie/i.test((item.category || '') + ' ' + (item.name || '') + ' ' + (item.key || ''));
-  if (isFoodItem || !extras.length) return [];
+  if (isItemFood(item) || !extras.length) return [];
   return [{ id: 'extras', name: 'Tambahan', values: extras.map((x) => ({ id: x.id, text: x.text, price: x.price })) }];
 }
 
 function staticGroups(item) {
   // Food items don't have size, temperature, ice, sugar options per client revision
-  const isFoodItem = Boolean(item.isFood) || /food|toast|roti|bread|donut|donat|croissant|bagel|panini|pastry|muffin|danish|cookie|bun|cake|pie/i.test((item.category || '') + ' ' + (item.name || '') + ' ' + (item.key || ''));
-  if (isFoodItem) {
+  if (isItemFood(item)) {
     return [];
   }
 
   const o = item.options || {};
+  const isFrappe = /frappe/i.test((item.category || '') + ' ' + (item.name || ''));
+
+  // Ensure drinks always have Ice & Sugar options per client revision (Gambar 5 - 6)
+  const ices = o.ices?.length ? o.ices : ['Normal Ice', 'Less Ice', 'No Ice'];
+  const sugars = o.sugars?.length ? o.sugars : ['Normal Sugar', 'Less Sugar', 'No Sugar'];
+  const temps = isFrappe ? ['Ice'] : (o.temps?.length ? o.temps : ['Ice', 'Hot']);
+
   const groups = [];
   let sizes = (o.sizes || []).filter((v) => !/jumbo/i.test(v));
 
   const is1L = /1\s*l|liter/i.test((item.name || '') + ' ' + (item.key || ''));
-  if (S.brandId === 'tomoro' && !item.isFood && !is1L) {
+  if (S.brandId === 'tomoro' && !is1L) {
     sizes = ['Small'];
+  } else if (!sizes.length && !is1L) {
+    sizes = ['Regular', 'Large'];
   }
 
   if (sizes.length) {
     groups.push({ id: 'size', key: 'size', name: 'Ukuran', values: sizes.map((v) => ({ id: v, text: v })), default: sizes[0], impact: true });
   }
-  if (o.temps?.length) groups.push({ id: 'temp', key: 'temp', name: 'Suhu', values: o.temps.map((v) => ({ id: v, text: v })), default: o.temps[0] });
-  if (o.ices?.length) groups.push({ id: 'ice', key: 'ice', name: 'Level es', values: o.ices.map((v) => ({ id: v, text: v })), default: o.ices[0], hideWhen: { temp: 'Hot' } });
-  if (o.sugars?.length) groups.push({ id: 'sugar', key: 'sugar', name: 'Level gula', values: o.sugars.map((v) => ({ id: v, text: v })), default: o.sugars[0] });
+  if (temps.length) groups.push({ id: 'temp', key: 'temp', name: 'Suhu', values: temps.map((v) => ({ id: v, text: v })), default: temps[0] });
+  if (ices.length) groups.push({ id: 'ice', key: 'ice', name: 'Level es', values: ices.map((v) => ({ id: v, text: v })), default: ices[0], hideWhen: { temp: 'Hot' } });
+  if (sugars.length) groups.push({ id: 'sugar', key: 'sugar', name: 'Level gula', values: sugars.map((v) => ({ id: v, text: v })), default: sugars[0] });
   return groups;
 }
 
@@ -1672,7 +1698,7 @@ function updateCartBar(bump = false) {
   bar.classList.toggle('show', qty > 0);
   $('#cartBadge').textContent = qty;
   $('#cartBarQty').textContent = `${qty} item`;
-  $('#cartBarOutlet').textContent = S.outlet ? `Outlet ${S.outlet.name}` : 'Lihat keranjang';
+  $('#cartBarOutlet').textContent = S.outlet ? `Outlet ${formatOutletDisplayName(S.outlet)}` : 'Lihat keranjang';
   $('#cartBarTotal').textContent = formatRp(total);
   if (bump) {
     bar.classList.remove('bump');
@@ -1815,7 +1841,7 @@ function checkout() {
     code: orderCode(S.cfg.orderPrefix || 'ZF'),
     brand: S.brandId,
     brandName: S.brand.name,
-    outlet: S.outlet ? `${S.outlet.name}${S.outlet.manual ? ' (manual)' : ''}` : '-',
+    outlet: S.outlet ? `${formatOutletDisplayName(S.outlet)}${S.outlet.manual ? ' (manual)' : ''}` : '-',
     customerName: name,
     customerPhone: '',
     pickup,
