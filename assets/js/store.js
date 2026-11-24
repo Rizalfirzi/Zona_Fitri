@@ -40,9 +40,11 @@ const K = {
 
 function isItemFood(item) {
   if (!item) return false;
-  const isDrink = /frappe|latte|macchiato|cappuccino|americano|espresso|kopi|coffee|tea|teh|shake|smoothie|drink|minuman|chocolate|cokelat|matcha|boba/i.test((item.category || '') + ' ' + (item.name || '') + ' ' + (item.key || ''));
+  if (item.isFood === false) return false;
+  const isDrink = /frappe|latte|macchiato|cappuccino|americano|espresso|kopi|coffee|tea|teh|shake|smoothie|drink|minuman|chocolate|cokelat|matcha|boba|es\b|ice\b|freeze|brew/i.test((item.category || '') + ' ' + (item.name || '') + ' ' + (item.key || ''));
   if (isDrink) return false;
-  return Boolean(item.isFood) || /food|toast|roti|bread|donut|donat|croissant|bagel|panini|pastry|muffin|danish|cookie|bun|cake|pie/i.test((item.category || '') + ' ' + (item.name || '') + ' ' + (item.key || ''));
+  if (item.isFood === true) return true;
+  return /food|toast|roti|bread|donut|donat|croissant|bagel|panini|pastry|muffin|danish|bun/i.test((item.category || '') + ' ' + (item.name || '') + ' ' + (item.key || ''));
 }
 
 function formatOutletDisplayName(o) {
@@ -1333,7 +1335,11 @@ const GROUP_LABELS = { Temperature: 'Suhu', Size: 'Ukuran', Beans: 'Biji kopi', 
 
 function renderOptions() {
   const sh = S.sheet;
-  for (const g of sh.groups) {
+  if (!sh) return;
+  if (!isItemFood(sh.item) && (!sh.groups || sh.groups.length === 0)) {
+    sh.groups = staticGroups(sh.item);
+  }
+  for (const g of (sh.groups || [])) {
     const valid = g.values.filter((v) => !/jumbo/i.test(v.text || '') && !/jumbo/i.test(String(v.id || '')));
     if (valid.length && (!sh.sel[g.id] || !valid.some((v) => String(v.id) === String(sh.sel[g.id])))) {
       sh.sel[g.id] = valid[0].id;

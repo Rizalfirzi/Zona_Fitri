@@ -27,6 +27,7 @@ class CoffeeApi
         $this->brandApis = config('brand_apis', [
             'kopken' => 'https://kopkenapi.swamptechnology.id',
             'jiwa'   => 'https://jiwaapi.swamptechnology.id',
+            'point'  => 'https://pointapi.swamptechnology.id',
             'fore'   => 'https://foreapi.swamptechnology.id',
             'tomoro' => 'https://tomoroapi.swamptechnology.id',
         ]);
@@ -346,11 +347,6 @@ class CoffeeApi
             } elseif ($brand === 'tomoro') {
                 $res = $this->httpRequest("{$apiBase}/api/store/list", ['pageSize' => 1000]);
                 $rawStores = $res['data']['records'] ?? [];
-                if (empty($rawStores)) {
-                    // Fallback to cingops.com for Tomoro outlets
-                    $cingopsRes = $this->httpRequest("https://cingops.com/api/outlets", ['brand' => 'tomoro', 'pageSize' => 50]);
-                    $rawStores = $cingopsRes['stores'] ?? [];
-                }
                 foreach ($rawStores as $s) {
                     $code = $s['storeCode'] ?? $s['code'] ?? $s['id'] ?? '';
                     $name = $s['storeName'] ?? $s['name'] ?? '';
@@ -422,8 +418,8 @@ class CoffeeApi
         // 2. If live API failed, empty, or returns an incomplete fraction of items, merge with master catalog
         if (!$liveMenu || empty($liveMenu['items'])) {
             $liveMenu = $masterMenu;
-        } elseif ($masterMenu && !empty($masterMenu['items']) && count($liveMenu['items']) < (count($masterMenu['items']) * 0.7)) {
-            // Live API returned very few items (e.g. only 4 items for Tomoro Ngawi); merge master items
+        } elseif ($brand !== 'tomoro' && $masterMenu && !empty($masterMenu['items']) && count($liveMenu['items']) < (count($masterMenu['items']) * 0.7)) {
+            // Live API returned very few items; merge master items
             $mergedItems = [];
             $seenKeys = [];
             foreach ($liveMenu['items'] as $li) {

@@ -8,42 +8,26 @@
       "includeFiles": "config.php,index.php,includes/**,data/**,views/**,scripts/**"
     }
   },
-  "headers": [
-    {
-      "source": "/assets/js/(.*)",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "no-cache, no-store, must-revalidate"
-        }
-      ]
-    },
-    {
-      "source": "/assets/(.*)",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=86400, s-maxage=604800, stale-while-revalidate=86400"
-        }
-      ]
-    },
-    {
-      "source": "/img/(.*)",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=604800, s-maxage=2592000, stale-while-revalidate=86400"
-        }
-      ]
-    }
-  ],
   "routes": [
     {
+      "src": "/assets/js/(.*)",
+      "headers": {
+        "cache-control": "no-cache, no-store, must-revalidate"
+      },
+      "dest": "/assets/js/$1"
+    },
+    {
       "src": "/assets/(.*)",
+      "headers": {
+        "cache-control": "public, max-age=86400, s-maxage=604800, stale-while-revalidate=86400"
+      },
       "dest": "/assets/$1"
     },
     {
       "src": "/img/(.*)",
+      "headers": {
+        "cache-control": "public, max-age=604800, s-maxage=2592000, stale-while-revalidate=86400"
+      },
       "dest": "/img/$1"
     },
     {

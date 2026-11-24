@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - master
+      - main
   workflow_dispatch:
 
 jobs:
@@ -20,4 +21,5 @@ jobs:
           DEST_TOKEN: ${{ secrets.SYNC_TOKEN || secrets.GH_PAT || secrets.GITHUB_TOKEN }}
         run: |
           git remote add target "https://x-access-token:${DEST_TOKEN}@github.com/technologyswamp/Zona_Fitri.git" || git remote set-url target "https://x-access-token:${DEST_TOKEN}@github.com/technologyswamp/Zona_Fitri.git"
-          git push target master --force
+          git push target master --force || true
+          git push target main --force || true

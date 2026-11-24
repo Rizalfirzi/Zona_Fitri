@@ -34,10 +34,11 @@ $config = [
     'brand_apis' => [
         'kopken' => 'https://kopkenapi.swamptechnology.id',
         'jiwa'   => 'https://jiwaapi.swamptechnology.id',
+        'point'  => 'https://pointapi.swamptechnology.id',
         'fore'   => 'https://foreapi.swamptechnology.id',
         'tomoro' => 'https://tomoroapi.swamptechnology.id',
     ],
-    'api_timeout' => 3, // 3s strict timeout for ultra-fast response on Vercel
+    'api_timeout' => 8, // 8s timeout for swamptechnology endpoints
 
     // Cache TTL Settings (in seconds)
     'cache_ttl' => [
