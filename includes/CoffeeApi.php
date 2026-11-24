@@ -412,7 +412,7 @@ class CoffeeApi
         }
 
         if ($cached !== null) {
-            return $this->formatMenuStats($cached, $brand, $outletCode);
+            return $cached;
         }
 
         // 1. Fetch live menu directly from brand API
@@ -1103,6 +1103,17 @@ class CoffeeApi
                 // KOPKEN: HARGA ASLI - 50% + 4.500/cup, Large: +5.000
                 $calcPrice = (int) round(($outletPrice * 0.5) + 4500);
                 $largePrice = $calcPrice + 5000;
+
+                // Client explicit pricing override for Roti (Gambar 2):
+                // Roti Coklat Klasik: Rp8.000 (outlet price 9.000)
+                // Roti Susu Manis: Rp9.000 (outlet price 10.000)
+                if ($key === 'roticoklatklasik' || stripos($item['name'] ?? '', 'coklat klasik') !== false) {
+                    $calcPrice = 8000;
+                    $outletPrice = 9000;
+                } elseif ($key === 'rotisusumanis' || stripos($item['name'] ?? '', 'susu manis') !== false) {
+                    $calcPrice = 9000;
+                    $outletPrice = 10000;
+                }
             } elseif ($brand === 'tomoro') {
                 // TOMORO: HARGA ASLI - 50% + 5.000/cup (Small only)
                 $calcPrice = (int) round(($outletPrice * 0.5) + 5000);
@@ -1281,10 +1292,20 @@ class CoffeeApi
         $menu = $this->getMenu($brand, $outletCode);
 
         $matchedItem = null;
-        foreach ($menu['items'] ?? [] as $mi) {
-            if (($key !== null && ($mi['key'] ?? '') === $key) || ($code !== null && ($mi['code'] ?? '') === $code)) {
-                $matchedItem = $mi;
-                break;
+        if (!empty($key)) {
+            foreach ($menu['items'] ?? [] as $mi) {
+                if (($mi['key'] ?? '') === $key) {
+                    $matchedItem = $mi;
+                    break;
+                }
+            }
+        }
+        if (!$matchedItem && !empty($code)) {
+            foreach ($menu['items'] ?? [] as $mi) {
+                if (!empty($mi['code']) && (string)$mi['code'] === (string)$code) {
+                    $matchedItem = $mi;
+                    break;
+                }
             }
         }
 
@@ -1293,6 +1314,12 @@ class CoffeeApi
         }
 
         $basePrice = (int) ($matchedItem['price'] ?? 0);
+
+        $isDrink = (bool) preg_match('/frappe|latte|macchiato|cappuccino|americano|espresso|kopi|coffee|tea|teh|shake|smoothie|drink|minuman|chocolate|cokelat|matcha|boba/i', ($matchedItem['category'] ?? '') . ' ' . ($matchedItem['name'] ?? '') . ' ' . ($matchedItem['key'] ?? ''));
+
+        if ($isDrink) {
+            $matchedItem['isFood'] = false;
+        }
 
         // Food items don't have size, temperature, ice, sugar options per client revision
         if (!empty($matchedItem['isFood'])) {
@@ -1307,28 +1334,36 @@ class CoffeeApi
         $opts = $matchedItem['options'] ?? [];
         $groups = [];
 
-        if (!empty($opts['sizes']) && is_array($opts['sizes'])) {
-            $vals = array_map(fn($s) => ['id' => $s, 'text' => $s], $opts['sizes']);
-            $groups[] = ['id' => 'size', 'name' => 'Ukuran', 'values' => $vals, 'default' => $opts['sizes'][0]];
+        $isFrappe = stripos(($matchedItem['category'] ?? '') . ' ' . ($matchedItem['name'] ?? '') . ' ' . ($matchedItem['key'] ?? ''), 'frappe') !== false;
+
+        $sizes = (!empty($opts['sizes']) && is_array($opts['sizes'])) ? $opts['sizes'] : ['Regular', 'Large'];
+        $temps = (!empty($opts['temps']) && is_array($opts['temps'])) ? $opts['temps'] : ($isFrappe ? ['Ice'] : ['Ice', 'Hot']);
+        if ($isFrappe) $temps = ['Ice'];
+        $ices = (!empty($opts['ices']) && is_array($opts['ices'])) ? $opts['ices'] : ['Normal Ice', 'Less Ice', 'No Ice'];
+        $sugars = (!empty($opts['sugars']) && is_array($opts['sugars'])) ? $opts['sugars'] : ['Normal Sugar', 'Less Sugar', 'No Sugar'];
+
+        if (!empty($sizes)) {
+            $vals = array_map(fn($s) => ['id' => $s, 'text' => $s], $sizes);
+            $groups[] = ['id' => 'size', 'name' => 'Ukuran', 'values' => $vals, 'default' => $sizes[0]];
         }
-        if (!empty($opts['temps']) && is_array($opts['temps'])) {
-            $vals = array_map(fn($s) => ['id' => $s, 'text' => $s], $opts['temps']);
-            $groups[] = ['id' => 'temp', 'name' => 'Suhu', 'values' => $vals, 'default' => $opts['temps'][0]];
+        if (!empty($temps)) {
+            $vals = array_map(fn($s) => ['id' => $s, 'text' => $s], $temps);
+            $groups[] = ['id' => 'temp', 'name' => 'Suhu', 'values' => $vals, 'default' => $temps[0]];
         }
-        if (!empty($opts['ices']) && is_array($opts['ices'])) {
-            $vals = array_map(fn($s) => ['id' => $s, 'text' => $s], $opts['ices']);
-            $groups[] = ['id' => 'ice', 'name' => 'Level Es', 'values' => $vals, 'default' => $opts['ices'][0]];
+        if (!empty($ices)) {
+            $vals = array_map(fn($s) => ['id' => $s, 'text' => $s], $ices);
+            $groups[] = ['id' => 'ice', 'name' => 'Level Es', 'values' => $vals, 'default' => $ices[0]];
         }
-        if (!empty($opts['sugars']) && is_array($opts['sugars'])) {
-            $vals = array_map(fn($s) => ['id' => $s, 'text' => $s], $opts['sugars']);
-            $groups[] = ['id' => 'sugar', 'name' => 'Level Gula', 'values' => $vals, 'default' => $opts['sugars'][0]];
+        if (!empty($sugars)) {
+            $vals = array_map(fn($s) => ['id' => $s, 'text' => $s], $sugars);
+            $groups[] = ['id' => 'sugar', 'name' => 'Level Gula', 'values' => $vals, 'default' => $sugars[0]];
         }
 
         $basePrice = (int) ($matchedItem['price'] ?? 0);
         $largePrice = (int) ($matchedItem['largePrice'] ?? ($basePrice + 5000));
 
         $prices = ['default' => $basePrice];
-        if (!empty($opts['sizes']) && in_array('Large', $opts['sizes'], true)) {
+        if (in_array('Large', $sizes, true)) {
             $prices['Large'] = $largePrice;
             $prices['Regular'] = $basePrice;
         }
@@ -1657,7 +1692,9 @@ class CoffeeApi
     {
         $masterFile = dirname(__DIR__) . "/data/outlets_master_{$brand}.json";
         if (file_exists($masterFile)) {
-            $json = json_decode((string)file_get_contents($masterFile), true);
+            $raw = (string) file_get_contents($masterFile);
+            $raw = preg_replace('/^\xEF\xBB\xBF/', '', $raw);
+            $json = json_decode($raw, true);
             if (is_array($json) && !empty($json)) {
                 return $json;
             }
@@ -1672,7 +1709,9 @@ class CoffeeApi
     {
         $masterFile = dirname(__DIR__) . "/data/menu_master_{$brand}.json";
         if (file_exists($masterFile)) {
-            $json = json_decode((string)file_get_contents($masterFile), true);
+            $raw = (string) file_get_contents($masterFile);
+            $raw = preg_replace('/^\xEF\xBB\xBF/', '', $raw);
+            $json = json_decode($raw, true);
             if (is_array($json) && !empty($json['items'])) {
                 $json['outletCode'] = $outletCode;
                 $json['source'] = 'snapshot';

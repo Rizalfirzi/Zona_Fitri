@@ -1,4 +1,4 @@
-﻿{
+{
     "brand":  "kopken",
     "categories":  [
                        {
@@ -124,6 +124,7 @@
                                          "oatmealraisinsoftbakedcookie",
                                          "saltbreadchocobutter",
                                          "roticoklatklasik",
+                                         "rotisusumanis",
                                          "rotikejumanis",
                                          "rotisrikaya"
                                      ]
@@ -2198,6 +2199,24 @@
                       "category":  "Food",
                       "outletPrice":  9000,
                       "normalPrice":  9000,
+                      "price":  8000,
+                      "img":  "https://cdn.kopikenangan.com/public/b10ffd87-6f6e-fb75-8a37-2b1e993bdc8a",
+                      "isSoldOut":  false,
+                      "notCarried":  false,
+                      "isFood":  true,
+                      "desc":  "",
+                      "options":  {
+
+                                  }
+                  },
+                  {
+                      "key":  "rotisusumanis",
+                      "id":  "3470",
+                      "code":  "2918120000",
+                      "name":  "Roti Susu Manis",
+                      "category":  "Food",
+                      "outletPrice":  10000,
+                      "normalPrice":  10000,
                       "price":  9000,
                       "img":  "https://cdn.kopikenangan.com/public/b10ffd87-6f6e-fb75-8a37-2b1e993bdc8a",
                       "isSoldOut":  false,

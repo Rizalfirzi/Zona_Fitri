@@ -1180,6 +1180,29 @@ async function loadItemDetail(item, line) {
         }
       }
 
+      // Ensure drinks always retain Ice and Sugar options per client request
+      if (!isItemFood(item)) {
+        if (!d.groups.some((g) => g.id === 'ice')) {
+          d.groups.push({
+            id: 'ice',
+            key: 'ice',
+            name: 'Level es',
+            values: [{ id: 'Normal Ice', text: 'Normal Ice' }, { id: 'Less Ice', text: 'Less Ice' }, { id: 'No Ice', text: 'No Ice' }],
+            default: 'Normal Ice',
+            hideWhen: { temp: 'Hot' },
+          });
+        }
+        if (!d.groups.some((g) => g.id === 'sugar')) {
+          d.groups.push({
+            id: 'sugar',
+            key: 'sugar',
+            name: 'Level gula',
+            values: [{ id: 'Normal Sugar', text: 'Normal Sugar' }, { id: 'Less Sugar', text: 'Less Sugar' }, { id: 'No Sugar', text: 'No Sugar' }],
+            default: 'Normal Sugar',
+          });
+        }
+      }
+
       sheet.groups = d.groups;
       sheet.prices = d.prices;
       sheet.normals = d.normals || null;
@@ -1190,6 +1213,11 @@ async function loadItemDetail(item, line) {
       sheet.picked = new Set();
       if (line) restoreSelection(line.choices);
       ensureValidCombo();
+    } else if (!isItemFood(item) && (!sheet.groups || sheet.groups.length === 0)) {
+      sheet.groups = staticGroups(item);
+      for (const g of sheet.groups) {
+        if (!sheet.sel[g.id]) sheet.sel[g.id] = g.default;
+      }
     }
     if (d.desc && !item.desc) $('#itemDesc').textContent = d.desc;
   } catch {
