@@ -768,7 +768,7 @@ class CoffeeApi
                             'outletPrice' => $origPrice,
                             'normalPrice' => $origPrice,
                             'price' => $price,
-                            'img' => $p['goodPic'] ?? '',
+                            'img' => !empty($p['goodPic']) ? $p['goodPic'] : $this->getTomoroImage($key, $name),
                             'isSoldOut' => !empty($p['isSoldOut']),
                             'isFood' => false,
                             'desc' => $p['desc'] ?? '',
@@ -1078,6 +1078,10 @@ class CoffeeApi
                 $c = strtolower(trim((string)($it['category'] ?? '')));
                 $n = strtolower(trim((string)($it['name'] ?? '')));
 
+                if (empty($it['img'])) {
+                    $it['img'] = $this->getTomoroImage($k, $n);
+                }
+
                 if (!empty($it['isBundle'])) {
                     $it['category'] = 'Promo & Combo';
                     $catBuckets['bundle'][] = $k;
@@ -1165,6 +1169,10 @@ class CoffeeApi
                 $k = strtolower(trim((string)($it['key'] ?? '')));
                 $c = strtolower(trim((string)($it['category'] ?? '')));
                 $n = strtolower(trim((string)($it['name'] ?? '')));
+
+                if (empty($it['img'])) {
+                    $it['img'] = $this->getTomoroImage($k, $n);
+                }
 
                 if (str_contains($c, 'soe') || str_contains($c, 's.o.e') || str_contains($n, 's.o.e') || str_contains($n, 'soe')) {
                     $it['category'] = 'Master S.O.E. Series';
@@ -1942,5 +1950,84 @@ class CoffeeApi
         if (str_contains($t, 'palembang')) return 'Palembang';
         if (str_contains($t, 'makassar')) return 'Makassar';
         return '';
+    }
+
+    /**
+     * Get Tomoro item image URL
+     */
+    protected function getTomoroImage(string $key, string $name = ''): string
+    {
+        static $map = [
+            'tomoroarenlatte' => '/img/menu/tomoro/tomoroarenlatte.webp',
+            'caffeamericano' => '/img/menu/tomoro/caffeamericano.webp',
+            'caffelatte' => '/img/menu/tomoro/cafelatte.webp',
+            'matchalatte' => '/img/menu/tomoro/matchalatte.webp',
+            'kopisusuaren' => '/img/menu/tomoro/kopisusuaren.webp',
+            'tomorococonutlatte' => '/img/menu/tomoro/tomorococonutlatte.webp',
+            'tomorooatlatte' => '/img/menu/tomoro/tomorooatlatte.webp',
+            'caramelmacchiato' => '/img/menu/tomoro/caramelmacchiato.webp',
+            'caramelmacchiatosaltedcloud' => '/img/menu/tomoro/seasaltcloudcaramelmacchiato.webp',
+            'caramelcheeselatte' => '/img/menu/tomoro/caramelcheeselatte.webp',
+            'cappuccino' => '/img/menu/tomoro/cappuccino.webp',
+            'caffemocha' => '/img/menu/tomoro/caffemocca.webp',
+            'brevelatte' => '/img/menu/tomoro/brevelatte.webp',
+            'spanishlatte' => '/img/menu/tomoro/spanishlatte.webp',
+            'spanisharenlatte' => '/img/menu/tomoro/spanisharenlatte.webp',
+            'coconutarenlatte' => '/img/menu/tomoro/coconutarenlatte.webp',
+            'cheesecloudlatte' => '/img/menu/tomoro/cheesecloudlatte.webp',
+            'matchaoatlatte' => '/img/menu/tomoro/matchaoatlatte.webp',
+            'matchasaltedcloud' => '/img/menu/tomoro/seasaltcloudmatchalatte.webp',
+            'matchastrawberrylatte' => '/img/menu/tomoro/strawberrymatchalatte.webp',
+            'matchajasminemilktea' => '/img/menu/tomoro/matchajasminemilktea.webp',
+            'chocolatesignature' => '/img/menu/tomoro/chocolate.webp',
+            'chocolateoatlatte' => '/img/menu/tomoro/chocooatlatte.webp',
+            'chocolatecheesecloud' => '/img/menu/tomoro/cheesecloudchocolate.webp',
+            'chocolatesaltedcloud' => '/img/menu/tomoro/seasaltcloudchocolate.webp',
+            'chocolatefrappe' => '/img/menu/tomoro/chocolatefrappe.webp',
+            'peachjasminetea' => '/img/menu/tomoro/peachjasminetea.webp',
+            'strawberryjasminetea' => '/img/menu/tomoro/strawberryjasminetea.webp',
+            'peachoolongmilktea' => '/img/menu/tomoro/peachoolongmilktea.webp',
+            'hojichaoatlatte' => '/img/menu/tomoro/hojichaoatlatte.webp',
+            'strawberryamericano' => '/img/menu/tomoro/strawberryamericano.webp',
+            'peachamericano' => '/img/menu/tomoro/peachamericano.webp',
+            'peachcoconutfrappe' => '/img/menu/tomoro/peachcoconutfrappe.webp',
+            'matchafrappe' => '/img/menu/tomoro/matchafrappe.webp',
+            'mastersoeamericano' => '/img/menu/tomoro/caffeamericano.webp',
+            'mastersoelatte' => '/img/menu/tomoro/cafelatte.webp',
+            'mastersoebrevelatte' => '/img/menu/tomoro/brevelatte.webp',
+            'tripledubaipistachiochocolate' => '/img/menu/tomoro/chocolate.webp',
+            'triplepistachiolatte' => '/img/menu/tomoro/seasaltcloudmatchalatte.webp',
+            'triplepistachiomatcha' => '/img/menu/tomoro/matchalatte.webp',
+            'strawberryjasminesmoothie' => '/img/menu/tomoro/strawberryjasminetea.webp',
+            '1ltomoroarenlatte' => '/img/menu/tomoro/tomoroarenlatte.webp',
+            '1lchocolate' => '/img/menu/tomoro/chocolate.webp',
+            '1lkopisusuaren' => '/img/menu/tomoro/kopisusuaren.webp',
+            '1lmatchalatte' => '/img/menu/tomoro/matchalatte.webp',
+            'twistericecream' => '/img/menu/tomoro/seasaltcloudmatchalatte.webp',
+            'pistachiomatchaicecream' => '/img/menu/tomoro/matchalatte.webp',
+            'matchaicecream' => '/img/menu/tomoro/matchalatte.webp',
+            'cheeseicecream' => '/img/menu/tomoro/cheesecloudlatte.webp',
+            'cheesematchatwistericecream' => '/img/menu/tomoro/seasaltcloudmatchalatte.webp',
+        ];
+
+        $k = strtolower(preg_replace('/[^a-z0-9]/', '', $key));
+        if (isset($map[$k])) {
+            return $map[$k];
+        }
+
+        $n = strtolower($name);
+        if (str_contains($n, 'aren')) return '/img/menu/tomoro/tomoroarenlatte.webp';
+        if (str_contains($n, 'americano')) return '/img/menu/tomoro/caffeamericano.webp';
+        if (str_contains($n, 'oat')) return '/img/menu/tomoro/tomorooatlatte.webp';
+        if (str_contains($n, 'coconut')) return '/img/menu/tomoro/tomorococonutlatte.webp';
+        if (str_contains($n, 'macchiato')) return '/img/menu/tomoro/caramelmacchiato.webp';
+        if (str_contains($n, 'cappuccino')) return '/img/menu/tomoro/cappuccino.webp';
+        if (str_contains($n, 'mocha') || str_contains($n, 'mocca')) return '/img/menu/tomoro/caffemocca.webp';
+        if (str_contains($n, 'matcha')) return '/img/menu/tomoro/matchalatte.webp';
+        if (str_contains($n, 'chocolate') || str_contains($n, 'choco')) return '/img/menu/tomoro/chocolate.webp';
+        if (str_contains($n, 'tea') || str_contains($n, 'teh')) return '/img/menu/tomoro/peachjasminetea.webp';
+        if (str_contains($n, 'latte')) return '/img/menu/tomoro/cafelatte.webp';
+
+        return '/img/menu/tomoro/tomoroarenlatte.webp';
     }
 }

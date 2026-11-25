@@ -2,8 +2,8 @@
 import {
   $, $$, api, avatarText, bundleCollage, catIcon, closeSheet, esc, icons, initTheme, loadConfig, logoHtml, mountInfoSheets, openDrawer, openSheet,
   renderDrawer, shopClosedBanner, showDialog, store, toast, toggleTheme, watchNavScroll,
-} from './common.js?v=20261125_revisions';
-import { buildWaMessage, cartTotals, formatRp, normalizePhone, optionText, orderCode, roundTo, waLink } from './shared/order.js?v=20261125_revisions';
+} from './common.js?v=20261125_tomoro_images';
+import { buildWaMessage, cartTotals, formatRp, normalizePhone, optionText, orderCode, roundTo, waLink } from './shared/order.js?v=20261125_tomoro_images';
 
 const SLUG_TO_BRAND = { kopikenangan: 'kopken', kopken: 'kopken', tomoro: 'tomoro', fore: 'fore', janjiw: 'jiwa', janjijiwa: 'jiwa', jiwa: 'jiwa' };
 
@@ -766,12 +766,17 @@ async function loadMenu(forceRefresh = false) {
         delete it.jumboNormal;
         delete it.jumboOutletPrice;
         const is1L = /1\s*l|liter/i.test((it.name || '') + ' ' + (it.key || ''));
-        if (S.brandId === 'tomoro' && !it.isFood && !is1L) {
-          if (!it.options) it.options = {};
-          it.options.sizes = ['Small'];
-          delete it.largePrice;
-          delete it.largeNormal;
-          delete it.largeOutletPrice;
+        if (S.brandId === 'tomoro') {
+          if (!it.isFood && !is1L) {
+            if (!it.options) it.options = {};
+            it.options.sizes = ['Small'];
+            delete it.largePrice;
+            delete it.largeNormal;
+            delete it.largeOutletPrice;
+          }
+          if (!it.img) {
+            it.img = `/img/menu/tomoro/${(it.key || '').replace(/[^a-z0-9]/g, '')}.webp`;
+          }
         }
 
         // Client explicit pricing override for Roti:
@@ -971,10 +976,17 @@ function setActivePill(cat) {
   }
 }
 
-const fixImg = (url) => (!url ? '' : url);
+const fixImg = (url, item) => {
+  if (url && typeof url === 'string' && url.trim()) return url.trim();
+  if (S.brandId === 'tomoro' && item) {
+    const k = (item.key || '').replace(/[^a-z0-9]/g, '');
+    return `/img/menu/tomoro/${k}.webp`;
+  }
+  return '';
+};
 
 function thumb(item, cls = 'thumb') {
-  const imgUrl = fixImg(item?.img);
+  const imgUrl = fixImg(item?.img, item);
   const ph = `<img class="ph-logo" src="${esc(S.brand.logo)}" alt="">`;
   return `<div class="${cls}">${imgUrl ? `<img src="${esc(imgUrl)}" alt="${esc(item?.name || '')}" loading="lazy" referrerpolicy="no-referrer" onerror="this.onerror=null;this.src='${esc(S.brand.logo)}';this.classList.add('ph-logo');">` : ph}</div>`;
 }
@@ -1014,7 +1026,7 @@ function rowCard(item) {
 function gridCard(item, i) {
   const favs = store.get('jo_favs', []) || [];
   const isFav = favs.includes(item.key);
-  const imgUrl = fixImg(item?.img);
+  const imgUrl = fixImg(item?.img, item);
   const art = item.isBundle && !imgUrl
     ? bundleCollage(item)
     : imgUrl
@@ -1096,7 +1108,7 @@ function openItem(key, editIndex = null) {
   for (const g of S.sheet.groups) S.sheet.sel[g.id] = g.default;
   if (line) restoreSelection(line.choices);
 
-  const imgUrl = fixImg(item.img);
+  const imgUrl = fixImg(item.img, item);
   $('#itemHero').classList.toggle('show', Boolean(imgUrl));
   $('#itemHero').innerHTML = imgUrl ? `<img src="${esc(imgUrl)}" alt="${esc(item.name)}" referrerpolicy="no-referrer">` : '';
   $('#itemCat').textContent = item.category || '';
