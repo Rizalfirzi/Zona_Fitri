@@ -88,7 +88,7 @@ async function init() {
   watchNavScroll();
   S.cart = store.get(K.cart(), []) || [];
   S.outlet = store.get(K.outlet(), null);
-  if (S.outlet && (S.outlet.code === 'BDG.ELCENTER' || /bandung electronic/i.test(S.outlet.name || '') || /bandung electronic/i.test(S.outlet.address || ''))) {
+  if (S.outlet && (S.outlet.code === 'BDG.ELCENTER' || S.outlet.code === 'bandung' || /bandung electronic/i.test(S.outlet.name || '') || /bandung electronic/i.test(S.outlet.address || ''))) {
     S.outlet = null;
     store.remove(K.outlet());
   }
@@ -244,6 +244,12 @@ function wireStatic() {
       if (!q) {
         if (inlineDropdown) inlineDropdown.classList.add('hidden');
         return;
+      }
+      if (inlineDropdown && (!S.outletResults || !S.outletResults.length)) {
+        inlineDropdown.innerHTML = `<div style="padding:12px 14px;color:#64748b;font-size:13px;display:flex;align-items:center;gap:8px;">
+          <span>Mencari outlet “<b>${esc(q)}</b>”…</span>
+        </div>`;
+        inlineDropdown.classList.remove('hidden');
       }
       t = setTimeout(async () => {
         try {

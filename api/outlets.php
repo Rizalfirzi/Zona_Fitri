@@ -12,8 +12,14 @@ header('Content-Type: application/json; charset=UTF-8');
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: GET, OPTIONS');
 header('Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With');
-// Vercel Edge CDN Cache: cache outlet di Edge selama 5 menit, stale-while-revalidate 24 jam
-header('Cache-Control: public, s-maxage=300, max-age=60, stale-while-revalidate=86400');
+if (!empty($_GET['q']) || !empty($_GET['lat'])) {
+    header('Cache-Control: no-cache, no-store, must-revalidate');
+    header('Pragma: no-cache');
+    header('Expires: 0');
+} else {
+    // Vercel Edge CDN Cache: cache outlet di Edge selama 1 menit, stale-while-revalidate 10 menit
+    header('Cache-Control: public, s-maxage=60, max-age=30, stale-while-revalidate=600');
+}
 
 if (($_SERVER['REQUEST_METHOD'] ?? '') === 'OPTIONS') {
     exit(0);

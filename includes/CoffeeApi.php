@@ -137,6 +137,51 @@ class CoffeeApi
         if ($query !== '') {
             $qLower = strtolower($query);
             $qWords = array_values(array_filter(explode(' ', $qLower), fn($w) => strlen($w) > 0));
+
+            // Dynamic Live Search fallback for Tomoro to instantly discover any outlet nationwide (e.g. Tuban, Jatirogo)
+            if ($brand === 'tomoro') {
+                try {
+                    $apiBase = $this->brandApis['tomoro'] ?? 'https://tomoroapi.swamptechnology.id';
+                    $liveSearch = $this->httpRequest("{$apiBase}/api/store/list", ['storeName' => $query, 'pageSize' => 50]);
+                    $records = $liveSearch['data']['records'] ?? [];
+                    if (!empty($records) && is_array($records)) {
+                        $liveFound = [];
+                        foreach ($records as $s) {
+                            $code = $s['storeCode'] ?? $s['code'] ?? $s['id'] ?? '';
+                            $name = $s['storeName'] ?? $s['name'] ?? '';
+                            $addr = $s['storeAddress'] ?? $s['address'] ?? '';
+                            $bStat = $s['businessStatus'] ?? null;
+                            $dStat = $s['deliveryBusinessStatus'] ?? null;
+                            $isOpen = ($bStat !== 3 && ($bStat == 1 || $bStat == 2 || $dStat == 2 || !empty($s['isOpen'])));
+                            $liveFound[] = [
+                                'code' => $code,
+                                'id' => $code,
+                                'name' => $name,
+                                'address' => $addr,
+                                'city' => $s['city'] ?? $this->extractCity($addr . ' ' . $name),
+                                'lat' => (float) ($s['latitude'] ?? $s['lat'] ?? 0),
+                                'lng' => (float) ($s['longitude'] ?? $s['lng'] ?? 0),
+                                'isOpen' => $isOpen,
+                                'hours' => $s['hours'] ?? '07:00 - 22:00 WIB',
+                                'img' => $s['storePicture'] ?? $s['imageUrl'] ?? $this->getDefaultOutletImage('tomoro'),
+                                'canOrder' => true,
+                                'statusText' => $isOpen ? 'Buka' : 'Tutup',
+                            ];
+                        }
+                        if (!empty($liveFound)) {
+                            $existing = array_flip(array_column($outlets, 'code'));
+                            foreach ($liveFound as $lf) {
+                                if (!isset($existing[$lf['code']])) {
+                                    $outlets[] = $lf;
+                                }
+                            }
+                        }
+                    }
+                } catch (Throwable $e) {
+                    // Fall back to existing cached outlets array
+                }
+            }
+
             $outlets = array_values(array_filter($outlets, function ($o) use ($qLower, $qWords) {
                 $haystack = strtolower(
                     ($o['name'] ?? '') . ' ' .
@@ -345,12 +390,15 @@ class CoffeeApi
                     ];
                 }
             } elseif ($brand === 'tomoro') {
-                $res = $this->httpRequest("{$apiBase}/api/store/list", ['pageSize' => 1000]);
+                $res = $this->httpRequest("{$apiBase}/api/store/list", ['pageNo' => 1, 'pageSize' => 100]);
                 $rawStores = $res['data']['records'] ?? [];
                 foreach ($rawStores as $s) {
                     $code = $s['storeCode'] ?? $s['code'] ?? $s['id'] ?? '';
                     $name = $s['storeName'] ?? $s['name'] ?? '';
                     $addr = $s['storeAddress'] ?? $s['address'] ?? '';
+                    $bStat = $s['businessStatus'] ?? null;
+                    $dStat = $s['deliveryBusinessStatus'] ?? null;
+                    $isOpen = ($bStat !== 3 && ($bStat == 1 || $bStat == 2 || $dStat == 2 || !empty($s['isOpen'])));
                     $outlets[] = [
                         'code' => $code,
                         'id' => $code,
@@ -359,7 +407,7 @@ class CoffeeApi
                         'city' => $s['city'] ?? $this->extractCity($addr . ' ' . $name),
                         'lat' => (float) ($s['latitude'] ?? $s['lat'] ?? 0),
                         'lng' => (float) ($s['longitude'] ?? $s['lng'] ?? 0),
-                        'isOpen' => isset($s['businessStatus']) ? ($s['businessStatus'] == 1) : (!empty($s['isOpen'])),
+                        'isOpen' => $isOpen,
                         'hours' => $s['hours'] ?? '07:00 - 22:00 WIB',
                         'img' => $s['storePicture'] ?? $s['imageUrl'] ?? $this->getDefaultOutletImage('tomoro'),
                     ];
