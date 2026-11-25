@@ -1,7 +1,8 @@
 <?php
 /**
- * Zona Fitri - Realtime 5-Minute Cron Sync Endpoint
- * Syncs all coffee brands (kopken, tomoro, fore, jiwa) to MongoDB Atlas ('zona_fitri')
+ * Zona Fitri - Realtime 5-Minute Cache Warmup Endpoint
+ * Warms up all 5 coffee brands (kopken, tomoro, fore, jiwa, point) directly via swamptechnology APIs
+ * 100% Pure Direct API - Zero Database Overhead
  * 
  * Invocation:
  * 1. Vercel Cron Jobs (configured via vercel.json)
@@ -17,7 +18,6 @@ header('Pragma: no-cache');
 
 require_once __DIR__ . '/../config.php';
 require_once __DIR__ . '/../includes/CoffeeApi.php';
-require_once __DIR__ . '/../includes/SimpleMongo.php';
 
 // Optional simple security token check
 $cronSecret = getenv('CRON_SECRET') ?: 'zf_sync_secure';
@@ -39,25 +39,25 @@ if (!$isAuthorized && !empty($cronSecret) && !empty($_GET)) {
 }
 
 $startTime = microtime(true);
-$brands = ['kopken', 'tomoro', 'fore', 'jiwa'];
+$brands = ['kopken', 'tomoro', 'fore', 'jiwa', 'point'];
 $defaultOutlets = [
     'kopken' => 'KK.SBY.JMSRI',
     'tomoro' => 'TMR-627779',
-    'fore' => 'KOKAS',
-    'jiwa' => '25',
+    'fore'   => 'KOKAS',
+    'jiwa'   => '25',
+    'point'  => 'POINT-SBY',
 ];
 
 $results = [];
 $api = new CoffeeApi();
-$mongo = new SimpleMongo();
 
 foreach ($brands as $b) {
     try {
-        // 1. Force refresh outlets from upstream
+        // 1. Force refresh outlets from upstream API
         $outletsRes = $api->getOutlets($b, null);
         $outletCount = count($outletsRes['outlets'] ?? []);
 
-        // 2. Force refresh menu with sample outlet
+        // 2. Force refresh menu with sample outlet from upstream API
         $outletCode = $defaultOutlets[$b] ?? '';
         $menuRes = $api->getMenu($b, $outletCode, true);
         $menuCount = count($menuRes['items'] ?? []);
@@ -76,18 +76,10 @@ foreach ($brands as $b) {
     }
 }
 
-// Log execution to MongoDB settings
-$syncPayload = [
-    'last_sync' => date('c'),
-    'duration_seconds' => round(microtime(true) - $startTime, 2),
-    'results' => $results,
-];
-$mongo->set('last_cron_sync', json_encode($syncPayload));
-
 echo json_encode([
     'success' => true,
-    'message' => '5-minute realtime sync to MongoDB Atlas (zona_fitri) completed successfully.',
-    'database' => 'zona_fitri',
+    'message' => 'Realtime direct API cache warmup completed successfully.',
+    'architecture' => '100% Pure Direct API (Zero Database)',
     'timestamp' => date('c'),
     'duration' => round(microtime(true) - $startTime, 2) . 's',
     'details' => $results,

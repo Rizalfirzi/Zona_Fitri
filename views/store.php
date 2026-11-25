@@ -257,7 +257,7 @@ $activeBrandKey = $slugMap[$rawSlug] ?? 'kopken';
     </div>
   </div>
 
-  <script type="module" src="/assets/js/store.js?v=20261125_v3_<?= time() ?>"></script>
+  <script type="module" src="/assets/js/store.js?v=20261125_pure_api_<?= time() ?>"></script>
   <script src="/assets/js/nufs.js" defer></script>
 </body>
 </html>

@@ -466,7 +466,7 @@ class CoffeeApi
         // 2. If live API failed, empty, or returns an incomplete fraction of items, merge with master catalog
         if (!$liveMenu || empty($liveMenu['items'])) {
             $liveMenu = $masterMenu;
-        } elseif ($brand !== 'tomoro' && $masterMenu && !empty($masterMenu['items']) && count($liveMenu['items']) < (count($masterMenu['items']) * 0.7)) {
+        } elseif ($masterMenu && !empty($masterMenu['items']) && count($liveMenu['items']) < (count($masterMenu['items']) * 0.7)) {
             // Live API returned very few items; merge master items
             $mergedItems = [];
             $seenKeys = [];
@@ -1388,7 +1388,7 @@ class CoffeeApi
 
         if (!empty($sizes)) {
             $vals = array_map(fn($s) => ['id' => $s, 'text' => $s], $sizes);
-            $groups[] = ['id' => 'size', 'name' => 'Ukuran', 'values' => $vals, 'default' => $sizes[0]];
+            $groups[] = ['id' => 'size', 'name' => 'Ukuran', 'values' => $vals, 'default' => $sizes[0], 'impact' => true];
         }
         if (!empty($temps)) {
             $vals = array_map(fn($s) => ['id' => $s, 'text' => $s], $temps);
@@ -1396,7 +1396,7 @@ class CoffeeApi
         }
         if (!empty($ices)) {
             $vals = array_map(fn($s) => ['id' => $s, 'text' => $s], $ices);
-            $groups[] = ['id' => 'ice', 'name' => 'Level Es', 'values' => $vals, 'default' => $ices[0]];
+            $groups[] = ['id' => 'ice', 'name' => 'Level Es', 'values' => $vals, 'default' => $ices[0], 'hideWhen' => ['temp' => 'Hot']];
         }
         if (!empty($sugars)) {
             $vals = array_map(fn($s) => ['id' => $s, 'text' => $s], $sugars);

@@ -42,7 +42,7 @@ try {
         $brand = config('default_brand', 'kopken');
     }
 
-    $query = isset($_GET['q']) ? trim((string)$_GET['q']) : null;
+    $query = isset($_GET['q']) ? trim((string)$_GET['q']) : (isset($_GET['search']) ? trim((string)$_GET['search']) : null);
     $lat = isset($_GET['lat']) && is_numeric($_GET['lat']) ? (float)$_GET['lat'] : null;
     $lng = isset($_GET['lng']) && is_numeric($_GET['lng']) ? (float)$_GET['lng'] : null;
 

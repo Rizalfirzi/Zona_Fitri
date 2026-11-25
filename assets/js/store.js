@@ -1337,13 +1337,46 @@ function isHidden(g, sel) {
   return Object.entries(g.hideWhen || {}).some(([gid, vid]) => sel[gid] === vid);
 }
 
-const GROUP_LABELS = { Temperature: 'Suhu', Size: 'Ukuran', Beans: 'Biji kopi', 'Milk Option': 'Susu', 'Sugar Level': 'Level gula', 'Ice Level': 'Level es' };
+const GROUP_LABELS = { 
+  Temperature: 'Suhu', 
+  Size: 'Ukuran', 
+  Beans: 'Biji kopi', 
+  'Milk Option': 'Susu', 
+  'Sugar Level': 'Level gula', 
+  'Ice Level': 'Level es',
+  'Level Es': 'Level es',
+  'Level Gula': 'Level gula',
+  Ukuran: 'Ukuran',
+  Suhu: 'Suhu'
+};
 
 function renderOptions() {
   const sh = S.sheet;
   if (!sh) return;
-  if (!isItemFood(sh.item) && (!sh.groups || sh.groups.length === 0)) {
-    sh.groups = staticGroups(sh.item);
+  if (!isItemFood(sh.item)) {
+    if (!sh.groups || sh.groups.length === 0) {
+      sh.groups = staticGroups(sh.item);
+    }
+    // Guarantee that every drink ALWAYS has Ice and Sugar option groups
+    if (!sh.groups.some((g) => g.id === 'ice')) {
+      sh.groups.push({
+        id: 'ice',
+        key: 'ice',
+        name: 'Level es',
+        values: [{ id: 'Normal Ice', text: 'Normal Ice' }, { id: 'Less Ice', text: 'Less Ice' }, { id: 'No Ice', text: 'No Ice' }],
+        default: 'Normal Ice',
+        hideWhen: { temp: 'Hot' },
+      });
+    }
+    if (!sh.groups.some((g) => g.id === 'sugar')) {
+      sh.groups.push({
+        id: 'sugar',
+        key: 'sugar',
+        name: 'Level gula',
+        values: [{ id: 'Normal Sugar', text: 'Normal Sugar' }, { id: 'Less Sugar', text: 'Less Sugar' }, { id: 'No Sugar', text: 'No Sugar' }],
+        default: 'Normal Sugar',
+      });
+    }
   }
   for (const g of (sh.groups || [])) {
     const valid = g.values.filter((v) => !/jumbo/i.test(v.text || '') && !/jumbo/i.test(String(v.id || '')));
