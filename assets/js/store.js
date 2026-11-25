@@ -2,8 +2,8 @@
 import {
   $, $$, api, avatarText, bundleCollage, catIcon, closeSheet, esc, icons, initTheme, loadConfig, logoHtml, mountInfoSheets, openDrawer, openSheet,
   renderDrawer, shopClosedBanner, showDialog, store, toast, toggleTheme, watchNavScroll,
-} from './common.js?v=12tomororedpricefix';
-import { buildWaMessage, cartTotals, formatRp, normalizePhone, optionText, orderCode, roundTo, waLink } from './shared/order.js?v=12tomororedpricefix';
+} from './common.js?v=20261125_revisions';
+import { buildWaMessage, cartTotals, formatRp, normalizePhone, optionText, orderCode, roundTo, waLink } from './shared/order.js?v=20261125_revisions';
 
 const SLUG_TO_BRAND = { kopikenangan: 'kopken', kopken: 'kopken', tomoro: 'tomoro', fore: 'fore', janjiw: 'jiwa', janjijiwa: 'jiwa', jiwa: 'jiwa' };
 
@@ -773,6 +773,29 @@ async function loadMenu(forceRefresh = false) {
           delete it.largeNormal;
           delete it.largeOutletPrice;
         }
+
+        // Client explicit pricing override for Roti:
+        // Coklat Klasik paten Rp8.000, Susu Manis paten Rp9.000
+        if (/roticoklatklasik/i.test(it.key || '') || /coklat\s*klasik/i.test(it.name || '')) {
+          it.price = 8000;
+          it.normalPrice = 9000;
+          it.outletPrice = 9000;
+        } else if (/rotisusumanis/i.test(it.key || '') || /susu\s*manis/i.test(it.name || '')) {
+          it.price = 9000;
+          it.normalPrice = 10000;
+          it.outletPrice = 10000;
+        }
+
+        // Client revision: Cheesecake Frappe tidak ada pilihan large / size dll
+        if (/cheesecake.*frappe|frappe.*cheesecake/i.test((it.category || '') + ' ' + (it.name || '') + ' ' + (it.key || ''))) {
+          delete it.largePrice;
+          delete it.largeNormal;
+          delete it.largeOutletPrice;
+          if (it.options) {
+            it.options.sizes = ['Regular'];
+            it.options.temps = ['Ice'];
+          }
+        }
       }
     }
     S.byKey = new Map(S.menu.items.map((i) => [i.key, i]));
@@ -834,6 +857,7 @@ function setMode(mode, scroll) {
 
 function catNamePretty(name) {
   const n = String(name || '').toLowerCase();
+  if (/baru/.test(n)) return 'Baru!';
   if (/bundl|paket|promo|combo/.test(n)) return 'Promo & Combo';
   if (/non.?(coffee|kopi)/.test(n)) return 'Non-Kopi';
   if (/coffee|kopi/.test(n)) return 'Kopi';
@@ -845,6 +869,7 @@ function catNamePretty(name) {
 
 function catEmoji(name) {
   const n = String(name || '').toLowerCase();
+  if (/baru/.test(n)) return '✨';
   if (/bundl|paket|promo|combo/.test(n)) return '🎁';
   if (/non.?(coffee|kopi)/.test(n)) return '🧃';
   if (/coffee|kopi/.test(n)) return '☕';
@@ -1099,6 +1124,11 @@ function staticGroups(item) {
     return [];
   }
 
+  // Client revision: Menu baru cheesecake frappe TIDAK ADA PILIHAN suhu/large dll
+  if (/cheesecake.*frappe|frappe.*cheesecake/i.test((item.category || '') + ' ' + (item.name || '') + ' ' + (item.key || ''))) {
+    return [];
+  }
+
   const o = item.options || {};
   const isFrappe = /frappe/i.test((item.category || '') + ' ' + (item.name || ''));
 
@@ -1141,6 +1171,10 @@ async function loadItemDetail(item, line) {
       return;
     }
     if (d.groups?.length && d.prices && Object.keys(d.prices).length) {
+      // Client revision: Menu baru cheesecake frappe TIDAK ADA PILIHAN suhu/large dll
+      if (/cheesecake.*frappe|frappe.*cheesecake/i.test((item.category || '') + ' ' + (item.name || '') + ' ' + (item.key || ''))) {
+        d.groups = [];
+      }
       // Client revision: Hapus Jumbo di all menu
       const jumboIds = new Set();
       for (const g of d.groups) {

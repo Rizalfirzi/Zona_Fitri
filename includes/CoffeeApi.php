@@ -466,15 +466,15 @@ class CoffeeApi
         // 2. If live API failed, empty, or returns an incomplete fraction of items, merge with master catalog
         if (!$liveMenu || empty($liveMenu['items'])) {
             $liveMenu = $masterMenu;
-        } elseif ($masterMenu && !empty($masterMenu['items']) && count($liveMenu['items']) < (count($masterMenu['items']) * 0.7)) {
-            // Live API returned very few items; merge master items
+        } elseif ($brand === 'tomoro' || ($masterMenu && !empty($masterMenu['items']) && count($liveMenu['items']) < (count($masterMenu['items']) * 0.7))) {
+            // Live API returned very few items or Tomoro partial sample; merge master items
             $mergedItems = [];
             $seenKeys = [];
             foreach ($liveMenu['items'] as $li) {
                 $mergedItems[] = $li;
                 $seenKeys[$li['key']] = true;
             }
-            foreach ($masterMenu['items'] as $mi) {
+            foreach ($masterMenu['items'] ?? [] as $mi) {
                 if (!isset($seenKeys[$mi['key']])) {
                     $mergedItems[] = $mi;
                     $seenKeys[$mi['key']] = true;
@@ -482,10 +482,31 @@ class CoffeeApi
             }
             $liveMenu['items'] = $mergedItems;
 
-            $liveCatNames = array_map(fn($c) => strtolower($c['name'] ?? ''), $liveMenu['categories'] ?? []);
-            foreach ($masterMenu['categories'] ?? [] as $mc) {
-                if (!in_array(strtolower($mc['name'] ?? ''), $liveCatNames, true)) {
-                    $liveMenu['categories'][] = $mc;
+            if ($brand !== 'tomoro') {
+                $liveCatNames = array_map(fn($c) => strtolower($c['name'] ?? ''), $liveMenu['categories'] ?? []);
+                foreach ($masterMenu['categories'] ?? [] as $mc) {
+                    if (!in_array(strtolower($mc['name'] ?? ''), $liveCatNames, true)) {
+                        $liveMenu['categories'][] = $mc;
+                    }
+                }
+            }
+        }
+
+        // Always ensure essential master items (such as newest seasonal items and fixed rotis) are merged if missing from live API
+        if ($masterMenu && !empty($masterMenu['items'])) {
+            $liveKeys = [];
+            foreach ($liveMenu['items'] as $li) {
+                $liveKeys[$li['key']] = true;
+            }
+            $mustHaveKeys = [
+                'bluebericano', 'strawbericano', 'creamycheesecakelatte',
+                'strawberrycheesecakefrappe', 'blueberrycheesecakefrappe', 'cheesecreamlongbread',
+                'roticoklatklasik', 'rotisusumanis'
+            ];
+            foreach ($masterMenu['items'] as $mi) {
+                if (in_array($mi['key'], $mustHaveKeys, true) && !isset($liveKeys[$mi['key']])) {
+                    $liveMenu['items'][] = $mi;
+                    $liveKeys[$mi['key']] = true;
                 }
             }
         }
@@ -1033,6 +1054,7 @@ class CoffeeApi
         if ($brand === 'kopken' && isset($menuData['items']) && is_array($menuData['items'])) {
             $catBuckets = [
                 'bundle' => [],
+                'baru' => [],
                 'kopi' => [],
                 'non-kopi' => [],
                 'tea' => [],
@@ -1046,6 +1068,11 @@ class CoffeeApi
                 'earlgreytea', 'earlgreymilktea', 'earlgreymilkteaboba', 'milkteaboba', 'raspberryhibiscus'
             ];
 
+            $baruKeys = [
+                'bluebericano', 'strawbericano', 'creamycheesecakelatte',
+                'strawberrycheesecakefrappe', 'blueberrycheesecakefrappe', 'cheesecreamlongbread'
+            ];
+
             foreach ($menuData['items'] as &$it) {
                 $k = strtolower(trim((string)($it['key'] ?? '')));
                 $c = strtolower(trim((string)($it['category'] ?? '')));
@@ -1054,6 +1081,21 @@ class CoffeeApi
                 if (!empty($it['isBundle'])) {
                     $it['category'] = 'Promo & Combo';
                     $catBuckets['bundle'][] = $k;
+                    continue;
+                }
+
+                // New items in "Baru!" category (matching official Kopi Kenangan app Gambar 2)
+                $isBaruItem = in_array($k, $baruKeys, true) || stripos($n, 'cheesecake') !== false || stripos($n, 'bericano') !== false || stripos($n, 'cheese cream long') !== false;
+                if ($isBaruItem) {
+                    $it['category'] = 'Baru!';
+                    $catBuckets['baru'][] = $k;
+                    if (str_contains($c, 'frappe') || str_contains($n, 'frappe')) {
+                        $catBuckets['frappe'][] = $k;
+                    } elseif (!empty($it['isFood']) || str_contains($n, 'bread')) {
+                        $catBuckets['food'][] = $k;
+                    } else {
+                        $catBuckets['kopi'][] = $k;
+                    }
                     continue;
                 }
 
@@ -1076,8 +1118,15 @@ class CoffeeApi
             }
             unset($it);
 
+            // Ordered Baru! items matching official Kenangan menu (Gambar 2):
+            $catBuckets['baru'] = array_values(array_unique(array_merge(
+                array_intersect($baruKeys, $catBuckets['baru']),
+                $catBuckets['baru']
+            )));
+
             // Ordered frappes matching official Kenangan Frappe menu
             $desiredFrappeOrder = [
+                'strawberrycheesecakefrappe', 'blueberrycheesecakefrappe',
                 'butterscotchkenanganfrappe', 'matchakenanganfrappe', 'kopikenanganmantanfrappe',
                 'vanillakenanganfrappe', 'dutchchocokenanganfrappe', 'chococaramelfrappe'
             ];
@@ -1088,12 +1137,82 @@ class CoffeeApi
 
             $menuData['categories'] = [
                 ['id' => 'bundle-promo-bundling', 'name' => 'Promo & Combo', 'kind' => 'bundle', 'items' => !empty($catBuckets['bundle']) ? $catBuckets['bundle'] : ['zf-b-4pcs-35k', 'zf-b-3-35k', 'zf-b-large2-32k']],
+                ['id' => 'item-baru', 'name' => 'Baru!', 'kind' => 'item', 'items' => array_values(array_unique($catBuckets['baru']))],
                 ['id' => 'item-kopi', 'name' => 'Kopi', 'kind' => 'item', 'items' => array_values(array_unique($catBuckets['kopi']))],
                 ['id' => 'item-non-kopi', 'name' => 'Non-Kopi', 'kind' => 'item', 'items' => array_values(array_unique($catBuckets['non-kopi']))],
                 ['id' => 'item-kenangan-frappe', 'name' => 'Kenangan Frappe', 'kind' => 'item', 'items' => $catBuckets['frappe']],
                 ['id' => 'item-tea', 'name' => 'Tea', 'kind' => 'item', 'items' => array_values(array_unique($catBuckets['tea']))],
                 ['id' => 'item-food', 'name' => 'Food', 'kind' => 'item', 'items' => array_values(array_unique($catBuckets['food']))],
             ];
+        }
+
+        // 5b. Tomoro Category standard grouping
+        if ($brand === 'tomoro' && isset($menuData['items']) && is_array($menuData['items'])) {
+            $catBuckets = [
+                'signatures' => [],
+                'soe' => [],
+                'pistachio' => [],
+                'milk' => [],
+                'black' => [],
+                'flavoured' => [],
+                'tea' => [],
+                'frappe' => [],
+                'bottle' => [],
+                'icecream' => [],
+            ];
+
+            foreach ($menuData['items'] as &$it) {
+                $k = strtolower(trim((string)($it['key'] ?? '')));
+                $c = strtolower(trim((string)($it['category'] ?? '')));
+                $n = strtolower(trim((string)($it['name'] ?? '')));
+
+                if (str_contains($c, 'soe') || str_contains($c, 's.o.e') || str_contains($n, 's.o.e') || str_contains($n, 'soe')) {
+                    $it['category'] = 'Master S.O.E. Series';
+                    $catBuckets['soe'][] = $k;
+                } elseif (str_contains($c, 'pistachio') || str_contains($n, 'pistachio')) {
+                    $it['category'] = 'Triple Pistachio Series';
+                    $catBuckets['pistachio'][] = $k;
+                } elseif (str_contains($c, 'signature') || str_contains($n, 'aren') || str_contains($n, 'oat latte') || $k === 'tomoroarenlatte') {
+                    $it['category'] = 'TOMORO Signatures';
+                    $catBuckets['signatures'][] = $k;
+                } elseif (str_contains($c, 'ice cream') || str_contains($n, 'ice cream') || str_contains($n, 'sundae') || str_contains($n, 'cone')) {
+                    $it['category'] = 'Ice Cream Series';
+                    $catBuckets['icecream'][] = $k;
+                } elseif (str_contains($c, 'bottle') || str_contains($n, '1l') || str_contains($n, 'liter')) {
+                    $it['category'] = '1L Bottle';
+                    $catBuckets['bottle'][] = $k;
+                } elseif (str_contains($c, 'frappe') || str_contains($n, 'frappe')) {
+                    $it['category'] = 'Frappe';
+                    $catBuckets['frappe'][] = $k;
+                } elseif (str_contains($c, 'tea') || str_contains($n, 'tea') || str_contains($n, 'jasmine') || str_contains($n, 'greentea')) {
+                    $it['category'] = 'Tea Series';
+                    $catBuckets['tea'][] = $k;
+                } elseif (str_contains($c, 'black') || str_contains($n, 'americano') || str_contains($n, 'espresso') || str_contains($n, 'brewed')) {
+                    $it['category'] = 'Black Coffee';
+                    $catBuckets['black'][] = $k;
+                } elseif (str_contains($c, 'milk') || str_contains($n, 'latte') || str_contains($n, 'cappuccino') || str_contains($n, 'macchiato')) {
+                    $it['category'] = 'Milk Based Coffee';
+                    $catBuckets['milk'][] = $k;
+                } else {
+                    $it['category'] = 'Flavoured Drinks';
+                    $catBuckets['flavoured'][] = $k;
+                }
+            }
+            unset($it);
+
+            $menuData['categories'] = [
+                ['id' => 'cat-signatures', 'name' => 'TOMORO Signatures', 'kind' => 'item', 'items' => array_values(array_unique($catBuckets['signatures']))],
+                ['id' => 'cat-soe', 'name' => 'Master S.O.E. Series', 'kind' => 'item', 'items' => array_values(array_unique($catBuckets['soe']))],
+                ['id' => 'cat-pistachio', 'name' => 'Triple Pistachio Series', 'kind' => 'item', 'items' => array_values(array_unique($catBuckets['pistachio']))],
+                ['id' => 'cat-milk', 'name' => 'Milk Based Coffee', 'kind' => 'item', 'items' => array_values(array_unique($catBuckets['milk']))],
+                ['id' => 'cat-black', 'name' => 'Black Coffee', 'kind' => 'item', 'items' => array_values(array_unique($catBuckets['black']))],
+                ['id' => 'cat-flavoured', 'name' => 'Flavoured Drinks', 'kind' => 'item', 'items' => array_values(array_unique($catBuckets['flavoured']))],
+                ['id' => 'cat-tea', 'name' => 'Tea Series', 'kind' => 'item', 'items' => array_values(array_unique($catBuckets['tea']))],
+                ['id' => 'cat-frappe', 'name' => 'Frappe', 'kind' => 'item', 'items' => array_values(array_unique($catBuckets['frappe']))],
+                ['id' => 'cat-bottle', 'name' => '1L Bottle', 'kind' => 'item', 'items' => array_values(array_unique($catBuckets['bottle']))],
+                ['id' => 'cat-icecream', 'name' => 'Ice Cream Series', 'kind' => 'item', 'items' => array_values(array_unique($catBuckets['icecream']))],
+            ];
+            $menuData['categories'] = array_values(array_filter($menuData['categories'], fn($c) => !empty($c['items'])));
         }
 
         $items = $menuData['items'] ?? [];
@@ -1163,8 +1282,8 @@ class CoffeeApi
                 $calcPrice = (int) round(($outletPrice * 0.5) + 5000);
                 $largePrice = null;
             } elseif ($brand === 'fore') {
-                // FORE: HARGA ASLI - 25% + 2.000/cup, Large: +5.000
-                $calcPrice = (int) (round((($outletPrice * 0.75) + 2000) / 500) * 500);
+                // FORE: HARGA ASLI - 25% NO FEE, Large: +5.000
+                $calcPrice = (int) (round(($outletPrice * 0.75) / 500) * 500);
                 $largePrice = $calcPrice + 5000;
             } elseif ($brand === 'jiwa') {
                 // JANJI JIWA: all menu disc 50% max 20k, fee per menu 10k
@@ -1173,6 +1292,11 @@ class CoffeeApi
                 $normalPrice = max($outletPrice, (int) round(($calcPrice - 5000) * 2));
                 if ($normalPrice <= $calcPrice) $normalPrice = $calcPrice + 6000;
                 $outletPrice = $normalPrice;
+            }
+
+            // Client revision: Cheesecake frappe tidak ada pilihan large / size dll
+            if (preg_match('/cheesecake.*frappe|frappe.*cheesecake/i', $key . ' ' . ($item['name'] ?? ''))) {
+                $largePrice = null;
             }
 
             $item['price'] = $calcPrice;
@@ -1367,6 +1491,16 @@ class CoffeeApi
 
         // Food items don't have size, temperature, ice, sugar options per client revision
         if (!empty($matchedItem['isFood'])) {
+            return [
+                'isSoldOut' => !empty($matchedItem['isSoldOut']),
+                'groups' => [],
+                'prices' => ['default' => $basePrice],
+                'desc' => $matchedItem['desc'] ?? '',
+            ];
+        }
+
+        // Client revision: Menu baru cheesecake frappe TIDAK ADA PILIHAN suhu/large dll
+        if (preg_match('/cheesecake.*frappe|frappe.*cheesecake/i', ($matchedItem['category'] ?? '') . ' ' . ($matchedItem['name'] ?? '') . ' ' . ($matchedItem['key'] ?? ''))) {
             return [
                 'isSoldOut' => !empty($matchedItem['isSoldOut']),
                 'groups' => [],

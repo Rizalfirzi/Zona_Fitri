@@ -123,7 +123,7 @@ $config = [
         ],
         'fore' => [
             'percent' => 75, // -25%
-            'add' => 2000,
+            'add' => 0, // Client revision: FORE buat disc 25% NO FEE
             'largeAdd' => 5000, // upsize +5k
         ],
         'jiwa' => [
