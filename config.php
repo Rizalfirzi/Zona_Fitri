@@ -116,7 +116,6 @@ $config = [
             'percent' => 38, // 38% discount
             'add' => 2500,    // 2.500 fee per cup
             'largeAdd' => 7000, // upsize Large +7k
-            'jumboAdd' => 17000, // upsize Jumbo +17k
         ],
         'tomoro' => [
             'percent' => 44, // 44% discount

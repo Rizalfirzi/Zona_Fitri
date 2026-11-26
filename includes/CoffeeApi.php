@@ -152,8 +152,8 @@ class CoffeeApi
                             $addr = $s['storeAddress'] ?? $s['address'] ?? '';
                             $bStat = $s['businessStatus'] ?? null;
                             $dStat = $s['deliveryBusinessStatus'] ?? null;
-                            $isOpen = ($bStat !== 3 && ($bStat == 1 || $bStat == 2 || $dStat == 2 || !empty($s['isOpen'])));
-                            $liveFound[] = [
+                            $isOpen = ($dStat == 2 || $bStat == 1 || $bStat == 2 || (!empty($s['isDelivery']) && $bStat !== 3 && $dStat !== 3) || !empty($s['isOpen']));
+                            $liveFound[$code] = [
                                 'code' => $code,
                                 'id' => $code,
                                 'name' => $name,
@@ -162,23 +162,51 @@ class CoffeeApi
                                 'lat' => (float) ($s['latitude'] ?? $s['lat'] ?? 0),
                                 'lng' => (float) ($s['longitude'] ?? $s['lng'] ?? 0),
                                 'isOpen' => $isOpen,
-                                'hours' => $s['hours'] ?? '07:00 - 22:00 WIB',
+                                'hours' => !empty($s['hours']) ? $s['hours'] : ($isOpen ? '00:15 - 23:59 WIB' : '07:00 - 22:00 WIB'),
                                 'img' => $s['storePicture'] ?? $s['imageUrl'] ?? $this->getDefaultOutletImage('tomoro'),
-                                'canOrder' => true,
+                                'canOrder' => $isOpen,
                                 'statusText' => $isOpen ? 'Buka' : 'Tutup',
                             ];
                         }
                         if (!empty($liveFound)) {
-                            $existing = array_flip(array_column($outlets, 'code'));
-                            foreach ($liveFound as $lf) {
-                                if (!isset($existing[$lf['code']])) {
-                                    $outlets[] = $lf;
+                            // Update existing cached outlets with live status
+                            foreach ($outlets as $idx => $existingO) {
+                                $c = $existingO['code'] ?? '';
+                                if (isset($liveFound[$c])) {
+                                    $outlets[$idx] = array_merge($existingO, $liveFound[$c]);
+                                    unset($liveFound[$c]);
                                 }
+                            }
+                            // Prepend newly discovered live outlets
+                            foreach ($liveFound as $lf) {
+                                array_unshift($outlets, $lf);
                             }
                         }
                     }
                 } catch (Throwable $e) {
                     // Fall back to existing cached outlets array
+                }
+            }
+
+            // Deduplicate Tomoro outlets: remove duplicate TOM-G codes if real store codes exist
+            if ($brand === 'tomoro') {
+                $realAddrs = [];
+                foreach ($outlets as $o) {
+                    if (!str_starts_with($o['code'] ?? '', 'TOM-G')) {
+                        $key = strtolower(substr(preg_replace('/[^a-z0-9]/i', '', $o['address'] ?? ''), 0, 30));
+                        if ($key) $realAddrs[$key] = true;
+                    }
+                }
+                if (!empty($realAddrs)) {
+                    $outlets = array_values(array_filter($outlets, function ($o) use ($realAddrs) {
+                        if (str_starts_with($o['code'] ?? '', 'TOM-G')) {
+                            $key = strtolower(substr(preg_replace('/[^a-z0-9]/i', '', $o['address'] ?? ''), 0, 30));
+                            if (isset($realAddrs[$key])) {
+                                return false; // drop duplicate TOM-G
+                            }
+                        }
+                        return true;
+                    }));
                 }
             }
 
@@ -577,7 +605,7 @@ class CoffeeApi
                             'isFood' => $isFood,
                             'desc' => $p['description'] ?? '',
                             'options' => [
-                                'sizes' => $isFood ? ['Regular'] : ['Regular', 'Large', 'Jumbo'],
+                                'sizes' => ($isFood || preg_match('/baby|butterscotch\s*sea\s*salt\s*crumble/i', $name . ' ' . $key)) ? ['Regular'] : ['Regular', 'Large'],
                                 'temps' => (stripos($name . ' ' . $gname, 'frappe') !== false) ? ['Ice'] : ['Ice', 'Hot'],
                                 'ices' => ['Normal Ice', 'Less Ice', 'No Ice'],
                                 'sugars' => ['Normal Sugar', 'Less Sugar', 'No Sugar'],
@@ -1027,7 +1055,7 @@ class CoffeeApi
                     $opts['sizes'] = ['Regular', 'Large'];
                 }
 
-                // Remove Jumbo size option across all brands
+                // Remove Jumbo size option across all brands (client revision: "gausah ada jumbo untuk semua menu")
                 if (!empty($opts['sizes']) && is_array($opts['sizes'])) {
                     $opts['sizes'] = array_values(array_filter(
                         $opts['sizes'],
@@ -1036,10 +1064,16 @@ class CoffeeApi
                 }
                 unset($item['jumboPrice'], $item['jumboNormal'], $item['jumboOutletPrice']);
 
-                // Tomoro small size only
-                if ($brand === 'tomoro') {
-                    $opts['sizes'] = ['Small'];
+                // Client revision: Babychino and Butterscotch Sea Salt Crumble reg only
+                $isRegOnly = (bool) preg_match('/baby|butterscotch\s*sea\s*salt\s*crumble/i', $itName . ' ' . ($item['key'] ?? ''));
+                if ($isRegOnly) {
+                    $opts['sizes'] = ['Regular'];
                     unset($item['largePrice'], $item['largeNormal'], $item['largeOutletPrice']);
+                }
+
+                // Tomoro size
+                if ($brand === 'tomoro') {
+                    $opts['sizes'] = ['Regular', 'Large'];
                 }
 
                 $item['options'] = $opts;
@@ -1092,6 +1126,8 @@ class CoffeeApi
                 $isBaruItem = in_array($k, $baruKeys, true) || stripos($n, 'cheesecake') !== false || stripos($n, 'bericano') !== false || stripos($n, 'cheese cream long') !== false;
                 if ($isBaruItem) {
                     $it['category'] = 'Baru!';
+                    $it['isNew'] = true;
+                    $it['tag'] = 'NEW';
                     $catBuckets['baru'][] = $k;
                     if (str_contains($c, 'frappe') || str_contains($n, 'frappe')) {
                         $catBuckets['frappe'][] = $k;
@@ -1101,6 +1137,8 @@ class CoffeeApi
                         $catBuckets['kopi'][] = $k;
                     }
                     continue;
+                } else {
+                    $it['isNew'] = false;
                 }
 
                 if (str_contains($c, 'frappe') || str_contains($n, 'frappe')) {
@@ -1276,7 +1314,7 @@ class CoffeeApi
                 $discounted = round(($outletPrice * (1 - 0.38)) / 500) * 500;
                 $calcPrice = (int) ($discounted + 2500);
                 $largePrice = $calcPrice + 7000;
-                $jumboPrice = $calcPrice + 17000;
+                $jumboPrice = null;
 
                 // Client explicit pricing override for Roti:
                 // Roti Coklat Klasik: Rp8.000 (outlet price 9.000)
@@ -1308,6 +1346,17 @@ class CoffeeApi
                 $jumboPrice = null;
             }
 
+            // Client revision: Babychino and Butterscotch Sea Salt Crumble reg only
+            $isRegOnly = (bool) preg_match('/baby|butterscotch\s*sea\s*salt\s*crumble/i', ($item['name'] ?? '') . ' ' . $key);
+            if ($isRegOnly) {
+                $largePrice = null;
+                $jumboPrice = null;
+                unset($item['largePrice'], $item['largeNormal'], $item['largeOutletPrice'], $item['jumboPrice'], $item['jumboNormal'], $item['jumboOutletPrice']);
+                if (isset($item['options']) && is_array($item['options'])) {
+                    $item['options']['sizes'] = ['Regular'];
+                }
+            }
+
             $item['price'] = $calcPrice;
             $item['normalPrice'] = $outletPrice;
 
@@ -1318,12 +1367,8 @@ class CoffeeApi
                 unset($item['largePrice'], $item['largeNormal'], $item['largeOutletPrice']);
             }
 
-            if ($jumboPrice !== null && !$isFood && (empty($item['options']['sizes']) || in_array('Jumbo', $item['options']['sizes'], true))) {
-                $item['jumboPrice'] = $jumboPrice;
-                $item['jumboNormal'] = $item['jumboOutletPrice'] ?? ($outletPrice + 17000);
-            } else {
-                unset($item['jumboPrice'], $item['jumboNormal'], $item['jumboOutletPrice']);
-            }
+            // Gausah ada jumbo untuk semua menu
+            unset($item['jumboPrice'], $item['jumboNormal'], $item['jumboOutletPrice']);
 
             // Bundling eligibility (Kopken)
             $isExcludedFromBundling = (bool) preg_match('/avocado|oreo|dutch|frappe|1\s*l|liter/i', ($item['name'] ?? '') . ' ' . $key);
@@ -1530,7 +1575,16 @@ class CoffeeApi
 
         $isFrappe = stripos(($matchedItem['category'] ?? '') . ' ' . ($matchedItem['name'] ?? '') . ' ' . ($matchedItem['key'] ?? ''), 'frappe') !== false;
 
-        $sizes = (!empty($opts['sizes']) && is_array($opts['sizes'])) ? $opts['sizes'] : ['Regular', 'Large', 'Jumbo'];
+        $isRegOnly = (bool) preg_match('/baby|butterscotch\s*sea\s*salt\s*crumble/i', ($matchedItem['name'] ?? '') . ' ' . ($matchedItem['key'] ?? '') . ' ' . $key);
+
+        if ($isRegOnly) {
+            $sizes = ['Regular'];
+        } else {
+            $sizes = (!empty($opts['sizes']) && is_array($opts['sizes']))
+                ? array_values(array_filter($opts['sizes'], fn($sz) => stripos((string)$sz, 'jumbo') === false))
+                : ['Regular', 'Large'];
+        }
+
         $temps = (!empty($opts['temps']) && is_array($opts['temps'])) ? $opts['temps'] : ($isFrappe ? ['Ice'] : ['Ice', 'Hot']);
         if ($isFrappe) $temps = ['Ice'];
         $sugars = (!empty($opts['sugars']) && is_array($opts['sugars'])) ? $opts['sugars'] : ['Normal Sugar', 'Less Sugar', 'No Sugar'];
@@ -1553,12 +1607,10 @@ class CoffeeApi
 
         // 2. SIZE [Wajib]
         $sizeDeltaLarge = ($brand === 'tomoro' ? 5000 : ($brand === 'jiwa' ? 4000 : 7000));
-        $sizeDeltaJumbo = 17000;
         $sizeChoices = [];
         foreach ($sizes as $s) {
             $price = 0;
             if (strcasecmp($s, 'Large') === 0) $price = $sizeDeltaLarge;
-            elseif (strcasecmp($s, 'Jumbo') === 0) $price = $sizeDeltaJumbo;
             $sizeChoices[] = [
                 'id' => $s,
                 'name' => $s,
@@ -1603,32 +1655,30 @@ class CoffeeApi
             'default' => $sugarChoices[0]['id'] ?? 'Normal Sugar',
         ];
 
-        // 4. SYRUP [Opsional • maks 6]
-        $syrupChoices = [
-            ['id' => 'vanilla_syrup', 'name' => 'Vanilla Syrup', 'text' => 'Vanilla Syrup', 'price' => 6000, 'available' => true],
-            ['id' => 'caramel_syrup', 'name' => 'Caramel Syrup', 'text' => 'Caramel Syrup', 'price' => 6000, 'available' => true],
-            ['id' => 'hazelnut_syrup', 'name' => 'Hazelnut Syrup', 'text' => 'Hazelnut Syrup', 'price' => 6000, 'available' => true],
-        ];
-        $groups[] = [
-            'id' => 'syrup',
-            'name' => 'SYRUP',
-            'required' => false,
-            'multi' => true,
-            'max' => 6,
-            'choices' => $syrupChoices,
-            'values' => $syrupChoices,
-        ];
+        // 4. SYRUP [Opsional • maks 6] (Removed for Kopi Kenangan per client revision)
+        if ($brand !== 'kopken') {
+            $syrupChoices = [
+                ['id' => 'vanilla_syrup', 'name' => 'Vanilla Syrup', 'text' => 'Vanilla Syrup', 'price' => 6000, 'available' => true],
+                ['id' => 'caramel_syrup', 'name' => 'Caramel Syrup', 'text' => 'Caramel Syrup', 'price' => 6000, 'available' => true],
+                ['id' => 'hazelnut_syrup', 'name' => 'Hazelnut Syrup', 'text' => 'Hazelnut Syrup', 'price' => 6000, 'available' => true],
+            ];
+            $groups[] = [
+                'id' => 'syrup',
+                'name' => 'SYRUP',
+                'required' => false,
+                'multi' => true,
+                'max' => 6,
+                'choices' => $syrupChoices,
+                'values' => $syrupChoices,
+            ];
+        }
 
         $basePrice = (int) ($matchedItem['price'] ?? 0);
         $largePrice = (int) ($matchedItem['largePrice'] ?? ($basePrice + $sizeDeltaLarge));
-        $jumboPrice = (int) ($matchedItem['jumboPrice'] ?? ($basePrice + $sizeDeltaJumbo));
 
         $prices = ['default' => $basePrice, 'Regular' => $basePrice];
-        if (in_array('Large', $sizes, true)) {
+        if (in_array('Large', $sizes, true) && !$isRegOnly) {
             $prices['Large'] = $largePrice;
-        }
-        if (in_array('Jumbo', $sizes, true)) {
-            $prices['Jumbo'] = $jumboPrice;
         }
 
         return [
@@ -1684,21 +1734,17 @@ class CoffeeApi
         $isOpen = $liveIsOpen ?? true;
         $statusText = 'Buka';
 
-        if (preg_match('/(\d{1,2})[:.](\d{2})(?:[:.]\d{2})?\s*[-–—]\s*(\d{1,2})[:.](\d{2})(?:[:.]\d{2})?/', $hoursStr, $m)) {
+        if ($liveIsOpen !== null) {
+            // Live status from brand API or verified database is truth; never force-close a live open outlet
+            $isOpen = $liveIsOpen;
+        } elseif (preg_match('/(\d{1,2})[:.](\d{2})(?:[:.]\d{2})?\s*[-–—]\s*(\d{1,2})[:.](\d{2})(?:[:.]\d{2})?/', $hoursStr, $m)) {
             $openMinutes = ((int) $m[1]) * 60 + ((int) $m[2]);
             $closeMinutes = ((int) $m[3]) * 60 + ((int) $m[4]);
 
-            $isWithinHours = false;
             if ($closeMinutes > $openMinutes) {
-                $isWithinHours = ($currentMinutes >= $openMinutes && $currentMinutes < $closeMinutes);
+                $isOpen = ($currentMinutes >= $openMinutes && $currentMinutes < $closeMinutes);
             } else {
-                $isWithinHours = ($currentMinutes >= $openMinutes || $currentMinutes < $closeMinutes);
-            }
-
-            if ($liveIsOpen === null) {
-                $isOpen = $isWithinHours;
-            } else {
-                $isOpen = $liveIsOpen && $isWithinHours;
+                $isOpen = ($currentMinutes >= $openMinutes || $currentMinutes < $closeMinutes);
             }
         }
 

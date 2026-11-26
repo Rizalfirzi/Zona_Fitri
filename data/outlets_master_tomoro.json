@@ -1674,21 +1674,6 @@
         "brand":  "tomoro"
     },
     {
-        "code":  "TOM-G083",
-        "id":  "TOM-G083",
-        "name":  "Sidosermo Surabaya",
-        "address":  "Jl. Sidosermo Airdas No.19, Sidosermo, Kec. Wonocolo, Surabaya, Jawa Timur 60239",
-        "city":  "Surabaya",
-        "lat":  -7.3092,
-        "lng":  112.7534,
-        "isOpen":  true,
-        "canOrder":  true,
-        "statusText":  "Buka",
-        "hours":  "07:00 - 22:00 WIB",
-        "img":  "https://images.unsplash.com/photo-1509785307050-d4066910ec1e?q=80\u0026w=400\u0026auto=format\u0026fit=crop",
-        "brand":  "tomoro"
-    },
-    {
         "code":  "TOM-198",
         "id":  "TOM-198",
         "name":  "Pecenongan",
@@ -3482,7 +3467,9 @@
         "lat":  -7.3152294,
         "lng":  112.752012,
         "isOpen":  true,
-        "hours":  "07:00 - 22:00 WIB",
+        "canOrder":  true,
+        "statusText":  "Buka",
+        "hours":  "00:15 - 23:59 WIB",
         "img":  "https://images.unsplash.com/photo-1509785307050-d4066910ec1e?q=80\u0026w=400\u0026auto=format\u0026fit=crop"
     },
     {

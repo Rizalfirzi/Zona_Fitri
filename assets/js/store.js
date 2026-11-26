@@ -776,6 +776,27 @@ async function loadMenu(forceRefresh = false) {
           it.normalPrice = 10000;
           it.outletPrice = 10000;
         }
+
+        // Client revision: Babychino & Butterscotch Sea Salt Crumble reg only
+        if (/baby|butterscotch\s*sea\s*salt\s*crumble/i.test((it.name || '') + ' ' + (it.key || ''))) {
+          delete it.largePrice;
+          delete it.largeNormal;
+          delete it.largeOutletPrice;
+          delete it.jumboPrice;
+          delete it.jumboNormal;
+          delete it.jumboOutletPrice;
+          if (it.options) {
+            it.options.sizes = ['Regular'];
+          }
+        }
+
+        // Client revision: Gausah ada jumbo untuk semua menu
+        delete it.jumboPrice;
+        delete it.jumboNormal;
+        delete it.jumboOutletPrice;
+        if (it.options && Array.isArray(it.options.sizes)) {
+          it.options.sizes = it.options.sizes.filter((s) => !/jumbo/i.test(s));
+        }
       }
     }
     S.byKey = new Map(S.menu.items.map((i) => [i.key, i]));
@@ -972,12 +993,28 @@ function priceHtml(item) {
   return `<span class="price">${formatRp(item.price)}</span>${item.normalPrice ? `<span class="price-normal">${formatRp(item.normalPrice)}</span>` : ''}${badge ? `<span class="save-badge ${item.discountLabel ? 'disc' : ''}">${esc(badge)}</span>` : ''}`;
 }
 
+function isItemNew(item) {
+  if (!item) return false;
+  if (item.isNew === true) return true;
+  if (item.tag && /new|baru/i.test(item.tag)) return true;
+  const cat = (item.category || '').toLowerCase();
+  if (cat === 'baru!' || cat === 'baru' || cat === 'new' || cat.startsWith('baru') || cat.startsWith('new')) return true;
+  const name = (item.name || '').toLowerCase();
+  const key = (item.key || '').toLowerCase();
+  if (/cheesecake|bericano|cheese\s*cream\s*long|mont\s*blanc/i.test(name + ' ' + key)) return true;
+  return false;
+}
+
 function rowCard(item) {
   const favs = store.get('jo_favs', []) || [];
   const isFav = favs.includes(item.key);
   const tagHtml = item.isSoldOut
     ? '<span class="badge badge-sold">Habis</span>'
-    : '<span class="badge badge-new">NEW</span>';
+    : item.tag && !/new|baru/i.test(item.tag)
+      ? `<span class="badge ${item.isBundle ? 'badge-bundle' : 'badge-new'}">${esc(item.tag)}</span>`
+      : isItemNew(item)
+        ? '<span class="badge badge-new">NEW</span>'
+        : '';
 
   return `<button class="row ${item.isSoldOut ? 'sold' : ''}" data-key="${esc(item.key)}" aria-label="${esc(item.name)}, ${formatRp(item.price)}${item.isSoldOut ? ', tidak tersedia' : ''}">
     <div class="row-top">
@@ -1010,7 +1047,11 @@ function gridCard(item, i) {
   const meta = item.desc || (item.isBundle ? `${item.slots} menu ${item.size || ''}` : '');
   const tagHtml = item.isSoldOut
     ? '<span class="badge badge-sold">Habis</span>'
-    : (item.tag ? `<span class="badge ${item.isBundle ? 'badge-bundle' : 'badge-new'}">${esc(item.tag)}</span>` : '<span class="badge badge-new">NEW</span>');
+    : item.tag && !/new|baru/i.test(item.tag)
+      ? `<span class="badge ${item.isBundle ? 'badge-bundle' : 'badge-new'}">${esc(item.tag)}</span>`
+      : isItemNew(item)
+        ? '<span class="badge badge-new">NEW</span>'
+        : '';
 
   const normalPrice = item.normalPrice || (item.outletPrice && item.outletPrice > item.price ? item.outletPrice : null);
 
@@ -1124,11 +1165,15 @@ function staticGroups(item) {
   const temps = isFrappe ? ['Ice'] : (o.temps?.length ? o.temps : ['Ice', 'Hot']);
 
   const groups = [];
-  let sizes = (o.sizes && o.sizes.length) ? o.sizes : ['Regular', 'Large', 'Jumbo'];
-  if (S.brandId === 'tomoro') {
-    sizes = ['Regular', 'Large'];
-  } else if (S.brandId === 'jiwa') {
-    sizes = ['Regular', 'Large'];
+  let sizes = (o.sizes && o.sizes.length) ? o.sizes : ['Regular', 'Large'];
+  // Client revision: gausah ada jumbo untuk semua menu
+  sizes = sizes.filter((s) => !/jumbo/i.test(s));
+  // Client revision: Babychino and Butterscotch Sea Salt Crumble reg only
+  if (/baby|butterscotch\s*sea\s*salt\s*crumble/i.test((item.name || '') + ' ' + (item.key || ''))) {
+    sizes = ['Regular'];
+  }
+  if (S.brandId === 'tomoro' || S.brandId === 'jiwa') {
+    sizes = sizes.filter((s) => !/jumbo/i.test(s));
   }
 
   // 1. TEMPERATURE [Wajib]
@@ -1146,7 +1191,6 @@ function staticGroups(item) {
   // 2. SIZE [Wajib]
   if (sizes.length) {
     const sizeDeltaLarge = S.brandId === 'tomoro' ? 5000 : (S.brandId === 'jiwa' ? 4000 : 7000);
-    const sizeDeltaJumbo = 17000;
     groups.push({
       id: 'size',
       name: 'SIZE',
@@ -1156,7 +1200,6 @@ function staticGroups(item) {
       values: sizes.map((v) => {
         let p = 0;
         if (/large/i.test(v)) p = sizeDeltaLarge;
-        else if (/jumbo/i.test(v)) p = sizeDeltaJumbo;
         return { id: v, text: v, name: v, price: p };
       }),
       default: sizes[0],
@@ -1175,18 +1218,20 @@ function staticGroups(item) {
     });
   }
 
-  // 4. SYRUP [Opsional • maks 6]
-  groups.push({
-    id: 'syrup',
-    name: 'SYRUP',
-    required: false,
-    multi: true,
-    max: 6,
-    values: [
-      { id: 'vanilla_syrup', text: 'Vanilla Syrup', name: 'Vanilla Syrup', price: 6000 },
-      { id: 'caramel_syrup', text: 'Caramel Syrup', name: 'Caramel Syrup', price: 6000 },
-    ],
-  });
+  // 4. SYRUP [Opsional • maks 6] (Removed for Kopi Kenangan per client revision)
+  if (S.brandId !== 'kopken') {
+    groups.push({
+      id: 'syrup',
+      name: 'SYRUP',
+      required: false,
+      multi: true,
+      max: 6,
+      values: [
+        { id: 'vanilla_syrup', text: 'Vanilla Syrup', name: 'Vanilla Syrup', price: 6000 },
+        { id: 'caramel_syrup', text: 'Caramel Syrup', name: 'Caramel Syrup', price: 6000 },
+      ],
+    });
+  }
 
   return groups;
 }
@@ -1206,6 +1251,25 @@ async function loadItemDetail(item, line) {
       return;
     }
     if (d.groups?.length) {
+      // Filter out syrup for Kopi Kenangan per client revision
+      if (S.brandId === 'kopken') {
+        d.groups = d.groups.filter((g) => g.id !== 'syrup' && !/syrup|sirup/i.test(g.name || ''));
+      }
+      // Sanitize groups: strip Jumbo and enforce reg-only for babychino/butterscotch
+      for (const g of d.groups) {
+        if (g.id === 'size' || /size|ukuran/i.test(g.name || '')) {
+          if (Array.isArray(g.values)) {
+            g.values = g.values.filter((v) => !/jumbo/i.test(v.id || v.name || v.text || ''));
+          }
+          if (Array.isArray(g.choices)) {
+            g.choices = g.choices.filter((v) => !/jumbo/i.test(v.id || v.name || v.text || ''));
+          }
+          if (/baby|butterscotch\s*sea\s*salt\s*crumble/i.test((item.name || '') + ' ' + (item.key || ''))) {
+            if (Array.isArray(g.values)) g.values = g.values.filter((v) => !/large/i.test(v.id || v.name || v.text || ''));
+            if (Array.isArray(g.choices)) g.choices = g.choices.filter((v) => !/large/i.test(v.id || v.name || v.text || ''));
+          }
+        }
+      }
       sheet.groups = d.groups;
       sheet.prices = d.prices || null;
       sheet.normals = d.normals || null;
@@ -1293,19 +1357,6 @@ function isLargeSelected(sel = S.sheet?.sel) {
   return false;
 }
 
-function isJumboSelected(sel = S.sheet?.sel) {
-  if (!sel || !S.sheet?.groups) return false;
-  for (const g of S.sheet.groups) {
-    if (g.id === 'size' || /size|ukuran/i.test(g.name || '')) {
-      const val = sel[g.id];
-      const v = g.values?.find((x) => String(x.id) === String(val));
-      const txt = (v?.name || v?.text || String(val || '')).toLowerCase();
-      if (txt.includes('jumbo')) return true;
-    }
-  }
-  return false;
-}
-
 /** Price of the chosen variant, without add-ons. */
 function unitPrice(sel = S.sheet.sel) {
   const { item, prices } = S.sheet;
@@ -1318,8 +1369,6 @@ function unitPrice(sel = S.sheet.sel) {
         const v = g.values?.find((x) => String(x.id) === String(val));
         if (v && v.price != null && v.price > 0) {
           sizeDelta = Number(v.price) || 0;
-        } else if (/jumbo/i.test(String(val || ''))) {
-          sizeDelta = 17000;
         } else if (/large/i.test(String(val || ''))) {
           sizeDelta = (S.brandId === 'tomoro' ? 5000 : (S.brandId === 'jiwa' ? 4000 : 7000));
         }
@@ -1343,7 +1392,6 @@ function normalPrice(sel = S.sheet.sel) {
     for (const g of (S.sheet.groups || [])) {
       if (g.id === 'size' || /size|ukuran/i.test(g.name || '')) {
         const val = sel[g.id];
-        if (/jumbo/i.test(String(val || ''))) return norm + 17000;
         if (/large/i.test(String(val || ''))) return norm + (S.brandId === 'tomoro' ? 5000 : 7000);
       }
     }
@@ -1379,6 +1427,9 @@ function isHidden(g, sel) {
 function renderOptions() {
   const sh = S.sheet;
   if (!sh) return;
+  if (S.brandId === 'kopken' && sh.groups) {
+    sh.groups = sh.groups.filter((g) => g.id !== 'syrup' && !/syrup|sirup/i.test(g.name || ''));
+  }
   if (!isItemFood(sh.item)) {
     if (!sh.groups || sh.groups.length === 0) {
       sh.groups = staticGroups(sh.item);
