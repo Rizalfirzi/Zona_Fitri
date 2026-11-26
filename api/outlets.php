@@ -47,6 +47,7 @@ try {
     $lng = isset($_GET['lng']) && is_numeric($_GET['lng']) ? (float)$_GET['lng'] : null;
 
     $result = $api->getOutlets($brand, $query, $lat, $lng);
+    $result['data'] = $result['outlets'] ?? [];
     echo json_encode($result, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
 } catch (Throwable $e) {
     http_response_code(500);

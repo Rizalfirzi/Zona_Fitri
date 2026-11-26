@@ -59,11 +59,19 @@
       "dest": "/api/cron_sync.php"
     },
     {
+      "src": "/api/menu/options",
+      "dest": "/api/item.php"
+    },
+    {
       "src": "/api/([a-zA-Z0-9_-]+)/outlets",
       "dest": "/api/outlets.php?brand=$1"
     },
     {
       "src": "/api/([a-zA-Z0-9_-]+)/menu",
+      "dest": "/api/menu.php?brand=$1"
+    },
+    {
+      "src": "/api/([a-zA-Z0-9_-]+)/products",
       "dest": "/api/menu.php?brand=$1"
     },
     {

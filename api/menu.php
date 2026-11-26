@@ -39,7 +39,7 @@ try {
     $brand = $_GET['brand'] ?? '';
     if (empty($brand)) {
         $uri = $_SERVER['REQUEST_URI'] ?? '';
-        if (preg_match('#/api/([a-zA-Z0-9_-]+)/menu#', $uri, $m)) {
+        if (preg_match('#/api/([a-zA-Z0-9_-]+)/(?:menu|products)#', $uri, $m)) {
             $brand = $m[1];
         }
     }
@@ -47,7 +47,7 @@ try {
         $brand = config('default_brand', 'kopken');
     }
 
-    $outletCode = $_GET['outlet'] ?? $_GET['outletCode'] ?? '';
+    $outletCode = $_GET['outlet'] ?? $_GET['outletCode'] ?? $_GET['store_code'] ?? $_GET['store_id'] ?? $_GET['outlet_id'] ?? '';
     if (str_contains($outletCode, ',')) {
         $outletCode = trim(explode(',', $outletCode)[0]);
     }
@@ -56,10 +56,10 @@ try {
         $outletCode = trim(explode(',', (string)$rawDef)[0]);
         if (empty($outletCode)) {
             $outletCode = match ($brand) {
-                'kopken' => 'KK.SBY.MERRNGKTDT',
+                'kopken' => 'JKT.STGAMBIR',
                 'jiwa'   => '2248',
-                'fore'   => 'KOKAS',
-                default  => 'TMR-627779',
+                'fore'   => '415',
+                default  => 'JKT0004',
             };
         }
     }
@@ -68,6 +68,10 @@ try {
         || !empty($_GET['t']);
 
     $result = $api->getMenu($brand, $outletCode, $forceRefresh);
+    // Add 'data' and 'success' fields for full compatibility with Prototype jasdor
+    $result['success'] = true;
+    $result['data'] = $result['items'] ?? [];
+
     echo json_encode($result, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
 } catch (Throwable $e) {
     http_response_code(500);

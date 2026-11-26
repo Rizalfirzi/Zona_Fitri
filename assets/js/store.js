@@ -463,14 +463,16 @@ function wireStatic() {
   $('#qtyMinus')?.addEventListener('click', () => setQty(S.sheet?.qty - 1));
   $('#qtyPlus')?.addEventListener('click', () => setQty(S.sheet?.qty + 1));
   $('#itemOptions')?.addEventListener('click', (e) => {
-    const b = e.target.closest('.opt-pill');
+    const b = e.target.closest('.opt-pill, .opt-pill-proto, .opt-row-proto');
     if (!b || b.disabled) return;
     if (b.dataset.addon) {
       const k = b.dataset.addon;
       if (S.sheet.picked.has(k)) S.sheet.picked.delete(k);
       else S.sheet.picked.add(k);
       renderOptions();
-    } else selectOption(b.dataset.g, b.dataset.v);
+    } else if (b.dataset.g && b.dataset.v) {
+      selectOption(b.dataset.g, b.dataset.v);
+    }
   });
   $('#itemAdd')?.addEventListener('click', addItemToCart);
 
@@ -759,24 +761,8 @@ async function loadMenu(forceRefresh = false) {
     S.menu = await api(`/api/${S.brandId}/menu?${qs.join('&')}`);
     if (S.menu && Array.isArray(S.menu.items)) {
       for (const it of S.menu.items) {
-        if (it.options?.sizes) {
-          it.options.sizes = it.options.sizes.filter((sz) => !/jumbo/i.test(sz));
-        }
-        delete it.jumboPrice;
-        delete it.jumboNormal;
-        delete it.jumboOutletPrice;
-        const is1L = /1\s*l|liter/i.test((it.name || '') + ' ' + (it.key || ''));
-        if (S.brandId === 'tomoro') {
-          if (!it.isFood && !is1L) {
-            if (!it.options) it.options = {};
-            it.options.sizes = ['Small'];
-            delete it.largePrice;
-            delete it.largeNormal;
-            delete it.largeOutletPrice;
-          }
-          if (!it.img) {
-            it.img = `/img/menu/tomoro/${(it.key || '').replace(/[^a-z0-9]/g, '')}.webp`;
-          }
+        if (S.brandId === 'tomoro' && !it.img) {
+          it.img = `/img/menu/tomoro/${(it.key || '').replace(/[^a-z0-9]/g, '')}.webp`;
         }
 
         // Client explicit pricing override for Roti:
@@ -789,17 +775,6 @@ async function loadMenu(forceRefresh = false) {
           it.price = 9000;
           it.normalPrice = 10000;
           it.outletPrice = 10000;
-        }
-
-        // Client revision: Cheesecake Frappe tidak ada pilihan large / size dll
-        if (/cheesecake.*frappe|frappe.*cheesecake/i.test((it.category || '') + ' ' + (it.name || '') + ' ' + (it.key || ''))) {
-          delete it.largePrice;
-          delete it.largeNormal;
-          delete it.largeOutletPrice;
-          if (it.options) {
-            it.options.sizes = ['Regular'];
-            it.options.temps = ['Ice'];
-          }
         }
       }
     }
@@ -1109,19 +1084,25 @@ function openItem(key, editIndex = null) {
   if (line) restoreSelection(line.choices);
 
   const imgUrl = fixImg(item.img, item);
-  $('#itemHero').classList.toggle('show', Boolean(imgUrl));
-  $('#itemHero').innerHTML = imgUrl ? `<img src="${esc(imgUrl)}" alt="${esc(item.name)}" referrerpolicy="no-referrer">` : '';
+  const heroEl = $('#itemHero');
+  if (heroEl) {
+    heroEl.innerHTML = imgUrl
+      ? `<img src="${esc(imgUrl)}" alt="${esc(item.name)}" referrerpolicy="no-referrer" onerror="this.onerror=null;this.src='${esc(S.brand.logo)}';">`
+      : `<img src="${esc(S.brand.logo)}" alt="${esc(item.name)}">`;
+  }
   $('#itemCat').textContent = item.category || '';
   $('#itemName').textContent = item.name;
   $('#itemDesc').textContent = item.desc || '';
-  $('#itemNormal').textContent = item.normalPrice ? formatRp(item.normalPrice) : '';
+  $('#itemPrice').textContent = formatRp(item.price);
+  $('#itemNormal').textContent = item.normalPrice && item.normalPrice > item.price ? formatRp(item.normalPrice) : '';
+  if ($('#itemAddPrice')) $('#itemAddPrice').textContent = formatRp(item.price * S.sheet.qty);
   $('#itemNote').value = line?.note || '';
   $('#qtyVal').textContent = S.sheet.qty;
   renderOptions();
   openSheet('itemSheet');
 
-  // Exact variants and stock straight from the outlet (Kopi Kenangan official API).
-  if (item.code && S.outlet?.code && !S.outlet.manual && S.brandId === 'kopken' && !isItemFood(item)) loadItemDetail(item, line);
+  // Exact variants and stock straight from the outlet / API
+  if (!isItemFood(item)) loadItemDetail(item, line);
 }
 
 /** Shop-made add-ons ("Extra es batu", …) for drinks, as a multi-select group. */
@@ -1136,35 +1117,77 @@ function staticGroups(item) {
     return [];
   }
 
-  // Client revision: Menu baru cheesecake frappe TIDAK ADA PILIHAN suhu/large dll
-  if (/cheesecake.*frappe|frappe.*cheesecake/i.test((item.category || '') + ' ' + (item.name || '') + ' ' + (item.key || ''))) {
-    return [];
-  }
-
   const o = item.options || {};
   const isFrappe = /frappe/i.test((item.category || '') + ' ' + (item.name || ''));
 
-  // Ensure drinks always have Ice & Sugar options per client revision (Gambar 5 - 6)
-  const ices = o.ices?.length ? o.ices : ['Normal Ice', 'Less Ice', 'No Ice'];
   const sugars = o.sugars?.length ? o.sugars : ['Normal Sugar', 'Less Sugar', 'No Sugar'];
   const temps = isFrappe ? ['Ice'] : (o.temps?.length ? o.temps : ['Ice', 'Hot']);
 
   const groups = [];
-  let sizes = (o.sizes || []).filter((v) => !/jumbo/i.test(v));
-
-  const is1L = /1\s*l|liter/i.test((item.name || '') + ' ' + (item.key || ''));
-  if (S.brandId === 'tomoro' && !is1L) {
-    sizes = ['Small'];
-  } else if (!sizes.length && !is1L) {
+  let sizes = (o.sizes && o.sizes.length) ? o.sizes : ['Regular', 'Large', 'Jumbo'];
+  if (S.brandId === 'tomoro') {
+    sizes = ['Regular', 'Large'];
+  } else if (S.brandId === 'jiwa') {
     sizes = ['Regular', 'Large'];
   }
 
-  if (sizes.length) {
-    groups.push({ id: 'size', key: 'size', name: 'Ukuran', values: sizes.map((v) => ({ id: v, text: v })), default: sizes[0], impact: true });
+  // 1. TEMPERATURE [Wajib]
+  if (temps.length) {
+    groups.push({
+      id: 'temp',
+      name: 'TEMPERATURE',
+      required: true,
+      multi: false,
+      values: temps.map((v) => ({ id: v.toLowerCase(), text: v, name: v })),
+      default: 'ice',
+    });
   }
-  if (temps.length) groups.push({ id: 'temp', key: 'temp', name: 'Suhu', values: temps.map((v) => ({ id: v, text: v })), default: temps[0] });
-  if (ices.length) groups.push({ id: 'ice', key: 'ice', name: 'Level es', values: ices.map((v) => ({ id: v, text: v })), default: ices[0], hideWhen: { temp: 'Hot' } });
-  if (sugars.length) groups.push({ id: 'sugar', key: 'sugar', name: 'Level gula', values: sugars.map((v) => ({ id: v, text: v })), default: sugars[0] });
+
+  // 2. SIZE [Wajib]
+  if (sizes.length) {
+    const sizeDeltaLarge = S.brandId === 'tomoro' ? 5000 : (S.brandId === 'jiwa' ? 4000 : 7000);
+    const sizeDeltaJumbo = 17000;
+    groups.push({
+      id: 'size',
+      name: 'SIZE',
+      required: true,
+      multi: false,
+      impact: true,
+      values: sizes.map((v) => {
+        let p = 0;
+        if (/large/i.test(v)) p = sizeDeltaLarge;
+        else if (/jumbo/i.test(v)) p = sizeDeltaJumbo;
+        return { id: v, text: v, name: v, price: p };
+      }),
+      default: sizes[0],
+    });
+  }
+
+  // 3. SUGAR LEVEL [Wajib]
+  if (sugars.length) {
+    groups.push({
+      id: 'sugar',
+      name: 'SUGAR LEVEL',
+      required: true,
+      multi: false,
+      values: sugars.map((v) => ({ id: v, text: v, name: v })),
+      default: 'Normal Sugar',
+    });
+  }
+
+  // 4. SYRUP [Opsional • maks 6]
+  groups.push({
+    id: 'syrup',
+    name: 'SYRUP',
+    required: false,
+    multi: true,
+    max: 6,
+    values: [
+      { id: 'vanilla_syrup', text: 'Vanilla Syrup', name: 'Vanilla Syrup', price: 6000 },
+      { id: 'caramel_syrup', text: 'Caramel Syrup', name: 'Caramel Syrup', price: 6000 },
+    ],
+  });
+
   return groups;
 }
 
@@ -1173,7 +1196,7 @@ async function loadItemDetail(item, line) {
   sheet.loading = true;
   renderOptions();
   try {
-    const d = await api(`/api/kopken/item?outlet=${encodeURIComponent(S.outlet.code)}&code=${encodeURIComponent(item.code)}&key=${encodeURIComponent(item.key)}`);
+    const d = await api(`/api/${S.brandId}/item?outlet=${encodeURIComponent(S.outlet?.code || '')}&code=${encodeURIComponent(item.code || item.id || item.key)}&key=${encodeURIComponent(item.key)}`);
     if (S.sheet !== sheet) return;
     if (d.isSoldOut) {
       closeSheet('itemSheet');
@@ -1182,86 +1205,14 @@ async function loadItemDetail(item, line) {
       showDialog({ title: 'Stok habis', html: `Maaf, <b>${esc(item.name)}</b> sedang habis di outlet ini.`, icon: icons.soldout });
       return;
     }
-    if (d.groups?.length && d.prices && Object.keys(d.prices).length) {
-      // Client revision: Menu baru cheesecake frappe TIDAK ADA PILIHAN suhu/large dll
-      if (/cheesecake.*frappe|frappe.*cheesecake/i.test((item.category || '') + ' ' + (item.name || '') + ' ' + (item.key || ''))) {
-        d.groups = [];
-      }
-      // Client revision: Hapus Jumbo di all menu
-      const jumboIds = new Set();
-      for (const g of d.groups) {
-        if (Array.isArray(g.values)) {
-          for (const v of g.values) {
-            if (/jumbo/i.test(v.text || '') || /jumbo/i.test(String(v.id || ''))) {
-              jumboIds.add(String(v.id));
-            }
-          }
-          g.values = g.values.filter((v) => !jumboIds.has(String(v.id)));
-          if (jumboIds.has(String(g.default)) && g.values.length > 0) {
-            g.default = g.values[0].id;
-          }
-        }
-      }
-      d.groups = d.groups.filter((g) => g.values && g.values.length > 0);
-
-      if (jumboIds.size > 0) {
-        if (d.prices) {
-          const cleanPrices = {};
-          for (const [k, p] of Object.entries(d.prices)) {
-            if (!k.split('|').some((part) => jumboIds.has(part))) {
-              cleanPrices[k] = p;
-            }
-          }
-          d.prices = cleanPrices;
-        }
-        if (d.normals) {
-          const cleanNormals = {};
-          for (const [k, n] of Object.entries(d.normals)) {
-            if (!k.split('|').some((part) => jumboIds.has(part))) {
-              cleanNormals[k] = n;
-            }
-          }
-          d.normals = cleanNormals;
-        }
-        if (d.comboAddons) {
-          const cleanComboAddons = {};
-          for (const [k, ca] of Object.entries(d.comboAddons)) {
-            if (!k.split('|').some((part) => jumboIds.has(part))) {
-              cleanComboAddons[k] = ca;
-            }
-          }
-          d.comboAddons = cleanComboAddons;
-        }
-      }
-
-      // Ensure drinks always retain Ice and Sugar options per client request
-      if (!isItemFood(item)) {
-        if (!d.groups.some((g) => g.id === 'ice')) {
-          d.groups.push({
-            id: 'ice',
-            key: 'ice',
-            name: 'Level es',
-            values: [{ id: 'Normal Ice', text: 'Normal Ice' }, { id: 'Less Ice', text: 'Less Ice' }, { id: 'No Ice', text: 'No Ice' }],
-            default: 'Normal Ice',
-            hideWhen: { temp: 'Hot' },
-          });
-        }
-        if (!d.groups.some((g) => g.id === 'sugar')) {
-          d.groups.push({
-            id: 'sugar',
-            key: 'sugar',
-            name: 'Level gula',
-            values: [{ id: 'Normal Sugar', text: 'Normal Sugar' }, { id: 'Less Sugar', text: 'Less Sugar' }, { id: 'No Sugar', text: 'No Sugar' }],
-            default: 'Normal Sugar',
-          });
-        }
-      }
-
+    if (d.groups?.length) {
       sheet.groups = d.groups;
-      sheet.prices = d.prices;
+      sheet.prices = d.prices || null;
       sheet.normals = d.normals || null;
       sheet.sel = {};
-      for (const g of d.groups) sheet.sel[g.id] = g.default;
+      for (const g of d.groups) {
+        sheet.sel[g.id] = g.default || (g.values && g.values[0] ? g.values[0].id : '');
+      }
       sheet.addons = [...(d.addons || []), ...extrasGroup(item, d.extras || S.menu?.extras || [])];
       sheet.comboAddons = d.comboAddons && Object.keys(d.comboAddons).length ? d.comboAddons : null;
       sheet.picked = new Set();
@@ -1306,7 +1257,22 @@ function availableAddons() {
 
 function addonTotal() {
   let t = 0;
-  for (const a of availableAddons()) for (const v of a.values) if (S.sheet.picked.has(`${a.id}:${v.id}`)) t += v.price;
+  for (const g of (S.sheet?.groups || [])) {
+    if (g.multi && Array.isArray(g.values)) {
+      for (const v of g.values) {
+        if (S.sheet.picked.has(`${g.id}:${v.id}`)) {
+          t += (Number(v.price) || 0);
+        }
+      }
+    }
+  }
+  for (const a of availableAddons()) {
+    for (const v of a.values) {
+      if (S.sheet.picked.has(`${a.id}:${v.id}`)) {
+        t += (Number(v.price) || 0);
+      }
+    }
+  }
   return t;
 }
 
@@ -1316,13 +1282,26 @@ const comboKey = (sel) => impactGroups().map((g) => sel[g.id]).join('|');
 /** Price of the chosen variant, without add-ons. */
 function isLargeSelected(sel = S.sheet?.sel) {
   if (!sel || !S.sheet?.groups) return false;
-  if (S.brandId === 'tomoro') return false;
   for (const g of S.sheet.groups) {
-    const valId = sel[g.id];
-    if (valId == null) continue;
-    const v = g.values?.find((x) => String(x.id) === String(valId));
-    const txt = (v?.text || String(valId)).toLowerCase();
-    if (txt.includes('large') || txt === 'l') return true;
+    if (g.id === 'size' || /size|ukuran/i.test(g.name || '')) {
+      const val = sel[g.id];
+      const v = g.values?.find((x) => String(x.id) === String(val));
+      const txt = (v?.name || v?.text || String(val || '')).toLowerCase();
+      if (txt.includes('large') || txt === 'l') return true;
+    }
+  }
+  return false;
+}
+
+function isJumboSelected(sel = S.sheet?.sel) {
+  if (!sel || !S.sheet?.groups) return false;
+  for (const g of S.sheet.groups) {
+    if (g.id === 'size' || /size|ukuran/i.test(g.name || '')) {
+      const val = sel[g.id];
+      const v = g.values?.find((x) => String(x.id) === String(val));
+      const txt = (v?.name || v?.text || String(val || '')).toLowerCase();
+      if (txt.includes('jumbo')) return true;
+    }
   }
   return false;
 }
@@ -1330,37 +1309,51 @@ function isLargeSelected(sel = S.sheet?.sel) {
 /** Price of the chosen variant, without add-ons. */
 function unitPrice(sel = S.sheet.sel) {
   const { item, prices } = S.sheet;
-  const isLarge = isLargeSelected(sel);
-  if (prices) {
-    const p = prices[comboKey(sel)];
-    if (p != null) {
-      if (isLarge && item.price && p <= item.price) {
-        return (item.largePrice || (item.price + 5000));
+  let base = item.price || 0;
+  let sizeDelta = 0;
+  if (sel) {
+    for (const g of (S.sheet.groups || [])) {
+      if (g.id === 'size' || /size|ukuran/i.test(g.name || '')) {
+        const val = sel[g.id];
+        const v = g.values?.find((x) => String(x.id) === String(val));
+        if (v && v.price != null && v.price > 0) {
+          sizeDelta = Number(v.price) || 0;
+        } else if (/jumbo/i.test(String(val || ''))) {
+          sizeDelta = 17000;
+        } else if (/large/i.test(String(val || ''))) {
+          sizeDelta = (S.brandId === 'tomoro' ? 5000 : (S.brandId === 'jiwa' ? 4000 : 7000));
+        }
+        break;
       }
-      return p;
     }
   }
-  if (isLarge) {
-    if (item.largePrice) return item.largePrice;
-    return (item.price || 0) + 5000;
+  if (prices && S.sheet.groups) {
+    const k = comboKey(sel);
+    if (prices[k] != null) return prices[k];
   }
-  return item.price;
+  return base + sizeDelta;
 }
 
 /** Pre-discount price of the chosen variant (for the strike-through), or null. */
 function normalPrice(sel = S.sheet.sel) {
   const { item, normals, prices } = S.sheet;
   if (prices) return normals ? normals[comboKey(sel)] ?? null : null;
-  if (S.brandId === 'tomoro') return item.normalPrice || null;
-  if (sel.size === 'Large' && item.largePrice) return item.largeNormal || null;
-  return item.normalPrice || null;
+  let norm = item.normalPrice || null;
+  if (norm != null && sel) {
+    for (const g of (S.sheet.groups || [])) {
+      if (g.id === 'size' || /size|ukuran/i.test(g.name || '')) {
+        const val = sel[g.id];
+        if (/jumbo/i.test(String(val || ''))) return norm + 17000;
+        if (/large/i.test(String(val || ''))) return norm + (S.brandId === 'tomoro' ? 5000 : 7000);
+      }
+    }
+  }
+  return norm;
 }
 
 function ensureValidCombo(changedGroup) {
   const { prices, sel } = S.sheet;
   if (!prices || prices[comboKey(sel)] != null) return;
-  // Pick the available combination closest to the current selection, keeping the
-  // value the customer just chose.
   const ids = impactGroups().map((g) => g.id);
   let best = null;
   let bestScore = -1;
@@ -1383,19 +1376,6 @@ function isHidden(g, sel) {
   return Object.entries(g.hideWhen || {}).some(([gid, vid]) => sel[gid] === vid);
 }
 
-const GROUP_LABELS = { 
-  Temperature: 'Suhu', 
-  Size: 'Ukuran', 
-  Beans: 'Biji kopi', 
-  'Milk Option': 'Susu', 
-  'Sugar Level': 'Level gula', 
-  'Ice Level': 'Level es',
-  'Level Es': 'Level es',
-  'Level Gula': 'Level gula',
-  Ukuran: 'Ukuran',
-  Suhu: 'Suhu'
-};
-
 function renderOptions() {
   const sh = S.sheet;
   if (!sh) return;
@@ -1404,72 +1384,134 @@ function renderOptions() {
       sh.groups = staticGroups(sh.item);
     }
     // Guarantee that every drink ALWAYS has Ice and Sugar option groups
-    if (!sh.groups.some((g) => g.id === 'ice')) {
+    if (!sh.groups.some((g) => g.id === 'ice' || /ice|es/i.test(g.name || ''))) {
       sh.groups.push({
         id: 'ice',
         key: 'ice',
-        name: 'Level es',
-        values: [{ id: 'Normal Ice', text: 'Normal Ice' }, { id: 'Less Ice', text: 'Less Ice' }, { id: 'No Ice', text: 'No Ice' }],
+        name: 'ICE LEVEL',
+        required: true,
+        multi: false,
+        values: [{ id: 'Normal Ice', text: 'Normal Ice', name: 'Normal Ice' }, { id: 'Less Ice', text: 'Less Ice', name: 'Less Ice' }, { id: 'No Ice', text: 'No Ice', name: 'No Ice' }],
         default: 'Normal Ice',
-        hideWhen: { temp: 'Hot' },
+        hideWhen: { temp: 'Hot', temp: 'hot' },
       });
     }
-    if (!sh.groups.some((g) => g.id === 'sugar')) {
+    if (!sh.groups.some((g) => g.id === 'sugar' || /sugar|gula/i.test(g.name || ''))) {
       sh.groups.push({
         id: 'sugar',
         key: 'sugar',
-        name: 'Level gula',
-        values: [{ id: 'Normal Sugar', text: 'Normal Sugar' }, { id: 'Less Sugar', text: 'Less Sugar' }, { id: 'No Sugar', text: 'No Sugar' }],
+        name: 'SUGAR LEVEL',
+        required: true,
+        multi: false,
+        values: [{ id: 'Normal Sugar', text: 'Normal Sugar', name: 'Normal Sugar' }, { id: 'Less Sugar', text: 'Less Sugar', name: 'Less Sugar' }, { id: 'No Sugar', text: 'No Sugar', name: 'No Sugar' }],
         default: 'Normal Sugar',
       });
     }
   }
+
   for (const g of (sh.groups || [])) {
-    const valid = g.values.filter((v) => !/jumbo/i.test(v.text || '') && !/jumbo/i.test(String(v.id || '')));
-    if (valid.length && (!sh.sel[g.id] || !valid.some((v) => String(v.id) === String(sh.sel[g.id])))) {
-      sh.sel[g.id] = valid[0].id;
+    if (g.values?.length && (!sh.sel[g.id] || !g.values.some((v) => String(v.id) === String(sh.sel[g.id])))) {
+      sh.sel[g.id] = g.default || g.values[0].id;
     }
   }
+
   const base = unitPrice();
-  const html = sh.groups
+  const html = (sh.groups || [])
     .filter((g) => !isHidden(g, sh.sel))
     .map((g) => {
-      const pills = g.values
-        .filter((v) => !/jumbo/i.test(v.text || '') && !/jumbo/i.test(String(v.id || '')));
-      return `<div class="opt-group" role="group" aria-label="${esc(GROUP_LABELS[g.name] || g.name)}"><div class="opt-title">${esc(GROUP_LABELS[g.name] || g.name)}</div><div class="opt-choices">${pills.map((v) => {
-        let extra = '';
-        let disabled = false;
-        if (g.impact) {
-          const p = unitPrice({ ...sh.sel, [g.id]: v.id });
-          if (sh.prices && p == null) {
-            // Only reachable through other options; still selectable (auto-adjusts).
-            disabled = !Object.keys(sh.prices).some((k) => k.split('|')[impactGroups().findIndex((x) => x.id === g.id)] === v.id);
-          } else if (p != null && base != null && p !== base && sh.sel[g.id] !== v.id) {
-            extra = `<small>${p > base ? '+' : '−'}${formatRp(Math.abs(p - base))}</small>`;
-          }
-        }
-        return `<button class="opt-pill ${sh.sel[g.id] === v.id ? 'active' : ''}" data-g="${esc(g.id)}" data-v="${esc(v.id)}" aria-pressed="${sh.sel[g.id] === v.id}" ${disabled ? 'disabled' : ''}>${esc(v.text)}${extra}</button>`;
-      }).join('')}</div></div>`;
+      const isMulti = Boolean(g.multi);
+      const isRequired = Boolean(g.required);
+      const badgeText = isRequired ? 'Wajib' : `Opsional${g.multi ? ` • maks ${g.max || 6}` : ''}`;
+      const badgeClass = isRequired ? 'required' : 'optional';
+
+      if (isMulti) {
+        return `<div class="opt-group-proto">
+          <div class="opt-head-proto">
+            <span class="opt-title-proto">${esc(g.name)}</span>
+            <span class="opt-badge-proto ${badgeClass}">${badgeText}</span>
+          </div>
+          <div class="opt-choices-proto">
+            ${(g.values || []).map((v) => {
+              const on = sh.picked.has(`${g.id}:${v.id}`);
+              return `<button type="button" class="opt-row-proto ${on ? 'active' : ''}" data-addon="${esc(`${g.id}:${v.id}`)}">
+                <span class="row-label">${esc(v.name || v.text)}</span>
+                <div class="row-right">
+                  <span class="row-price">+${formatRp(v.price || 0)}</span>
+                  <div class="row-check">${on ? '✓' : ''}</div>
+                </div>
+              </button>`;
+            }).join('')}
+          </div>
+        </div>`;
+      }
+
+      const cols = Math.min(3, Math.max(1, (g.values || []).length));
+      return `<div class="opt-group-proto">
+        <div class="opt-head-proto">
+          <span class="opt-title-proto">${esc(g.name)}</span>
+          <span class="opt-badge-proto ${badgeClass}">${badgeText}</span>
+        </div>
+        <div class="opt-grid-proto cols-${cols}">
+          ${(g.values || []).map((v) => {
+            const isActive = String(sh.sel[g.id]) === String(v.id);
+            let extra = '';
+            if (v.price > 0) {
+              extra = `<small>+${formatRp(v.price)}</small>`;
+            } else if (g.impact) {
+              const p = unitPrice({ ...sh.sel, [g.id]: v.id });
+              if (p != null && base != null && p > base) {
+                extra = `<small>+${formatRp(p - base)}</small>`;
+              }
+            }
+            return `<button type="button" class="opt-pill-proto ${isActive ? 'active' : ''}" data-g="${esc(g.id)}" data-v="${esc(v.id)}">
+              <span>${esc(v.name || v.text)}</span>
+              ${extra}
+            </button>`;
+          }).join('')}
+        </div>
+      </div>`;
     })
     .join('');
+
   const addonHtml = availableAddons()
     .map(
-      (a) => `<div class="opt-group" role="group" aria-label="${esc(a.name)}"><div class="opt-title">${esc(a.name)} <span class="opt-hint">opsional, boleh lebih dari satu</span></div><div class="opt-choices">${a.values
-        .map((v) => {
-          const on = sh.picked.has(`${a.id}:${v.id}`);
-          return `<button class="opt-pill addon ${on ? 'active' : ''}" data-addon="${esc(`${a.id}:${v.id}`)}" aria-pressed="${on}">${esc(v.text)}<small>+${formatRp(v.price)}</small></button>`;
-        })
-        .join('')}</div></div>`,
+      (a) => `<div class="opt-group-proto">
+        <div class="opt-head-proto">
+          <span class="opt-title-proto">${esc(a.name)}</span>
+          <span class="opt-badge-proto optional">Opsional</span>
+        </div>
+        <div class="opt-choices-proto">
+          ${a.values.map((v) => {
+            const on = sh.picked.has(`${a.id}:${v.id}`);
+            return `<button type="button" class="opt-row-proto ${on ? 'active' : ''}" data-addon="${esc(`${a.id}:${v.id}`)}">
+              <span class="row-label">${esc(v.name || v.text)}</span>
+              <div class="row-right">
+                <span class="row-price">+${formatRp(v.price || 0)}</span>
+                <div class="row-check">${on ? '✓' : ''}</div>
+              </div>
+            </button>`;
+          }).join('')}
+        </div>
+      </div>`,
     )
     .join('');
-  $('#itemOptions').innerHTML = html + addonHtml + (sh.loading ? `<div class="opt-loading"><span class="spinner"></span> Cek varian & stok di outlet…</div>` : '');
+
+  $('#itemOptions').innerHTML = html + addonHtml + (sh.loading ? `<div class="opt-loading" style="text-align:center;padding:12px;color:#64748b;font-size:13px;"><span class="spinner"></span> Cek varian & stok di outlet…</div>` : '');
   const extra = addonTotal();
   const price = (base ?? sh.item.price) + extra;
   const normal = normalPrice();
   $('#itemPrice').textContent = formatRp(price);
-  $('#itemNormal').textContent = normal && normal > (base ?? 0) ? formatRp(normal + extra) : '';
-  $('#itemAdd').textContent = `${sh.editIndex != null ? 'Simpan' : 'Tambah'} · ${formatRp(price * sh.qty)}`;
-  $('#itemAdd').disabled = base == null;
+  if ($('#itemNormal')) {
+    $('#itemNormal').textContent = normal && normal > (base ?? 0) ? formatRp(normal + extra) : '';
+  }
+  const btnLabel = sh.editIndex != null ? 'Simpan' : 'Tambah Ke Keranjang';
+  if ($('#itemAddPrice')) {
+    $('#itemAddPrice').textContent = formatRp(price * sh.qty);
+  }
+  if ($('#itemAdd')) {
+    $('#itemAdd').innerHTML = `${btnLabel} <span id="itemAddPrice">${formatRp(price * sh.qty)}</span>`;
+    $('#itemAdd').disabled = base == null;
+  }
 }
 
 function setQty(n) {
@@ -1479,28 +1521,39 @@ function setQty(n) {
 }
 
 function currentChoices(groups, sel) {
-  return groups
-    .filter((g) => !isHidden(g, sel))
+  return (groups || [])
+    .filter((g) => !isHidden(g, sel) && !g.multi)
     .map((g) => {
-      const v = g.values.find((x) => String(x.id) === String(sel[g.id]));
-      return { group: g.name, value: v ? v.text : (sel[g.id] || '') };
+      const v = g.values?.find((x) => String(x.id) === String(sel[g.id]));
+      return { group: g.name, value: v ? (v.name || v.text) : (sel[g.id] || '') };
     });
 }
 
 function pickedChoices() {
   const out = [];
-  for (const a of availableAddons()) for (const v of a.values) if (S.sheet.picked.has(`${a.id}:${v.id}`)) out.push({ group: a.name, value: `+${v.text}` });
+  for (const g of (S.sheet?.groups || [])) {
+    if (g.multi && Array.isArray(g.values)) {
+      for (const v of g.values) {
+        if (S.sheet.picked.has(`${g.id}:${v.id}`)) {
+          out.push({ group: g.name, value: `+${v.name || v.text}` });
+        }
+      }
+    }
+  }
+  for (const a of availableAddons()) {
+    for (const v of a.values) {
+      if (S.sheet.picked.has(`${a.id}:${v.id}`)) {
+        out.push({ group: a.name, value: `+${v.name || v.text}` });
+      }
+    }
+  }
   return out;
 }
 
 function addItemToCart() {
   const sh = S.sheet;
-  let variant = unitPrice();
+  const variant = unitPrice();
   if (variant == null) return;
-  const isLarge = isLargeSelected(sh.sel);
-  if (isLarge && sh.item.price && variant <= sh.item.price) {
-    variant = sh.item.largePrice || (sh.item.price + 5000);
-  }
   const price = variant + addonTotal();
   const line = {
     uid: sh.editIndex != null ? S.cart[sh.editIndex].uid : uid(),
@@ -1513,7 +1566,7 @@ function addItemToCart() {
     isBundle: false,
     isSpecial: sh.item.isSpecial,
     choices: [...currentChoices(sh.groups, sh.sel), ...pickedChoices()],
-    note: $('#itemNote').value.trim(),
+    note: $('#itemNote')?.value?.trim() || '',
   };
   if (sh.editIndex != null) S.cart[sh.editIndex] = line;
   else {

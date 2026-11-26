@@ -110,27 +110,28 @@ $config = [
         ],
     ],
 
-    // Client Pricing Rules & Formulas
+    // Client Pricing Rules & Formulas (Aligned with Prototype jasdor-four-brand-web.vercel.app)
     'pricing' => [
         'kopken' => [
-            'percent' => 50,
-            'add' => 4500, // Client revision: fee 4,5k (+4500) per cup
-            'largeAdd' => 5000, // upsize +5k
+            'percent' => 38, // 38% discount
+            'add' => 2500,    // 2.500 fee per cup
+            'largeAdd' => 7000, // upsize Large +7k
+            'jumboAdd' => 17000, // upsize Jumbo +17k
         ],
         'tomoro' => [
-            'percent' => 50,
-            'add' => 5000,
+            'percent' => 44, // 44% discount
+            'add' => 2500,   // 2.500 fee per cup
+            'largeAdd' => 5000, // upsize Large +5k
         ],
         'fore' => [
-            'percent' => 75, // -25%
-            'add' => 0, // Client revision: FORE buat disc 25% NO FEE
-            'largeAdd' => 5000, // upsize +5k
+            'percent' => 25, // Client revision: FORE buat disc 25% NO FEE
+            'add' => 0,      // NO FEE
+            'largeAdd' => 7000, // upsize Large +7k
         ],
         'jiwa' => [
-            'percent' => 50,
-            'maxDiscount' => 20000,
-            'add' => 10000, // Client revision: coba +5k semua (fee per menu 10k)
-            'largeAdd' => 3000,
+            'percent' => 40, // 40% discount
+            'add' => 2500,   // 2.500 fee per cup
+            'largeAdd' => 4000,
         ],
     ],
 
@@ -144,7 +145,7 @@ $config = [
             'color' => '#791217',
             'desc' => 'Espresso khas gula aren. Promo hemat setiap hari.',
             'requireOutlet' => true,
-            'wifi' => false, // Client request: wifi tdk perlu di tampilkan di web
+            'wifi' => false,
             'fee' => [
                 'mode' => 'none',
                 'single' => 0,
@@ -153,8 +154,8 @@ $config = [
                 'freeFromQty' => 0,
                 'singleSpecial' => 0,
             ],
-            'defaultOutlet' => 'KK.SBY.MERRNGKTDT',
-            'default_outlet' => 'KK.SBY.MERRNGKTDT',
+            'defaultOutlet' => 'JKT.STGAMBIR',
+            'default_outlet' => 'JKT.STGAMBIR',
             'logo' => '/img/brands/kopken.png',
         ],
         'tomoro' => [
@@ -174,8 +175,8 @@ $config = [
                 'freeFromQty' => 0,
                 'singleSpecial' => 0,
             ],
-            'defaultOutlet' => 'TMR-627779',
-            'default_outlet' => 'TMR-627779',
+            'defaultOutlet' => 'JKT0004',
+            'default_outlet' => 'JKT0004',
             'logo' => '/img/brands/tomoro.png',
         ],
         'fore' => [
@@ -195,8 +196,8 @@ $config = [
                 'freeFromQty' => 0,
                 'singleSpecial' => 0,
             ],
-            'defaultOutlet' => 'KOKAS',
-            'default_outlet' => 'KOKAS',
+            'defaultOutlet' => '415',
+            'default_outlet' => '415',
             'logo' => '/img/brands/fore.png',
         ],
         'jiwa' => [
@@ -205,7 +206,7 @@ $config = [
             'short' => 'Janji Jiwa',
             'slug' => 'janjiw',
             'color' => '#C2410C',
-            'desc' => 'Kopi Dari Hati. Promo hemat disc 50% max 20k + fee 5k.',
+            'desc' => 'Kopi Dari Hati. Promo hemat resmi.',
             'requireOutlet' => true,
             'wifi' => false,
             'fee' => [
@@ -216,8 +217,8 @@ $config = [
                 'freeFromQty' => 0,
                 'singleSpecial' => 0,
             ],
-            'defaultOutlet' => '25',
-            'default_outlet' => '25',
+            'defaultOutlet' => '2248',
+            'default_outlet' => '2248',
             'logo' => '/img/brands/jiwa.png',
         ],
     ],

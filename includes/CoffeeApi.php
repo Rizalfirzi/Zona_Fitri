@@ -577,8 +577,8 @@ class CoffeeApi
                             'isFood' => $isFood,
                             'desc' => $p['description'] ?? '',
                             'options' => [
-                                'sizes' => $isFood ? ['Regular'] : ['Regular', 'Large'],
-                                'temps' => ['Ice', 'Hot'],
+                                'sizes' => $isFood ? ['Regular'] : ['Regular', 'Large', 'Jumbo'],
+                                'temps' => (stripos($name . ' ' . $gname, 'frappe') !== false) ? ['Ice'] : ['Ice', 'Hot'],
                                 'ices' => ['Normal Ice', 'Less Ice', 'No Ice'],
                                 'sugars' => ['Normal Sugar', 'Less Sugar', 'No Sugar'],
                             ],
@@ -1266,16 +1266,19 @@ class CoffeeApi
             $isSoldOut = !empty($item['isSoldOut']) || !empty($item['notCarried']);
             $isFood = !empty($item['isFood']) || (isset($item['category']) && strtolower($item['category']) === 'food');
 
-            // Client Formulas:
+            // Client Formulas (Aligned with Prototype jasdor-four-brand-web.vercel.app):
             $calcPrice = $outletPrice;
             $largePrice = null;
+            $jumboPrice = null;
 
             if ($brand === 'kopken') {
-                // KOPKEN: HARGA ASLI - 50% + 4.500/cup, Large: +5.000
-                $calcPrice = (int) round(($outletPrice * 0.5) + 4500);
-                $largePrice = $calcPrice + 5000;
+                // KOPKEN: Disc 38%, Fee 2.500/cup, round to 500
+                $discounted = round(($outletPrice * (1 - 0.38)) / 500) * 500;
+                $calcPrice = (int) ($discounted + 2500);
+                $largePrice = $calcPrice + 7000;
+                $jumboPrice = $calcPrice + 17000;
 
-                // Client explicit pricing override for Roti (Gambar 2):
+                // Client explicit pricing override for Roti:
                 // Roti Coklat Klasik: Rp8.000 (outlet price 9.000)
                 // Roti Susu Manis: Rp9.000 (outlet price 10.000)
                 if ($key === 'roticoklatklasik' || stripos($item['name'] ?? '', 'coklat klasik') !== false) {
@@ -1286,25 +1289,23 @@ class CoffeeApi
                     $outletPrice = 10000;
                 }
             } elseif ($brand === 'tomoro') {
-                // TOMORO: HARGA ASLI - 50% + 5.000/cup (Small only)
-                $calcPrice = (int) round(($outletPrice * 0.5) + 5000);
-                $largePrice = null;
-            } elseif ($brand === 'fore') {
-                // FORE: HARGA ASLI - 25% NO FEE, Large: +5.000
-                $calcPrice = (int) (round(($outletPrice * 0.75) / 500) * 500);
+                // TOMORO: Disc 44%, Fee 2.500/cup, round to 500
+                $discounted = round(($outletPrice * (1 - 0.44)) / 500) * 500;
+                $calcPrice = (int) ($discounted + 2500);
                 $largePrice = $calcPrice + 5000;
+                $jumboPrice = null;
+            } elseif ($brand === 'fore') {
+                // FORE: Disc 25% NO FEE per client revision
+                $discounted = round(($outletPrice * (1 - 0.25)) / 500) * 500;
+                $calcPrice = (int) ($discounted + 0);
+                $largePrice = $calcPrice + 7000;
+                $jumboPrice = null;
             } elseif ($brand === 'jiwa') {
-                // JANJI JIWA: all menu disc 50% max 20k, fee per menu 10k
-                $discount = min($outletPrice * 0.5, 20000);
-                $calcPrice = (int) round(($outletPrice - $discount) + 10000);
-                $normalPrice = max($outletPrice, (int) round(($calcPrice - 5000) * 2));
-                if ($normalPrice <= $calcPrice) $normalPrice = $calcPrice + 6000;
-                $outletPrice = $normalPrice;
-            }
-
-            // Client revision: Cheesecake frappe tidak ada pilihan large / size dll
-            if (preg_match('/cheesecake.*frappe|frappe.*cheesecake/i', $key . ' ' . ($item['name'] ?? ''))) {
-                $largePrice = null;
+                // JANJI JIWA: Disc 40%, Fee 2.500/cup, round to 500
+                $discounted = round(($outletPrice * (1 - 0.40)) / 500) * 500;
+                $calcPrice = (int) ($discounted + 2500);
+                $largePrice = $calcPrice + 4000;
+                $jumboPrice = null;
             }
 
             $item['price'] = $calcPrice;
@@ -1312,9 +1313,16 @@ class CoffeeApi
 
             if ($largePrice !== null && !$isFood && (empty($item['options']['sizes']) || in_array('Large', $item['options']['sizes'], true))) {
                 $item['largePrice'] = $largePrice;
-                $item['largeNormal'] = $item['largeOutletPrice'] ?? ($outletPrice + 6000);
+                $item['largeNormal'] = $item['largeOutletPrice'] ?? ($outletPrice + 7000);
             } else {
                 unset($item['largePrice'], $item['largeNormal'], $item['largeOutletPrice']);
+            }
+
+            if ($jumboPrice !== null && !$isFood && (empty($item['options']['sizes']) || in_array('Jumbo', $item['options']['sizes'], true))) {
+                $item['jumboPrice'] = $jumboPrice;
+                $item['jumboNormal'] = $item['jumboOutletPrice'] ?? ($outletPrice + 17000);
+            } else {
+                unset($item['jumboPrice'], $item['jumboNormal'], $item['jumboOutletPrice']);
             }
 
             // Bundling eligibility (Kopken)
@@ -1497,23 +1505,23 @@ class CoffeeApi
             $matchedItem['isFood'] = false;
         }
 
-        // Food items don't have size, temperature, ice, sugar options per client revision
+        // Food items don't have drink options (size, temperature, ice, sugar)
         if (!empty($matchedItem['isFood'])) {
             return [
+                'success' => true,
+                'productId' => (string) ($matchedItem['id'] ?? $matchedItem['code'] ?? $key),
+                'name' => $matchedItem['name'] ?? '',
+                'basePrice' => $basePrice,
+                'normalPrice' => (int) ($matchedItem['normalPrice'] ?? $basePrice),
                 'isSoldOut' => !empty($matchedItem['isSoldOut']),
                 'groups' => [],
                 'prices' => ['default' => $basePrice],
                 'desc' => $matchedItem['desc'] ?? '',
-            ];
-        }
-
-        // Client revision: Menu baru cheesecake frappe TIDAK ADA PILIHAN suhu/large dll
-        if (preg_match('/cheesecake.*frappe|frappe.*cheesecake/i', ($matchedItem['category'] ?? '') . ' ' . ($matchedItem['name'] ?? '') . ' ' . ($matchedItem['key'] ?? ''))) {
-            return [
-                'isSoldOut' => !empty($matchedItem['isSoldOut']),
-                'groups' => [],
-                'prices' => ['default' => $basePrice],
-                'desc' => $matchedItem['desc'] ?? '',
+                'pricing' => [
+                    'id' => $brand,
+                    'discountPercent' => $brand === 'fore' ? 25 : ($brand === 'tomoro' ? 44 : ($brand === 'jiwa' ? 40 : 38)),
+                    'serviceFeePerCup' => $brand === 'fore' ? 0 : 2500,
+                ],
             ];
         }
 
@@ -1522,43 +1530,122 @@ class CoffeeApi
 
         $isFrappe = stripos(($matchedItem['category'] ?? '') . ' ' . ($matchedItem['name'] ?? '') . ' ' . ($matchedItem['key'] ?? ''), 'frappe') !== false;
 
-        $sizes = (!empty($opts['sizes']) && is_array($opts['sizes'])) ? $opts['sizes'] : ['Regular', 'Large'];
+        $sizes = (!empty($opts['sizes']) && is_array($opts['sizes'])) ? $opts['sizes'] : ['Regular', 'Large', 'Jumbo'];
         $temps = (!empty($opts['temps']) && is_array($opts['temps'])) ? $opts['temps'] : ($isFrappe ? ['Ice'] : ['Ice', 'Hot']);
         if ($isFrappe) $temps = ['Ice'];
-        $ices = (!empty($opts['ices']) && is_array($opts['ices'])) ? $opts['ices'] : ['Normal Ice', 'Less Ice', 'No Ice'];
         $sugars = (!empty($opts['sugars']) && is_array($opts['sugars'])) ? $opts['sugars'] : ['Normal Sugar', 'Less Sugar', 'No Sugar'];
 
-        if (!empty($sizes)) {
-            $vals = array_map(fn($s) => ['id' => $s, 'text' => $s], $sizes);
-            $groups[] = ['id' => 'size', 'name' => 'Ukuran', 'values' => $vals, 'default' => $sizes[0], 'impact' => true];
+        // 1. TEMPERATURE [Wajib]
+        $tempChoices = [];
+        foreach ($temps as $t) {
+            $tempChoices[] = ['id' => strtolower($t), 'name' => $t, 'text' => $t, 'price' => 0, 'available' => true, 'isDefault' => strtolower($t) === 'ice'];
         }
-        if (!empty($temps)) {
-            $vals = array_map(fn($s) => ['id' => $s, 'text' => $s], $temps);
-            $groups[] = ['id' => 'temp', 'name' => 'Suhu', 'values' => $vals, 'default' => $temps[0]];
+        $groups[] = [
+            'id' => 'temp',
+            'name' => 'TEMPERATURE',
+            'required' => true,
+            'multi' => false,
+            'max' => 1,
+            'choices' => $tempChoices,
+            'values' => $tempChoices,
+            'default' => $tempChoices[0]['id'] ?? 'ice',
+        ];
+
+        // 2. SIZE [Wajib]
+        $sizeDeltaLarge = ($brand === 'tomoro' ? 5000 : ($brand === 'jiwa' ? 4000 : 7000));
+        $sizeDeltaJumbo = 17000;
+        $sizeChoices = [];
+        foreach ($sizes as $s) {
+            $price = 0;
+            if (strcasecmp($s, 'Large') === 0) $price = $sizeDeltaLarge;
+            elseif (strcasecmp($s, 'Jumbo') === 0) $price = $sizeDeltaJumbo;
+            $sizeChoices[] = [
+                'id' => $s,
+                'name' => $s,
+                'text' => $s,
+                'price' => $price,
+                'available' => true,
+                'isDefault' => strcasecmp($s, 'Regular') === 0,
+            ];
         }
-        if (!empty($ices)) {
-            $vals = array_map(fn($s) => ['id' => $s, 'text' => $s], $ices);
-            $groups[] = ['id' => 'ice', 'name' => 'Level Es', 'values' => $vals, 'default' => $ices[0], 'hideWhen' => ['temp' => 'Hot']];
+        $groups[] = [
+            'id' => 'size',
+            'name' => 'SIZE',
+            'required' => true,
+            'multi' => false,
+            'max' => 1,
+            'impact' => true,
+            'choices' => $sizeChoices,
+            'values' => $sizeChoices,
+            'default' => 'Regular',
+        ];
+
+        // 3. SUGAR LEVEL [Wajib]
+        $sugarChoices = [];
+        foreach ($sugars as $s) {
+            $sugarChoices[] = [
+                'id' => $s,
+                'name' => $s,
+                'text' => $s,
+                'price' => 0,
+                'available' => true,
+                'isDefault' => stripos($s, 'Normal') !== false,
+            ];
         }
-        if (!empty($sugars)) {
-            $vals = array_map(fn($s) => ['id' => $s, 'text' => $s], $sugars);
-            $groups[] = ['id' => 'sugar', 'name' => 'Level Gula', 'values' => $vals, 'default' => $sugars[0]];
-        }
+        $groups[] = [
+            'id' => 'sugar',
+            'name' => 'SUGAR LEVEL',
+            'required' => true,
+            'multi' => false,
+            'max' => 1,
+            'choices' => $sugarChoices,
+            'values' => $sugarChoices,
+            'default' => $sugarChoices[0]['id'] ?? 'Normal Sugar',
+        ];
+
+        // 4. SYRUP [Opsional • maks 6]
+        $syrupChoices = [
+            ['id' => 'vanilla_syrup', 'name' => 'Vanilla Syrup', 'text' => 'Vanilla Syrup', 'price' => 6000, 'available' => true],
+            ['id' => 'caramel_syrup', 'name' => 'Caramel Syrup', 'text' => 'Caramel Syrup', 'price' => 6000, 'available' => true],
+            ['id' => 'hazelnut_syrup', 'name' => 'Hazelnut Syrup', 'text' => 'Hazelnut Syrup', 'price' => 6000, 'available' => true],
+        ];
+        $groups[] = [
+            'id' => 'syrup',
+            'name' => 'SYRUP',
+            'required' => false,
+            'multi' => true,
+            'max' => 6,
+            'choices' => $syrupChoices,
+            'values' => $syrupChoices,
+        ];
 
         $basePrice = (int) ($matchedItem['price'] ?? 0);
-        $largePrice = (int) ($matchedItem['largePrice'] ?? ($basePrice + 5000));
+        $largePrice = (int) ($matchedItem['largePrice'] ?? ($basePrice + $sizeDeltaLarge));
+        $jumboPrice = (int) ($matchedItem['jumboPrice'] ?? ($basePrice + $sizeDeltaJumbo));
 
-        $prices = ['default' => $basePrice];
+        $prices = ['default' => $basePrice, 'Regular' => $basePrice];
         if (in_array('Large', $sizes, true)) {
             $prices['Large'] = $largePrice;
-            $prices['Regular'] = $basePrice;
+        }
+        if (in_array('Jumbo', $sizes, true)) {
+            $prices['Jumbo'] = $jumboPrice;
         }
 
         return [
+            'success' => true,
+            'productId' => (string) ($matchedItem['id'] ?? $matchedItem['code'] ?? $key),
+            'name' => $matchedItem['name'] ?? '',
+            'basePrice' => $basePrice,
+            'normalPrice' => (int) ($matchedItem['normalPrice'] ?? $basePrice),
             'isSoldOut' => !empty($matchedItem['isSoldOut']),
             'groups' => $groups,
             'prices' => $prices,
             'desc' => $matchedItem['desc'] ?? '',
+            'pricing' => [
+                'id' => $brand,
+                'discountPercent' => $brand === 'fore' ? 25 : ($brand === 'tomoro' ? 44 : ($brand === 'jiwa' ? 40 : 38)),
+                'serviceFeePerCup' => $brand === 'fore' ? 0 : 2500,
+            ],
         ];
     }
 

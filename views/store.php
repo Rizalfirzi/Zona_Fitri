@@ -153,25 +153,42 @@ $activeBrandKey = $slugMap[$rawSlug] ?? 'kopken';
     </div>
   </div>
 
-  <!-- Product sheet -->
+  <!-- Product sheet (Aligned with Prototype jasdor-four-brand-web.vercel.app) -->
   <div class="sheet-backdrop" id="itemSheet">
-    <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="itemName">
+    <div class="sheet item-sheet-proto" role="dialog" aria-modal="true" aria-labelledby="itemName">
       <div class="sheet-handle"></div>
-      <div class="item-hero" id="itemHero"></div>
-      <div class="item-cat eyebrow" id="itemCat"></div>
-      <h3 class="item-name" id="itemName"></h3>
-      <p class="item-desc" id="itemDesc"></p>
-      <div class="item-price-row"><span class="item-price price" id="itemPrice"></span><span class="item-normal price" id="itemNormal"></span></div>
-      <div id="itemOptions"></div>
-      <label class="field-label" for="itemNote">Catatan</label>
-      <textarea class="field" id="itemNote" rows="2" maxlength="200" placeholder="Contoh: es dipisah, extra shot…"></textarea>
-      <div class="qty-row">
-        <span class="qty-label">Jumlah</span>
-        <div class="qty"><button id="qtyMinus" aria-label="Kurangi"></button><span id="qtyVal" class="num">1</span><button id="qtyPlus" aria-label="Tambah"></button></div>
+      <button class="close-btn item-sheet-close" data-close="itemSheet" aria-label="Tutup">✕</button>
+      
+      <div class="item-header-proto">
+        <div class="item-hero-proto" id="itemHero"></div>
+        <div class="item-header-info">
+          <h3 class="item-name" id="itemName"></h3>
+          <div class="item-cat eyebrow" id="itemCat"></div>
+          <div class="item-price-row">
+            <span class="item-price price" id="itemPrice"></span>
+            <span class="item-normal price" id="itemNormal"></span>
+          </div>
+        </div>
       </div>
-      <div class="sheet-actions">
-        <button class="btn btn-soft" data-close="itemSheet">Batal</button>
-        <button class="btn btn-primary" id="itemAdd">Tambah</button>
+      
+      <p class="item-desc" id="itemDesc" style="display: none;"></p>
+      
+      <div id="itemOptions"></div>
+      
+      <div class="item-notes-wrap">
+        <label class="field-label" for="itemNote">Catatan Barista</label>
+        <input type="text" class="field" id="itemNote" maxlength="200" placeholder="Contoh: Pisahkan es, sedikit manis...">
+      </div>
+
+      <div class="item-bottom-bar">
+        <div class="qty">
+          <button id="qtyMinus" aria-label="Kurangi">−</button>
+          <span id="qtyVal" class="num">1</span>
+          <button id="qtyPlus" aria-label="Tambah">+</button>
+        </div>
+        <button class="btn btn-primary btn-add-proto" id="itemAdd">
+          Tambah Ke Keranjang <span id="itemAddPrice"></span>
+        </button>
       </div>
     </div>
   </div>
