@@ -1,9 +1,5 @@
 {
   "version": 2,
-  "git": {
-    "deploymentEnabled": false
-  },
-  "ignoreCommand": "exit 0",
   "functions": {
     "api/*.php": {
       "runtime": "vercel-php@0.7.2",
