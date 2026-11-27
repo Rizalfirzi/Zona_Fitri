@@ -145,6 +145,21 @@ export function optionText(opts) {
 export const DEFAULT_WA_HEADER = '── .✦ FORMAT ORDER ZONA FITRI✦.──';
 export const DEFAULT_WA_FOOTER = '';
 
+export function isItemFood(item) {
+  if (!item) return false;
+  const name = String(item.name || '').toLowerCase();
+  const cat = String(item.category || '').toLowerCase();
+  const key = String(item.key || '').toLowerCase();
+  const full = `${name} ${cat} ${key}`;
+
+  if (/frappe|latte|macchiato|cappuccino|americano|espresso|kopi|coffee|tea|teh|smoothie|shake|boba|brew|freeze|fizz|float|refresher|cooler|juice|jus\b/i.test(name)) {
+    return false;
+  }
+  if (item.isFood === true) return true;
+  if (/(?:^|\s)(food|bakery|pastry|deli|toast|bites|snack|makanan|roti)(?:$|\s)/i.test(cat)) return true;
+  return /toast|roti|bread|donut|donat|croissant|bagel|panini|pastry|muffin|danish|bun|cake|cheesecake|cheesycake|choux|puff|cookie|cookies|pie|tart|roll|sandwich|waffle|brownie|eclair|macaron|snack|platter|bites|mentai|pasta|macaroni|spaghetti|katsu|buldak|chicken|beef|sapi|ayam/i.test(full);
+}
+
 /**
  * WhatsApp order message, in the shop's "FORMAT ORDER ZONA FITRI" layout.
  * Quantity placed right before price per client request (Page 3 of PDF).
@@ -160,12 +175,14 @@ export function buildWaMessage(order) {
   out.push('');
   out.push('Pesanan :');
   order.items.forEach((it, i) => {
-    const o = it.isBundle ? '' : optionText(it.choices || it.options);
+    const isFood = isItemFood(it);
+    const o = (it.isBundle || isFood) ? '' : optionText(it.choices || it.options);
     out.push(`${i + 1}. ${it.name}${o ? ` (${o})` : ''} — ${it.qty}x ${formatRp(it.price * it.qty)}`);
     if (it.isBundle) {
       for (const f of it.fixedItems || []) out.push(`    • Termasuk: ${f}`);
       for (const sel of it.selections || []) {
-        const so = optionText(sel.choices || sel.options);
+        const selFood = isItemFood(sel);
+        const so = selFood ? '' : optionText(sel.choices || sel.options);
         out.push(`    • ${sel.name}${so ? ` (${so})` : ''}`);
       }
     }

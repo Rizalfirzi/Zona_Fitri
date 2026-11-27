@@ -40,11 +40,24 @@ const K = {
 
 function isItemFood(item) {
   if (!item) return false;
-  if (item.isFood === false) return false;
-  const isDrink = /frappe|latte|macchiato|cappuccino|americano|espresso|kopi|coffee|tea|teh|shake|smoothie|drink|minuman|chocolate|cokelat|matcha|boba|es\b|ice\b|freeze|brew/i.test((item.category || '') + ' ' + (item.name || '') + ' ' + (item.key || ''));
-  if (isDrink) return false;
+  const name = String(item.name || '').toLowerCase();
+  const cat = String(item.category || '').toLowerCase();
+  const key = String(item.key || '').toLowerCase();
+  const full = `${name} ${cat} ${key}`;
+
+  // Beverage form indicators: if name indicates a beverage, it is not food (e.g. Strawberry Cheesecake Frappe)
+  if (/frappe|latte|macchiato|cappuccino|americano|espresso|kopi|coffee|tea|teh|smoothie|shake|boba|brew|freeze|fizz|float|refresher|cooler|juice|jus\b/i.test(name)) {
+    return false;
+  }
+
+  // Explicit flag from API
   if (item.isFood === true) return true;
-  return /food|toast|roti|bread|donut|donat|croissant|bagel|panini|pastry|muffin|danish|bun/i.test((item.category || '') + ' ' + (item.name || '') + ' ' + (item.key || ''));
+
+  // Food categories
+  if (/(?:^|\s)(food|bakery|pastry|deli|toast|bites|snack|makanan|roti)(?:$|\s)/i.test(cat)) return true;
+
+  // Food keywords
+  return /toast|roti|bread|donut|donat|croissant|bagel|panini|pastry|muffin|danish|bun|cake|cheesecake|cheesycake|choux|puff|cookie|cookies|pie|tart|roll|sandwich|waffle|brownie|eclair|macaron|snack|platter|bites|mentai|pasta|macaroni|spaghetti|katsu|buldak|chicken|beef|sapi|ayam/i.test(full);
 }
 
 function formatOutletDisplayName(o) {
@@ -1237,6 +1250,7 @@ function staticGroups(item) {
 }
 
 async function loadItemDetail(item, line) {
+  if (isItemFood(item)) return;
   const sheet = S.sheet;
   sheet.loading = true;
   renderOptions();
@@ -1616,7 +1630,7 @@ function addItemToCart() {
     basePrice: sh.item.price,
     isBundle: false,
     isSpecial: sh.item.isSpecial,
-    choices: [...currentChoices(sh.groups, sh.sel), ...pickedChoices()],
+    choices: isItemFood(sh.item) ? [] : [...currentChoices(sh.groups, sh.sel), ...pickedChoices()],
     note: $('#itemNote')?.value?.trim() || '',
   };
   if (sh.editIndex != null) S.cart[sh.editIndex] = line;

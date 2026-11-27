@@ -560,6 +560,13 @@ window.openCustomModal = (item) => {
     availableSizes = ['Small'];
   }
 
+  const isFood = item.isFood || /toast|roti|bread|donut|donat|croissant|bagel|panini|pastry|muffin|danish|bun|cake|cheesecake|cheesycake|choux|puff|cookie|cookies|pie|tart|roll|sandwich|waffle|brownie|eclair|macaron|snack|platter|bites|mentai|pasta|macaroni|spaghetti|katsu|buldak|chicken|beef|sapi|ayam/i.test((item.name || '') + ' ' + (item.category || ''));
+  if (isFood && !/frappe|latte|macchiato|cappuccino|americano|espresso|kopi|coffee|tea|teh|smoothie|shake|boba|brew|freeze|juice/i.test(item.name || '')) {
+    item.isFood = true;
+    item.options = { sizes: [], temps: [], ices: [], sugars: [] };
+    availableSizes = [];
+  }
+
   State.modalSelectedOptions = {
     size: availableSizes[0] || (isTomoro ? 'Small' : 'Regular'),
     temp: 'Ice',

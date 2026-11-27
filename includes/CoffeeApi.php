@@ -587,8 +587,7 @@ class CoffeeApi
                         $origPrice = (int) ($p['orig_price'] ?? $p['price'] ?? 0);
                         $price = (int) ($p['price'] ?? $origPrice);
                         $isSoldOut = !empty($p['is_sold_out']);
-                        $isDrink = (bool) preg_match('/frappe|latte|macchiato|cappuccino|americano|espresso|kopi|coffee|tea|teh|shake|smoothie|drink|minuman|chocolate|cokelat|matcha|boba/i', $name . ' ' . $gname);
-                        $isFood = !$isDrink && (bool) preg_match('/toast|food|panini|croissant|bagel|roti|bread|cookie|muffin|danish|cake|donut|donat/i', $name . ' ' . $gname);
+                        $isFood = $this->isFoodItem($name, $gname);
 
                         $items[] = [
                             'key' => $key,
@@ -604,8 +603,8 @@ class CoffeeApi
                             'notCarried' => false,
                             'isFood' => $isFood,
                             'desc' => $p['description'] ?? '',
-                            'options' => [
-                                'sizes' => ($isFood || preg_match('/baby|butterscotch\s*sea\s*salt\s*crumble/i', $name . ' ' . $key)) ? ['Regular'] : ['Regular', 'Large'],
+                            'options' => $isFood ? [] : [
+                                'sizes' => preg_match('/baby|butterscotch\s*sea\s*salt\s*crumble/i', $name . ' ' . $key) ? ['Regular'] : ['Regular', 'Large'],
                                 'temps' => (stripos($name . ' ' . $gname, 'frappe') !== false) ? ['Ice'] : ['Ice', 'Hot'],
                                 'ices' => ['Normal Ice', 'Less Ice', 'No Ice'],
                                 'sugars' => ['Normal Sugar', 'Less Sugar', 'No Sugar'],
@@ -649,8 +648,7 @@ class CoffeeApi
 
                     $catName = $p['category_name'] ?? 'Menu';
                     $price = (int) ($p['price'] ?? $p['discounted_price'] ?? 0);
-                    $isDrink = (bool) preg_match('/frappe|latte|macchiato|cappuccino|americano|espresso|kopi|coffee|tea|teh|shake|smoothie|drink|minuman|chocolate|cokelat|matcha|boba/i', $name . ' ' . $catName);
-                    $isFood = !$isDrink && (bool) preg_match('/toast|food|bun|bread|roti/i', $name . ' ' . $catName);
+                    $isFood = $this->isFoodItem($name, $catName);
 
                     $items[] = [
                         'key' => $key,
@@ -665,7 +663,7 @@ class CoffeeApi
                         'isSoldOut' => ($p['is_inactive'] == 1),
                         'isFood' => $isFood,
                         'desc' => $p['product_description'] ?? '',
-                        'options' => [
+                        'options' => $isFood ? [] : [
                             'sizes' => ['Regular'],
                             'temps' => ['Ice', 'Hot'],
                             'ices' => ['Normal Ice', 'Less Ice', 'No Ice'],
@@ -712,8 +710,7 @@ class CoffeeApi
                     $catName = $p['cat_name'] ?? 'Menu';
                     $price = (int) ($p['pd_final_price'] ?? $p['pd_final_price_ori'] ?? 0);
                     $origPrice = (int) ($p['pd_final_price_ori'] ?? $price);
-                    $isDrink = (bool) preg_match('/frappe|latte|macchiato|cappuccino|americano|espresso|kopi|coffee|tea|teh|shake|smoothie|drink|minuman|chocolate|cokelat|matcha|boba/i', $name . ' ' . $catName);
-                    $isFood = !$isDrink && (bool) preg_match('/pastry|croissant|panini|sandwich|toast|food|cake|bread/i', $name . ' ' . $catName);
+                    $isFood = $this->isFoodItem($name, $catName);
 
                     $items[] = [
                         'key' => $key,
@@ -728,8 +725,8 @@ class CoffeeApi
                         'isSoldOut' => strtolower((string)($p['stpd_status'] ?? $p['pd_status'] ?? 'active')) !== 'active',
                         'isFood' => $isFood,
                         'desc' => $p['pd_desc'] ?? '',
-                        'options' => [
-                            'sizes' => $isFood ? ['Regular'] : ['Regular', 'Large'],
+                        'options' => $isFood ? [] : [
+                            'sizes' => ['Regular', 'Large'],
                             'temps' => ['Ice', 'Hot'],
                             'ices' => ['Normal Ice', 'Less Ice', 'No Ice'],
                             'sugars' => ['Normal Sugar', 'Less Sugar', 'No Sugar'],
@@ -845,6 +842,43 @@ class CoffeeApi
     }
 
     /**
+     * Check if an item is a food item (bread, cake, pastry, toast, etc.)
+     * Food items must NOT have temperature (Ice/Hot), size, ice, or sugar options.
+     */
+    public function isFoodItem($item, string $category = ''): bool
+    {
+        $name = is_array($item) ? ($item['name'] ?? '') : (string)$item;
+        $cat = is_array($item) ? ($item['category'] ?? $category) : $category;
+        $key = is_array($item) ? ($item['key'] ?? '') : '';
+
+        // If item explicitly has isFood set to true, check it's not a beverage type (e.g. frappe)
+        if (is_array($item) && isset($item['isFood']) && $item['isFood'] === true) {
+            if (!preg_match('/frappe|latte|macchiato|cappuccino|americano|espresso|kopi|coffee|tea|teh|smoothie|shake|boba|brew|freeze|fizz|float|refresher|cooler|juice|jus\b/i', $name)) {
+                return true;
+            }
+        }
+
+        $full = strtolower(trim("{$name} {$cat} {$key}"));
+
+        // Beverage form indicators: if name indicates a beverage, it is not food (e.g. Strawberry Cheesecake Frappe, Creamy Cheesecake Latte)
+        if (preg_match('/frappe|latte|macchiato|cappuccino|americano|espresso|kopi|coffee|tea|teh|smoothie|shake|boba|brew|freeze|fizz|float|refresher|cooler|juice|jus\b/i', $name)) {
+            return false;
+        }
+
+        // Category food keywords
+        if (preg_match('/(?:^|\s)(food|bakery|pastry|deli|toast|bites|snack|makanan|roti)(?:$|\s)/i', $cat)) {
+            return true;
+        }
+
+        // Name food keywords
+        if (preg_match('/toast|roti|bread|donut|donat|croissant|bagel|panini|pastry|muffin|danish|bun|cake|cheesecake|cheesycake|choux|puff|cookie|cookies|pie|tart|roll|sandwich|waffle|brownie|eclair|macaron|snack|platter|bites|mentai|pasta|macaroni|spaghetti|katsu|buldak|chicken|beef|sapi|ayam/i', $full)) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
      * Format menu statistics, ensure standard categories and client adjustments
      */
     protected function formatMenuStats(array $menuData, string $brand, string $outletCode): array
@@ -854,15 +888,7 @@ class CoffeeApi
             $removedKeys = [];
             $drinksOnly = [];
             foreach ($menuData['items'] as $it) {
-                $itCat = strtolower(trim((string)($it['category'] ?? '')));
-                $itName = strtolower(trim((string)($it['name'] ?? '')));
-                $isFood = !empty($it['isFood'])
-                    || str_contains($itCat, 'food')
-                    || str_contains($itCat, 'pastry')
-                    || str_contains($itCat, 'snack')
-                    || str_contains($itCat, 'bakery')
-                    || str_contains($itCat, 'toast')
-                    || str_contains($itCat, 'bread');
+                $isFood = $this->isFoodItem($it);
 
                 if ($isFood) {
                     if (!empty($it['key'])) $removedKeys[$it['key']] = true;
@@ -1034,11 +1060,7 @@ class CoffeeApi
             // Food items check across all brands: food items don't have size, temperature, ice, sugar
             $itCat = strtolower(trim((string)($item['category'] ?? '')));
             $itName = strtolower(trim((string)($item['name'] ?? '')));
-            $isDrink = (bool) preg_match('/frappe|latte|macchiato|cappuccino|americano|espresso|kopi|coffee|tea|teh|shake|smoothie|drink|minuman|chocolate|cokelat|matcha|boba/i', $itCat . ' ' . $itName);
-            $isFood = !$isDrink && (!empty($item['isFood'])
-                || str_contains($itCat, 'food')
-                || str_contains($itCat, 'toast')
-                || (bool) preg_match('/toast|food|panini|croissant|bagel|roti|bread|cookie|muffin|danish|cake|donut|donat/i', $itName));
+            $isFood = $this->isFoodItem($item);
 
             $item['isFood'] = $isFood;
             if ($isFood) {
@@ -1088,6 +1110,7 @@ class CoffeeApi
             }
         }
         unset($item);
+        $menuData['items'] = $items;
 
         // 4. Apply client pricing formulas & bundling
         $this->applyClientPricingAndBundling($menuData, $brand);
@@ -1310,7 +1333,7 @@ class CoffeeApi
             if ($outletPrice <= 0) $outletPrice = (int) ($item['price'] ?? 0);
 
             $isSoldOut = !empty($item['isSoldOut']) || !empty($item['notCarried']);
-            $isFood = !empty($item['isFood']) || (isset($item['category']) && strtolower($item['category']) === 'food');
+            $isFood = $this->isFoodItem($item);
 
             // Client Formulas (Aligned with Prototype jasdor-four-brand-web.vercel.app):
             $calcPrice = $outletPrice;
@@ -1584,15 +1607,11 @@ class CoffeeApi
         }
 
         $basePrice = (int) ($matchedItem['price'] ?? 0);
-
-        $isDrink = (bool) preg_match('/frappe|latte|macchiato|cappuccino|americano|espresso|kopi|coffee|tea|teh|shake|smoothie|drink|minuman|chocolate|cokelat|matcha|boba/i', ($matchedItem['category'] ?? '') . ' ' . ($matchedItem['name'] ?? '') . ' ' . ($matchedItem['key'] ?? ''));
-
-        if ($isDrink) {
-            $matchedItem['isFood'] = false;
-        }
+        $isFood = $this->isFoodItem($matchedItem);
+        $matchedItem['isFood'] = $isFood;
 
         // Food items don't have drink options (size, temperature, ice, sugar)
-        if (!empty($matchedItem['isFood'])) {
+        if ($isFood) {
             return [
                 'success' => true,
                 'productId' => (string) ($matchedItem['id'] ?? $matchedItem['code'] ?? $key),
@@ -1891,8 +1910,7 @@ class CoffeeApi
 
         foreach ($order['items'] as $idx => $item) {
             $options = [];
-            $isDrink = (bool) preg_match('/frappe|latte|macchiato|cappuccino|americano|espresso|kopi|coffee|tea|teh|shake|smoothie|drink|minuman|chocolate|cokelat|matcha|boba/i', ($item['category'] ?? '') . ' ' . ($item['name'] ?? ''));
-            $isFood = !$isDrink && (!empty($item['isFood']) || preg_match('/food|toast|roti|bread|donut|donat|croissant|bagel|panini|pastry|muffin|danish|cookie|bun|cake|pie/i', ($item['name'] ?? '') . ' ' . ($item['category'] ?? '')));
+            $isFood = $this->isFoodItem($item);
             if (!$isFood && !empty($item['choices']) && is_array($item['choices'])) {
                 foreach ($item['choices'] as $c) {
                     $val = is_array($c) ? ($c['value'] ?? '') : (string)$c;
@@ -1904,7 +1922,7 @@ class CoffeeApi
                 if (!empty($item['ice']) && ($item['temp'] ?? '') !== 'Hot') $options[] = $item['ice'];
                 if (!empty($item['sugar'])) $options[] = $item['sugar'];
             }
-            $optStr = (!empty($options) && empty($item['isBundle'])) ? ' (' . implode(' • ', $options) . ')' : '';
+            $optStr = (!empty($options) && empty($item['isBundle']) && !$isFood) ? ' (' . implode(' • ', $options) . ')' : '';
 
             $itemQty = (int) ($item['qty'] ?? 1);
             $itemSubtotal = ($item['subtotal'] ?? 0) > 0 ? $item['subtotal'] : (($item['price'] ?? 0) * $itemQty);
@@ -1917,15 +1935,14 @@ class CoffeeApi
                 }
                 foreach ($item['selections'] ?? [] as $s) {
                     $sOpt = [];
-                    $sDrink = (bool) preg_match('/frappe|latte|macchiato|cappuccino|americano|espresso|kopi|coffee|tea|teh|shake|smoothie|drink|minuman|chocolate|cokelat|matcha|boba/i', ($s['category'] ?? '') . ' ' . ($s['name'] ?? ''));
-                    $sFood = !$sDrink && (!empty($s['isFood']) || preg_match('/food|toast|roti|bread|donut|donat|croissant|bagel|panini|pastry|muffin|danish|cookie|bun|cake|pie/i', ($s['name'] ?? '')));
+                    $sFood = $this->isFoodItem($s);
                     if (!$sFood && !empty($s['choices']) && is_array($s['choices'])) {
                         foreach ($s['choices'] as $sc) {
                             $scVal = is_array($sc) ? ($sc['value'] ?? '') : (string)$sc;
                             if ($scVal !== '') $sOpt[] = $scVal;
                         }
                     }
-                    $sOptStr = !empty($sOpt) ? ' (' . implode(' • ', $sOpt) . ')' : '';
+                    $sOptStr = (!empty($sOpt) && !$sFood) ? ' (' . implode(' • ', $sOpt) . ')' : '';
                     $waMessage .= "    • " . ($s['name'] ?? 'Menu') . $sOptStr . "\n";
                 }
             }
@@ -1954,6 +1971,7 @@ class CoffeeApi
             'success' => true,
             'order' => $order,
             'waUrl' => $waUrl,
+            'waMessage' => $waMessage,
         ];
     }
 
