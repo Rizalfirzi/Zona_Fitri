@@ -90,8 +90,8 @@ try {
         ],
         'pricing' => $result['pricing'] ?? [
             'id' => $brand,
-            'discountPercent' => $brand === 'fore' ? 25 : ($brand === 'tomoro' ? 44 : ($brand === 'jiwa' ? 40 : 38)),
-            'serviceFeePerCup' => $brand === 'fore' ? 0 : 2500,
+            'discountPercent' => $brand === 'fore' ? 25 : ($brand === 'tomoro' ? 50 : ($brand === 'jiwa' ? 40 : 50)),
+            'serviceFeePerCup' => $brand === 'fore' ? 0 : ($brand === 'tomoro' ? 5000 : ($brand === 'kopken' ? 4500 : 2500)),
             'productOverrides' => [],
         ],
         'isSoldOut' => $result['isSoldOut'] ?? false,

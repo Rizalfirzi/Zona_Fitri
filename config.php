@@ -113,13 +113,13 @@ $config = [
     // Client Pricing Rules & Formulas (Aligned with Prototype jasdor-four-brand-web.vercel.app)
     'pricing' => [
         'kopken' => [
-            'percent' => 38, // 38% discount
-            'add' => 2500,    // 2.500 fee per cup
-            'largeAdd' => 7000, // upsize Large +7k
+            'percent' => 50, // Client revision: KOPKEN DISC 50%
+            'add' => 4500,    // Client revision: FEE 4.5k/cup
+            'largeAdd' => 5000, // Client revision: Large kopken +5k
         ],
         'tomoro' => [
-            'percent' => 44, // 44% discount
-            'add' => 2500,   // 2.500 fee per cup
+            'percent' => 50, // Client revision: TOMORO DISC 50%
+            'add' => 5000,   // Client revision: FEE 5k/cup
             'largeAdd' => 5000, // upsize Large +5k
         ],
         'fore' => [

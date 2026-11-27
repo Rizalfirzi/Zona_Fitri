@@ -1190,7 +1190,7 @@ function staticGroups(item) {
 
   // 2. SIZE [Wajib]
   if (sizes.length) {
-    const sizeDeltaLarge = S.brandId === 'tomoro' ? 5000 : (S.brandId === 'jiwa' ? 4000 : 7000);
+    const sizeDeltaLarge = (S.brandId === 'tomoro' || S.brandId === 'kopken') ? 5000 : (S.brandId === 'jiwa' ? 4000 : 7000);
     groups.push({
       id: 'size',
       name: 'SIZE',
@@ -1370,7 +1370,7 @@ function unitPrice(sel = S.sheet.sel) {
         if (v && v.price != null && v.price > 0) {
           sizeDelta = Number(v.price) || 0;
         } else if (/large/i.test(String(val || ''))) {
-          sizeDelta = (S.brandId === 'tomoro' ? 5000 : (S.brandId === 'jiwa' ? 4000 : 7000));
+          sizeDelta = (S.brandId === 'tomoro' || S.brandId === 'kopken') ? 5000 : (S.brandId === 'jiwa' ? 4000 : 7000);
         }
         break;
       }
@@ -1392,7 +1392,7 @@ function normalPrice(sel = S.sheet.sel) {
     for (const g of (S.sheet.groups || [])) {
       if (g.id === 'size' || /size|ukuran/i.test(g.name || '')) {
         const val = sel[g.id];
-        if (/large/i.test(String(val || ''))) return norm + (S.brandId === 'tomoro' ? 5000 : 7000);
+        if (/large/i.test(String(val || ''))) return norm + ((S.brandId === 'tomoro' || S.brandId === 'kopken') ? 5000 : 7000);
       }
     }
   }
@@ -1646,6 +1646,32 @@ function openBundle(bundle, editIndex = null) {
   const numSlots = getBundleSlotCount(bundle);
   bundle.slots = numSlots;
   bundle.bundleSlots = numSlots;
+
+  // Fallback: populate candidates dynamically if missing or empty
+  if (!bundle.candidates || !bundle.candidates.length) {
+    const isLarge = bundle.size === 'Large' || /large/i.test(bundle.name || '');
+    const is4Pcs = /4\s*pcs/i.test(bundle.name || '');
+    bundle.candidates = (S.items || []).filter((it) => {
+      if (it.isBundle) return false;
+      const isFood = isItemFood(it);
+      if (isLarge && isFood) return false;
+      if (is4Pcs && isFood) return false;
+      const name = (it.name || '').toLowerCase();
+      const key = (it.key || '').toLowerCase();
+      if (/avocado|oreo|dutch|frappe|1\s*l|liter/i.test(name + ' ' + key)) return false;
+      const outP = it.outletPrice || it.normalPrice || it.price || 0;
+      return (outP >= 15000 && outP <= 22000) || /mantan|latte|americano|teh|tea|chocolate|coklat|aren/i.test(name);
+    }).map((it) => ({
+      key: it.key,
+      name: it.name,
+      img: it.img,
+      category: it.category,
+      isSoldOut: Boolean(it.isSoldOut),
+      outletPrice: it.outletPrice || it.normalPrice || it.price,
+      options: it.options || { sizes: ['Regular'], temps: ['Ice', 'Hot'], sugars: ['Normal Sugar', 'Less Sugar', 'No Sugar'] }
+    }));
+  }
+
   S.bundle = {
     bundle,
     editIndex,
@@ -1816,24 +1842,72 @@ function renderBundle() {
 
 function setBundleSlot(i) {
   S.bundle.active = i;
-  S.bundle.adjusting = null;
+  const s = S.bundle.slots[i];
+  if (s) {
+    const c = S.bundle.bundle.candidates?.find((x) => x.key === s.key);
+    if (c) {
+      const groups = staticGroups({ ...c, options: { ...c.options, sizes: [] } });
+      const sel = {};
+      for (const ch of s.choices || []) {
+        for (const g of groups) {
+          const match = g.values?.find((v) => v.text === ch.value || v.id === ch.value || v.name === ch.value);
+          if (match) sel[g.id] = match.id;
+        }
+      }
+      for (const g of groups) {
+        if (!sel[g.id]) sel[g.id] = g.default;
+      }
+      S.bundle.adjusting = { key: s.key, name: s.name, groups, sel };
+    } else {
+      S.bundle.adjusting = null;
+    }
+  } else {
+    S.bundle.adjusting = null;
+  }
   renderBundle();
 }
 
 function pickBundleItem(key) {
-  const c = S.bundle.bundle.candidates.find((x) => x.key === key);
+  const B = S.bundle;
+  const c = B.bundle.candidates?.find((x) => x.key === key);
   if (!c || c.isSoldOut) return;
   const groups = staticGroups({ ...c, options: { ...c.options, sizes: [] } });
   const sel = {};
   for (const g of groups) sel[g.id] = g.default;
-  S.bundle.adjusting = { key, name: c.name, groups, sel };
-  if (!groups.length) return confirmBundleSlot();
+  const choices = currentChoices(groups, sel);
+  if (B.bundle.size && B.bundle.size !== 'Regular') {
+    choices.splice(1, 0, { group: 'Size', value: B.bundle.size });
+  }
+
+  // Immediately assign chosen item to the active slot
+  B.slots[B.active] = { key: c.key, name: c.name, choices };
+  B.adjusting = groups.length ? { key, name: c.name, groups, sel } : null;
+
+  // Advance to next unfilled slot if available
+  const nextEmpty = B.slots.findIndex((s) => !s);
+  if (nextEmpty !== -1) {
+    B.active = nextEmpty;
+  }
   renderBundle();
-  $('#bundleAdjust').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 }
 
 function setBundleChoice(gid, vid) {
-  S.bundle.adjusting.sel[gid] = vid;
+  const B = S.bundle;
+  if (!B.adjusting) return;
+  B.adjusting.sel[gid] = vid;
+  const a = B.adjusting;
+  const choices = currentChoices(a.groups, a.sel);
+  if (B.bundle.size && B.bundle.size !== 'Regular') {
+    choices.splice(1, 0, { group: 'Size', value: B.bundle.size });
+  }
+  if (B.slots[B.active] && B.slots[B.active].key === a.key) {
+    B.slots[B.active].choices = choices;
+  } else {
+    const slotIdx = B.slots.findIndex((s) => s && s.key === a.key);
+    if (slotIdx !== -1) {
+      B.slots[slotIdx].choices = choices;
+    }
+  }
   renderBundle();
 }
 

@@ -760,7 +760,6 @@ class CoffeeApi
             } elseif ($brand === 'tomoro') {
                 $res = $this->httpRequest("{$apiBase}/api/product/menu", [
                     'storeCode' => $outletCode,
-                    'mainMenuType' => 1,
                 ]);
                 $vos = $res['data']['menuVos'] ?? [];
                 if (empty($vos)) return null;
@@ -787,17 +786,26 @@ class CoffeeApi
                         $price = (int) ($p['price'] ?? $p['linePrice'] ?? 0);
                         $origPrice = (int) ($p['linePrice'] ?? $price);
 
+                        $isSoldOut = !empty($p['isSoldOut'])
+                            || (isset($p['menuSecondaryTag']) && stripos($p['menuSecondaryTag'], 'Sold Out') !== false)
+                            || (isset($p['menuSecondaryTagCode']) && $p['menuSecondaryTagCode'] === 'MST00000')
+                            || !empty($p['isSellOut'])
+                            || (isset($p['status']) && (int)$p['status'] === 0)
+                            || (isset($p['isCanAddCart']) && (int)$p['isCanAddCart'] === 0);
+
+                        $img = !empty($p['goodPic']) ? $p['goodPic'] : (!empty($p['pictureUrls']) ? $p['pictureUrls'] : (!empty($p['picture']['main']) ? $p['picture']['main'] : $this->getTomoroImage($key, $name)));
+
                         $items[] = [
                             'key' => $key,
-                            'id' => (string) ($p['goodId'] ?? $key),
+                            'id' => (string) ($p['goodId'] ?? $p['code'] ?? $key),
                             'code' => (string) ($p['code'] ?? $p['goodId'] ?? $key),
                             'name' => $name,
                             'category' => $cname,
                             'outletPrice' => $origPrice,
                             'normalPrice' => $origPrice,
                             'price' => $price,
-                            'img' => !empty($p['goodPic']) ? $p['goodPic'] : $this->getTomoroImage($key, $name),
-                            'isSoldOut' => !empty($p['isSoldOut']),
+                            'img' => $img,
+                            'isSoldOut' => $isSoldOut,
                             'isFood' => false,
                             'desc' => $p['desc'] ?? '',
                             'options' => [
@@ -1310,10 +1318,10 @@ class CoffeeApi
             $jumboPrice = null;
 
             if ($brand === 'kopken') {
-                // KOPKEN: Disc 38%, Fee 2.500/cup, round to 500
-                $discounted = round(($outletPrice * (1 - 0.38)) / 500) * 500;
-                $calcPrice = (int) ($discounted + 2500);
-                $largePrice = $calcPrice + 7000;
+                // KOPKEN: Disc 50%, Fee 4.500/cup, round to 500 per client revision
+                $discounted = round(($outletPrice * (1 - 0.50)) / 500) * 500;
+                $calcPrice = (int) ($discounted + 4500);
+                $largePrice = $calcPrice + 5000; // Client revision: Large kopken +5k
                 $jumboPrice = null;
 
                 // Client explicit pricing override for Roti:
@@ -1327,9 +1335,9 @@ class CoffeeApi
                     $outletPrice = 10000;
                 }
             } elseif ($brand === 'tomoro') {
-                // TOMORO: Disc 44%, Fee 2.500/cup, round to 500
-                $discounted = round(($outletPrice * (1 - 0.44)) / 500) * 500;
-                $calcPrice = (int) ($discounted + 2500);
+                // TOMORO: Disc 50%, Fee 5.000/cup, round to 500 per client revision
+                $discounted = round(($outletPrice * (1 - 0.50)) / 500) * 500;
+                $calcPrice = (int) ($discounted + 5000);
                 $largePrice = $calcPrice + 5000;
                 $jumboPrice = null;
             } elseif ($brand === 'fore') {
@@ -1362,7 +1370,7 @@ class CoffeeApi
 
             if ($largePrice !== null && !$isFood && (empty($item['options']['sizes']) || in_array('Large', $item['options']['sizes'], true))) {
                 $item['largePrice'] = $largePrice;
-                $item['largeNormal'] = $item['largeOutletPrice'] ?? ($outletPrice + 7000);
+                $item['largeNormal'] = $item['largeOutletPrice'] ?? ($outletPrice + ($brand === 'kopken' || $brand === 'tomoro' ? 5000 : 7000));
             } else {
                 unset($item['largePrice'], $item['largeNormal'], $item['largeOutletPrice']);
             }
@@ -1421,6 +1429,39 @@ class CoffeeApi
 
         // Inject dynamic Kopken Bundling bundles
         if ($brand === 'kopken') {
+            // Robust fallback if candidates are empty
+            if (empty($candidates1719Drinks)) {
+                foreach ($items as $it) {
+                    if (!empty($it['isBundle'])) continue;
+                    $isDrink = !empty($it['isDrink']) || (isset($it['category']) && strtolower($it['category']) !== 'food');
+                    if ($isDrink && !preg_match('/avocado|oreo|dutch|frappe|1\s*l|liter/i', ($it['name'] ?? '') . ' ' . ($it['key'] ?? ''))) {
+                        $candidates1719Drinks[] = [
+                            'key' => $it['key'] ?? '',
+                            'name' => $it['name'] ?? '',
+                            'img' => $it['img'] ?? '',
+                            'category' => $it['category'] ?? 'Kopi',
+                            'isSoldOut' => !empty($it['isSoldOut']),
+                            'outletPrice' => $it['outletPrice'] ?? $it['price'] ?? 18000,
+                            'bundlePrice' => null,
+                            'premium' => 0,
+                            'options' => $it['options'] ?? [],
+                        ];
+                    }
+                }
+            }
+            if (empty($candidates1719)) {
+                $candidates1719 = $candidates1719Drinks;
+            }
+            if (empty($candidates19Drinks)) {
+                foreach ($candidates1719Drinks as $cd) {
+                    $lOpt = $cd['options'] ?? [];
+                    $lOpt['sizes'] = ['Large'];
+                    $cd['options'] = $lOpt;
+                    $cd['bundlePrice'] = 16000;
+                    $candidates19Drinks[] = $cd;
+                }
+            }
+
             $bundleItems = [];
 
             // Bundle 1: 4 Pcs (2 Minuman + 2 Roti) - Rp35.000
@@ -1564,8 +1605,8 @@ class CoffeeApi
                 'desc' => $matchedItem['desc'] ?? '',
                 'pricing' => [
                     'id' => $brand,
-                    'discountPercent' => $brand === 'fore' ? 25 : ($brand === 'tomoro' ? 44 : ($brand === 'jiwa' ? 40 : 38)),
-                    'serviceFeePerCup' => $brand === 'fore' ? 0 : 2500,
+                    'discountPercent' => $brand === 'fore' ? 25 : ($brand === 'tomoro' ? 50 : ($brand === 'jiwa' ? 40 : 50)),
+                    'serviceFeePerCup' => $brand === 'fore' ? 0 : ($brand === 'tomoro' ? 5000 : ($brand === 'kopken' ? 4500 : 2500)),
                 ],
             ];
         }
@@ -1606,7 +1647,7 @@ class CoffeeApi
         ];
 
         // 2. SIZE [Wajib]
-        $sizeDeltaLarge = ($brand === 'tomoro' ? 5000 : ($brand === 'jiwa' ? 4000 : 7000));
+        $sizeDeltaLarge = ($brand === 'tomoro' || $brand === 'kopken' ? 5000 : ($brand === 'jiwa' ? 4000 : 7000));
         $sizeChoices = [];
         foreach ($sizes as $s) {
             $price = 0;
@@ -1693,8 +1734,8 @@ class CoffeeApi
             'desc' => $matchedItem['desc'] ?? '',
             'pricing' => [
                 'id' => $brand,
-                'discountPercent' => $brand === 'fore' ? 25 : ($brand === 'tomoro' ? 44 : ($brand === 'jiwa' ? 40 : 38)),
-                'serviceFeePerCup' => $brand === 'fore' ? 0 : 2500,
+                'discountPercent' => $brand === 'fore' ? 25 : ($brand === 'tomoro' ? 50 : ($brand === 'jiwa' ? 40 : 50)),
+                'serviceFeePerCup' => $brand === 'fore' ? 0 : ($brand === 'tomoro' ? 5000 : ($brand === 'kopken' ? 4500 : 2500)),
             ],
         ];
     }
@@ -1730,22 +1771,30 @@ class CoffeeApi
         $currentMinutes = ((int) $now->format('G')) * 60 + ((int) $now->format('i'));
 
         $hoursStr = (string) ($outlet['hours'] ?? $brandConfig['shop']['hours'] ?? '07:00 - 22:00 WIB');
-        $liveIsOpen = isset($outlet['isOpen']) ? (bool) $outlet['isOpen'] : null;
-        $isOpen = $liveIsOpen ?? true;
-        $statusText = 'Buka';
-
-        if ($liveIsOpen !== null) {
-            // Live status from brand API or verified database is truth; never force-close a live open outlet
-            $isOpen = $liveIsOpen;
-        } elseif (preg_match('/(\d{1,2})[:.](\d{2})(?:[:.]\d{2})?\s*[-–—]\s*(\d{1,2})[:.](\d{2})(?:[:.]\d{2})?/', $hoursStr, $m)) {
+        
+        $isWithinHours = true;
+        if (preg_match('/(\d{1,2})[:.](\d{2})(?:[:.]\d{2})?\s*[-–—]\s*(\d{1,2})[:.](\d{2})(?:[:.]\d{2})?/', $hoursStr, $m)) {
             $openMinutes = ((int) $m[1]) * 60 + ((int) $m[2]);
             $closeMinutes = ((int) $m[3]) * 60 + ((int) $m[4]);
 
             if ($closeMinutes > $openMinutes) {
-                $isOpen = ($currentMinutes >= $openMinutes && $currentMinutes < $closeMinutes);
+                $isWithinHours = ($currentMinutes >= $openMinutes && $currentMinutes < $closeMinutes);
             } else {
-                $isOpen = ($currentMinutes >= $openMinutes || $currentMinutes < $closeMinutes);
+                $isWithinHours = ($currentMinutes >= $openMinutes || $currentMinutes < $closeMinutes);
             }
+        }
+
+        $liveIsOpen = isset($outlet['isOpen']) ? (bool) $outlet['isOpen'] : null;
+
+        if ($liveIsOpen === true) {
+            $isOpen = true;
+        } elseif ($liveIsOpen === false && !$isWithinHours) {
+            $isOpen = false;
+        } elseif ($liveIsOpen === false && $isWithinHours) {
+            // Inside operating hours: keep open unless verified live from brand API
+            $isOpen = !empty($outlet['isLive']) ? false : true;
+        } else {
+            $isOpen = $isWithinHours;
         }
 
         $outlet['isOpen'] = $isOpen;
@@ -1917,7 +1966,7 @@ class CoffeeApi
             $url .= '?' . http_build_query($params);
         }
 
-        $timeout = (int) config('api_timeout', 4);
+        $timeout = (int) config('api_timeout', 8);
         $userAgent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36';
 
         if (function_exists('curl_init')) {
@@ -1925,7 +1974,7 @@ class CoffeeApi
             curl_setopt($ch, CURLOPT_URL, $url);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($ch, CURLOPT_TIMEOUT, $timeout);
-            curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 2);
+            curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 5);
             curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
             curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
             curl_setopt($ch, CURLOPT_USERAGENT, $userAgent);
