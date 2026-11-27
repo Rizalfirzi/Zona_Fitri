@@ -450,7 +450,23 @@ window.filterCategory = (catId) => {
   renderProductGrid();
 };
 
-const fixImg = (url) => (!url ? '' : url);
+const KOPKEN_MENU_IMAGES = {
+  strawberrycheesecakefrappe: 'https://cdn.kopikenangan.com/ID/release/pub/kk-api-management/product/f71001ae-e6cd-4b4d-b73a-7b7e9a7816ac?',
+  blueberrycheesecakefrappe: 'https://cdn.kopikenangan.com/ID/release/pub/kk-api-management/product/c7a78fd5-cee2-4c27-9d12-e36c38a91f9a?',
+  bluebericano: 'https://cdn.kopikenangan.com/ID/release/pub/kk-api-management/product/30f5c438-6a70-4db5-aaf0-16ee8427fce2?',
+  strawbericano: 'https://cdn.kopikenangan.com/ID/release/pub/kk-api-management/product/aa68b0d7-c9c1-4e87-b031-2430f04b12dd?',
+  creamycheesecakelatte: 'https://cdn.kopikenangan.com/ID/release/pub/kk-api-management/product/ed855b95-d101-4823-ba23-b99105cf0d78?',
+};
+
+const fixImg = (url, item) => {
+  const k = (item?.key || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+  if (KOPKEN_MENU_IMAGES[k]) {
+    if (!url || typeof url !== 'string' || url.includes('d645e771') || url.includes('010c2830')) {
+      return KOPKEN_MENU_IMAGES[k];
+    }
+  }
+  return !url ? '' : url;
+};
 
 // Render Products with Real-time Stock Badges
 function renderProductGrid() {

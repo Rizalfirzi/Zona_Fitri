@@ -985,10 +985,26 @@ function setActivePill(cat) {
   }
 }
 
+const KOPKEN_MENU_IMAGES = {
+  strawberrycheesecakefrappe: 'https://cdn.kopikenangan.com/ID/release/pub/kk-api-management/product/f71001ae-e6cd-4b4d-b73a-7b7e9a7816ac?',
+  blueberrycheesecakefrappe: 'https://cdn.kopikenangan.com/ID/release/pub/kk-api-management/product/c7a78fd5-cee2-4c27-9d12-e36c38a91f9a?',
+  bluebericano: 'https://cdn.kopikenangan.com/ID/release/pub/kk-api-management/product/30f5c438-6a70-4db5-aaf0-16ee8427fce2?',
+  strawbericano: 'https://cdn.kopikenangan.com/ID/release/pub/kk-api-management/product/aa68b0d7-c9c1-4e87-b031-2430f04b12dd?',
+  creamycheesecakelatte: 'https://cdn.kopikenangan.com/ID/release/pub/kk-api-management/product/ed855b95-d101-4823-ba23-b99105cf0d78?',
+};
+
 const fixImg = (url, item) => {
+  const k = (item?.key || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+  if (S.brandId === 'kopken' && KOPKEN_MENU_IMAGES[k]) {
+    if (!url || typeof url !== 'string' || url.includes('d645e771') || url.includes('010c2830')) {
+      return KOPKEN_MENU_IMAGES[k];
+    }
+  }
   if (url && typeof url === 'string' && url.trim()) return url.trim();
+  if (S.brandId === 'kopken' && KOPKEN_MENU_IMAGES[k]) {
+    return KOPKEN_MENU_IMAGES[k];
+  }
   if (S.brandId === 'tomoro' && item) {
-    const k = (item.key || '').replace(/[^a-z0-9]/g, '');
     return `/img/menu/tomoro/${k}.webp`;
   }
   return '';
@@ -996,8 +1012,10 @@ const fixImg = (url, item) => {
 
 function thumb(item, cls = 'thumb') {
   const imgUrl = fixImg(item?.img, item);
-  const ph = `<img class="ph-logo" src="${esc(S.brand.logo)}" alt="">`;
-  return `<div class="${cls}">${imgUrl ? `<img src="${esc(imgUrl)}" alt="${esc(item?.name || '')}" loading="lazy" referrerpolicy="no-referrer" onerror="this.onerror=null;this.src='${esc(S.brand.logo)}';this.classList.add('ph-logo');">` : ph}</div>`;
+  const k = (item?.key || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+  const fallbackImg = (S.brandId === 'kopken' && KOPKEN_MENU_IMAGES[k]) ? KOPKEN_MENU_IMAGES[k] : S.brand.logo;
+  const ph = `<img class="ph-logo" src="${esc(fallbackImg)}" alt="">`;
+  return `<div class="${cls}">${imgUrl ? `<img src="${esc(imgUrl)}" alt="${esc(item?.name || '')}" loading="lazy" referrerpolicy="no-referrer" onerror="this.onerror=null;this.src='${esc(fallbackImg)}';if(this.src==='${esc(S.brand.logo)}')this.classList.add('ph-logo');">` : ph}</div>`;
 }
 
 function priceHtml(item) {
@@ -1138,11 +1156,13 @@ function openItem(key, editIndex = null) {
   if (line) restoreSelection(line.choices);
 
   const imgUrl = fixImg(item.img, item);
+  const k = (item.key || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+  const fallbackImg = (S.brandId === 'kopken' && KOPKEN_MENU_IMAGES[k]) ? KOPKEN_MENU_IMAGES[k] : S.brand.logo;
   const heroEl = $('#itemHero');
   if (heroEl) {
     heroEl.innerHTML = imgUrl
-      ? `<img src="${esc(imgUrl)}" alt="${esc(item.name)}" referrerpolicy="no-referrer" onerror="this.onerror=null;this.src='${esc(S.brand.logo)}';">`
-      : `<img src="${esc(S.brand.logo)}" alt="${esc(item.name)}">`;
+      ? `<img src="${esc(imgUrl)}" alt="${esc(item.name)}" referrerpolicy="no-referrer" onerror="this.onerror=null;this.src='${esc(fallbackImg)}';">`
+      : `<img src="${esc(fallbackImg)}" alt="${esc(item.name)}">`;
   }
   $('#itemCat').textContent = item.category || '';
   $('#itemName').textContent = item.name;

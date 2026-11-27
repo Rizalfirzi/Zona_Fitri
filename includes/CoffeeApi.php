@@ -1138,12 +1138,22 @@ class CoffeeApi
                 'strawberrycheesecakefrappe', 'blueberrycheesecakefrappe', 'cheesecreamlongbread'
             ];
 
+            static $kopkenNewImages = [
+                'strawberrycheesecakefrappe' => 'https://cdn.kopikenangan.com/ID/release/pub/kk-api-management/product/f71001ae-e6cd-4b4d-b73a-7b7e9a7816ac?',
+                'blueberrycheesecakefrappe' => 'https://cdn.kopikenangan.com/ID/release/pub/kk-api-management/product/c7a78fd5-cee2-4c27-9d12-e36c38a91f9a?',
+                'bluebericano' => 'https://cdn.kopikenangan.com/ID/release/pub/kk-api-management/product/30f5c438-6a70-4db5-aaf0-16ee8427fce2?',
+                'strawbericano' => 'https://cdn.kopikenangan.com/ID/release/pub/kk-api-management/product/aa68b0d7-c9c1-4e87-b031-2430f04b12dd?',
+                'creamycheesecakelatte' => 'https://cdn.kopikenangan.com/ID/release/pub/kk-api-management/product/ed855b95-d101-4823-ba23-b99105cf0d78?',
+            ];
+
             foreach ($menuData['items'] as &$it) {
                 $k = strtolower(trim((string)($it['key'] ?? '')));
                 $c = strtolower(trim((string)($it['category'] ?? '')));
                 $n = strtolower(trim((string)($it['name'] ?? '')));
 
-                if (empty($it['img'])) {
+                if (isset($kopkenNewImages[$k]) && (empty($it['img']) || str_contains($it['img'], 'd645e771') || str_contains($it['img'], '010c2830') || !str_starts_with($it['img'], 'http'))) {
+                    $it['img'] = $kopkenNewImages[$k];
+                } elseif (empty($it['img'])) {
                     $it['img'] = $this->getTomoroImage($k, $n);
                 }
 
