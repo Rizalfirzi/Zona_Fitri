@@ -241,6 +241,8 @@ $activeBrandKey = $slugMap[$rawSlug] ?? 'kopken';
 
       <div class="summary">
         <div class="summary-row" id="sumQtyRow"><span>Total pesanan</span><span id="sumQty">0 item</span></div>
+        <div class="summary-row hidden" id="sumSubtotalRow"><span>Subtotal</span><span id="sumSubtotal">Rp0</span></div>
+        <div class="summary-row hidden" id="sumFeeRow"><span>Biaya pembelian 1 cup</span><span id="sumFee">+Rp1.000</span></div>
         <div class="summary-total"><span>Total bayar</span><span class="price" id="sumTotal">Rp0</span></div>
       </div>
       <div class="sheet-actions">

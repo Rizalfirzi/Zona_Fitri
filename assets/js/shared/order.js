@@ -90,20 +90,37 @@ export function countBundleItems(it) {
  */
 export function calcFee(cart, rule = {}) {
   if (!Array.isArray(cart) || cart.length === 0) return 0;
-  const mode = rule.mode || 'none';
+  if (rule.disabled === true) return 0;
+  const mode = rule.mode || 'single_tier';
   if (mode === 'none') return 0;
-  const nonBundleQty = cart.filter((i) => !i.isBundle).reduce((a, i) => a + (i.qty || 0), 0);
-  if (mode === 'per_item') return (Number(rule.perItem) || 0) * nonBundleQty;
 
   const hasBundle = cart.some((i) => i.isBundle);
   if (hasBundle && rule.bundleFree !== false) return 0;
+
   const totalQty = cart.reduce((a, i) => a + countBundleItems(i), 0);
-  const freeFrom = Number(rule.freeFromQty) || 0;
+  const freeFrom = Number(rule.freeFromQty) || 2;
   if (freeFrom > 0 && totalQty >= freeFrom) return 0;
-  if (nonBundleQty === 0) return 0;
-  const lone = cart.find((i) => !i.isBundle);
-  const each = lone && lone.isSpecial ? Number(rule.singleSpecial) || 0 : Number(rule.single) || 0;
-  return each * nonBundleQty;
+
+  if (mode === 'per_item') {
+    const nonBundleQty = cart.filter((i) => !i.isBundle).reduce((a, i) => a + (i.qty || 0), 0);
+    return (Number(rule.perItem) || 0) * nonBundleQty;
+  }
+
+  // Client revision: Pembelian 1 cup +1.000 untuk semua menu kecuali yg harga 17.000-20.000 tidak perlu ada tambahan
+  if (totalQty === 1) {
+    const single = cart.find((i) => !i.isBundle) || cart[0];
+    if (single) {
+      const price = Number(single.price) || Number(single.basePrice) || 0;
+      const minExempt = rule.exemptMin != null ? Number(rule.exemptMin) : 17000;
+      const maxExempt = rule.exemptMax != null ? Number(rule.exemptMax) : 20000;
+      if (price >= minExempt && price <= maxExempt) {
+        return 0;
+      }
+      return rule.single != null ? Number(rule.single) : 1000;
+    }
+  }
+
+  return 0;
 }
 
 export function cartTotals(cart, rule) {
@@ -191,6 +208,9 @@ export function buildWaMessage(order) {
   out.push('');
   const totalQty = order.qty != null ? order.qty : order.items.reduce((sum, it) => sum + countBundleItems(it), 0);
   out.push(`Total Qty : ${totalQty} item`);
+  if (order.fee && order.fee > 0) {
+    out.push(`Biaya 1 Cup : +${formatRp(order.fee)}`);
+  }
   out.push(`Total : ${formatRp(order.total)}`);
   if (order.note) out.push(`Catatan : ${order.note}`);
   const footer = order.footer == null ? DEFAULT_WA_FOOTER : order.footer;

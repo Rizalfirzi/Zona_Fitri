@@ -1101,9 +1101,10 @@ class CoffeeApi
                     unset($item['largePrice'], $item['largeNormal'], $item['largeOutletPrice']);
                 }
 
-                // Tomoro size
+                // Tomoro size: Client revision "Tomoro small only"
                 if ($brand === 'tomoro') {
-                    $opts['sizes'] = ['Regular', 'Large'];
+                    $opts['sizes'] = ['Small'];
+                    unset($item['largePrice'], $item['largeNormal'], $item['largeOutletPrice']);
                 }
 
                 $item['options'] = $opts;
@@ -1368,10 +1369,10 @@ class CoffeeApi
                     $outletPrice = 10000;
                 }
             } elseif ($brand === 'tomoro') {
-                // TOMORO: Disc 50%, Fee 5.000/cup, round to 500 per client revision
+                // TOMORO: Disc 50%, Fee 5.000/cup, round to 500 per client revision ("Tomoro small only")
                 $discounted = round(($outletPrice * (1 - 0.50)) / 500) * 500;
                 $calcPrice = (int) ($discounted + 5000);
-                $largePrice = $calcPrice + 5000;
+                $largePrice = null;
                 $jumboPrice = null;
             } elseif ($brand === 'fore') {
                 // FORE: Disc 25% NO FEE per client revision
@@ -1395,6 +1396,16 @@ class CoffeeApi
                 unset($item['largePrice'], $item['largeNormal'], $item['largeOutletPrice'], $item['jumboPrice'], $item['jumboNormal'], $item['jumboOutletPrice']);
                 if (isset($item['options']) && is_array($item['options'])) {
                     $item['options']['sizes'] = ['Regular'];
+                }
+            }
+
+            // Client revision: Tomoro small only
+            if ($brand === 'tomoro') {
+                $largePrice = null;
+                $jumboPrice = null;
+                unset($item['largePrice'], $item['largeNormal'], $item['largeOutletPrice'], $item['jumboPrice'], $item['jumboNormal'], $item['jumboOutletPrice']);
+                if (isset($item['options']) && is_array($item['options'])) {
+                    $item['options']['sizes'] = ['Small'];
                 }
             }
 
@@ -1647,7 +1658,9 @@ class CoffeeApi
 
         $isRegOnly = (bool) preg_match('/baby|butterscotch\s*sea\s*salt\s*crumble/i', ($matchedItem['name'] ?? '') . ' ' . ($matchedItem['key'] ?? '') . ' ' . $key);
 
-        if ($isRegOnly) {
+        if ($brand === 'tomoro') {
+            $sizes = ['Small'];
+        } elseif ($isRegOnly) {
             $sizes = ['Regular'];
         } else {
             $sizes = (!empty($opts['sizes']) && is_array($opts['sizes']))
@@ -1687,7 +1700,7 @@ class CoffeeApi
                 'text' => $s,
                 'price' => $price,
                 'available' => true,
-                'isDefault' => strcasecmp($s, 'Regular') === 0,
+                'isDefault' => strcasecmp($s, 'Regular') === 0 || strcasecmp($s, 'Small') === 0,
             ];
         }
         $groups[] = [
@@ -1862,20 +1875,31 @@ class CoffeeApi
 
         $items = $data['items'] ?? [];
         $totalQty = 0;
-        foreach ($items as $it) {
-            $totalQty += (int) ($it['qty'] ?? 1);
+        $calcSubtotal = 0;
+        $firstItemPrice = 0;
+        foreach ($items as $idx => $it) {
+            $qty = (int) ($it['qty'] ?? 1);
+            $price = (float) ($it['price'] ?? 0);
+            $totalQty += $qty;
+            $calcSubtotal += ($price * $qty);
+            if ($idx === 0) {
+                $firstItemPrice = $price;
+            }
         }
+        $subtotal = (float) ($data['subtotal'] ?? $calcSubtotal);
 
-        $singleItemFeeConfig = (int) config('fees.single_item_fee', 2000);
-        $hasSingleItemFee = ($totalQty === 1) || !empty($data['hasSingleItemFee']);
-        $singleItemFee = $hasSingleItemFee ? $singleItemFeeConfig : 0;
+        $singleItemFeeConfig = (int) config('fees.single_item_fee', 1000);
+        $exemptMin = (int) config('fees.exempt_min', 17000);
+        $exemptMax = (int) config('fees.exempt_max', 20000);
+        $isExempt = ($firstItemPrice >= $exemptMin && $firstItemPrice <= $exemptMax);
+        $hasSingleItemFee = ($totalQty === 1 && !$isExempt);
+        $singleItemFee = isset($data['fee']) ? (float)$data['fee'] : ($hasSingleItemFee ? $singleItemFeeConfig : 0);
 
         $plasticBagFeeConfig = (int) config('fees.plastic_bag_fee', 1000);
         $hasPlasticBag = !empty($data['plasticBag']);
         $plasticBagFee = $hasPlasticBag ? $plasticBagFeeConfig : 0;
 
-        $subtotal = (float) ($data['subtotal'] ?? 0);
-        $total = $subtotal + $singleItemFee + $plasticBagFee;
+        $total = isset($data['total']) ? (float)$data['total'] : ($subtotal + $singleItemFee + $plasticBagFee);
 
         $pickupTime = $data['pickupTime'] ?? 'Sekarang';
         $brand = $this->normalizeBrand($data['brand'] ?? 'kopken');

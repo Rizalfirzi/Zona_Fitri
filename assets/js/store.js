@@ -3,7 +3,7 @@ import {
   $, $$, api, avatarText, bundleCollage, catIcon, closeSheet, esc, icons, initTheme, loadConfig, logoHtml, mountInfoSheets, openDrawer, openSheet,
   renderDrawer, shopClosedBanner, showDialog, store, toast, toggleTheme, watchNavScroll,
 } from './common.js?v=20261125_tomoro_images';
-import { buildWaMessage, cartTotals, formatRp, normalizePhone, optionText, orderCode, roundTo, waLink } from './shared/order.js?v=20261125_tomoro_images';
+import { buildWaMessage, cartTotals, formatRp, normalizePhone, optionText, orderCode, roundTo, waLink } from './shared/order.js?v=20261128_fee1cup';
 
 const SLUG_TO_BRAND = { kopikenangan: 'kopken', kopken: 'kopken', tomoro: 'tomoro', fore: 'fore', janjiw: 'jiwa', janjijiwa: 'jiwa', jiwa: 'jiwa' };
 
@@ -64,14 +64,20 @@ function formatOutletDisplayName(o) {
   if (!o) return 'Outlet';
   let name = (o.name || '').trim();
   const addr = (o.address || '').trim();
-  const isCodeLike = !name || /^[A-Z0-9]{2,6}[._\-][A-Z0-9._\-]+$/i.test(name) || /^[A-Z0-9._\-]{4,20}$/.test(name);
+  // Real code-like identifiers: has digits or explicit dot/dash separators, e.g. "KK.JMB.RKWHDHSYM", "TMR-627779", "LA.CODEFIN"
+  const isCodeLike = !name || /^[A-Z]{2,6}[._\-][A-Z0-9._\-]+$/i.test(name) || (/^[A-Z0-9._\-]{3,20}$/i.test(name) && /\d/.test(name) && /[._\-]/.test(name));
   if (isCodeLike && addr) {
     const clean = addr.split(',')[0].trim();
     if (clean && clean.length >= 4 && !/^[A-Z0-9]{2,6}[._\-][A-Z0-9._\-]+$/i.test(clean)) {
       return clean;
     }
   }
-  return name || (addr ? addr.split(',')[0].trim() : 'Outlet');
+  if (!name) return addr ? addr.split(',')[0].trim() : 'Outlet';
+  // Title-case ALL CAPS names like "SIDOSERMO" -> "Sidosermo"
+  if (name === name.toUpperCase() && name.length > 2 && /^[A-Z\s]+$/.test(name)) {
+    return name.replace(/\w\S*/g, (w) => w.charAt(0).toUpperCase() + w.substr(1).toLowerCase());
+  }
+  return name;
 }
 
 init().catch((err) => {
@@ -112,8 +118,31 @@ async function init() {
   restoreCustomer();
   renderOutletCard();
   updateCartBar();
+  preloadOutlets();
   await loadMenu();
   handleDeepLink();
+}
+
+async function preloadOutlets() {
+  if (S.allOutlets && S.allOutlets.length) return S.allOutlets;
+  try {
+    const res = await api(`/api/${S.brandId}/outlets`);
+    S.allOutlets = res.outlets || [];
+    return S.allOutlets;
+  } catch (e) {
+    return [];
+  }
+}
+
+function filterOutletsInMemory(q) {
+  if (!q) return [];
+  const words = q.toLowerCase().split(/\s+/).filter(Boolean);
+  if (!words.length) return [];
+  const list = S.allOutlets || [];
+  return list.filter((o) => {
+    const hay = `${o.name || ''} ${o.address || ''} ${o.city || ''} ${o.district || ''} ${o.code || ''}`.toLowerCase();
+    return words.every((w) => hay.includes(w));
+  });
 }
 
 function applyBrand() {
@@ -258,24 +287,54 @@ function wireStatic() {
         if (inlineDropdown) inlineDropdown.classList.add('hidden');
         return;
       }
-      if (inlineDropdown && (!S.outletResults || !S.outletResults.length)) {
-        inlineDropdown.innerHTML = `<div style="padding:12px 14px;color:#64748b;font-size:13px;display:flex;align-items:center;gap:8px;">
-          <span>Mencari outlet “<b>${esc(q)}</b>”…</span>
-        </div>`;
-        inlineDropdown.classList.remove('hidden');
+
+      // 1. Instant local in-memory search (0ms, no loading delay)
+      if (S.allOutlets && S.allOutlets.length) {
+        S.outletResults = filterOutletsInMemory(q);
+        renderInlineDropdown(false);
+      } else {
+        if (inlineDropdown && (!S.outletResults || !S.outletResults.length)) {
+          inlineDropdown.innerHTML = `<div style="padding:12px 14px;color:#64748b;font-size:13px;display:flex;align-items:center;gap:8px;">
+            <span>Mencari outlet “<b>${esc(q)}</b>”…</span>
+          </div>`;
+          inlineDropdown.classList.remove('hidden');
+        }
+        preloadOutlets().then(() => {
+          if (inlineInput.value.trim() === q) {
+            S.outletResults = filterOutletsInMemory(q);
+            renderInlineDropdown(false);
+          }
+        });
       }
+
+      // 2. Background live API search (debounced 350ms) to supplement nationwide live search
       t = setTimeout(async () => {
         try {
           const res = await api(`/api/${S.brandId}/outlets?q=${encodeURIComponent(q)}`);
-          S.outletResults = res.outlets || [];
-          renderInlineDropdown(false);
-        } catch (err) {
-          if (inlineDropdown) {
-            inlineDropdown.innerHTML = `<div style="padding:12px;color:#888;font-size:13px;">Gagal memuat outlet: ${esc(err.message)}</div>`;
-            inlineDropdown.classList.remove('hidden');
+          if (res.outlets && res.outlets.length) {
+            const map = new Map();
+            for (const o of S.outletResults) map.set(o.code || o.id, o);
+            for (const o of res.outlets) {
+              const id = o.code || o.id;
+              if (!map.has(id)) map.set(id, o);
+            }
+            S.outletResults = Array.from(map.values());
+            if (inlineInput.value.trim() === q) {
+              renderInlineDropdown(false);
+            }
           }
+        } catch {}
+      }, 350);
+    });
+
+    inlineInput.addEventListener('focus', () => {
+      const q = inlineInput.value.trim();
+      if (q) {
+        if (S.allOutlets && S.allOutlets.length) {
+          S.outletResults = filterOutletsInMemory(q);
+          renderInlineDropdown(false);
         }
-      }, 250);
+      }
     });
 
     if (inlineClear) {
@@ -1205,8 +1264,14 @@ function staticGroups(item) {
   if (/baby|butterscotch\s*sea\s*salt\s*crumble/i.test((item.name || '') + ' ' + (item.key || ''))) {
     sizes = ['Regular'];
   }
-  if (S.brandId === 'tomoro' || S.brandId === 'jiwa') {
+  // Client revision: Tomoro small only
+  if (S.brandId === 'tomoro') {
+    sizes = ['Small'];
+  } else if (S.brandId === 'jiwa') {
     sizes = sizes.filter((s) => !/jumbo/i.test(s));
+  }
+  if (item._isBundleItem) {
+    sizes = [];
   }
 
   // 1. TEMPERATURE [Wajib]
@@ -1289,18 +1354,25 @@ async function loadItemDetail(item, line) {
       if (S.brandId === 'kopken') {
         d.groups = d.groups.filter((g) => g.id !== 'syrup' && !/syrup|sirup/i.test(g.name || ''));
       }
-      // Sanitize groups: strip Jumbo and enforce reg-only for babychino/butterscotch
+      // Sanitize groups: strip Jumbo, enforce reg-only for babychino/butterscotch, small only for Tomoro
       for (const g of d.groups) {
         if (g.id === 'size' || /size|ukuran/i.test(g.name || '')) {
-          if (Array.isArray(g.values)) {
-            g.values = g.values.filter((v) => !/jumbo/i.test(v.id || v.name || v.text || ''));
-          }
-          if (Array.isArray(g.choices)) {
-            g.choices = g.choices.filter((v) => !/jumbo/i.test(v.id || v.name || v.text || ''));
-          }
-          if (/baby|butterscotch\s*sea\s*salt\s*crumble/i.test((item.name || '') + ' ' + (item.key || ''))) {
-            if (Array.isArray(g.values)) g.values = g.values.filter((v) => !/large/i.test(v.id || v.name || v.text || ''));
-            if (Array.isArray(g.choices)) g.choices = g.choices.filter((v) => !/large/i.test(v.id || v.name || v.text || ''));
+          if (S.brandId === 'tomoro') {
+            const smallChoice = [{ id: 'Small', name: 'Small', text: 'Small', price: 0 }];
+            g.values = smallChoice;
+            if (g.choices) g.choices = smallChoice;
+            g.default = 'Small';
+          } else {
+            if (Array.isArray(g.values)) {
+              g.values = g.values.filter((v) => !/jumbo/i.test(v.id || v.name || v.text || ''));
+            }
+            if (Array.isArray(g.choices)) {
+              g.choices = g.choices.filter((v) => !/jumbo/i.test(v.id || v.name || v.text || ''));
+            }
+            if (/baby|butterscotch\s*sea\s*salt\s*crumble/i.test((item.name || '') + ' ' + (item.key || ''))) {
+              if (Array.isArray(g.values)) g.values = g.values.filter((v) => !/large/i.test(v.id || v.name || v.text || ''));
+              if (Array.isArray(g.choices)) g.choices = g.choices.filter((v) => !/large/i.test(v.id || v.name || v.text || ''));
+            }
           }
         }
       }
@@ -1847,7 +1919,7 @@ function renderBundle() {
     const groups = a.groups.filter((g) => !isHidden(g, a.sel));
     adj.innerHTML = `<h4>${esc(a.name)}</h4>${groups
       .map(
-        (g) => `<div class="opt-group"><div class="opt-title">${esc(GROUP_LABELS[g.name] || g.name)}</div><div class="opt-choices">${g.values
+        (g) => `<div class="opt-group"><div class="opt-title">${esc(g.name || '')}</div><div class="opt-choices">${g.values
           .map((v) => `<button class="opt-pill ${a.sel[g.id] === v.id ? 'active' : ''}" data-g="${esc(g.id)}" data-v="${esc(v.id)}">${esc(v.text)}</button>`)
           .join('')}</div></div>`,
       )
@@ -1880,7 +1952,7 @@ function setBundleSlot(i) {
   if (s) {
     const c = S.bundle.bundle.candidates?.find((x) => x.key === s.key);
     if (c) {
-      const groups = staticGroups({ ...c, options: { ...c.options, sizes: [] } });
+      const groups = staticGroups({ ...c, _isBundleItem: true, options: { ...c.options, sizes: [] } });
       const sel = {};
       for (const ch of s.choices || []) {
         for (const g of groups) {
@@ -1905,13 +1977,12 @@ function pickBundleItem(key) {
   const B = S.bundle;
   const c = B.bundle.candidates?.find((x) => x.key === key);
   if (!c || c.isSoldOut) return;
-  const groups = staticGroups({ ...c, options: { ...c.options, sizes: [] } });
+  const groups = staticGroups({ ...c, _isBundleItem: true, options: { ...c.options, sizes: [] } });
   const sel = {};
   for (const g of groups) sel[g.id] = g.default;
-  const choices = currentChoices(groups, sel);
-  if (B.bundle.size && B.bundle.size !== 'Regular') {
-    choices.splice(1, 0, { group: 'Size', value: B.bundle.size });
-  }
+  const rawChoices = currentChoices(groups, sel);
+  const bundleSize = B.bundle.size || 'Regular';
+  const choices = [{ group: 'Size', value: bundleSize }, ...rawChoices.filter((ch) => ch.group !== 'Size' && ch.group !== 'size')];
 
   // Immediately assign chosen item to the active slot
   B.slots[B.active] = { key: c.key, name: c.name, choices };
@@ -1930,10 +2001,9 @@ function setBundleChoice(gid, vid) {
   if (!B.adjusting) return;
   B.adjusting.sel[gid] = vid;
   const a = B.adjusting;
-  const choices = currentChoices(a.groups, a.sel);
-  if (B.bundle.size && B.bundle.size !== 'Regular') {
-    choices.splice(1, 0, { group: 'Size', value: B.bundle.size });
-  }
+  const rawChoices = currentChoices(a.groups, a.sel);
+  const bundleSize = B.bundle.size || 'Regular';
+  const choices = [{ group: 'Size', value: bundleSize }, ...rawChoices.filter((ch) => ch.group !== 'Size' && ch.group !== 'size')];
   if (B.slots[B.active] && B.slots[B.active].key === a.key) {
     B.slots[B.active].choices = choices;
   } else {
@@ -1949,8 +2019,9 @@ function confirmBundleSlot() {
   const B = S.bundle;
   const a = B.adjusting;
   if (!a) return;
-  const choices = currentChoices(a.groups, a.sel);
-  if (B.bundle.size && B.bundle.size !== 'Regular') choices.splice(1, 0, { group: 'Size', value: B.bundle.size });
+  const rawChoices = currentChoices(a.groups, a.sel);
+  const bundleSize = B.bundle.size || 'Regular';
+  const choices = [{ group: 'Size', value: bundleSize }, ...rawChoices.filter((ch) => ch.group !== 'Size' && ch.group !== 'size')];
   B.slots[B.active] = { key: a.key, name: a.name, choices };
   B.adjusting = null;
   const next = B.slots.findIndex((s) => !s);
@@ -2081,7 +2152,9 @@ function renderCart() {
   const t = cartTotals(S.cart, S.brand.fee);
   if ($('#sumQty')) $('#sumQty').textContent = `${t.qty} item`;
   if ($('#sumSubtotal')) $('#sumSubtotal').textContent = formatRp(t.subtotal);
-  if ($('#sumFee')) $('#sumFee').textContent = '';
+  if ($('#sumFee')) $('#sumFee').textContent = t.fee > 0 ? `+${formatRp(t.fee)}` : 'Rp0';
+  if ($('#sumSubtotalRow')) $('#sumSubtotalRow').classList.toggle('hidden', t.fee <= 0);
+  if ($('#sumFeeRow')) $('#sumFeeRow').classList.toggle('hidden', t.fee <= 0);
   if ($('#sumTotal')) $('#sumTotal').textContent = formatRp(t.total);
   if ($('#sumNote')) $('#sumNote').textContent = '';
   $('#checkoutBtn').disabled = !S.cart.length;
@@ -2191,6 +2264,7 @@ function checkout() {
   const payload = {
     code: order.code, brand: S.brandId, outlet: { code: S.outlet?.code || '', name: S.outlet?.name || '' },
     customerName: name, customerPhone: phoneRaw, pickup, note: order.note, admin: admin.name,
+    subtotal: totals.subtotal, fee: totals.fee, total: totals.total,
     items: S.cart.map((l) => ({ name: l.name, qty: l.qty, price: l.price, choices: l.choices, note: l.note, isBundle: l.isBundle, isSpecial: l.isSpecial, selections: l.selections, fixedItems: l.fixedItems, slots: l.slots })),
   };
   fetch('/api/orders', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(payload), keepalive: true }).catch(() => {});

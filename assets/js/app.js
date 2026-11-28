@@ -25,8 +25,10 @@ const State = {
     qty: 1,
   },
   fees: {
-    singleItemFee: 2000,
+    singleItemFee: 1000,
     plasticBagFee: 1000,
+    exemptMin: 17000,
+    exemptMax: 20000,
   },
   plasticBagSelected: false,
 };
@@ -803,7 +805,10 @@ window.updateCartItemQty = (idx, delta) => {
 };
 
 function updateCartBillSummary(subtotal, totalQty) {
-  const singleItemFee = totalQty === 1 ? State.fees.singleItemFee : 0;
+  const firstItem = State.cart[0];
+  const firstPrice = firstItem ? (firstItem.price || 0) : 0;
+  const isExempt = firstPrice >= (State.fees.exemptMin || 17000) && firstPrice <= (State.fees.exemptMax || 20000);
+  const singleItemFee = (totalQty === 1 && !isExempt) ? (State.fees.singleItemFee || 1000) : 0;
   const plasticBagFee = State.plasticBagSelected ? State.fees.plasticBagFee : 0;
   const total = subtotal + singleItemFee + plasticBagFee;
 
@@ -813,7 +818,7 @@ function updateCartBillSummary(subtotal, totalQty) {
   const totalEl = document.getElementById('billTotal');
 
   if (subtotalEl) subtotalEl.textContent = formatRp(subtotal);
-  if (singleFeeEl) singleFeeEl.textContent = singleItemFee > 0 ? `+${formatRp(singleItemFee)}` : 'Gratis (2+ pcs)';
+  if (singleFeeEl) singleFeeEl.textContent = singleItemFee > 0 ? `+${formatRp(singleItemFee)}` : (totalQty === 1 && isExempt ? 'Rp 0 (Bebas Biaya)' : 'Gratis (2+ pcs)');
   if (plasticFeeEl) plasticFeeEl.textContent = plasticBagFee > 0 ? `+${formatRp(plasticBagFee)}` : 'Rp 0';
   if (totalEl) totalEl.textContent = formatRp(total);
 }
