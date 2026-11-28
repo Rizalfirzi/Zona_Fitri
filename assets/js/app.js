@@ -391,7 +391,7 @@ async function fetchMenu(forceRefresh = false) {
   const url = `/api/menu.php?brand=${encodeURIComponent(State.brand)}&outlet=${encodeURIComponent(outletCode)}${forceRefresh ? '&refresh=1' : ''}`;
 
   try {
-    const res = await fetch(url);
+    const res = await fetch(url, { cache: 'no-store' });
     const data = await res.json();
 
     if (data && data.success && Array.isArray(data.items)) {
@@ -516,7 +516,7 @@ function renderProductGrid() {
           
           <!-- Live Stock Indicator Badge -->
           <span class="stock-badge-tag ${isSoldOut ? 'soldout' : 'ready'}">
-            <span>●</span> ${isSoldOut ? 'Habis di Gerai' : 'Stok Ready'}
+            <span>●</span> ${isSoldOut ? 'Habis' : 'Stok Ready'}
           </span>
 
           ${isBundle ? '<span class="bundle-badge-tag">Promo Paket</span>' : ''}
@@ -679,6 +679,10 @@ window.changeModalQty = (delta) => {
 window.confirmAddToCart = () => {
   const item = State.activeItemForModal;
   if (!item) return;
+  if (item.isSoldOut) {
+    showToast(`❌ "${item.name}" sedang habis.`);
+    return;
+  }
 
   let unitPrice = item.price;
   if (State.modalSelectedOptions.size === 'Large' && item.largePrice) {
@@ -839,6 +843,36 @@ window.proceedCheckout = async () => {
   if (State.cart.length === 0) {
     showToast('Keranjang pesanan masih kosong.');
     return;
+  }
+
+  // 1. RE-FETCH / VALIDASI STOK LIVE SEBELUM CHECKOUT
+  showToast('Memeriksa ketersediaan stok terkini...');
+  try {
+    const outletCode = State.outlet ? State.outlet.code : '';
+    const resStock = await fetch(`/api/menu.php?brand=${encodeURIComponent(State.brand)}&outlet=${encodeURIComponent(outletCode)}&refresh=1`, { cache: 'no-store' });
+    const freshData = await resStock.json();
+    if (freshData && Array.isArray(freshData.items)) {
+      State.menu = freshData;
+      const stockMap = new Map();
+      freshData.items.forEach((it) => {
+        stockMap.set(String(it.id || it.key || it.code), it);
+        if (it.name) stockMap.set(it.name.toLowerCase().trim(), it);
+      });
+      const soldOutList = [];
+      for (const cartItem of State.cart) {
+        const live = stockMap.get(String(cartItem.id)) || stockMap.get(String(cartItem.name || '').toLowerCase().trim());
+        if (live && live.isSoldOut) {
+          soldOutList.push(cartItem.name);
+        }
+      }
+      if (soldOutList.length > 0) {
+        showToast(`❌ Stok tidak mencukupi: ${soldOutList.join(', ')} habis`);
+        alert(`Maaf, stok item berikut sedang habis di outlet ini:\n- ${soldOutList.join('\n- ')}\n\nSilakan hapus atau ubah item tersebut sebelum melanjutkan.`);
+        return;
+      }
+    }
+  } catch (err) {
+    console.warn('Gagal memverifikasi stok realtime sebelum checkout:', err);
   }
 
   const nameInput = document.getElementById('custNameInput');

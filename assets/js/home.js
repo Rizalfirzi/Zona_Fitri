@@ -84,15 +84,11 @@ function renderCartBar(cfg) {
 }
 
 // ── Menu favorit (brand tabs + grid) & promo bundling ───────────────────
-const menus = {}; // brand id -> Promise<menu | null>
-
-// Prices follow the outlet the customer already picked on that brand's page (pricier
-// outlets cost more), so the home page shows the same prices as the store page.
+// Direct API fetch without local caching (backend handles edge/fallback cache)
 function loadMenu(id) {
   const o = store.get(`jo_outlet_${id}`, null);
   const q = o?.code && !o.manual ? `?outlet=${encodeURIComponent(o.code)}` : '';
-  menus[id] ||= api(`/api/${id}/menu${q}`).catch(() => null);
-  return menus[id];
+  return api(`/api/${id}/menu${q}`).catch(() => null);
 }
 
 async function renderFeatured(cfg) {

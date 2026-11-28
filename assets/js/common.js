@@ -102,7 +102,11 @@ export function esc(s) {
 }
 
 export async function api(path, opts = {}) {
-  const res = await fetch(path, { headers: { accept: 'application/json', ...(opts.body ? { 'content-type': 'application/json' } : {}) }, ...opts });
+  const res = await fetch(path, {
+    cache: 'no-store',
+    headers: { accept: 'application/json', ...(opts.body ? { 'content-type': 'application/json' } : {}) },
+    ...opts,
+  });
   let data = null;
   try {
     data = await res.json();

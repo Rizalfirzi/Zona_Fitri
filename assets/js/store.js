@@ -2,7 +2,7 @@
 import {
   $, $$, api, avatarText, bundleCollage, catIcon, closeSheet, esc, icons, initTheme, loadConfig, logoHtml, mountInfoSheets, openDrawer, openSheet,
   renderDrawer, shopClosedBanner, showDialog, store, toast, toggleTheme, watchNavScroll,
-} from './common.js?v=20261125_tomoro_images';
+} from './common.js?v=20261128_refactor';
 import { buildWaMessage, cartTotals, formatRp, normalizePhone, optionText, orderCode, roundTo, waLink } from './shared/order.js?v=20261128_fee1cup';
 
 const SLUG_TO_BRAND = { kopikenangan: 'kopken', kopken: 'kopken', tomoro: 'tomoro', fore: 'fore', janjiw: 'jiwa', janjijiwa: 'jiwa', jiwa: 'jiwa' };
@@ -1106,7 +1106,7 @@ function rowCard(item) {
         ? '<span class="badge badge-new">NEW</span>'
         : '';
 
-  return `<button class="row ${item.isSoldOut ? 'sold' : ''}" data-key="${esc(item.key)}" aria-label="${esc(item.name)}, ${formatRp(item.price)}${item.isSoldOut ? ', tidak tersedia' : ''}">
+  return `<button class="row ${item.isSoldOut ? 'sold' : ''}" data-key="${esc(item.key)}" ${item.isSoldOut ? 'disabled aria-disabled="true"' : ''} aria-label="${esc(item.name)}, ${formatRp(item.price)}${item.isSoldOut ? ', habis' : ''}">
     <div class="row-top">
       <div class="row-tags">${tagHtml}</div>
       <span class="row-fav-btn ${isFav ? 'active' : ''}" data-fav="${esc(item.key)}" aria-label="Favorit">${isFav ? '♥' : '♡'}</span>
@@ -1121,7 +1121,7 @@ function rowCard(item) {
         </div>
       </div>
     </div>
-    ${item.isSoldOut ? '' : `<span class="add-btn" aria-hidden="true">${icons.plus}</span>`}
+    ${item.isSoldOut ? '<span class="badge badge-sold" style="margin-left:auto;">Habis</span>' : `<span class="add-btn" aria-hidden="true">${icons.plus}</span>`}
   </button>`;
 }
 
@@ -1145,7 +1145,7 @@ function gridCard(item, i) {
 
   const normalPrice = item.normalPrice || (item.outletPrice && item.outletPrice > item.price ? item.outletPrice : null);
 
-  return `<button class="gcard ${item.isBundle ? 'bundle-gcard' : ''} ${item.isSoldOut ? 'sold' : ''}" data-key="${esc(item.key)}">
+  return `<button class="gcard ${item.isBundle ? 'bundle-gcard' : ''} ${item.isSoldOut ? 'sold' : ''}" data-key="${esc(item.key)}" ${item.isSoldOut ? 'disabled aria-disabled="true"' : ''}>
     <div class="row-top">
       <div class="row-tags">${tagHtml}</div>
       <span class="row-fav-btn ${isFav ? 'active' : ''}" data-fav="${esc(item.key)}" aria-label="Favorit">${isFav ? '♥' : '♡'}</span>
@@ -1666,8 +1666,13 @@ function renderOptions() {
     $('#itemAddPrice').textContent = formatRp(price * sh.qty);
   }
   if ($('#itemAdd')) {
-    $('#itemAdd').innerHTML = `${btnLabel} <span id="itemAddPrice">${formatRp(price * sh.qty)}</span>`;
-    $('#itemAdd').disabled = base == null;
+    if (sh.item.isSoldOut) {
+      $('#itemAdd').innerHTML = 'Habis';
+      $('#itemAdd').disabled = true;
+    } else {
+      $('#itemAdd').innerHTML = `${btnLabel} <span id="itemAddPrice">${formatRp(price * sh.qty)}</span>`;
+      $('#itemAdd').disabled = base == null;
+    }
   }
 }
 
@@ -1709,6 +1714,10 @@ function pickedChoices() {
 
 function addItemToCart() {
   const sh = S.sheet;
+  if (!sh || sh.item.isSoldOut) {
+    toast('Item ini sedang habis di outlet ini');
+    return;
+  }
   const variant = unitPrice();
   if (variant == null) return;
   const price = variant + addonTotal();
@@ -2209,7 +2218,7 @@ function setFieldError(id, on) {
   $(`#${id}Err`)?.classList?.toggle('hidden', !on);
 }
 
-function checkout() {
+async function checkout() {
   if (!S.cart.length) return;
   if (!S.cfg.shop.open) {
     return showDialog({ title: 'Toko sedang tutup', html: esc(S.cfg.shop.reason || 'Belum bisa menerima pesanan saat ini.') });
@@ -2221,10 +2230,6 @@ function checkout() {
   if (S.outlet && !S.outlet.canOrder) {
     return showDialog({ title: 'Outlet sedang tutup', html: `<b>${esc(S.outlet.name)}</b> belum bisa menerima pesanan. Ganti outlet dulu ya.`, icon: icons.store });
   }
-  const sold = S.cart.filter((l) => l.soldOut);
-  if (sold.length) {
-    return showDialog({ title: 'Ada menu yang habis', html: `Hapus dulu menu yang habis: <b>${esc(sold.map((l) => l.name).join(', '))}</b>`, icon: icons.soldout });
-  }
   const name = $('#custName')?.value?.trim() || '';
   if (!name) {
     setFieldError('custName', true);
@@ -2235,6 +2240,47 @@ function checkout() {
   if (!admins.length) return showDialog({ title: 'Admin belum diatur', html: 'Nomor WhatsApp admin belum diisi. Hubungi pemilik toko.' });
   const adminIdx = Number($('#cartAdmins .cs-admin.active')?.dataset.i || 0);
   const admin = admins[adminIdx] || admins[0];
+
+  const chkBtn = $('#checkoutBtn');
+  const prevBtnHtml = chkBtn ? chkBtn.innerHTML : '';
+  if (chkBtn) {
+    chkBtn.disabled = true;
+    chkBtn.innerHTML = `<span class="spinner" style="display:inline-block;width:14px;height:14px;border:2px solid #fff;border-top-color:transparent;border-radius:50%;animation:spin .6s linear infinite;margin-right:6px;vertical-align:middle;"></span> Memeriksa stok…`;
+  }
+
+  // 1. RE-FETCH / VALIDASI STOK LIVE SEBELUM CHECKOUT
+  try {
+    const defaultCode = S.brand?.defaultOutlet ? S.brand.defaultOutlet.split(',')[0].trim() : '';
+    const code = S.outlet && !S.outlet.manual ? S.outlet.code : defaultCode;
+    const freshMenu = await api(`/api/${S.brandId}/menu?outlet=${encodeURIComponent(code)}&refresh=1`, { cache: 'no-store' });
+    if (freshMenu && Array.isArray(freshMenu.items)) {
+      S.menu = freshMenu;
+      S.byKey = new Map(S.menu.items.map((i) => [i.key, i]));
+      syncCart();
+      renderCart();
+      renderMenu();
+    }
+  } catch (err) {
+    console.warn('Gagal memverifikasi stok realtime sebelum checkout:', err);
+  } finally {
+    if (chkBtn) {
+      chkBtn.disabled = false;
+      chkBtn.innerHTML = prevBtnHtml || `${icons.wa} Pesan via WhatsApp`;
+    }
+  }
+
+  // 2. Batalkan checkout jika ada item yang habis (isSoldOut === true)
+  const sold = S.cart.filter((l) => l.soldOut);
+  if (sold.length) {
+    const names = sold.map((l) => l.name).join(', ');
+    toast(`Stok tidak mencukupi: ${names} habis`);
+    return showDialog({
+      title: 'Stok Tidak Mencukupi',
+      html: `Maaf, stok item berikut sedang habis di outlet ini:<br><br><b>${esc(names)}</b><br><br>Silakan hapus atau ubah menu tersebut sebelum melanjutkan pesanan.`,
+      icon: icons.soldout,
+    });
+  }
+
   store.set('jo_admin', adminIdx);
   saveCustomer();
 
@@ -2263,7 +2309,7 @@ function checkout() {
 
   const payload = {
     code: order.code, brand: S.brandId, outlet: { code: S.outlet?.code || '', name: S.outlet?.name || '' },
-    customerName: name, customerPhone: phoneRaw, pickup, note: order.note, admin: admin.name,
+    customerName: name, customerPhone: '', pickup, note: order.note, admin: admin.name,
     subtotal: totals.subtotal, fee: totals.fee, total: totals.total,
     items: S.cart.map((l) => ({ name: l.name, qty: l.qty, price: l.price, choices: l.choices, note: l.note, isBundle: l.isBundle, isSpecial: l.isSpecial, selections: l.selections, fixedItems: l.fixedItems, slots: l.slots })),
   };
