@@ -809,10 +809,11 @@ window.updateCartItemQty = (idx, delta) => {
 };
 
 function updateCartBillSummary(subtotal, totalQty) {
+  const isKopken = (State.brand || State.currentBrand || 'kopken') === 'kopken';
   const firstItem = State.cart[0];
   const firstPrice = firstItem ? (firstItem.price || 0) : 0;
   const isExempt = firstPrice >= (State.fees.exemptMin || 17000) && firstPrice <= (State.fees.exemptMax || 20000);
-  const singleItemFee = (totalQty === 1 && !isExempt) ? (State.fees.singleItemFee || 1000) : 0;
+  const singleItemFee = (isKopken && totalQty === 1 && !isExempt) ? (State.fees.singleItemFee || 1000) : 0;
   const plasticBagFee = State.plasticBagSelected ? State.fees.plasticBagFee : 0;
   const total = subtotal + singleItemFee + plasticBagFee;
 
@@ -822,7 +823,7 @@ function updateCartBillSummary(subtotal, totalQty) {
   const totalEl = document.getElementById('billTotal');
 
   if (subtotalEl) subtotalEl.textContent = formatRp(subtotal);
-  if (singleFeeEl) singleFeeEl.textContent = singleItemFee > 0 ? `+${formatRp(singleItemFee)}` : (totalQty === 1 && isExempt ? 'Rp 0 (Bebas Biaya)' : 'Gratis (2+ pcs)');
+  if (singleFeeEl) singleFeeEl.textContent = singleItemFee > 0 ? `+${formatRp(singleItemFee)}` : (isKopken && totalQty === 1 && isExempt ? 'Rp 0 (Bebas Biaya)' : 'Gratis');
   if (plasticFeeEl) plasticFeeEl.textContent = plasticBagFee > 0 ? `+${formatRp(plasticBagFee)}` : 'Rp 0';
   if (totalEl) totalEl.textContent = formatRp(total);
 }
@@ -893,6 +894,11 @@ window.proceedCheckout = async () => {
 
   const subtotal = State.cart.reduce((sum, it) => sum + it.subtotal, 0);
   const totalQty = State.cart.reduce((sum, it) => sum + it.qty, 0);
+  const isKopken = (State.brand || State.currentBrand || 'kopken') === 'kopken';
+  const firstItem = State.cart[0];
+  const firstPrice = firstItem ? (firstItem.price || 0) : 0;
+  const isExempt = firstPrice >= (State.fees.exemptMin || 17000) && firstPrice <= (State.fees.exemptMax || 20000);
+  const hasSingleItemFee = isKopken && totalQty === 1 && !isExempt;
 
   const payload = {
     brand: State.brand,
@@ -902,7 +908,8 @@ window.proceedCheckout = async () => {
     customerPhone: customerPhone,
     pickupTime: pickupTime,
     notes: notes,
-    hasSingleItemFee: totalQty === 1,
+    hasSingleItemFee: hasSingleItemFee,
+    fee: hasSingleItemFee ? (State.fees.singleItemFee || 1000) : 0,
     plasticBag: State.plasticBagSelected,
     subtotal: subtotal,
     items: State.cart,

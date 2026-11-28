@@ -231,17 +231,19 @@ export async function loadConfig() {
 
 export const $ = (sel, root = document) => root.querySelector(sel);
 
-// Broken product images fall back to the item's initial (CSP forbids inline onerror).
+// Broken product images fallback safely to brand logo without destroying the element
 document.addEventListener(
   'error',
   (e) => {
     const img = e.target;
     if (img?.tagName !== 'IMG' || img.dataset.failed) return;
     img.dataset.failed = '1';
-    const ph = document.createElement('span');
-    ph.className = 'ph';
-    ph.textContent = (img.closest('[data-key]')?.querySelector('.row-name, .gcard-name, span')?.textContent || '•').trim().slice(0, 1);
-    img.replaceWith(ph);
+    // If element already has an inline onerror fallback, let it handle the fallback
+    if (img.getAttribute('onerror')) return;
+    const path = (location.pathname || '').replace(/^\/|\/$/g, '') || 'kopken';
+    const brand = /tomoro/i.test(path) ? 'tomoro' : /fore/i.test(path) ? 'fore' : /jiwa|janji/i.test(path) ? 'jiwa' : 'kopken';
+    img.src = `/img/brands/${brand}.png`;
+    img.classList.add('ph-logo');
   },
   true,
 );

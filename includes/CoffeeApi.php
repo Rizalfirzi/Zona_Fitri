@@ -76,6 +76,34 @@ class CoffeeApi
     }
 
     /**
+     * Get manual stock overrides per outlet (e.g. out of stock items in specific outlets)
+     */
+    public function getStockOverrides(string $brand, ?string $outletCode = null): array
+    {
+        $file = defined('DATA_PATH') ? DATA_PATH . '/stock_overrides.json' : __DIR__ . '/../data/stock_overrides.json';
+        if (!file_exists($file)) return [];
+        $data = json_decode(@file_get_contents($file), true) ?: [];
+        $brandData = $data[$brand] ?? [];
+        if (!$outletCode) {
+            $all = [];
+            foreach ($brandData as $items) {
+                if (is_array($items)) $all = array_merge($all, $items);
+            }
+            return array_values(array_unique($all));
+        }
+        $normCode = $this->normalizeOutletCode($brand, $outletCode);
+        $matches = $brandData[$outletCode] ?? $brandData[$normCode] ?? [];
+        if (empty($matches)) {
+            foreach ($brandData as $storeKey => $items) {
+                if (stripos($outletCode, $storeKey) !== false || stripos($storeKey, $outletCode) !== false) {
+                    $matches = array_merge($matches, (array)$items);
+                }
+            }
+        }
+        return array_values(array_unique($matches));
+    }
+
+    /**
      * Get real-time outlets for a brand with search and GPS distance calculation
      */
     public function getOutlets(string $brand = 'kopken', ?string $query = null, ?float $lat = null, ?float $lng = null): array
@@ -1038,14 +1066,29 @@ class CoffeeApi
             }
         }
 
-        // 3. Normalizing item image, options, and size rules
+        // 3. Normalizing item image, options, size rules, and manual stock overrides
         $items = $menuData['items'] ?? [];
         $totalCount = count($items);
         $availableCount = 0;
         $soldOutCount = 0;
+        $overrides = $this->getStockOverrides($brand, $outletCode);
 
         foreach ($items as &$item) {
-            $isSoldOut = !empty($item['isSoldOut']) || !empty($item['notCarried']);
+            $key = $item['key'] ?? '';
+            $id = (string)($item['id'] ?? '');
+            $code = (string)($item['code'] ?? '');
+            $nameClean = strtolower(preg_replace('/[^a-z0-9]/', '', $item['name'] ?? ''));
+
+            $isOverriddenSoldOut = false;
+            foreach ($overrides as $oKey) {
+                $oClean = strtolower(preg_replace('/[^a-z0-9]/', '', $oKey));
+                if ($key === $oKey || $id === $oKey || $code === $oKey || ($oClean !== '' && str_contains($nameClean, $oClean))) {
+                    $isOverriddenSoldOut = true;
+                    break;
+                }
+            }
+
+            $isSoldOut = !empty($item['isSoldOut']) || !empty($item['notCarried']) || $isOverriddenSoldOut;
             $item['isSoldOut'] = $isSoldOut;
             if ($isSoldOut) {
                 $soldOutCount++;
@@ -1616,7 +1659,7 @@ class CoffeeApi
         }
         if (!$matchedItem && !empty($code)) {
             foreach ($menu['items'] ?? [] as $mi) {
-                if (!empty($mi['code']) && (string)$mi['code'] === (string)$code) {
+                if ((string)($mi['code'] ?? '') === (string)$code || (string)($mi['id'] ?? '') === (string)$code || (string)($mi['key'] ?? '') === (string)$code) {
                     $matchedItem = $mi;
                     break;
                 }
@@ -1712,7 +1755,7 @@ class CoffeeApi
             'impact' => true,
             'choices' => $sizeChoices,
             'values' => $sizeChoices,
-            'default' => 'Regular',
+            'default' => $sizes[0] ?? 'Regular',
         ];
 
         // 3. SUGAR LEVEL [Wajib]
@@ -1888,12 +1931,19 @@ class CoffeeApi
         }
         $subtotal = (float) ($data['subtotal'] ?? $calcSubtotal);
 
-        $singleItemFeeConfig = (int) config('fees.single_item_fee', 1000);
-        $exemptMin = (int) config('fees.exempt_min', 17000);
-        $exemptMax = (int) config('fees.exempt_max', 20000);
-        $isExempt = ($firstItemPrice >= $exemptMin && $firstItemPrice <= $exemptMax);
-        $hasSingleItemFee = ($totalQty === 1 && !$isExempt);
-        $singleItemFee = isset($data['fee']) ? (float)$data['fee'] : ($hasSingleItemFee ? $singleItemFeeConfig : 0);
+        $brand = $this->normalizeBrand($data['brand'] ?? 'kopken');
+        // Single cup fee only applies to Kopi Kenangan ('kopken'). Tomoro, Fore, Jiwa have fee = 0!
+        if ($brand !== 'kopken') {
+            $hasSingleItemFee = false;
+            $singleItemFee = 0;
+        } else {
+            $singleItemFeeConfig = (int) config('fees.single_item_fee', 1000);
+            $exemptMin = (int) config('fees.exempt_min', 17000);
+            $exemptMax = (int) config('fees.exempt_max', 20000);
+            $isExempt = ($firstItemPrice >= $exemptMin && $firstItemPrice <= $exemptMax);
+            $hasSingleItemFee = ($totalQty === 1 && !$isExempt);
+            $singleItemFee = isset($data['fee']) ? (float)$data['fee'] : ($hasSingleItemFee ? $singleItemFeeConfig : 0);
+        }
 
         $plasticBagFeeConfig = (int) config('fees.plastic_bag_fee', 1000);
         $hasPlasticBag = !empty($data['plasticBag']);
@@ -1902,7 +1952,6 @@ class CoffeeApi
         $total = isset($data['total']) ? (float)$data['total'] : ($subtotal + $singleItemFee + $plasticBagFee);
 
         $pickupTime = $data['pickupTime'] ?? 'Sekarang';
-        $brand = $this->normalizeBrand($data['brand'] ?? 'kopken');
         $brandConfig = config("brands.{$brand}", []);
         $brandName = $brandConfig['name'] ?? 'Kopi Kenangan';
 

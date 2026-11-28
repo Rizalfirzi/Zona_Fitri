@@ -125,9 +125,15 @@ async function init() {
 
 async function preloadOutlets() {
   if (S.allOutlets && S.allOutlets.length) return S.allOutlets;
+  const cached = store.get(`jo_outlets_v2_${S.brandId}`);
+  if (cached && Array.isArray(cached) && cached.length) {
+    S.allOutlets = cached;
+    return S.allOutlets;
+  }
   try {
     const res = await api(`/api/${S.brandId}/outlets`);
     S.allOutlets = res.outlets || [];
+    if (S.allOutlets.length) store.set(`jo_outlets_v2_${S.brandId}`, S.allOutlets);
     return S.allOutlets;
   } catch (e) {
     return [];
@@ -1045,11 +1051,12 @@ function setActivePill(cat) {
 }
 
 const KOPKEN_MENU_IMAGES = {
-  strawberrycheesecakefrappe: 'https://cdn.kopikenangan.com/ID/release/pub/kk-api-management/product/f71001ae-e6cd-4b4d-b73a-7b7e9a7816ac?',
-  blueberrycheesecakefrappe: 'https://cdn.kopikenangan.com/ID/release/pub/kk-api-management/product/c7a78fd5-cee2-4c27-9d12-e36c38a91f9a?',
-  bluebericano: 'https://cdn.kopikenangan.com/ID/release/pub/kk-api-management/product/30f5c438-6a70-4db5-aaf0-16ee8427fce2?',
-  strawbericano: 'https://cdn.kopikenangan.com/ID/release/pub/kk-api-management/product/aa68b0d7-c9c1-4e87-b031-2430f04b12dd?',
-  creamycheesecakelatte: 'https://cdn.kopikenangan.com/ID/release/pub/kk-api-management/product/ed855b95-d101-4823-ba23-b99105cf0d78?',
+  strawberrycheesecakefrappe: 'https://cdn.kopikenangan.com/ID/release/pub/kk-api-management/product/f71001ae-e6cd-4b4d-b73a-7b7e9a7816ac',
+  blueberrycheesecakefrappe: 'https://cdn.kopikenangan.com/ID/release/pub/kk-api-management/product/c7a78fd5-cee2-4c27-9d12-e36c38a91f9a',
+  bluebericano: 'https://cdn.kopikenangan.com/ID/release/pub/kk-api-management/product/30f5c438-6a70-4db5-aaf0-16ee8427fce2',
+  strawbericano: 'https://cdn.kopikenangan.com/ID/release/pub/kk-api-management/product/aa68b0d7-c9c1-4e87-b031-2430f04b12dd',
+  creamycheesecakelatte: 'https://cdn.kopikenangan.com/ID/release/pub/kk-api-management/product/ed855b95-d101-4823-ba23-b99105cf0d78',
+  beefcheesejalapenobagel: 'https://cdn.kopikenangan.com/public/cf8b6835-e066-4a73-7f08-4803716d2d4c',
 };
 
 const fixImg = (url, item) => {
@@ -1129,11 +1136,13 @@ function gridCard(item, i) {
   const favs = store.get('jo_favs', []) || [];
   const isFav = favs.includes(item.key);
   const imgUrl = fixImg(item?.img, item);
+  const k = (item?.key || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+  const fallbackImg = (S.brandId === 'kopken' && KOPKEN_MENU_IMAGES[k]) ? KOPKEN_MENU_IMAGES[k] : S.brand.logo;
   const art = item.isBundle && !imgUrl
     ? bundleCollage(item)
     : imgUrl
-      ? `<img src="${esc(imgUrl)}" alt="${esc(item.name)}" loading="lazy" referrerpolicy="no-referrer" onerror="this.onerror=null;this.src='${esc(S.brand.logo)}';this.classList.add('ph-logo');">`
-      : `<img class="ph-logo" src="${esc(S.brand.logo)}" alt="">`;
+      ? `<img src="${esc(imgUrl)}" alt="${esc(item.name)}" loading="lazy" referrerpolicy="no-referrer" onerror="this.onerror=null;this.src='${esc(fallbackImg)}';if(this.src==='${esc(S.brand.logo)}')this.classList.add('ph-logo');">`
+      : `<img class="ph-logo" src="${esc(fallbackImg)}" alt="">`;
   const meta = item.desc || (item.isBundle ? `${item.slots} menu ${item.size || ''}` : '');
   const tagHtml = item.isSoldOut
     ? '<span class="badge badge-sold">Habis</span>'
